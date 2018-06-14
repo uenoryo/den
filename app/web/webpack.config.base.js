@@ -31,7 +31,7 @@ const htmlTemplates = routeDataMapper({
 module.exports = {
     // エントリーファイル
     entry: {
-        'js/script.js': `${SRC}/js/script.js`,
+        'js/main.js': `${SRC}/js/main.js`,
         'css/style.css': `${SRC}/scss/style.scss`,
     },
     // 出力するディレクトリ・ファイル名などの設定
@@ -94,6 +94,10 @@ module.exports = {
             {
                 test: /.ya?ml$/,
                 loader: 'js-yaml-loader',
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
             }
         ]
     },
@@ -108,9 +112,10 @@ module.exports = {
     cache: true,
     // 拡張子省略時のpath解決
     resolve: {
-        extensions: ['.js', '.json', '*'],
+        extensions: ['.js', '.json', '.vue', '*'],
         alias: {
             '@': path.join(__dirname, SRC, 'js'),
+            'vue$': 'vue/dist/vue.esm.js',
         }
     },
 
