@@ -1,0 +1,24 @@
+# このサイト全体のタイトル
+site_name: den
+
+# meta description（og:description・twitter:descriptionでも使用）
+description: den web page.
+
+# meta keywords
+keywords: []
+
+# url: http://example.com/
+
+# ogp_image_url: http://example.com/ogp.jpg
+
+# facebook_app_id: 99999999999
+
+# twitter_card_owner: '@TwitterJP'
+
+# favicon
+# favicon_url: /favicon.ico
+
+# webclipicon_url: http://example.com/webclipicon.png
+
+# iOSにて、サイトをホhtーム画面に追加した際の、ステータスバーの挙動指定
+# ios_status_bar: default
