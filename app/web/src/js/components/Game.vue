@@ -5,18 +5,28 @@
 </template>
 
 <script>
-import Player from '@/models/Player'
+import God from '@/models/God'
+import Config from '@/config'
+import Constants from '@/constants'
 
 export default {
   name: 'Game',
-  data () {
+  data() {
     return {
       message: 'Play',
+      god: null,
+      players: null,
     }
   },
   mounted () {
-    let p = new Player("test")
-    console.log(p)
+    this.god = new God(Config)
+    this.setup()
+  },
+  methods: {
+    setup () {
+      // Create entry player
+      this.players = this.god.createPlayers()
+    },
   }
 }
 </script>

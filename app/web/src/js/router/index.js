@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/components/Home'
+import Game from '@/components/Game'
 import NotFound from '@/components/NotFound'
 
 Vue.use(Router)
@@ -12,7 +13,12 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Game
+    },
+    {
+      path: '/game',
+      name: 'game',
+      component: Game
     },
     {
       path: '/error/404',
