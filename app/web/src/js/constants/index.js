@@ -1,8 +1,20 @@
 export default {
+  // Player
   PlayerTypePlayer: 0,
   PlayerTypeComputer: 1,
   Player1ID: 1,
   Player2ID: 2,
   Player3ID: 3,
   Player4ID: 4,
+
+  // Card
+  CardMarkClub: 0,
+  CardMarkDiamond: 1,
+  CardMarkHeart: 2,
+  CardMarkSpade: 3,
+  CardMarkJoker: 4,
+
+  CardMinNum: 0,
+  CardMaxNum: 13,
+  CardJokerNum: 0,
 }
