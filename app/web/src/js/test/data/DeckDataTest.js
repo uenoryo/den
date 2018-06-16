@@ -2,43 +2,48 @@ import assert from 'assert'
 import CardData from '../../data/CardData'
 import DeckData from '../../data/DeckData'
 
-describe('DeckData', function () {
-  describe('.constructure()', function () {
-    it('正しく初期化できる', function () {
+describe('DeckData', () => {
+  describe('.constructure()', () => {
+    it('正しく初期化できる', () => {
       let cards = [
           new CardData(0, 10),
           new CardData(1, 11),
       ]
 
       let dd = new DeckData(cards)
-      assert.equal(dd.Cards[0].mark, 0);
-      assert.equal(dd.Cards[0].num, 10);
-      assert.equal(dd.Cards[1].mark, 1);
-      assert.equal(dd.Cards[1].num, 11);
+      assert.equal(dd.Cards[0].Mark, 0)
+      assert.equal(dd.Cards[0].Num, 10)
+      assert.equal(dd.Cards[1].Mark, 1)
+      assert.equal(dd.Cards[1].Num, 11)
     })
 
-    it('カードが空でも正しく初期化できる', function () {
+    it('カードが空でも正しく初期化できる', () => {
       new DeckData([])
     })
   })
 
-  describe('.cards()', function () {
-    it('カードを更新できる', function () {
+  describe('.cards()', () => {
+    it('カードを更新できる', () => {
       let cards = [
           new CardData(2, 12),
       ]
       let dd = new DeckData(cards)
 
-      assert.equal(dd.Cards[0].mark, 2);
-      assert.equal(dd.Cards[0].num, 12);
+      assert.equal(dd.Cards[0].Mark, 2)
+      assert.equal(dd.Cards[0].Num, 12)
 
       cards = [
         new CardData(3, 13),
       ]
       dd.cards(cards)
 
-      assert.equal(dd.Cards[0].mark, 3);
-      assert.equal(dd.Cards[0].num, 13);
+      assert.equal(dd.Cards[0].Mark, 3)
+      assert.equal(dd.Cards[0].Num, 13)
+    })
+
+    it('カード以外を入れようとした場合はエラーになる', () => {
+      let cards = ['dummy card']
+      assert.throws(() => {new DeckData(cards)})
     })
   })
 })
