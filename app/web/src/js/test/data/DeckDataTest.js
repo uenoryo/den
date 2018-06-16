@@ -3,7 +3,7 @@ import CardData from '../../data/CardData'
 import DeckData from '../../data/DeckData'
 
 describe('DeckData', () => {
-  describe('.constructure()', () => {
+  describe('.constructor()', () => {
     it('正しく初期化できる', () => {
       let cards = [
           new CardData(0, 10),
