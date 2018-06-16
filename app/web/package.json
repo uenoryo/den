@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode production --progress",
-    "start": "webpack-dev-server --mode development --inline --open"
+    "start": "webpack-dev-server --mode development --inline --open",
+    "test": "NODE_ENV=test mocha --compilers js:babel-register ./src/js/test/*"
   },
   "devDependencies": {
     "autoprefixer": "^8.2.0",
@@ -48,6 +49,8 @@
     "android >= 4.4"
   ],
   "dependencies": {
+    "asserts": "^4.0.2",
+    "mocha": "^5.2.0",
     "vue": "^2.5",
     "vue-form-generator": "^2.1.0",
     "vue-loader": "^14.0.0",
