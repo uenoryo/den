@@ -8,6 +8,14 @@ describe('PlayerData', () => {
       assert.equal(pd.ID, 1)
       assert.equal(pd.Type, 0)
     })
+
+    it('IDがおかしい場合はエラーになる', () => {
+      assert.throws(() => {new PlayerData('invalid ID', 0)})
+    })
+
+    it('タイプがおかしい場合はエラーになる', () => {
+      assert.throws(() => {new PlayerData(1, 'Invalid Type')})
+    })
   })
 
   describe('.id()', () => {
@@ -21,7 +29,8 @@ describe('PlayerData', () => {
     })
 
     it('IDがおかしい場合はエラーになる', () => {
-      assert.throws(() => {new PlayerData('invalid ID', 0)})
+      let pd = new PlayerData(1, 1)
+      assert.throws(() => {pd.id(99999)})
     })
   })
 
@@ -36,7 +45,8 @@ describe('PlayerData', () => {
     })
 
     it('タイプがおかしい場合はエラーになる', () => {
-      assert.throws(() => {new PlayerData(1, 'Invalid Type')})
+      let pd = new PlayerData(2, 0)
+      assert.throws(() => {pd.type(34567)})
     })
   })
 })
