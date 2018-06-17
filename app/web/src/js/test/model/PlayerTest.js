@@ -97,7 +97,26 @@ describe('Player', () => {
   })
 
   describe('.sort()', () => {
-    it('手札をスコア順に並び替えられる')
+    it('手札をスコア順に並び替えられる', () => {
+      let pd = new PlayerData(1, 1)
+      let p = new Player(pd)
+
+      p.receive(new CardData(Constants.CardMarkSpade, Constants.CardJokerNum))
+      p.receive(new CardData(Constants.CardMarkClub, 12))
+      p.receive(new CardData(Constants.CardMarkDiamond, 1))
+      p.receive(new CardData(Constants.CardMarkHeart, 5))
+      p.receive(new CardData(Constants.CardMarkClub, 8))
+      p.receive(new CardData(Constants.CardMarkSpade, 11))
+
+      p.sort()
+
+      assert.equal(p.pick(0).Num, 12)
+      assert.equal(p.pick(0).Num, 11)
+      assert.equal(p.pick(0).Num, 8)
+      assert.equal(p.pick(0).Num, 5)
+      assert.equal(p.pick(0).Num, 1)
+      assert.equal(p.pick(0).Num, Constants.CardJokerNum)
+    })
   })
 
   describe('.wantPut()', () => {
