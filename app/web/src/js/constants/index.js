@@ -7,6 +7,9 @@ export default {
   Player3ID: 3,
   Player4ID: 4,
 
+  // Hand
+  PlayerHandStartAmount: 7,
+
   // Card
   CardMarkClub: 0,
   CardMarkDiamond: 1,
