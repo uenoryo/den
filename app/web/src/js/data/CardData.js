@@ -36,17 +36,33 @@ export default class CardData {
   }
 
   toString() {
+    let strNum = this.Num
+    switch(this.Num) {
+      case 1:
+        strNum = 'A'
+        break
+      case 11:
+        strNum = 'J'
+        break
+      case 12:
+        strNum = 'Q'
+        break
+      case 13:
+        strNum = 'K'
+      break
+    }
+
     switch(this.Mark) {
       case Constants.CardMarkClub:
-        return Constants.CardMarkClubString + this.Num
+        return Constants.CardMarkClubString + strNum
       case Constants.CardMarkDiamond:
-        return Constants.CardMarkDiamondString + this.Num
+        return Constants.CardMarkDiamondString + strNum
       case Constants.CardMarkHeart:
-        return Constants.CardMarkHeartString + this.Num
+        return Constants.CardMarkHeartString + strNum
       case Constants.CardMarkSpade:
-        return Constants.CardMarkSpadeString + this.Num
+        return Constants.CardMarkSpadeString + strNum
       case Constants.CardMarkJoker:
-        return Constants.CardMarkClubString
+        return Constants.CardMarkJokerString + strNum
       default:
         return ''
     }

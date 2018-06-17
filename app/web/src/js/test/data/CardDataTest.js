@@ -61,8 +61,8 @@ describe('CardData', () => {
 
   describe('.toString()', () => {
     it('文字列に変換したものを取得できる', () => {
-      let cd = new CardData(2, 8)
-      assert.equal(cd.toString(), '♡8')
+      let cd = new CardData(2, 13)
+      assert.equal(cd.toString(), '♡K')
     })
   })
 })
