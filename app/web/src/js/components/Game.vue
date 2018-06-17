@@ -91,6 +91,12 @@ export default {
           this.action(this.turn, action)
         }
       }
+
+      // デッキの枚数が DeckShuffleRemainingAmount以下になった場合、フィールドのカードをデッキに加えてシャッフル
+      if (this.dealer.deck.cardNum() <= Constants.DeckShuffleRemainingAmount) {
+        this.dealer.maintenance()
+        this.dealer.shuffle()
+      }
     },
     action (id, type, handIdx) {
       switch (type) {

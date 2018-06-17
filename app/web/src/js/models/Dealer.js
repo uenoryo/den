@@ -51,4 +51,11 @@ export default class Dealer {
     }
     return this.field.Cards[this.field.Cards.length-1]
   }
+
+  maintenance() {
+    // 1枚だけフィールドに残し、その他をデッキに加える
+    while (this.field.Cards.length > 1) {
+      this.deck.data.Cards.push(this.field.Cards.pop())
+    }
+  }
 }

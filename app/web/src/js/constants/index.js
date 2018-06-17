@@ -30,6 +30,7 @@ export default {
   // Deck
   DeckLength: 54,
   DeckLengthWithoutJoker: 52,
+  DeckShuffleRemainingAmount: 0,
 
   // ActionType
   ActionTypeDraw: 1,
