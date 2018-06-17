@@ -5,19 +5,22 @@ import Dealer from '../../models/Dealer'
 describe('Dealer', () => {
   describe('.constructor()', () => {
     it('正しく初期化できる', () => {
-      new Dealer
+      new Dealer(new Deck)
+    })
+
+    it('デッキがおかしい場合はエラーになる', () => {
+      assert.throws(() => {new Dealer(0)})
     })
   })
 
   describe('.shuffle()', () => {
     describe('- Deckをシャッフルできる', () => {
-      let d = new Dealer
-      let deck = new Deck
+      let d = new Dealer(new Deck)
 
       it('シャッフルしても枚数は変わらない', () => {
-        let length = deck.data.Cards.length
-        d.shuffle(deck)
-        assert.equal(deck.data.Cards.length, length)
+        let length = d.deck.data.Cards.length
+        d.shuffle()
+        assert.equal(d.deck.data.Cards.length, length)
       })
     })
   })

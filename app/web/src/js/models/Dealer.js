@@ -1,14 +1,17 @@
 export default class Dealer {
-  shuffle(deck) {
+  constructor(deck) {
     if (deck.constructor.name !== 'Deck') {
-      throw new Error(`Dealer can't shuffle [${deck.constructor.name}]`)
+      throw new Error(`Invalid deck [${deck.constructor.name}]`)
     }
+    this.deck = deck
+  }
 
-    for (let i = deck.data.Cards.length - 1; i > 0; i--) {
-        let r = Math.floor(Math.random() * (i + 1))
-        let tmp = deck.data.Cards[i];
-        deck.data.Cards[i] = deck.data.Cards[r];
-        deck.data.Cards[r] = tmp;
+  shuffle() {
+    for (let i = this.deck.data.Cards.length - 1; i > 0; i--) {
+      let r = Math.floor(Math.random() * (i + 1))
+      let tmp = this.deck.data.Cards[i];
+      this.deck.data.Cards[i] = this.deck.data.Cards[r];
+      this.deck.data.Cards[r] = tmp;
     }
   }
 }

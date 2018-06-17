@@ -11,8 +11,8 @@ import CardData from '../data/CardData'
  * God can setup game
  */
 export default class God {
-  createDealer() {
-    return new Dealer
+  createDealer(deck) {
+    return new Dealer(deck)
   }
 
   createPlayers() {

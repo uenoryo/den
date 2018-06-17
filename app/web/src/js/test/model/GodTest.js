@@ -1,5 +1,6 @@
 import assert from 'assert'
 import Constants from '../../constants'
+import Deck from '../dummy/DummyDeck'
 import God from '../../models/God'
 
 describe('God', () => {
@@ -11,10 +12,15 @@ describe('God', () => {
 
   describe('.createDealer()', () => {
     it('Dealerを作成できる', () => {
-      let g = new God
-      let dealer = g.createDealer()
+      let g = new God()
+      let dealer = g.createDealer(new Deck)
 
       assert.equal(dealer.constructor.name, 'Dealer')
+    })
+
+    it('デッキを渡さないとエラーになる', () => {
+      let g = new God()
+      assert.throws(() => {g.createDealer(0)})
     })
   })
 
