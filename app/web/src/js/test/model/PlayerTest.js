@@ -95,4 +95,17 @@ describe('Player', () => {
       assert.throws(() => {p.put(0, 'invalid dealer')})
     })
   })
+
+  describe('.sort()', () => {
+    it('手札をスコア順に並び替えられる')
+  })
+
+  describe('.wantPut()', () => {
+    it('出したいカードがある')
+    it('出したいカードがない')
+  })
+
+  describe('.think()', () => {
+    it('数字の大きいカードは優先的に処理する')
+  })
 })
