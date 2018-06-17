@@ -1,4 +1,6 @@
+import Constants from '../constants'
 import HandData from '../data/HandData'
+import Rule from './Rule'
 
 export default class Player {
   constructor(data) {
@@ -15,6 +17,7 @@ export default class Player {
     }
 
     this.hand.Cards.push(card)
+    this.sort()
   }
 
   pick(idx) {
@@ -34,5 +37,39 @@ export default class Player {
     }
 
     dealer.receive(this.pick(idx))
+  }
+
+  sort() {
+    for (let i = 0; i < this.hand.Cards.length; i++) {
+      for (let j = this.hand.Cards.length-1; j > i; j--) {
+        if (this.hand.Cards[j].score() > this.hand.Cards[j-1].score()) {
+          let tmp = this.hand.Cards[j]
+          this.hand.Cards[j] = this.hand.Cards[j-1]
+          this.hand.Cards[j-1] = tmp
+        }
+      }
+    }
+  }
+
+  wantPut(field) {
+    for (let idx in this.hand.Cards) {
+      if (Rule.canPut(field, this.hand.Cards[idx])) {
+        return true
+      }
+    }
+    return false
+  }
+
+  noPutAction() {
+    return Constants.ActionTypeDraw
+  }
+
+  think(field) {
+    for (let idx in this.hand.Cards) {
+      if (Rule.canPut(field, this.hand.Cards[idx])) {
+        return idx
+      }
+    }
+    return null
   }
 }
