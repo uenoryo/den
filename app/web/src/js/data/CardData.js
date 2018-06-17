@@ -34,4 +34,21 @@ export default class CardData {
     this.Num = num
     return this
   }
+
+  toString() {
+    switch(this.Mark) {
+      case Constants.CardMarkClub:
+        return Constants.CardMarkClubString + this.Num
+      case Constants.CardMarkDiamond:
+        return Constants.CardMarkDiamondString + this.Num
+      case Constants.CardMarkHeart:
+        return Constants.CardMarkHeartString + this.Num
+      case Constants.CardMarkSpade:
+        return Constants.CardMarkSpadeString + this.Num
+      case Constants.CardMarkJoker:
+        return Constants.CardMarkClubString
+      default:
+        return ''
+    }
+  }
 }

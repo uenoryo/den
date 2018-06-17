@@ -16,6 +16,11 @@ export default {
   CardMarkHeart: 2,
   CardMarkSpade: 3,
   CardMarkJoker: 4,
+  CardMarkClubString: '♣︎',
+  CardMarkDiamondString: '♢',
+  CardMarkHeartString: '♡',
+  CardMarkSpadeString: '♠︎',
+  CardMarkJokerString: '$',
 
   CardMinNum: 0,
   CardMaxNum: 13,
