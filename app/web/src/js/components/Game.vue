@@ -82,14 +82,27 @@ export default {
     },
     step () {
       if (this.players[this.turn].data.Type === Constants.PlayerTypeComputer) {
-        this.action(this.turn, Constants.ActionTypeDraw)
+        if (this.players[this.turn].wantPut(this.dealer.fieldCard())) {
+          let handIdx = this.players[this.turn].think(this.dealer.fieldCard())
+          this.action(this.turn, Constants.ActionTypePut, handIdx)
+        } else {
+          let action = this.players[this.turn].noPutAction()
+          this.action(this.turn, action)
+        }
       }
-      this.next()
     },
-    action (id, type, card) {
+    action (id, type, handIdx) {
       switch (type) {
         case Constants.ActionTypeDraw:
           this.dealer.deal(this.players[id])
+          this.next()
+          break
+        case Constants.ActionTypePut:
+          this.players[id].put(handIdx, this.dealer)
+          if (this.players[id].hand.Cards.length === 0) {
+            alert(`プレイヤー${id}の勝ち`)
+          }
+          this.next()
           break
       }
     },
