@@ -1,24 +1,47 @@
-import Player from '@/models/Player'
-import PlayerData from '@/data/PlayerData'
+import Config from '../config'
+import Constants from '../constants'
+import Player from './Player'
+import PlayerData from '../data/PlayerData'
+import Deck from './Deck'
+import DeckData from '../data/DeckData'
+import CardData from '../data/CardData'
 
 /**
  * God can setup game
  */
 export default class God {
-  constructor(config) {
-    this.config = config
-  }
-
   /**
    * Create entry player
    */
   createPlayers() {
-    let players = this.config.EntryPlayers
+    let players = Config.EntryPlayers
     let playersByID = {}
     for (let id in players) {
       let data = new PlayerData(id, players[id])
       playersByID[id] = new Player(data)
     }
     return playersByID
+  }
+
+  /**
+   * Create deck
+   */
+  createDeck() {
+    let cards = []
+
+    // Prepare normal cards
+    for (let num = Constants.CardMinNum+1; num <= Constants.CardMaxNum; num++) {
+      cards.push(new CardData(Constants.CardMarkClub, num))
+      cards.push(new CardData(Constants.CardMarkDiamond, num))
+      cards.push(new CardData(Constants.CardMarkHeart, num))
+      cards.push(new CardData(Constants.CardMarkSpade, num))
+    }
+
+    // Prepare Joker x2
+    cards.push(new CardData(Constants.CardMarkJoker, Constants.CardJokerNum))
+    cards.push(new CardData(Constants.CardMarkJoker, Constants.CardJokerNum))
+
+    let data = new DeckData(cards)
+    return new Deck(data)
   }
 }

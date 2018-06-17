@@ -17,4 +17,8 @@ export default {
   CardMinNum: 0,
   CardMaxNum: 13,
   CardJokerNum: 0,
+
+  // Deck
+  DeckLength: 54,
+  DeckLengthWithoutJoker: 52,
 }
