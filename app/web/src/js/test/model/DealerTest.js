@@ -95,4 +95,22 @@ describe('Dealer', () => {
       assert.equal(d.fieldCard(), null)
     })
   })
+
+  describe('.maintenance()', () => {
+    it('フィールドのカードを１枚残して他のカードを全てデッキに入れられる', () => {
+      let deck = new Deck(new DeckData([
+        new CardData(0, 1),
+        new CardData(1, 2),
+        new CardData(2, 3),
+        new CardData(3, 4),
+      ]))
+      let d = new Dealer(deck)
+      d.put()
+      d.put()
+      d.put()
+
+      d.maintenance()
+      assert.equal(d.deck.data.Cards.length, 3)
+    })
+  })
 })
