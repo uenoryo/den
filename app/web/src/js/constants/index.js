@@ -32,4 +32,5 @@ export default {
 
   // ActionType
   ActionTypeDraw: 1,
+  ActionTypePut: 2,
 }
