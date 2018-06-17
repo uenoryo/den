@@ -40,4 +40,15 @@ export default class Dealer {
 
     this.field.Cards.push(card)
   }
+
+  put() {
+    this.field.Cards.push(this.draw())
+  }
+
+  fieldCard() {
+    if (this.field.Cards.length === 0) {
+      return null
+    }
+    return this.field.Cards[this.field.Cards.length-1]
+  }
 }

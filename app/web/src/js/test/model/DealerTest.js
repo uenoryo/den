@@ -60,4 +60,39 @@ describe('Dealer', () => {
       assert.equal(player.hand.Cards[0].Num, 1)
     })
   })
+
+  describe('.put()', () => {
+    it('カードを引いてフィールドにセットできる', () => {
+      let deck = new Deck(new DeckData([
+        new CardData(1, 1),
+        new CardData(2, 2),
+      ]))
+      let d = new Dealer(deck)
+      d.put()
+      assert.equal(d.field.Cards[0].Mark, 1)
+      assert.equal(d.field.Cards[0].Num, 1)
+    })
+  })
+
+  describe('.fieldCard()', () => {
+    it('１番上にあるフィールドのカードを取得できる', () => {
+      let deck = new Deck(new DeckData([
+        new CardData(1, 1),
+        new CardData(2, 2),
+      ]))
+      let d = new Dealer(deck)
+      d.put()
+
+      let card = d.fieldCard()
+      assert.equal(card.Mark, 1)
+      assert.equal(card.Num, 1)
+    })
+
+    it('フィールドにカードがなければnullを返す', () => {
+      let deck = new Deck(new DeckData([]))
+      let d = new Dealer(deck)
+
+      assert.equal(d.fieldCard(), null)
+    })
+  })
 })
