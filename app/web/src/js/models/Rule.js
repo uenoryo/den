@@ -11,6 +11,9 @@ export default class Rule {
   }
 
   static isPank(hand) {
+    if (hand.constructor.name != 'HandData') {
+      throw new Error(`${hand.constructor.name} is not HandData`)
+    }
     return hand.Cards.length > Constants.PlayerHandMaxAmount
   }
 }
