@@ -13,6 +13,18 @@
       </div>
     </div>
     <div class='field'>
+      <h1>フィールド</h1>
+      <div>
+        <span v-if='dealer.fieldCard() !== null'>
+          [{{ dealer.fieldCard().toString() }}]
+        </span>
+        <span v-else>
+          [何も出ていない]
+        </span>
+      </div>
+    </div>
+    <br>
+    <div class='deck'>
       <h1>デッキ</h1>
       <div>残り: {{ dealer.deck.cardNum() }}枚</div>
     </div>
@@ -33,7 +45,7 @@ export default {
       players: null,
     }
   },
-  mounted () {
+  beforeMount () {
     this.god = new God
     this.setup()
   },
@@ -52,6 +64,9 @@ export default {
       for (let i = 0; i < Constants.PlayerHandStartAmount; i++) {
         this.dealCardToPlayers()
       }
+
+      // Put card
+      this.dealer.put()
     },
     dealCardToPlayers () {
       for (let idx in this.players) {
