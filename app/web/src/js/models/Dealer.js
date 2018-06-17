@@ -1,9 +1,12 @@
+import FieldData from '../data/FieldData'
+
 export default class Dealer {
   constructor(deck) {
     if (deck.constructor.name !== 'Deck') {
       throw new Error(`Invalid deck [${deck.constructor.name}]`)
     }
     this.deck = deck
+    this.field = new FieldData([])
   }
 
   draw() {
@@ -28,5 +31,13 @@ export default class Dealer {
       return
     }
     player.receive(card)
+  }
+
+  receive(card) {
+    if (card.constructor.name !== 'CardData') {
+      throw new Error(`Invalid Card will add to hand [${card.constructor.name}]`)
+    }
+
+    this.field.Cards.push(card)
   }
 }

@@ -5,6 +5,8 @@ import PlayerData from '../../data/PlayerData'
 import Deck from '../../models/Deck'
 import DeckData from '../../data/DeckData'
 import CardData from '../../data/CardData'
+import HandData from '../../data/CardData'
+import Dealer from '../../models/Dealer'
 
 describe('Player', () => {
   describe('.constructor()', () => {
@@ -32,6 +34,65 @@ describe('Player', () => {
       let p = new Player(pd)
 
       assert.throws(() => {p.receive('invalid card.')})
+    })
+  })
+
+  describe('.pick()', () => {
+    it('カードを手札から１枚抜き取ることができる', () => {
+      let pd = new PlayerData(1, 1)
+      let p = new Player(pd)
+      let card = new CardData(Constants.CardMarkSpade, 4)
+
+      p.receive(card)
+      let picked = p.pick(0)
+
+      assert.equal(picked.Mark, Constants.CardMarkSpade)
+      assert.equal(picked.Num, 4)
+    })
+
+    it('抜き取ろうとする位置にカードがなければエラー', () => {
+      let pd = new PlayerData(1, 1)
+      let p = new Player(pd)
+      let card = new CardData(Constants.CardMarkSpade, 4)
+
+      p.receive(card)
+      assert.throws(() => {p.pick(1)})
+    })
+  })
+
+  describe('.put()', () => {
+    it('カードをディーラーに渡すことができる', () => {
+      let pd = new PlayerData(1, 1)
+      let p = new Player(pd)
+      let deck = new Deck(new DeckData([]))
+      let dealer = new Dealer(deck)
+      let card = new CardData(Constants.CardMarkDiamond, 11)
+      p.receive(card)
+
+      p.put(0, dealer)
+
+      assert.equal(dealer.field.Cards[0].Mark, Constants.CardMarkDiamond)
+      assert.equal(dealer.field.Cards[0].Num, 11)
+    })
+
+    it('抜き取ろうとする位置にカードがなければエラーになる', () => {
+      let pd = new PlayerData(1, 1)
+      let p = new Player(pd)
+      let deck = new Deck(new DeckData([]))
+      let dealer = new Dealer(deck)
+      let card = new CardData(Constants.CardMarkDiamond, 11)
+      p.receive(card)
+
+      assert.throws(() => {p.put(1, dealer)})
+    })
+
+    it('ディーラーがおかしければエラーになる', () => {
+      let pd = new PlayerData(1, 1)
+      let p = new Player(pd)
+      let card = new CardData(Constants.CardMarkDiamond, 11)
+      p.receive(card)
+
+      assert.throws(() => {p.put(0, 'invalid dealer')})
     })
   })
 })
