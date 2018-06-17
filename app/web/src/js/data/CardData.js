@@ -54,17 +54,24 @@ export default class CardData {
 
     switch(this.Mark) {
       case Constants.CardMarkClub:
-        return Constants.CardMarkClubString + strNum
+        return Constants.CardMarkClubString + ' ' + strNum
       case Constants.CardMarkDiamond:
-        return Constants.CardMarkDiamondString + strNum
+        return Constants.CardMarkDiamondString + ' ' + strNum
       case Constants.CardMarkHeart:
-        return Constants.CardMarkHeartString + strNum
+        return Constants.CardMarkHeartString + ' ' + strNum
       case Constants.CardMarkSpade:
-        return Constants.CardMarkSpadeString + strNum
+        return Constants.CardMarkSpadeString + ' ' + strNum
       case Constants.CardMarkJoker:
-        return Constants.CardMarkJokerString + strNum
+        return Constants.CardMarkJokerString + ' ' + strNum
       default:
         return ''
     }
+  }
+
+  score() {
+    if (this.Mark === Constants.CardMarkJoker) {
+      return 0
+    }
+    return this.Mark + (this.Num * 4)
   }
 }
