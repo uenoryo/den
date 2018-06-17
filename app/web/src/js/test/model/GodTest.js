@@ -9,6 +9,15 @@ describe('God', () => {
     })
   })
 
+  describe('.createDealer()', () => {
+    it('Dealerを作成できる', () => {
+      let g = new God
+      let dealer = g.createDealer()
+
+      assert.equal(dealer.constructor.name, 'Dealer')
+    })
+  })
+
   describe('.createPlayers()', () => {
     it('Playerを作成できる', () => {
       let g = new God

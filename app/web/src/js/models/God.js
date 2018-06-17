@@ -1,5 +1,6 @@
 import Config from '../config'
 import Constants from '../constants'
+import Dealer from './Dealer'
 import Player from './Player'
 import PlayerData from '../data/PlayerData'
 import Deck from './Deck'
@@ -10,9 +11,10 @@ import CardData from '../data/CardData'
  * God can setup game
  */
 export default class God {
-  /**
-   * Create entry player
-   */
+  createDealer() {
+    return new Dealer
+  }
+
   createPlayers() {
     let players = Config.EntryPlayers
     let playersByID = {}
@@ -23,9 +25,6 @@ export default class God {
     return playersByID
   }
 
-  /**
-   * Create deck
-   */
   createDeck() {
     let cards = []
 
