@@ -2,9 +2,15 @@ import Constants from '../constants'
 
 export default {
   EntryPlayers: {
-    1: Constants.PlayerTypePlayer,
-    2: Constants.PlayerTypePlayer,
-    3: Constants.PlayerTypePlayer,
-    4: Constants.PlayerTypePlayer,
+    1: Constants.PlayerTypeComputer,
+    2: Constants.PlayerTypeComputer,
+    3: Constants.PlayerTypeComputer,
+    4: Constants.PlayerTypeComputer,
   },
+  Turn: [
+    1,
+    2,
+    3,
+    4,
+  ],
 }

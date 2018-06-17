@@ -28,11 +28,15 @@
       <h1>デッキ</h1>
       <div>残り: {{ dealer.deck.cardNum() }}枚</div>
     </div>
+    <div class='controller'>
+      <button @click='step()'>ゲームを進める</button>
+    </div>
   </div>
 </template>
 
 <script>
 import God from '@/models/God'
+import Config from '@/config'
 import Constants from '@/constants'
 
 export default {
@@ -43,6 +47,7 @@ export default {
       god: null,
       dealer: null,
       players: null,
+      turn: null,
     }
   },
   beforeMount () {
@@ -67,12 +72,36 @@ export default {
 
       // Put card
       this.dealer.put()
+
+      this.turn = Constants.Player1ID
     },
     dealCardToPlayers () {
       for (let idx in this.players) {
         this.dealer.deal(this.players[idx])
       }
     },
+    step () {
+      if (this.players[this.turn].data.Type === Constants.PlayerTypeComputer) {
+        this.action(this.turn, Constants.ActionTypeDraw)
+      }
+      this.next()
+    },
+    action (id, type, card) {
+      switch (type) {
+        case Constants.ActionTypeDraw:
+          this.dealer.deal(this.players[id])
+          break
+      }
+    },
+    next () {
+      let turnIdx = Config.Turn.indexOf(this.turn)
+      if (turnIdx >= Config.Turn.length-1) {
+        turnIdx = 0
+      } else {
+        turnIdx++
+      }
+      this.turn = Config.Turn[turnIdx]
+    }
   }
 }
 </script>
