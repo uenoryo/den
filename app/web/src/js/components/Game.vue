@@ -38,6 +38,7 @@
 import God from '@/models/God'
 import Config from '@/config'
 import Constants from '@/constants'
+import Rule from '@/models/Rule'
 
 export default {
   name: 'Game',
@@ -95,12 +96,17 @@ export default {
       switch (type) {
         case Constants.ActionTypeDraw:
           this.dealer.deal(this.players[id])
+          if (Rule.isPank(this.players[id].hand)) {
+            alert(`プレイヤー${id}の負け`)
+            break
+          }
           this.next()
           break
         case Constants.ActionTypePut:
           this.players[id].put(handIdx, this.dealer)
           if (this.players[id].hand.Cards.length === 0) {
             alert(`プレイヤー${id}の勝ち`)
+            break
           }
           this.next()
           break

@@ -9,6 +9,7 @@ export default {
 
   // Hand
   PlayerHandStartAmount: 7,
+  PlayerHandMaxAmount: 13,
 
   // Card
   CardMarkClub: 0,

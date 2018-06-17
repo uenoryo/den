@@ -9,4 +9,8 @@ export default class Rule {
       field.Mark === Constants.CardMarkJoker
     )
   }
+
+  static isPank(hand) {
+    return hand.Cards.length > Constants.PlayerHandMaxAmount
+  }
 }
