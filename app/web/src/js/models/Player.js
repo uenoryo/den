@@ -9,14 +9,7 @@ export default class Player {
     this.hand = new HandData([])
   }
 
-  draw(deck) {
-    if (deck.cardNum() === 0) {
-      return
-    }
-    this.addCardToHand(deck.turn())
-  }
-
-  addCardToHand(card) {
+  receive(card) {
     if (card.constructor.name !== 'CardData') {
       throw new Error(`Invalid Card will add to hand [${card.constructor.name}]`)
     }

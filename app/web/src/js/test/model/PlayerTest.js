@@ -16,39 +16,13 @@ describe('Player', () => {
     })
   })
 
-  describe('.draw()', () => {
-    it('カードを引くと手札が増える', () => {
-      let pd = new PlayerData(1, 1)
-      let p = new Player(pd)
-      let dd = new DeckData([
-        new CardData(Constants.CardMarkSpade, 1),
-        new CardData(Constants.CardMarkClub, 2),
-      ])
-      let deck = new Deck(dd)
-
-      p.draw(deck)
-      assert.equal(p.hand.Cards[0].Mark, Constants.CardMarkSpade)
-      assert.equal(p.hand.Cards[0].Num, 1)
-    })
-
-    it('デッキが空の場合は引いても手札が増えない', () => {
-      let pd = new PlayerData(1, 1)
-      let p = new Player(pd)
-      let dd = new DeckData([])
-      let deck = new Deck(dd)
-
-      p.draw(deck)
-      assert.equal(p.hand.Cards.length, 0)
-    })
-  })
-
-  describe('.addCardToHand()', () => {
+  describe('.receive()', () => {
     it('カードを手札に加えられる', () => {
       let pd = new PlayerData(1, 1)
       let p = new Player(pd)
       let card = new CardData(Constants.CardMarkClub, 7)
 
-      p.addCardToHand(card)
+      p.receive(card)
       assert.equal(p.hand.Cards[0].Mark, Constants.CardMarkClub)
       assert.equal(p.hand.Cards[0].Num, 7)
     })
@@ -57,7 +31,7 @@ describe('Player', () => {
       let pd = new PlayerData(1, 1)
       let p = new Player(pd)
 
-      assert.throws(() => {p.addCardToHand('invalid card.')})
+      assert.throws(() => {p.receive('invalid card.')})
     })
   })
 })
