@@ -113,4 +113,8 @@ describe('Dealer', () => {
       assert.equal(d.deck.data.Cards.length, 3)
     })
   })
+
+  describe('.shouldMaintenance()', () => {
+    it('デッキをメンテナンスすべきかどうかを返すことができる')
+  })
 })

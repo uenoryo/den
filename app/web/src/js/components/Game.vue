@@ -82,7 +82,7 @@ export default {
       }
     },
     step () {
-      if (this.players[this.turn].data.Type === Constants.PlayerTypeComputer) {
+      if (this.players[this.turn].isComputer()) {
         if (this.players[this.turn].wantPut(this.dealer.fieldCard())) {
           let handIdx = this.players[this.turn].think(this.dealer.fieldCard())
           this.action(this.turn, Constants.ActionTypePut, handIdx)
@@ -92,8 +92,7 @@ export default {
         }
       }
 
-      // デッキの枚数が DeckShuffleRemainingAmount以下になった場合、フィールドのカードをデッキに加えてシャッフル
-      if (this.dealer.deck.cardNum() <= Constants.DeckShuffleRemainingAmount) {
+      if (this.dealer.shouldMaintenance()) {
         this.dealer.maintenance()
         this.dealer.shuffle()
       }
@@ -110,7 +109,7 @@ export default {
           break
         case Constants.ActionTypePut:
           this.players[id].put(handIdx, this.dealer)
-          if (this.players[id].hand.Cards.length === 0) {
+          if (this.players[id].hasNoCard()) {
             alert(`プレイヤー${id}の勝ち`)
             break
           }

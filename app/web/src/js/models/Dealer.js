@@ -1,3 +1,4 @@
+import Constants from '../constants'
 import FieldData from '../data/FieldData'
 
 export default class Dealer {
@@ -57,5 +58,9 @@ export default class Dealer {
     while (this.field.Cards.length > 1) {
       this.deck.data.Cards.push(this.field.Cards.pop())
     }
+  }
+
+  shouldMaintenance() {
+    return this.deck.cardNum() <= Constants.DeckShuffleRemainingAmount
   }
 }

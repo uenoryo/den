@@ -72,4 +72,16 @@ export default class Player {
     }
     return null
   }
+
+  hasNoCard() {
+    return this.hand.Cards.length === 0
+  }
+
+  isHuman() {
+    return this.data.Type === Constants.PlayerTypeHuman
+  }
+
+  isComputer() {
+    return this.data.Type === Constants.PlayerTypeComputer
+  }
 }

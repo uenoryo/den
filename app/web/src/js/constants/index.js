@@ -1,6 +1,6 @@
 export default {
   // Player
-  PlayerTypePlayer: 0,
+  PlayerTypeHuman: 0,
   PlayerTypeComputer: 1,
   Player1ID: 1,
   Player2ID: 2,

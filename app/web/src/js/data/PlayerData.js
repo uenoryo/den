@@ -23,7 +23,7 @@ export default class PlayerData {
   type(type) {
     type = parseInt(type)
     if (
-      type !== Constants.PlayerTypePlayer &&
+      type !== Constants.PlayerTypeHuman &&
       type !== Constants.PlayerTypeComputer
     ) {
       throw new Error('Invalid Player Type.')
