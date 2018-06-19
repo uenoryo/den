@@ -10,6 +10,7 @@ export default class Dealer {
     this.deck = deck
     this.field = new FieldData([])
     this.turnTable = Config.Turn
+    this.forceDrawAmount = 0
 
     // [ハードコード] 順番を決められるようにする #3
     this.turn = Constants.Player1ID
@@ -37,6 +38,13 @@ export default class Dealer {
       return
     }
     player.receive(card)
+  }
+
+  forceDeal(player) {
+    this.deal(player)
+    if (this.forceDrawAmount !== 0) {
+      this.forceDrawAmount--
+    }
   }
 
   receive(card) {
@@ -93,5 +101,9 @@ export default class Dealer {
 
   reverseTurnTable() {
     this.turnTable.reverse()
+  }
+
+  isForceDrawMode() {
+    return this.forceDrawAmount > 0
   }
 }

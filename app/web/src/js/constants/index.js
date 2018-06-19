@@ -42,4 +42,5 @@ export default {
   // ActionType
   ActionTypeDraw: 1,
   ActionTypePut: 2,
+  ActionTypeForceDraw: 3,
 }

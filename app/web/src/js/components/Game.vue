@@ -83,10 +83,24 @@ export default {
     },
     step () {
       if (this.dealer.turnPlayer(this.players).isComputer()) {
-        if (this.dealer.turnPlayer(this.players).wantPut(this.dealer.fieldCard())) {
+        if (this.dealer.isForceDrawMode()) {
+        // DrawTwo
+          let handIdx = this.dealer.turnPlayer(this.players).wantForcePut()
+          if (handIdx === false) {
+            let drawCount = this.dealer.forceDrawAmount
+            for (let i = 0; i < drawCount; i++) {
+              this.action(this.dealer.turn, Constants.ActionTypeForceDraw)
+            }
+            this.dealer.goNextTurn()
+          } else {
+            this.action(this.dealer.turn, Constants.ActionTypePut, handIdx)
+          }
+        } else if (this.dealer.turnPlayer(this.players).wantPut(this.dealer.fieldCard())) {
+        // WantPut
           let handIdx = this.dealer.turnPlayer(this.players).think(this.dealer.fieldCard())
           this.action(this.dealer.turn, Constants.ActionTypePut, handIdx)
         } else {
+        // WantDraw
           let action = this.dealer.turnPlayer(this.players).noPutAction()
           this.action(this.dealer.turn, action)
         }
@@ -107,6 +121,13 @@ export default {
           }
           this.dealer.goNextTurn()
           break
+        case Constants.ActionTypeForceDraw:
+          this.dealer.forceDeal(this.players[id])
+          if (Rule.isPank(this.players[id].hand)) {
+            alert(`プレイヤー${id}の負け`)
+            break
+          }
+          break
         case Constants.ActionTypePut:
           let card = this.players[id].hand.Cards[handIdx]
           this.players[id].put(handIdx, this.dealer)
@@ -126,6 +147,9 @@ export default {
           break
         case Constants.CardAbilitySkip:
           this.dealer.goNextTurn()
+          break
+        case Constants.CardAbilityDrawTwo:
+          this.dealer.forceDrawAmount += 2
           break
       }
     },
