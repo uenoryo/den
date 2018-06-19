@@ -4,7 +4,10 @@
       <h1>手札一覧</h1>
       <br>
       <div v-for='player in players'>
-        <h2>プレイヤーID: {{ player.data.ID }}</h2>
+        <h2>
+          プレイヤーID: {{ player.data.ID }}
+          <span v-if='dealer.turnPlayer(players).data.ID === player.data.ID'>[ターンプレイヤー]</span>
+        </h2>
         <span v-for='card in player.hand.Cards'>
           [{{ card.toString() }}]
         </span>
@@ -120,6 +123,9 @@ export default {
       switch (card.Num) {
         case Constants.CardAbilityBack:
           this.dealer.reverseTurnTable()
+          break
+        case Constants.CardAbilitySkip:
+          this.dealer.goNextTurn()
           break
       }
     },
