@@ -105,12 +105,21 @@ export default {
           this.dealer.goNextTurn()
           break
         case Constants.ActionTypePut:
+          let card = this.players[id].hand.Cards[handIdx]
           this.players[id].put(handIdx, this.dealer)
           if (this.players[id].hasNoCard()) {
             alert(`プレイヤー${id}の勝ち`)
             break
           }
+          this.behave(this.players[id], card)
           this.dealer.goNextTurn()
+          break
+      }
+    },
+    behave (player, card) {
+      switch (card.Num) {
+        case Constants.CardAbilityBack:
+          this.dealer.reverseTurnTable()
           break
       }
     },

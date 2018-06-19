@@ -90,4 +90,8 @@ export default class Dealer {
     }
     return null
   }
+
+  reverseTurnTable() {
+    this.turnTable.reverse()
+  }
 }

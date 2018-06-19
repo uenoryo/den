@@ -125,4 +125,8 @@ describe('Dealer', () => {
   describe('.turnPlayer()', () => {
     it('エントリープレイヤーの中から現在のターンのプレイヤーを返すことができる')
   })
+
+  describe('.reverseTurnTable()', () => {
+    it('ターンを逆順にできる')
+  })
 })
