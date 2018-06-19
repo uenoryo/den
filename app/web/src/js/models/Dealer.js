@@ -1,4 +1,5 @@
 import Constants from '../constants'
+import Config from '../config'
 import FieldData from '../data/FieldData'
 
 export default class Dealer {
@@ -8,6 +9,10 @@ export default class Dealer {
     }
     this.deck = deck
     this.field = new FieldData([])
+    this.turnTable = Config.Turn
+
+    // [ハードコード] 順番を決められるようにする #3
+    this.turn = Constants.Player1ID
   }
 
   draw() {
@@ -62,5 +67,27 @@ export default class Dealer {
 
   shouldMaintenance() {
     return this.deck.cardNum() <= Constants.DeckShuffleRemainingAmount
+  }
+
+  goNextTurn() {
+    let turnIdx = this.turnTable.indexOf(this.turn)
+    if (turnIdx >= this.turnTable.length-1) {
+      turnIdx = 0
+    } else {
+      turnIdx++
+    }
+    this.turn = this.turnTable[turnIdx]
+  }
+
+  turnPlayer(players) {
+    for (let id in players) {
+      if (players[id].constructor.name !== 'Player') {
+        throw new Error(`${players[id].constructor.name} is not Player`)
+      }
+      if (id == this.turn) {
+        return players[id]
+      }
+    }
+    return null
   }
 }

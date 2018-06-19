@@ -48,7 +48,6 @@ export default {
       god: null,
       dealer: null,
       players: null,
-      turn: null,
     }
   },
   beforeMount () {
@@ -73,8 +72,6 @@ export default {
 
       // Put card
       this.dealer.put()
-
-      this.turn = Constants.Player1ID
     },
     dealCardToPlayers () {
       for (let idx in this.players) {
@@ -82,13 +79,13 @@ export default {
       }
     },
     step () {
-      if (this.players[this.turn].isComputer()) {
-        if (this.players[this.turn].wantPut(this.dealer.fieldCard())) {
-          let handIdx = this.players[this.turn].think(this.dealer.fieldCard())
-          this.action(this.turn, Constants.ActionTypePut, handIdx)
+      if (this.dealer.turnPlayer(this.players).isComputer()) {
+        if (this.dealer.turnPlayer(this.players).wantPut(this.dealer.fieldCard())) {
+          let handIdx = this.dealer.turnPlayer(this.players).think(this.dealer.fieldCard())
+          this.action(this.dealer.turn, Constants.ActionTypePut, handIdx)
         } else {
-          let action = this.players[this.turn].noPutAction()
-          this.action(this.turn, action)
+          let action = this.dealer.turnPlayer(this.players).noPutAction()
+          this.action(this.dealer.turn, action)
         }
       }
 
@@ -105,7 +102,7 @@ export default {
             alert(`プレイヤー${id}の負け`)
             break
           }
-          this.next()
+          this.dealer.goNextTurn()
           break
         case Constants.ActionTypePut:
           this.players[id].put(handIdx, this.dealer)
@@ -113,19 +110,10 @@ export default {
             alert(`プレイヤー${id}の勝ち`)
             break
           }
-          this.next()
+          this.dealer.goNextTurn()
           break
       }
     },
-    next () {
-      let turnIdx = Config.Turn.indexOf(this.turn)
-      if (turnIdx >= Config.Turn.length-1) {
-        turnIdx = 0
-      } else {
-        turnIdx++
-      }
-      this.turn = Config.Turn[turnIdx]
-    }
   }
 }
 </script>

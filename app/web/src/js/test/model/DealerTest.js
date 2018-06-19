@@ -117,4 +117,12 @@ describe('Dealer', () => {
   describe('.shouldMaintenance()', () => {
     it('デッキをメンテナンスすべきかどうかを返すことができる')
   })
+
+  describe('.goNextTrun()', () => {
+    it('次のターンに進めることができる')
+  })
+
+  describe('.turnPlayer()', () => {
+    it('エントリープレイヤーの中から現在のターンのプレイヤーを返すことができる')
+  })
 })
