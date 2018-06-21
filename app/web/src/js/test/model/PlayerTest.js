@@ -129,7 +129,18 @@ describe('Player', () => {
   })
 
   describe('.hasNoCard()', () => {
-    it('手札が無いかどうかを返すことができる')
+    describe('手札が無いかどうかを返すことができる', () => {
+      let pd = new PlayerData(1, 1)
+      let p = new Player(pd)
+      it('手札が無い場合はTrueを返す', () => {
+        assert.equal(p.hasNoCard(), true)
+      })
+
+      it('手札がある場合はFalseを返す', () => {
+        p.receive(new CardData(Constants.CardMarkDiamond, 8))
+        assert.equal(p.hasNoCard(), false)
+      })
+    })
   })
 
   describe('.isHuman()', () => {
