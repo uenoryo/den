@@ -115,7 +115,20 @@ describe('Dealer', () => {
   })
 
   describe('.shouldMaintenance()', () => {
-    it('デッキをメンテナンスすべきかどうかを返すことができる')
+    describe('デッキをメンテナンスすべきかどうかを返すことができる', () => {
+      it('デッキのカードの枚数が DeckShuffleRemainingAmount 以下であればTrueを返す', () => {
+        let deck = new Deck(new DeckData([]))
+        let d = new Dealer(deck)
+        assert.equal(d.shouldMaintenance(), true)
+      })
+      it('デッキのカードの枚数が DeckShuffleRemainingAmount より多ければFalseを返す', () => {
+        let deck = new Deck(new DeckData([
+          new CardData(0, 1),
+        ]))
+        let d = new Dealer(deck)
+        assert.equal(d.shouldMaintenance(), false)
+      })
+    })
   })
 
   describe('.goNextTrun()', () => {
