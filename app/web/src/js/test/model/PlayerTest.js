@@ -144,7 +144,19 @@ describe('Player', () => {
   })
 
   describe('.isHuman()', () => {
-    it('プレイヤータイプが人間かどうかを返すことができる')
+    describe('プレイヤータイプが人間かどうかを返すことができる', () => {
+      it('人間である場合はTrueを返す', () => {
+        let pd = new PlayerData(1, Constants.PlayerTypeHuman)
+        let p = new Player(pd)
+        assert.equal(p.isHuman(), true)
+      })
+
+      it('人間ではない場合はFalseを返す', () => {
+        let pd = new PlayerData(1, Constants.PlayerTypeComputer)
+        let p = new Player(pd)
+        assert.equal(p.isHuman(), false)
+      })
+    })
   })
 
   describe('.isComputer()', () => {
