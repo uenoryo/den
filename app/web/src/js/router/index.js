@@ -3,9 +3,12 @@ import Router from 'vue-router'
 
 import Home from '@/components/Home'
 import Game from '@/components/Game'
+import Den from '@/components/Den'
+import God from '@/components/God'
 import NotFound from '@/components/NotFound'
 
 Vue.use(Router)
+Vue.mixin(God)
 
 export default new Router({
   mode: 'history',
@@ -13,7 +16,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Game
+      component: Den
     },
     {
       path: '/game',
