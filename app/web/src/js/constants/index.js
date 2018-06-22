@@ -39,6 +39,9 @@ export default {
   DeckLengthWithoutJoker: 52,
   DeckShuffleRemainingAmount: 0,
 
+  // Dealer
+  DealerReceiveCardIntervalMs: 2000,
+
   // ActionType
   ActionTypeDraw: 1,
   ActionTypePut: 2,
