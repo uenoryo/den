@@ -27,12 +27,12 @@ export default {
   CardMaxNum: 13,
   CardJokerNum: 0,
 
-  // CardAbility
-  CardAbilitySkip: 1,
-  CardAbilityDrawTwo: 2,
-  CardAbilityWildCard: 8,
-  CardAbilityBack: 9,
-  CardAbilityAttach: 12,
+  // CardSkill
+  CardSkillSkip: 1,
+  CardSkillDrawTwo: 2,
+  CardSkillWildCard: 8,
+  CardSkillBack: 9,
+  CardSkillAttach: 12,
 
   // Deck
   DeckLength: 54,

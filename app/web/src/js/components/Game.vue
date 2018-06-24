@@ -142,13 +142,13 @@ export default {
     },
     behave (player, card) {
       switch (card.Num) {
-        case Constants.CardAbilityBack:
+        case Constants.CardSkillBack:
           this.dealer.reverseTurnTable()
           break
-        case Constants.CardAbilitySkip:
+        case Constants.CardSkillSkip:
           this.dealer.goNextTurn()
           break
-        case Constants.CardAbilityDrawTwo:
+        case Constants.CardSkillDrawTwo:
           this.dealer.forceDrawAmount += 2
           break
       }
