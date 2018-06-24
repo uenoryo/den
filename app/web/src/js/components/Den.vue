@@ -5,39 +5,24 @@
         <div
           v-for='card, handIdx in player.hand.Cards'
           @click='put(id, handIdx)'
-          class='Card'
-          :class='["Card__ID" + card.score()]'>
-          [{{ card.toString() }}]
+          class='Sleeve'>
+          <div v-if='player.isHuman()' class='Card' :class='["Card__ID" + card.id()]'></div>
+          <div v-else='player.isHuman()' class='Card Card--reversed' :class='["Card__ID" + card.id()]'></div>
         </div>
       </div>
     </div>
     <div class='field'>
-      <h1>フィールド</h1>
-      <div>
-        <span v-if='dealer.fieldCard() !== null'>
-          [{{ dealer.fieldCard().toString() }}]
-        </span>
-        <span v-else>
-          [何も出ていない]
-        </span>
+      <div
+        v-if='dealer.fieldCard() !== null'
+        class='Card'
+        :class='["Card__ID" + dealer.fieldCard().id()]'>
       </div>
     </div>
-    <br>
     <div class='deck'>
-      <h1>デッキ</h1>
-      <div>残り: {{ dealer.deck.cardNum() }}枚</div>
-    </div>
-    <div class='controller'>
-      <button @click='draw()'>カードを引く</button>
+      <div @click='draw()' class='Card Card--reversed'></div>
     </div>
   </div>
 </template>
-
-<style>
-  body {
-    background-color: #ccc;
-  }
-</style>
 
 <script>
 import Config from '@/config'

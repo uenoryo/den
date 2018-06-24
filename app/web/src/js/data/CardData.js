@@ -74,10 +74,23 @@ export default class CardData {
     }
   }
 
+  id () {
+    if (this.Mark === Constants.CardMarkJokerA) {
+      return this.score() + 1
+    }
+    if (this.Mark === Constants.CardMarkJokerA) {
+      return this.score() + 2
+    }
+    return this.score()
+  }
+
   score() {
-    if (this.Mark === Constants.CardMarkJoker) {
+    if (
+      this.Mark === Constants.CardMarkJokerA ||
+      this.Mark === Constants.CardMarkJokerB
+    ) {
       return 0
     }
-    return this.Mark + (this.Num * 4)
+    return this.Mark + (this.Num * 4) - 4
   }
 }

@@ -1,0 +1,79 @@
+.game {
+  //
+}
+
+.Card {
+  width: 50px;
+  height: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  @for $i from 0 through 54 {
+    &__ID#{$i} {
+      background-image: url(/img/cards/card#{$i}.png)
+    }
+  }
+  &--reversed {
+    background-image: url(/img/cards/card_red.png)
+  }
+}
+
+.PlayerCardArea__ID1, .PlayerCardArea__ID3 {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  padding-right: 50px;
+  position: absolute;
+  left: 20%;
+}
+
+.PlayerCardArea__ID2, .PlayerCardArea__ID4 {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 20%;
+  max-width: 50px;
+  position: absolute;
+}
+
+.PlayerCardArea__ID1 {
+  bottom: 0;
+}
+
+.PlayerCardArea__ID2 {
+  top: 30%;
+  left: 0;
+  .Card {
+    transform:rotate(90deg);
+  }
+}
+
+.PlayerCardArea__ID3 {
+  top: 0;
+}
+
+.PlayerCardArea__ID4 {
+  top: 30%;
+  right: 10%;
+  .Card {
+    transform:rotate(-90deg);
+  }
+}
+
+.deck {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+}
+
+.field {
+  position: absolute;
+  top: 40%;
+  left: 55%;
+}
+
+
+.Sleeve {
+  height: 100px;
+}

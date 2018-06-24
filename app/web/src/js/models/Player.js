@@ -12,6 +12,10 @@ export default class Player {
   }
 
   receive(card) {
+    if (card === null) {
+      return
+    }
+
     if (card.constructor.name !== 'CardData') {
       throw new Error(`Invalid Card will add to hand [${card.constructor.name}]`)
     }
