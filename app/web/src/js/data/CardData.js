@@ -76,10 +76,10 @@ export default class CardData {
 
   id () {
     if (this.Mark === Constants.CardMarkJokerA) {
-      return this.score() + 1
+      return 52
     }
-    if (this.Mark === Constants.CardMarkJokerA) {
-      return this.score() + 2
+    if (this.Mark === Constants.CardMarkJokerB) {
+      return 53
     }
     return this.score()
   }

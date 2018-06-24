@@ -65,6 +65,7 @@ export default {
 
         this.dealerTriggerCardSkill()
       } else {
+        console.log(this.players[id].show(handIdx))
         this.dealerRejectReceivingCard()
       }
     },
