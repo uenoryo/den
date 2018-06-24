@@ -67,6 +67,18 @@ export default {
         alert(`[素上がり]Player ${player.data.ID}の勝ち`)
       }
     },
+    dealerJudgeDen (player) {
+      if (this.dealerPlayerIsTurnPlayer(player.data.ID)) {
+        console.log('miss')
+        return
+      }
+      if (parseInt(this.dealer.fieldCard().Num) === player.handCardNumTotal()) {
+        alert('DEN')
+        alert(`${player.data.ID}の勝ち`)
+      } else {
+        console.log('miss')
+      }
+    },
     dealerReceiveCard (card) {
       this.dealer.receive(card)
       this.isBusy = true

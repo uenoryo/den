@@ -7,6 +7,7 @@
         <h2>
           プレイヤーID: {{ player.data.ID }}
           <span v-if='dealerPlayerIsTurnPlayer(id)'>[ターンプレイヤー]</span>
+          <button @click='den(id)'>DEN</button>
         </h2>
         <span v-for='card, handIdx in player.hand.Cards'>
           <span @click='put(id, handIdx)'>[{{ card.toString() }}]</span>
@@ -85,6 +86,9 @@ export default {
       this.dealerDeal(this.dealerTurnPlayer().data.ID)
       this.dealerGoNextTurn()
     },
+    den (id) {
+      this.dealerJudgeDen(this.players[id])
+    },
     autoPutAction() {
       if (! this.dealerTurnPlayer().isComputer()) {
         return
@@ -100,7 +104,11 @@ export default {
       }
     },
     autoDenAction() {
-      console.log('den')
+      if (! this.dealerTurnPlayer().isComputer()) {
+        return
+      }
+
+      this.dealerJudgeDen(this.dealerTurnPlayer())
     },
   }
 }
