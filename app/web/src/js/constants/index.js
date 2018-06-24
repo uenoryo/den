@@ -44,7 +44,7 @@ export default {
   DealerPhaseForceDraw: 1,
   DealerPhaseAttach: 2,
   DealerPhaseChangeMark: 3,
-  DealerReceiveCardIntervalMs: 500,
+  DealerReceiveCardIntervalMs: 100,
 
   // Computer
   ComputerPutActionIntervalMs: 2000,
