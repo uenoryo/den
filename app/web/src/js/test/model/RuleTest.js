@@ -30,7 +30,7 @@ describe('Rule', () => {
       },
       {
         input: {
-          field: new CardData(Constants.CardMarkJoker, Constants.CardJokerNum),
+          field: new CardData(Constants.CardMarkJokerA, Constants.CardJokerNum),
           target: new CardData(Constants.CardMarkHeart, 5),
         },
         output: true,
@@ -38,7 +38,7 @@ describe('Rule', () => {
       {
         input: {
           field: new CardData(Constants.CardMarkClub, 13),
-          target: new CardData(Constants.CardMarkJoker, Constants.CardJokerNum),
+          target: new CardData(Constants.CardMarkJokerA, Constants.CardJokerNum),
         },
         output: true,
       },

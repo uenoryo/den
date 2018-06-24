@@ -37,8 +37,8 @@ export default class God {
     }
 
     // Prepare Joker x2
-    cards.push(new CardData(Constants.CardMarkJoker, Constants.CardJokerNum))
-    cards.push(new CardData(Constants.CardMarkJoker, Constants.CardJokerNum))
+    cards.push(new CardData(Constants.CardMarkJokerA, Constants.CardJokerNum))
+    cards.push(new CardData(Constants.CardMarkJokerB, Constants.CardJokerNum))
 
     let data = new DeckData(cards)
     return new Deck(data)

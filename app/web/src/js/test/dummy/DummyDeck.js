@@ -13,7 +13,7 @@ export default class Deck {
       new CardData(Constants.CardMarkDiamond, 2),
       new CardData(Constants.CardMarkHeart, 2),
       new CardData(Constants.CardMarkSpade, 2),
-      new CardData(Constants.CardMarkJoker, Constants.CardJokerNum),
+      new CardData(Constants.CardMarkJokerA, Constants.CardJokerNum),
     ]
   }
 }

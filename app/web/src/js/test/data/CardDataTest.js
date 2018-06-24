@@ -51,11 +51,11 @@ describe('CardData', () => {
     })
 
     it('Jokerは特別な数字で扱う', () => {
-      new CardData(Constants.CardMarkJoker, Constants.CardJokerNum)
+      new CardData(Constants.CardMarkJokerB, Constants.CardJokerNum)
     })
 
     it('Jokerの数字がおかしい場合はエラーになる', () => {
-      assert.throws(() => {new CardData(Constants.CardMarkJoker, 10)})
+      assert.throws(() => {new CardData(Constants.CardMarkJokerB, 10)})
     })
   })
 

@@ -55,8 +55,8 @@ describe('God', () => {
         assert.equal(deck.data.Cards[25].Num, 7)
       })
 
-      it('Cards[53] は Joker', () => {
-        assert.equal(deck.data.Cards[53].Mark, Constants.CardMarkJoker)
+      it('Cards[53] は Joker B', () => {
+        assert.equal(deck.data.Cards[53].Mark, Constants.CardMarkJokerB)
         assert.equal(deck.data.Cards[53].Num, Constants.CardJokerNum)
       })
     })

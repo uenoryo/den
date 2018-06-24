@@ -13,7 +13,8 @@ export default class CardData {
       mark !== Constants.CardMarkDiamond &&
       mark !== Constants.CardMarkHeart &&
       mark !== Constants.CardMarkSpade &&
-      mark !== Constants.CardMarkJoker
+      mark !== Constants.CardMarkJokerA &&
+      mark !== Constants.CardMarkJokerB
     ) {
       throw new Error(`Invalid Card Mark[${mark}].`)
     }
@@ -27,7 +28,10 @@ export default class CardData {
       throw new Error(`Invalid Card Num[${num}]`)
     }
 
-    if (this.Mark === Constants.CardMarkJoker && num !== Constants.CardJokerNum) {
+    if (
+      (this.Mark === Constants.CardMarkJokerA || this.Mark === Constants.CardMarkJokerB)
+      && num !== Constants.CardJokerNum
+    ) {
       throw new Error(`Invalid Card Joker Num[${num}]`)
     }
 
@@ -61,7 +65,9 @@ export default class CardData {
         return Constants.CardMarkHeartString + ' ' + strNum
       case Constants.CardMarkSpade:
         return Constants.CardMarkSpadeString + ' ' + strNum
-      case Constants.CardMarkJoker:
+      case Constants.CardMarkJokerA:
+        return Constants.CardMarkJokerString + ' ' + strNum
+      case Constants.CardMarkJokerB:
         return Constants.CardMarkJokerString + ' ' + strNum
       default:
         return ''
