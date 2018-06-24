@@ -1,19 +1,14 @@
 <template>
   <div class='game'>
     <div class='hands'>
-      <h1>手札一覧</h1>
-      <br>
-      <div v-for='player, id in players'>
-        <h2>
-          プレイヤーID: {{ player.data.ID }}
-          <span v-if='dealerPlayerIsTurnPlayer(id)'>[ターンプレイヤー]</span>
-          <button @click='den(id)'>DEN</button>
-        </h2>
-        <span v-for='card, handIdx in player.hand.Cards'>
-          <span @click='put(id, handIdx)'>[{{ card.toString() }}]</span>
-        </span>
-        <br>
-        <br>
+      <div v-for='player, id in players' class='PlayerCardArea' :class='["PlayerCardArea__ID" + id]'>
+        <div
+          v-for='card, handIdx in player.hand.Cards'
+          @click='put(id, handIdx)'
+          class='Card'
+          :class='["Card__ID" + card.score()]'>
+          [{{ card.toString() }}]
+        </div>
       </div>
     </div>
     <div class='field'>
@@ -37,6 +32,12 @@
     </div>
   </div>
 </template>
+
+<style>
+  body {
+    background-color: #ccc;
+  }
+</style>
 
 <script>
 import Config from '@/config'

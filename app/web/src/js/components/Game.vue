@@ -3,13 +3,14 @@
     <div class='hands'>
       <h1>手札一覧</h1>
       <br>
-      <div v-for='player in players'>
+      <div v-for='player, id in players'>
         <h2>
           プレイヤーID: {{ player.data.ID }}
-          <span v-if='dealer.turnPlayer(players).data.ID === player.data.ID'>[ターンプレイヤー]</span>
+          <span v-if='dealerPlayerIsTurnPlayer(id)'>[ターンプレイヤー]</span>
+          <button @click='den(id)'>DEN</button>
         </h2>
-        <span v-for='card in player.hand.Cards'>
-          [{{ card.toString() }}]
+        <span v-for='card, handIdx in player.hand.Cards'>
+          <span @click='put(id, handIdx)'>[{{ card.toString() }}]</span>
         </span>
         <br>
         <br>
@@ -32,7 +33,7 @@
       <div>残り: {{ dealer.deck.cardNum() }}枚</div>
     </div>
     <div class='controller'>
-      <button @click='step()'>ゲームを進める</button>
+      <button @click='draw()'>カードを引く</button>
     </div>
   </div>
 </template>
