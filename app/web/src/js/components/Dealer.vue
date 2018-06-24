@@ -1,5 +1,6 @@
 <script>
 import Constants from '@/constants'
+import Rule from '@/models/Rule'
 
 export default {
   name: 'Dealer',
@@ -31,11 +32,23 @@ export default {
     dealerPutCard () {
       this.dealer.put()
     },
-    dealerCanReceiveCard () {
-      return this.isBusy === false
+    dealerPlayerIsTurnPlayer(playerID) {
+      return this.dealer.playerIsTurnPlayer(playerID)
     },
-    dealerReceiveCard () {
-      alert("Dealer receive card.")
+    // Todo: dealer.isBusyをモデルで管理する
+    dealerCanReceiveCard (card) {
+      if (this.isBusy) {
+        return false
+      }
+
+      if (! Rule.canPut(this.dealer.fieldCard(), card)) {
+        return false
+      }
+
+      return true
+    },
+    dealerReceiveCard (card) {
+      this.dealer.receive(card)
       this.isBusy = true
       setTimeout(() => {
         this.isBusy = false
@@ -43,6 +56,40 @@ export default {
     },
     dealerRejectReceivingCard () {
       alert("Dealer reject receiving card.")
+    },
+    dealerTriggerCardSkill () {
+      if (this.dealer.fieldCard() === null) {
+        return
+      }
+      switch (this.dealer.fieldCard().Num) {
+        case Constants.CardSkillBack:
+          this.dealer.reverseTurnTable()
+          this.dealer.goNextTurn()
+          break
+
+        case Constants.CardSkillSkip:
+          this.dealer.goNextTurn()
+          this.dealer.goNextTurn()
+          break
+
+        case Constants.CardSkillDrawTwo:
+          this.dealer.increaseForceDrawAmount(2)
+          this.dealer.changePhase('ForceDraw')
+          this.dealer.goNextTurn()
+          break
+
+        case Constants.CardSkillChangeMark:
+          this.dealer.changePhase('ChangeMark')
+
+        case Constants.CardSkillAttach:
+          this.dealer.changePhase('Attach')
+          break
+
+        default:
+          this.dealer.changePhase()
+          this.dealer.goNextTurn()
+          break
+      }
     }
   }
 }

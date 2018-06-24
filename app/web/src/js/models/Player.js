@@ -20,6 +20,13 @@ export default class Player {
     this.sort()
   }
 
+  show(idx) {
+    if (idx < 0 || idx >= this.hand.Cards.length) {
+      return null
+    }
+    return this.hand.Cards[idx]
+  }
+
   pick(idx) {
     if (idx < 0 || idx >= this.hand.Cards.length) {
       throw new Error(`Invalid idx[${idx}] to pick card from hand`)

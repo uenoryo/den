@@ -40,6 +40,10 @@ export default {
   DeckShuffleRemainingAmount: 0,
 
   // Dealer
+  DealerPhaseNormal: 0,
+  DealerPhaseForceDraw: 1,
+  DealerPhaseAttach: 2,
+  DealerPhaseChangeMark: 3,
   DealerReceiveCardIntervalMs: 2000,
 
   // ActionType

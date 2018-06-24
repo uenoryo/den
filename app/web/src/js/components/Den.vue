@@ -6,7 +6,7 @@
       <div v-for='player, id in players'>
         <h2>
           プレイヤーID: {{ player.data.ID }}
-          <span v-if='dealer.turnPlayer(players).data.ID === player.data.ID'>[ターンプレイヤー]</span>
+          <span v-if='dealerPlayerIsTurnPlayer(id)'>[ターンプレイヤー]</span>
         </h2>
         <span v-for='card, handIdx in player.hand.Cards'>
           <span @click='put(id, handIdx)'>[{{ card.toString() }}]</span>
@@ -65,52 +65,16 @@ export default {
       this.dealerPutCard()
     },
     put (id, handIdx) {
-      if (this.dealerCanReceiveCard()) {
-        this.dealerReceiveCard()
+      if (! this.dealerPlayerIsTurnPlayer(id)) {
+        return
+      }
+
+      if (this.dealerCanReceiveCard(this.players[id].show(handIdx))) {
+        this.dealerReceiveCard(this.players[id].pick(handIdx))
+
+        this.dealerTriggerCardSkill()
       } else {
         this.dealerRejectReceivingCard()
-      }
-    },
-    action (id, type, handIdx) {
-      switch (type) {
-        case Constants.ActionTypeDraw:
-          this.dealer.deal(this.players[id])
-          if (Rule.isPank(this.players[id].hand)) {
-            alert(`プレイヤー${id}の負け`)
-            break
-          }
-          this.dealer.goNextTurn()
-          break
-        case Constants.ActionTypeForceDraw:
-          this.dealer.forceDeal(this.players[id])
-          if (Rule.isPank(this.players[id].hand)) {
-            alert(`プレイヤー${id}の負け`)
-            break
-          }
-          break
-        case Constants.ActionTypePut:
-          let card = this.players[id].hand.Cards[handIdx]
-          this.players[id].put(handIdx, this.dealer)
-          if (this.players[id].hasNoCard()) {
-            alert(`プレイヤー${id}の勝ち`)
-            break
-          }
-          this.behave(this.players[id], card)
-          this.dealer.goNextTurn()
-          break
-      }
-    },
-    behave (player, card) {
-      switch (card.Num) {
-        case Constants.CardSkillBack:
-          this.dealer.reverseTurnTable()
-          break
-        case Constants.CardSkillSkip:
-          this.dealer.goNextTurn()
-          break
-        case Constants.CardSkillDrawTwo:
-          this.dealer.forceDrawAmount += 2
-          break
       }
     },
   }

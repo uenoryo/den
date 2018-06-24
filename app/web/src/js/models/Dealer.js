@@ -8,6 +8,8 @@ export default class Dealer {
       throw new Error(`Invalid deck [${deck.constructor.name}]`)
     }
     this.deck = deck
+    this.phase = Constants.DealerPhaseNormal
+    this.fieldCardOwnerID = null
     this.field = new FieldData([])
     this.turnTable = Config.Turn
     this.forceDrawAmount = 0
@@ -87,16 +89,8 @@ export default class Dealer {
     this.turn = this.turnTable[turnIdx]
   }
 
-  turnPlayer(players) {
-    for (let id in players) {
-      if (players[id].constructor.name !== 'Player') {
-        throw new Error(`${players[id].constructor.name} is not Player`)
-      }
-      if (id == this.turn) {
-        return players[id]
-      }
-    }
-    return null
+  playerIsTurnPlayer(id) {
+    return parseInt(id) === this.turn
   }
 
   reverseTurnTable() {
@@ -105,5 +99,26 @@ export default class Dealer {
 
   isForceDrawMode() {
     return this.forceDrawAmount > 0
+  }
+
+  increaseForceDrawAmount(amount) {
+     this.forceDrawAmount += amount
+  }
+
+  changePhase(phase) {
+    switch(phase) {
+      case 'ForceDraw':
+        this.phase = Constants.DealerPhaseForceDraw
+        break
+      case 'Attach':
+        this.phase = Constants.DealerPhaseAttach
+        break
+      case 'ChangeMark':
+        this.phase = Constants.DealerPhaseChangeMark
+        break
+      default:
+        this.phase = Constants.DealerPhaseNormal
+        break
+    }
   }
 }
