@@ -32,6 +32,21 @@ export default {
     dealerPutCard () {
       this.dealer.put()
     },
+    dealerGoNextTurn () {
+      this.dealer.goNextTurn()
+    },
+    dealerDeal(playerID) {
+      this.dealer.deal(this.players[playerID])
+      if (Rule.isPank(this.players[playerID].hand)) {
+        alert(`[パンク] プレイヤー${playerID}の負け`)
+      }
+    },
+    dealerTurnPlayer() {
+      if (this.players[this.dealer.turn] === undefined) {
+        return null
+      }
+      return this.players[this.dealer.turn]
+    },
     dealerPlayerIsTurnPlayer(playerID) {
       return this.dealer.playerIsTurnPlayer(playerID)
     },
@@ -46,6 +61,11 @@ export default {
       }
 
       return true
+    },
+    dealerCheckDone (player) {
+      if (player.hasNoCard()) {
+        alert(`[素上がり]Player ${player.data.ID}の勝ち`)
+      }
     },
     dealerReceiveCard (card) {
       this.dealer.receive(card)
@@ -64,18 +84,18 @@ export default {
       switch (this.dealer.fieldCard().Num) {
         case Constants.CardSkillBack:
           this.dealer.reverseTurnTable()
-          this.dealer.goNextTurn()
+          this.dealerGoNextTurn()
           break
 
         case Constants.CardSkillSkip:
-          this.dealer.goNextTurn()
-          this.dealer.goNextTurn()
+          this.dealerGoNextTurn()
+          this.dealerGoNextTurn()
           break
 
         case Constants.CardSkillDrawTwo:
           this.dealer.increaseForceDrawAmount(2)
           this.dealer.changePhase('ForceDraw')
-          this.dealer.goNextTurn()
+          this.dealerGoNextTurn()
           break
 
         case Constants.CardSkillChangeMark:
@@ -87,7 +107,7 @@ export default {
 
         default:
           this.dealer.changePhase()
-          this.dealer.goNextTurn()
+          this.dealerGoNextTurn()
           break
       }
     }

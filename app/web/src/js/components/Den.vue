@@ -32,7 +32,7 @@
       <div>残り: {{ dealer.deck.cardNum() }}枚</div>
     </div>
     <div class='controller'>
-      <button @click='step()'>ゲームを進める</button>
+      <button @click='draw()'>カードを引く</button>
     </div>
   </div>
 </template>
@@ -41,11 +41,12 @@
 import Config from '@/config'
 import Constants from '@/constants'
 import Dealer from '@/components/Dealer'
+import Computer from '@/components/Computer'
 import Rule from '@/models/Rule'
 
 export default {
   name: 'Den',
-  mixins: [Dealer],
+  mixins: [Dealer, Computer],
   data() {
     return {
       players: null,
@@ -53,6 +54,7 @@ export default {
   },
   beforeMount () {
     this.setup()
+    this.computerStandby(this.autoPutAction, this.autoDenAction)
   },
   methods: {
     setup () {
@@ -72,10 +74,33 @@ export default {
       if (this.dealerCanReceiveCard(this.players[id].show(handIdx))) {
         this.dealerReceiveCard(this.players[id].pick(handIdx))
 
+        this.dealerCheckDone(this.players[id])
+
         this.dealerTriggerCardSkill()
       } else {
         this.dealerRejectReceivingCard()
       }
+    },
+    draw () {
+      this.dealerDeal(this.dealerTurnPlayer().data.ID)
+      this.dealerGoNextTurn()
+    },
+    autoPutAction() {
+      if (! this.dealerTurnPlayer().isComputer()) {
+        return
+      }
+
+      if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard())) {
+        this.put(
+          this.dealerTurnPlayer().data.ID,
+          this.dealerTurnPlayer().think(this.dealer.fieldCard())
+        )
+      } else {
+        this.draw()
+      }
+    },
+    autoDenAction() {
+      console.log('den')
     },
   }
 }
