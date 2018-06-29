@@ -1,26 +1,36 @@
 <template>
-  <div class='game'>
-    <div class='hands'>
-      <div v-for='player, id in players' class='PlayerCardArea' :class='["PlayerCardArea__ID" + id]'>
-        <div
-          v-for='card, handIdx in player.hand.Cards'
-          @click='put(id, handIdx)'
-          class='Sleeve'>
-          <div v-if='player.isHuman()' class='Card' :class='["Card__ID" + card.id()]'></div>
-          <div v-else='player.isHuman()' class='Card Card--reversed' :class='["Card__ID" + card.id()]'></div>
+  <div class='gameContainer'>
+    <div class='ads'>
+      ads
+    </div>
+    <div class='game'>
+      <div class='hands'>
+        <div v-for='player, id in players' class='PlayerCardArea' :class='["PlayerCardArea__ID" + id]'>
+          <div
+            v-for='card, handIdx in player.hand.Cards'
+            @click='put(id, handIdx)'
+            class='Sleeve'>
+            <div v-if='player.isHuman()' class='Card' :class='["Card__ID" + card.id()]'></div>
+            <div v-else='player.isHuman()' class='Card Card--reversed' :class='["Card__ID" + card.id()]'></div>
+          </div>
+        </div>
+      </div>
+      <div class='field'>
+        <div class='Sleeve'>
+          <div
+            v-if='dealer.fieldCard() !== null'
+            class='Card'
+            :class='["Card__ID" + dealer.fieldCard().id()]'>
+          </div>
+        </div>
+      </div>
+      <div class='deck'>
+        <div class='Sleeve'>
+          <div @click='draw()' class='Card Card--reversed'></div>
         </div>
       </div>
     </div>
-    <div class='field'>
-      <div
-        v-if='dealer.fieldCard() !== null'
-        class='Card'
-        :class='["Card__ID" + dealer.fieldCard().id()]'>
-      </div>
-    </div>
-    <div class='deck'>
-      <div @click='draw()' class='Card Card--reversed'></div>
-    </div>
+    <div class='gameBottomSpace'></div>
   </div>
 </template>
 

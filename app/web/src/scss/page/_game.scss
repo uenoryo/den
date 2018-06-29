@@ -1,16 +1,56 @@
-body {
+html, body {
+  height: 100%;
+}
+.full {
+  height: 100%;
+}
+
+.ads {
+  height: 80px;
+  background-color: #fffa;
+  border-radius: 4px;
+  margin: 4px;
+  z-index: 99;
+  @include pc-layout {
+    height: 12px;
+    background-color: #fff0;
+  }
+}
+
+.gameContainer {
   background-image: url(/img/bg/bg_green.png);
   background-position: center;
   background-size: cover;
+  position: relative;
+  max-width: 1000px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.game {
+  flex: auto;
+  position: relative;
+}
+
+.gameBottomSpace {
+  height: 12px;
+}
+
+.Sleeve {
+  position: relative;
 }
 
 .Card {
-  width: 70px;
-  height: 100px;
+  width: $sp_card_width;
+  height: $sp_card_height;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
+  left: -1 * $sp_card_width / 2;
+  top: -1 * $sp_card_height / 2;
   @for $i from 0 through 54 {
     &__ID#{$i} {
       background-image: url(/img/cards/card#{$i}.png)
@@ -19,18 +59,23 @@ body {
   &--reversed {
     background-image: url(/img/cards/card_red.png)
   }
+  @include pc-layout {
+    width: $pc_card_width;
+    height: $pc_card_height;
+    left: -1 * $pc_card_width / 2;
+    top: -1 * $pc_card_height / 2;
+  }
 }
 
 .PlayerCardArea__ID1, .PlayerCardArea__ID3 {
   display: flex;
   justify-content: space-between;
-  width: 50%;
-  padding-right: 50px;
+  width: 80%;
   position: absolute;
   left: 0;
   right: 0;
   margin: auto;
-  max-width: 300px;
+  max-width: 600px;
 }
 
 .PlayerCardArea__ID2, .PlayerCardArea__ID4 {
@@ -46,7 +91,10 @@ body {
 }
 
 .PlayerCardArea__ID1 {
-  bottom: 0;
+  bottom: $sp_card_height / 2;
+  @include pc-layout {
+    bottom: $pc_card_height / 2;
+  }
 }
 
 .PlayerCardArea__ID2 {
@@ -55,33 +103,43 @@ body {
   .Card {
     transform:rotate(90deg);
   }
+  @include wide-layout {
+    left: $pc_card_width;
+  }
 }
 
 .PlayerCardArea__ID3 {
-  top: 0;
+  top: $sp_card_height / 2;
+  @include pc-layout {
+    top: $pc_card_height / 2;
+  }
 }
 
 .PlayerCardArea__ID4 {
-  right: 12%;
+  right: 0;
   flex-direction: column-reverse;
   .Card {
     transform:rotate(-90deg);
+  }
+  @include wide-layout {
+    right: $pc_card_width;
   }
 }
 
 .deck {
   position: absolute;
-  top: 40%;
+  top: 45%;
   left: 40%;
+  @include wide-layout {
+    left: 43%;
+  }
 }
 
 .field {
   position: absolute;
-  top: 40%;
-  left: 55%;
-}
-
-
-.Sleeve {
-  height: 100px;
+  top: 45%;
+  right: 40%;
+  @include wide-layout {
+    right: 43%;
+  }
 }

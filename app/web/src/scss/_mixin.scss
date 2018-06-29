@@ -9,3 +9,9 @@
         @content;
     }
 }
+
+@mixin wide-layout {
+    @media (min-width: ($wide_width)) {
+        @content;
+    }
+}

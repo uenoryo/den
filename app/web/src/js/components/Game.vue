@@ -1,39 +1,41 @@
 <template>
-  <div class='game'>
-    <div class='hands'>
-      <h1>手札一覧</h1>
+  <div class='gameContainer'>
+    <div class='game'>
+      <div class='hands'>
+        <h1>手札一覧</h1>
+        <br>
+        <div v-for='player, id in players'>
+          <h2>
+            プレイヤーID: {{ player.data.ID }}
+            <span v-if='dealerPlayerIsTurnPlayer(id)'>[ターンプレイヤー]</span>
+            <button @click='den(id)'>DEN</button>
+          </h2>
+          <span v-for='card, handIdx in player.hand.Cards'>
+            <span @click='put(id, handIdx)'>[{{ card.toString() }}]</span>
+          </span>
+          <br>
+          <br>
+        </div>
+      </div>
+      <div class='field'>
+        <h1>フィールド</h1>
+        <div>
+          <span v-if='dealer.fieldCard() !== null'>
+            [{{ dealer.fieldCard().toString() }}]
+          </span>
+          <span v-else>
+            [何も出ていない]
+          </span>
+        </div>
+      </div>
       <br>
-      <div v-for='player, id in players'>
-        <h2>
-          プレイヤーID: {{ player.data.ID }}
-          <span v-if='dealerPlayerIsTurnPlayer(id)'>[ターンプレイヤー]</span>
-          <button @click='den(id)'>DEN</button>
-        </h2>
-        <span v-for='card, handIdx in player.hand.Cards'>
-          <span @click='put(id, handIdx)'>[{{ card.toString() }}]</span>
-        </span>
-        <br>
-        <br>
+      <div class='deck'>
+        <h1>デッキ</h1>
+        <div>残り: {{ dealer.deck.cardNum() }}枚</div>
       </div>
-    </div>
-    <div class='field'>
-      <h1>フィールド</h1>
-      <div>
-        <span v-if='dealer.fieldCard() !== null'>
-          [{{ dealer.fieldCard().toString() }}]
-        </span>
-        <span v-else>
-          [何も出ていない]
-        </span>
+      <div class='controller'>
+        <button @click='draw()'>カードを引く</button>
       </div>
-    </div>
-    <br>
-    <div class='deck'>
-      <h1>デッキ</h1>
-      <div>残り: {{ dealer.deck.cardNum() }}枚</div>
-    </div>
-    <div class='controller'>
-      <button @click='draw()'>カードを引く</button>
     </div>
   </div>
 </template>
