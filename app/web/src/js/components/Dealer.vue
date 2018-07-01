@@ -88,6 +88,7 @@ export default {
     dealerCheckDone (player) {
       if (player.hasNoCard()) {
         alert(`[素上がり]Player ${player.data.ID}の勝ち`)
+        this.gameSet()
       }
     },
 
