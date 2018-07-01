@@ -33,7 +33,7 @@ export default {
   CardMarkJokerString: '$',
 
   CardMinNum: 0,
-  CardMaxNum: 13,
+  CardMaxNum: 8,
   CardJokerNum: 0,
 
   // CardSkill

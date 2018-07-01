@@ -163,6 +163,12 @@ export default {
         return
       }
 
+      // WildCard
+      if (this.dealerIsChangeMarkPhase()) {
+        this.reply(this.dealerTurnPlayer().data.ID, this.dealerTurnPlayer().thinkChangeMark())
+        return
+      }
+
       // 通常
       if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
         this.put(

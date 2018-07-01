@@ -94,6 +94,21 @@ export default class Player {
     return null
   }
 
+  thinkChangeMark() {
+    switch(this.hand.Cards[0].Mark) {
+      case Constants.CardMarkClub:
+        return Constants.PlayerReplyChangeMarkClub
+      case Constants.CardMarkDiamond:
+        return Constants.PlayerReplyChangeMarkDiamond
+      case Constants.CardMarkHeart:
+        return Constants.PlayerReplyChangeMarkHeart
+      case Constants.CardMarkSpade:
+        return Constants.PlayerReplyChangeMarkSpade
+      default:
+        return Constants.PlayerReplyChangeMarkJoker
+    }
+  }
+
   hasNoCard() {
     return this.hand.Cards.length === 0
   }
