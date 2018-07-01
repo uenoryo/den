@@ -137,7 +137,7 @@ export default {
         return
       }
 
-      // ForceDrawの場合
+      // ForceDraw
       if (this.dealerIsForceDrawPhase()) {
         if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
           this.put(
@@ -150,10 +150,24 @@ export default {
         return
       }
 
-      if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard())) {
+      // Attach
+      if (this.dealerIsAttachPhase()) {
+        if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
+          this.put(
+            this.dealerTurnPlayer().data.ID,
+            this.dealerTurnPlayer().think(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())
+          )
+        } else {
+          this.reply(this.dealerTurnPlayer().data.ID, Constants.PlayerReplyAttachPass)
+        }
+        return
+      }
+
+      // 通常
+      if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
         this.put(
           this.dealerTurnPlayer().data.ID,
-          this.dealerTurnPlayer().think(this.dealer.fieldCard())
+          this.dealerTurnPlayer().think(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())
         )
       } else {
         this.draw()

@@ -105,18 +105,20 @@ export default {
       }
       switch (this.dealer.fieldCard().Num) {
         case Constants.CardSkillBack:
+          this.dealer.changePhase()
           this.dealer.reverseTurnTable()
           this.dealerGoNextTurn()
           break
 
         case Constants.CardSkillSkip:
+          this.dealer.changePhase()
           this.dealerGoNextTurn()
           this.dealerGoNextTurn()
           break
 
         case Constants.CardSkillDrawTwo:
-          this.dealer.increaseForceDrawAmount(2)
           this.dealer.changePhase(Constants.DealerPhaseForceDraw)
+          this.dealer.increaseForceDrawAmount(2)
           this.dealerGoNextTurn()
           break
 
