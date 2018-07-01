@@ -137,6 +137,6 @@ export default class Player {
   }
 
   handIsReversed () {
-    return this.hand.isReversed
+    return this.hand.IsReversed
   }
 }

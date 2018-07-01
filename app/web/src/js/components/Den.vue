@@ -11,7 +11,7 @@
             @click='put(id, handIdx)'
             :class='{"Sleeve--disabled":dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman() && !dealerCanPut(card)}'
             class='Sleeve'>
-            <div v-if='player.isHuman()' class='Card' :class='["Card__ID" + card.id()]'></div>
+            <div v-if='player.isHuman() || player.handIsReversed()' class='Card' :class='["Card__ID" + card.id()]'></div>
             <div v-else='player.isHuman()' class='Card Card--reversed' :class='["Card__ID" + card.id()]'></div>
           </div>
           <div
@@ -89,6 +89,7 @@ export default {
       constants: null,
       rule: null,
       players: null,
+      isGameSet: false,
     }
   },
 
@@ -112,7 +113,7 @@ export default {
     },
 
     put (id, handIdx) {
-      if (! this.dealerPlayerIsTurnPlayer(id)) {
+      if (! this.dealerPlayerIsTurnPlayer(id) || this.isGameSet) {
         return
       }
 
@@ -130,6 +131,9 @@ export default {
     },
 
     draw () {
+      if (this.isGameSet) {
+        return
+      }
       this.dealerDeal(this.dealerTurnPlayer())
       this.dealerGoNextTurn()
       this.computerResetPutTimer(this.autoPutAction)
@@ -199,6 +203,12 @@ export default {
         }
         this.dealerJudgeDen(this.players[idx])
       }
+    },
+
+    gameSet () {
+      this.isGameSet = true
+      this.computerStopPutTimer()
+      this.computerStopDenTimer()
     },
   }
 }

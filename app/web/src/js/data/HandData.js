@@ -24,6 +24,6 @@ export default class HandData {
     if (typeof isReversed !== 'boolean') {
       throw new Error(`Invalid isReversed [${isReversed}].`)
     }
-    this.isReversed = isReversed
+    this.IsReversed = isReversed
   }
 }

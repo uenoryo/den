@@ -95,9 +95,11 @@ export default {
       if (this.dealerPlayerIsTurnPlayer(player.data.ID)) {
         return
       }
-      if (parseInt(this.dealer.fieldCard().Num) !== player.handCardNumTotal()) {
+      if (this.isGameSet === false && parseInt(this.dealer.fieldCard().Num) === player.handCardNumTotal()) {
+        player.openHand()
         alert('DEN')
         alert(`${player.data.ID}の勝ち`)
+        this.gameSet()
       }
     },
 

@@ -16,19 +16,27 @@ export default {
     },
 
     computerResetPutTimer (putAction) {
-      if (this.putTimer === undefined) {
-        return
-      }
-      clearInterval(this.putTimer);
+      this.computerStopPutTimer()
       this.computerStartPutTimer(putAction)
     },
 
     computerResetDenTimer (denAction) {
+      this.computerStopDenTimer()
+      this.computerStartDenTimer(denAction)
+    },
+
+    computerStopPutTimer () {
+      if (this.putTimer === undefined) {
+        return
+      }
+      clearInterval(this.putTimer);
+    },
+
+    computerStopDenTimer () {
       if (this.denTimer === undefined) {
         return
       }
       clearInterval(this.denTimer);
-      this.computerStartDenTimer(denAction)
     },
 
     computerStartPutTimer (putAction) {
