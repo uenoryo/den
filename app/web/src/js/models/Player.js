@@ -127,4 +127,16 @@ export default class Player {
   isComputer() {
     return this.data.Type === Constants.PlayerTypeComputer
   }
+
+  openHand () {
+    this.hand.isReversed(true)
+  }
+
+  closeHand () {
+    this.hand.isReversed(false)
+  }
+
+  handIsReversed () {
+    return this.hand.isReversed
+  }
 }

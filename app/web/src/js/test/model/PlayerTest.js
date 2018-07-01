@@ -174,4 +174,16 @@ describe('Player', () => {
       })
     })
   })
+
+  describe('openHand()', () => {
+    it('手札を公開できる')
+  })
+
+  describe('closeHand()', () => {
+    it('手札を秘匿できる')
+  })
+
+  describe('handIsReversed()', () => {
+    it('手札が公開されているかどうかを返すことができる')
+  })
 })

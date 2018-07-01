@@ -1,11 +1,12 @@
 import Constants from '../constants'
 
 export default class HandData {
-  constructor(cards) {
+  constructor (cards) {
     this.cards(cards)
+    this.isReversed(false)
   }
 
-  cards(cards) {
+  cards (cards) {
     if (Array.isArray(cards) === false) {
       throw new Error(`Invalid Cards [${cards}].`)
     }
@@ -17,5 +18,12 @@ export default class HandData {
     }
 
     this.Cards = cards
+  }
+
+  isReversed (isReversed) {
+    if (typeof isReversed !== 'boolean') {
+      throw new Error(`Invalid isReversed [${isReversed}].`)
+    }
+    this.isReversed = isReversed
   }
 }
