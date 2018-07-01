@@ -106,19 +106,13 @@ export default class Dealer {
   }
 
   changePhase(phase) {
-    switch(phase) {
-      case 'ForceDraw':
-        this.phase = Constants.DealerPhaseForceDraw
-        break
-      case 'Attach':
-        this.phase = Constants.DealerPhaseAttach
-        break
-      case 'ChangeMark':
-        this.phase = Constants.DealerPhaseChangeMark
-        break
-      default:
-        this.phase = Constants.DealerPhaseNormal
-        break
+    this.phase = Constants.DealerPhaseNormal;
+    if (
+      phase === Constants.DealerPhaseForceDraw ||
+      phase === Constants.DealerPhaseAttach ||
+      phase === Constants.DealerPhaseChangeMark
+    ) {
+      this.phase = phase;
     }
   }
 }

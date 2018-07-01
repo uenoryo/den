@@ -7,6 +7,9 @@ export default {
   Player3ID: 3,
   Player4ID: 4,
 
+  PlayerReplyAttachAttach: 10,
+  PlayerReplyAttachPass: 11,
+
   // Hand
   PlayerHandStartAmount: 7,
   PlayerHandMaxAmount: 13,

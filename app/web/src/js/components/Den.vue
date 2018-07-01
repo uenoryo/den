@@ -13,6 +13,14 @@
             <div v-if='player.isHuman()' class='Card' :class='["Card__ID" + card.id()]'></div>
             <div v-else='player.isHuman()' class='Card Card--reversed' :class='["Card__ID" + card.id()]'></div>
           </div>
+          <div
+            class='modal'
+            :class='{open:dealerIsAttachPhase() && dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman()}'>
+            <div>追加でカードを出すことができます</div>
+            <div>
+              <div @click='reply(id, constants.PlayerReplyAttachPass)'>パス</div>
+            </div>
+          </div>
         </div>
       </div>
       <div class='field'>
@@ -26,7 +34,15 @@
       </div>
       <div class='deck'>
         <div class='Sleeve'>
-          <div @click='draw()' class='Card Card--reversed'></div>
+          <div
+            v-if='dealerTurnPlayer().isHuman()'
+            @click='draw()'
+            class='Card Card--reversed'
+          ></div>
+          <div
+            v-else
+            class='Card Card--reversed'
+          ></div>
         </div>
       </div>
     </div>
@@ -47,9 +63,11 @@ export default {
   data() {
     return {
       players: null,
+      constants: null,
     }
   },
   beforeMount () {
+    this.constants = Constants
     this.setup()
     this.computerStandby(this.autoPutAction, this.autoDenAction)
   },
@@ -80,8 +98,11 @@ export default {
       }
     },
     draw () {
-      this.dealerDeal(this.dealerTurnPlayer().data.ID)
+      this.dealerDeal(this.dealerTurnPlayer())
       this.dealerGoNextTurn()
+    },
+    reply (id, type, param1, param2) {
+      this.dealerListenReply(this.players[id], type, param1, param2)
     },
     den (id) {
       this.dealerJudgeDen(this.players[id])

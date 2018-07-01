@@ -35,11 +35,18 @@ export default {
     dealerGoNextTurn () {
       this.dealer.goNextTurn()
     },
-    dealerDeal(playerID) {
-      this.dealer.deal(this.players[playerID])
-      if (Rule.isPank(this.players[playerID].hand)) {
-        alert(`[パンク] プレイヤー${playerID}の負け`)
+    dealerDeal(player) {
+      if (! this.canDeal(player)) {
+        return
       }
+      this.dealer.deal(player)
+      if (Rule.isPank(player.hand)) {
+        alert(`[パンク] プレイヤー${player.data.ID}の負け`)
+      }
+    },
+    canDeal(player) {
+      return this.dealer.playerIsTurnPlayer(player.data.ID)
+        && this.dealer.phase === Constants.DealerPhaseNormal
     },
     dealerTurnPlayer() {
       if (this.players[this.dealer.turn] === undefined) {
@@ -106,15 +113,15 @@ export default {
 
         case Constants.CardSkillDrawTwo:
           this.dealer.increaseForceDrawAmount(2)
-          this.dealer.changePhase('ForceDraw')
+          this.dealer.changePhase(Constants.DealerPhaseForceDraw)
           this.dealerGoNextTurn()
           break
 
         case Constants.CardSkillChangeMark:
-          this.dealer.changePhase('ChangeMark')
+          this.dealer.changePhase(Constants.DealerPhaseChangeMark)
 
         case Constants.CardSkillAttach:
-          this.dealer.changePhase('Attach')
+          this.dealer.changePhase(Constants.DealerPhaseAttach)
           break
 
         default:
@@ -122,6 +129,28 @@ export default {
           this.dealerGoNextTurn()
           break
       }
+    },
+    dealerListenReply (player, reply, param1, param2) {
+      if (! this.dealerPlayerIsTurnPlayer(player.data.ID)) {
+        return
+      }
+      switch (this.dealer.phase) {
+        case Constants.DealerPhaseAttach:
+          this.dealerListenReplyAttach(player, reply, param1, param2)
+          break
+      }
+    },
+    dealerListenReplyAttach (player, reply, param1, param2) {
+      switch (reply) {
+        case Constants.PlayerReplyAttachPass:
+          alert("出さないんかーーーい")
+          this.dealer.changePhase()
+          this.dealerGoNextTurn()
+          break
+      }
+    },
+    dealerIsAttachPhase () {
+      return this.dealer.phase === Constants.DealerPhaseAttach
     }
   }
 }
