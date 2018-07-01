@@ -22,6 +22,20 @@
               <div class='modal__foot btn' @click='reply(id, constants.PlayerReplyAttachPass)'>パス</div>
             </div>
           </div>
+          <div
+            class='modal'
+            :class='{open:dealerIsChangeMarkPhase() && dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman()}'>
+            <div class='modal__inner'>
+              <div class='modal__body'>変更するマークを選んでください</div>
+              <div class='modal__marks'>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkClub)' class='markItem Card__ID28'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkDiamond)' class='markItem Card__ID29'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkHeart)' class='markItem Card__ID30'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkSpade)' class='markItem Card__ID31'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkJoker)' class='markItem Card__ID52'></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class='field'>
@@ -104,8 +118,8 @@ export default {
       this.dealerDeal(this.dealerTurnPlayer())
       this.dealerGoNextTurn()
     },
-    reply (id, type, param1, param2) {
-      this.dealerListenReply(this.players[id], type, param1, param2)
+    reply (id, type, param) {
+      this.dealerListenReply(this.players[id], type, param)
     },
     den (id) {
       this.dealerJudgeDen(this.players[id])

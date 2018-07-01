@@ -199,6 +199,25 @@ html, body {
   display: none;
 }
 
+.modal__marks {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.markItem {
+  width: 36px;
+  height: 54px;
+  background-position: center;
+  background-size: cover;
+  @include pc-layout {
+    width: 50px;
+    height: 75px;
+    margin-top: 8px;
+  }
+}
+
 .btn {
   background-color: #ccc;
   padding: 8px 16px;

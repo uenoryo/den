@@ -69,6 +69,9 @@ export default class Dealer {
   }
 
   maintenance() {
+    // TODO 変えたマークを元に戻す
+    // カードのIDの仕組みから変えないとだめそう
+
     // 1枚だけフィールドに残し、その他をデッキに加える
     while (this.field.Cards.length > 1) {
       this.deck.data.Cards.push(this.field.Cards.pop())

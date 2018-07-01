@@ -134,17 +134,20 @@ export default {
           break
       }
     },
-    dealerListenReply (player, reply, param1, param2) {
+    dealerListenReply (player, reply, param) {
       if (! this.dealerPlayerIsTurnPlayer(player.data.ID)) {
         return
       }
       switch (this.dealer.phase) {
         case Constants.DealerPhaseAttach:
-          this.dealerListenReplyAttach(player, reply, param1, param2)
+          this.dealerListenReplyAttach(player, reply, param)
+          break
+        case Constants.DealerPhaseChangeMark:
+          this.dealerListenReplyChangeMark(player, reply, param)
           break
       }
     },
-    dealerListenReplyAttach (player, reply, param1, param2) {
+    dealerListenReplyAttach (player, reply, param) {
       switch (reply) {
         case Constants.PlayerReplyAttachPass:
           this.dealer.changePhase()
@@ -152,9 +155,41 @@ export default {
           break
       }
     },
+    dealerListenReplyChangeMark (player, reply, param) {
+      switch (reply) {
+        case Constants.PlayerReplyChangeMarkClub:
+          this.dealer.fieldCard().Mark = Constants.CardMarkClub
+          this.dealer.changePhase()
+          this.dealerGoNextTurn()
+          break
+        case Constants.PlayerReplyChangeMarkDiamond:
+          this.dealer.fieldCard().Mark = Constants.CardMarkDiamond
+          this.dealer.changePhase()
+          this.dealerGoNextTurn()
+          break
+        case Constants.PlayerReplyChangeMarkHeart:
+          this.dealer.fieldCard().Mark = Constants.CardMarkHeart
+          this.dealer.changePhase()
+          this.dealerGoNextTurn()
+          break
+        case Constants.PlayerReplyChangeMarkSpade:
+          this.dealer.fieldCard().Mark = Constants.CardMarkSpade
+          this.dealer.changePhase()
+          this.dealerGoNextTurn()
+          break
+        case Constants.PlayerReplyChangeMarkJoker:
+          this.dealer.fieldCard().Mark = Constants.CardMarkJokerA
+          this.dealer.changePhase()
+          this.dealerGoNextTurn()
+          break
+      }
+    },
     dealerIsAttachPhase () {
       return this.dealer.phase === Constants.DealerPhaseAttach
-    }
+    },
+    dealerIsChangeMarkPhase () {
+      return this.dealer.phase === Constants.DealerPhaseChangeMark
+    },
   }
 }
 </script>

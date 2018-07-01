@@ -5,6 +5,7 @@ export default class Rule {
     return (
       field.Mark === target.Mark ||
       field.Num === target.Num ||
+      target.Num === Constants.CardSkillWildCard ||
       target.Mark === Constants.CardMarkJokerA ||
       target.Mark === Constants.CardMarkJokerB ||
       field.Mark === Constants.CardMarkJokerA ||

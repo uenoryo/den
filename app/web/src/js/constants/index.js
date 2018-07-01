@@ -9,6 +9,11 @@ export default {
 
   PlayerReplyAttachAttach: 10,
   PlayerReplyAttachPass: 11,
+  PlayerReplyChangeMarkClub: 20,
+  PlayerReplyChangeMarkDiamond: 21,
+  PlayerReplyChangeMarkHeart: 22,
+  PlayerReplyChangeMarkSpade: 23,
+  PlayerReplyChangeMarkJoker: 24,
 
   // Hand
   PlayerHandStartAmount: 7,
