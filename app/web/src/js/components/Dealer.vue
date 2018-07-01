@@ -10,31 +10,38 @@ export default {
       isBusy: false,
     }
   },
+
   beforeMount () {
     let deck = this.god.createDeck()
 
     this.dealer = this.god.createDealer(deck)
   },
+
   methods: {
     dealerShuffleDeck () {
       this.dealer.shuffle()
     },
+
     dealerDealCardToPlayers () {
       for (let idx in this.players) {
         this.dealer.deal(this.players[idx])
       }
     },
+
     dealerDealCardToPlayersAtFirst () {
       for (let i = 0; i < Constants.PlayerHandStartAmount; i++) {
         this.dealerDealCardToPlayers()
       }
     },
+
     dealerPutCard () {
       this.dealer.put()
     },
+
     dealerGoNextTurn () {
       this.dealer.goNextTurn()
     },
+
     dealerDeal(player) {
       if (! this.dealerCanDeal(player)) {
         return
@@ -44,22 +51,27 @@ export default {
         alert(`[パンク] プレイヤー${player.data.ID}の負け`)
       }
     },
+
     dealerCanPut(card) {
       return Rule.canPut(this.dealer.fieldCard(), card, this.dealerIsForceDrawPhase())
     },
+
     dealerCanDeal(player) {
       return this.dealer.playerIsTurnPlayer(player.data.ID)
         && this.dealer.phase === Constants.DealerPhaseNormal
     },
+
     dealerTurnPlayer() {
       if (this.players[this.dealer.turn] === undefined) {
         return null
       }
       return this.players[this.dealer.turn]
     },
+
     dealerPlayerIsTurnPlayer(playerID) {
       return this.dealer.playerIsTurnPlayer(playerID)
     },
+
     // Todo: dealer.isBusyをモデルで管理する
     dealerCanReceiveCard (card) {
       if (this.isBusy) {
@@ -72,11 +84,13 @@ export default {
 
       return true
     },
+
     dealerCheckDone (player) {
       if (player.hasNoCard()) {
         alert(`[素上がり]Player ${player.data.ID}の勝ち`)
       }
     },
+
     dealerJudgeDen (player) {
       if (this.dealerPlayerIsTurnPlayer(player.data.ID)) {
         return
@@ -86,6 +100,7 @@ export default {
         alert(`${player.data.ID}の勝ち`)
       }
     },
+
     dealerReceiveCard (card) {
       this.dealer.receive(card)
       this.isBusy = true
@@ -93,9 +108,11 @@ export default {
         this.isBusy = false
       }, Constants.DealerReceiveCardIntervalMs)
     },
+
     dealerRejectReceivingCard () {
       alert("Dealer reject receiving card.")
     },
+
     dealerTriggerCardSkill () {
       if (this.dealer.fieldCard() === null) {
         return
@@ -133,6 +150,7 @@ export default {
           break
       }
     },
+
     dealerListenReply (player, reply, param) {
       if (! this.dealerPlayerIsTurnPlayer(player.data.ID)) {
         return
@@ -155,6 +173,7 @@ export default {
           break
       }
     },
+
     dealerListenReplyChangeMark (reply) {
       switch (reply) {
         case Constants.PlayerReplyChangeMarkClub:
@@ -184,6 +203,7 @@ export default {
           break
       }
     },
+
     dealerListenReplyForceDraw (player, reply) {
       switch (reply) {
         case Constants.PlayerReplyForceDrawDraw:
@@ -196,12 +216,15 @@ export default {
           break
       }
     },
+
     dealerIsAttachPhase () {
       return this.dealer.phase === Constants.DealerPhaseAttach
     },
+
     dealerIsChangeMarkPhase () {
       return this.dealer.phase === Constants.DealerPhaseChangeMark
     },
+
     dealerIsForceDrawPhase () {
       return this.dealer.phase === Constants.DealerPhaseForceDraw
         && this.dealer.forceDrawAmount > 0

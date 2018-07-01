@@ -91,6 +91,7 @@ export default {
       players: null,
     }
   },
+
   beforeMount () {
     this.config = Config
     this.constants = Constants
@@ -98,6 +99,7 @@ export default {
     this.setup()
     this.computerStandby(this.autoPutAction, this.autoDenAction)
   },
+
   methods: {
     setup () {
       this.players = this.god.createPlayers()
@@ -108,6 +110,7 @@ export default {
 
       this.dealerPutCard()
     },
+
     put (id, handIdx) {
       if (! this.dealerPlayerIsTurnPlayer(id)) {
         return
@@ -125,18 +128,22 @@ export default {
 
       this.computerResetPutTimer(this.autoPutAction)
     },
+
     draw () {
       this.dealerDeal(this.dealerTurnPlayer())
       this.dealerGoNextTurn()
       this.computerResetPutTimer(this.autoPutAction)
     },
+
     reply (id, type, param) {
       this.dealerListenReply(this.players[id], type, param)
       this.computerResetPutTimer(this.autoPutAction)
     },
+
     den (id) {
       this.dealerJudgeDen(this.players[id])
     },
+
     autoPutAction() {
       if (! this.dealerTurnPlayer().isComputer()) {
         return
@@ -184,6 +191,7 @@ export default {
         this.draw()
       }
     },
+
     autoDenAction() {
       for (let idx in this.players) {
         if (this.players[idx].isHuman()) {
