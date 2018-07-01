@@ -4,7 +4,7 @@ import Rule from './Rule'
 
 export default class Player {
   constructor(data) {
-    if (data.constructor.name !==  'PlayerData') {
+    if (data.constructor.name !== 'PlayerData') {
       throw new Error('Invalid PlayerData')
     }
     this.data = data

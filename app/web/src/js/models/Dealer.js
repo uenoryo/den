@@ -8,11 +8,11 @@ export default class Dealer {
       throw new Error(`Invalid deck [${deck.constructor.name}]`)
     }
     this.deck = deck
-    this.phase = Constants.DealerPhaseNormal
+    this.phase = Constants.DealerPhaseForceDraw
     this.fieldCardOwnerID = null
     this.field = new FieldData([])
     this.turnTable = Config.Turn
-    this.forceDrawAmount = 0
+    this.forceDrawAmount = 2
 
     // [ハードコード] 順番を決められるようにする #3
     this.turn = Constants.Player1ID

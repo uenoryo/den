@@ -45,7 +45,7 @@ export default {
       }
     },
     dealerCanPut(card) {
-      return Rule.canPut(this.dealer.fieldCard(), card)
+      return Rule.canPut(this.dealer.fieldCard(), card, this.dealerIsForceDrawPhase())
     },
     dealerCanDeal(player) {
       return this.dealer.playerIsTurnPlayer(player.data.ID)
@@ -138,16 +138,17 @@ export default {
       if (! this.dealerPlayerIsTurnPlayer(player.data.ID)) {
         return
       }
-      switch (this.dealer.phase) {
-        case Constants.DealerPhaseAttach:
-          this.dealerListenReplyAttach(player, reply, param)
-          break
-        case Constants.DealerPhaseChangeMark:
-          this.dealerListenReplyChangeMark(player, reply, param)
-          break
+      if (this.dealerIsAttachPhase()) {
+        this.dealerListenReplyAttach(reply)
+      }
+      if (this.dealerIsChangeMarkPhase()) {
+        this.dealerListenReplyChangeMark(reply)
+      }
+      if (this.dealerIsForceDrawPhase()) {
+        this.dealerListenReplyForceDraw(player, reply)
       }
     },
-    dealerListenReplyAttach (player, reply, param) {
+    dealerListenReplyAttach (reply) {
       switch (reply) {
         case Constants.PlayerReplyAttachPass:
           this.dealer.changePhase()
@@ -155,7 +156,7 @@ export default {
           break
       }
     },
-    dealerListenReplyChangeMark (player, reply, param) {
+    dealerListenReplyChangeMark (reply) {
       switch (reply) {
         case Constants.PlayerReplyChangeMarkClub:
           this.dealer.fieldCard().Mark = Constants.CardMarkClub
@@ -184,11 +185,27 @@ export default {
           break
       }
     },
+    dealerListenReplyForceDraw (player, reply) {
+      switch (reply) {
+        case Constants.PlayerReplyForceDrawDraw:
+          this.dealer.changePhase()
+          for (let i = 0; i < this.dealer.forceDrawAmount; i++) {
+            this.dealerDeal(player)
+          }
+          this.dealer.forceDrawAmount = 0;
+          this.dealerGoNextTurn()
+          break
+      }
+    },
     dealerIsAttachPhase () {
       return this.dealer.phase === Constants.DealerPhaseAttach
     },
     dealerIsChangeMarkPhase () {
       return this.dealer.phase === Constants.DealerPhaseChangeMark
+    },
+    dealerIsForceDrawPhase () {
+      return this.dealer.phase === Constants.DealerPhaseForceDraw
+        && this.dealer.forceDrawAmount > 0
     },
   }
 }

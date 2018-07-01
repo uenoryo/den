@@ -23,6 +23,14 @@
             </div>
           </div>
           <div
+            class='modal'
+            :class='{open:dealerIsForceDrawPhase() && dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman()}'>
+            <div class='modal__inner'>
+              <div class='modal__body'>2を出すか{{ dealer.forceDrawAmount }}枚引いてください</div>
+              <div class='modal__foot btn' @click='reply(id, constants.PlayerReplyForceDrawDraw)'>ドロー</div>
+            </div>
+          </div>
+          <div
             class='modal modal--hard'
             :class='{open:dealerIsChangeMarkPhase() && dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman()}'>
             <div class='modal__inner'>

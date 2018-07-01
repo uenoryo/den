@@ -1,7 +1,11 @@
 import Constants from '../constants'
 
 export default class Rule {
-  static canPut(field, target) {
+  static canPut(field, target, isForceDraw) {
+    if (isForceDraw === true) {
+      return target.Num === Constants.CardSkillDrawTwo
+    }
+
     return (
       field.Mark === target.Mark ||
       field.Num === target.Num ||

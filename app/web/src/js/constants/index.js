@@ -7,13 +7,13 @@ export default {
   Player3ID: 3,
   Player4ID: 4,
 
-  PlayerReplyAttachAttach: 10,
-  PlayerReplyAttachPass: 11,
+  PlayerReplyAttachPass: 10,
   PlayerReplyChangeMarkClub: 20,
   PlayerReplyChangeMarkDiamond: 21,
   PlayerReplyChangeMarkHeart: 22,
   PlayerReplyChangeMarkSpade: 23,
   PlayerReplyChangeMarkJoker: 24,
+  PlayerReplyForceDrawDraw: 30,
 
   // Hand
   PlayerHandStartAmount: 7,
