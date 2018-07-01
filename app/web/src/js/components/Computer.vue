@@ -14,6 +14,7 @@ export default {
       this.computerStartPutTimer(putAction)
       this.computerStartDenTimer(denAction)
     },
+
     computerResetPutTimer (putAction) {
       if (this.putTimer === undefined) {
         return
@@ -21,6 +22,7 @@ export default {
       clearInterval(this.putTimer);
       this.computerStartPutTimer(putAction)
     },
+
     computerResetDenTimer (denAction) {
       if (this.denTimer === undefined) {
         return
@@ -28,9 +30,11 @@ export default {
       clearInterval(this.denTimer);
       this.computerStartDenTimer(denAction)
     },
+
     computerStartPutTimer (putAction) {
       this.putTimer = setInterval(putAction, Constants.ComputerPutActionIntervalMs)
     },
+
     computerStartDenTimer (denAction) {
       this.denTimer = setInterval(denAction, Constants.ComputerDenActionIntervalMs)
     },

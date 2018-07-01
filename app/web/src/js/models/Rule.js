@@ -1,7 +1,7 @@
 import Constants from '../constants'
 
 export default class Rule {
-  static canPut(field, target, isForceDraw) {
+  static canPut (field, target, isForceDraw) {
     if (isForceDraw === true) {
       return target.Num === Constants.CardSkillDrawTwo
     }
@@ -17,7 +17,7 @@ export default class Rule {
     )
   }
 
-  static isPank(hand) {
+  static isPank (hand) {
     if (hand.constructor.name != 'HandData') {
       throw new Error(`${hand.constructor.name} is not HandData`)
     }

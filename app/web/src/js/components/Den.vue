@@ -144,7 +144,7 @@ export default {
       this.dealerJudgeDen(this.players[id])
     },
 
-    autoPutAction() {
+    autoPutAction () {
       if (! this.dealerTurnPlayer().isComputer()) {
         return
       }
@@ -192,7 +192,7 @@ export default {
       }
     },
 
-    autoDenAction() {
+    autoDenAction () {
       for (let idx in this.players) {
         if (this.players[idx].isHuman()) {
           continue

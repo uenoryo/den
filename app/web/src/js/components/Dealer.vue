@@ -42,7 +42,7 @@ export default {
       this.dealer.goNextTurn()
     },
 
-    dealerDeal(player) {
+    dealerDeal (player) {
       if (! this.dealerCanDeal(player)) {
         return
       }
@@ -52,23 +52,23 @@ export default {
       }
     },
 
-    dealerCanPut(card) {
+    dealerCanPut (card) {
       return Rule.canPut(this.dealer.fieldCard(), card, this.dealerIsForceDrawPhase())
     },
 
-    dealerCanDeal(player) {
+    dealerCanDeal (player) {
       return this.dealer.playerIsTurnPlayer(player.data.ID)
         && this.dealer.phase === Constants.DealerPhaseNormal
     },
 
-    dealerTurnPlayer() {
+    dealerTurnPlayer () {
       if (this.players[this.dealer.turn] === undefined) {
         return null
       }
       return this.players[this.dealer.turn]
     },
 
-    dealerPlayerIsTurnPlayer(playerID) {
+    dealerPlayerIsTurnPlayer (playerID) {
       return this.dealer.playerIsTurnPlayer(playerID)
     },
 
@@ -165,6 +165,7 @@ export default {
         this.dealerListenReplyForceDraw(player, reply)
       }
     },
+
     dealerListenReplyAttach (reply) {
       switch (reply) {
         case Constants.PlayerReplyAttachPass:
