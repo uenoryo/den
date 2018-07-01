@@ -3,7 +3,7 @@
     <div class='ads'>
       ads
     </div>
-    <div class='game'>
+    <div @click='den(config.MainPlayerID)' class='game'>
       <div class='hands'>
         <div v-for='player, id in players' class='PlayerCardArea' :class='["PlayerCardArea__ID" + id]'>
           <div
@@ -85,12 +85,14 @@ export default {
   mixins: [Dealer, Computer],
   data() {
     return {
-      players: null,
+      confing: null,
       constants: null,
       rule: null,
+      players: null,
     }
   },
   beforeMount () {
+    this.config = Config
     this.constants = Constants
     this.rule = Rule
     this.setup()
@@ -180,11 +182,12 @@ export default {
       }
     },
     autoDenAction() {
-      if (! this.dealerTurnPlayer().isComputer()) {
-        return
+      for (let idx in this.players) {
+        if (this.players[idx].isHuman()) {
+          continue
+        }
+        this.dealerJudgeDen(this.players[idx])
       }
-
-      this.dealerJudgeDen(this.dealerTurnPlayer())
     },
   }
 }

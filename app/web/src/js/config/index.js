@@ -13,4 +13,5 @@ export default {
     3,
     4,
   ],
+  MainPlayerID: 1,
 }
