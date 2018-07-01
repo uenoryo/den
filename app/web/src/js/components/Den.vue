@@ -9,6 +9,7 @@
           <div
             v-for='card, handIdx in player.hand.Cards'
             @click='put(id, handIdx)'
+            :class='{"Sleeve--disabled":dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman() && !dealerCanPut(card)}'
             class='Sleeve'>
             <div v-if='player.isHuman()' class='Card' :class='["Card__ID" + card.id()]'></div>
             <div v-else='player.isHuman()' class='Card Card--reversed' :class='["Card__ID" + card.id()]'></div>
@@ -64,10 +65,12 @@ export default {
     return {
       players: null,
       constants: null,
+      rule: null,
     }
   },
   beforeMount () {
     this.constants = Constants
+    this.rule = Rule
     this.setup()
     this.computerStandby(this.autoPutAction, this.autoDenAction)
   },

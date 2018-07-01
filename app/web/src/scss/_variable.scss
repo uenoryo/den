@@ -1,10 +1,10 @@
 $pc_min_width: 560px;
 $wide_width: 900px;
 
-$pc_card_width: 120px;
+$pc_card_width: 80px;
 $pc_card_height: 120px;
 
-$sp_card_width: 80px;
+$sp_card_width: 54px;
 $sp_card_height: 80px;
 
 // see /src/constants.yml
@@ -12,3 +12,4 @@ $img_dir: '/img/';
 
 // Color
 $color_blinder: #0006;
+$color_blinder_hard: #000a;

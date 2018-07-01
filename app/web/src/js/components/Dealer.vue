@@ -36,7 +36,7 @@ export default {
       this.dealer.goNextTurn()
     },
     dealerDeal(player) {
-      if (! this.canDeal(player)) {
+      if (! this.dealerCanDeal(player)) {
         return
       }
       this.dealer.deal(player)
@@ -44,7 +44,10 @@ export default {
         alert(`[パンク] プレイヤー${player.data.ID}の負け`)
       }
     },
-    canDeal(player) {
+    dealerCanPut(card) {
+      return Rule.canPut(this.dealer.fieldCard(), card)
+    },
+    dealerCanDeal(player) {
       return this.dealer.playerIsTurnPlayer(player.data.ID)
         && this.dealer.phase === Constants.DealerPhaseNormal
     },
@@ -63,7 +66,7 @@ export default {
         return false
       }
 
-      if (! Rule.canPut(this.dealer.fieldCard(), card)) {
+      if (! this.dealerCanPut(card)) {
         return false
       }
 
@@ -144,7 +147,6 @@ export default {
     dealerListenReplyAttach (player, reply, param1, param2) {
       switch (reply) {
         case Constants.PlayerReplyAttachPass:
-          alert("出さないんかーーーい")
           this.dealer.changePhase()
           this.dealerGoNextTurn()
           break
