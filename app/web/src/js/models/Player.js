@@ -86,7 +86,6 @@ export default class Player {
 
   think(field, isForceDraw) {
     for (let idx in this.hand.Cards) {
-      console.log(this.hand.Cards[idx])
       if (Rule.canPut(field, this.hand.Cards[idx], isForceDraw)) {
         return idx
       }
