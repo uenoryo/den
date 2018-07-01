@@ -137,6 +137,19 @@ export default {
         return
       }
 
+      // ForceDrawの場合
+      if (this.dealerIsForceDrawPhase()) {
+        if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
+          this.put(
+            this.dealerTurnPlayer().data.ID,
+            this.dealerTurnPlayer().think(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())
+          )
+        } else {
+          this.reply(this.dealerTurnPlayer().data.ID, Constants.PlayerReplyForceDrawDraw)
+        }
+        return
+      }
+
       if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard())) {
         this.put(
           this.dealerTurnPlayer().data.ID,

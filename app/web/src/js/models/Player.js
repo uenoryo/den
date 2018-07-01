@@ -62,9 +62,9 @@ export default class Player {
     }
   }
 
-  wantPut(field) {
+  wantPut(field, isForceDraw) {
     for (let idx in this.hand.Cards) {
-      if (Rule.canPut(field, this.hand.Cards[idx])) {
+      if (Rule.canPut(field, this.hand.Cards[idx], isForceDraw)) {
         return true
       }
     }
@@ -84,9 +84,10 @@ export default class Player {
     return Constants.ActionTypeDraw
   }
 
-  think(field) {
+  think(field, isForceDraw) {
     for (let idx in this.hand.Cards) {
-      if (Rule.canPut(field, this.hand.Cards[idx])) {
+      console.log(this.hand.Cards[idx])
+      if (Rule.canPut(field, this.hand.Cards[idx], isForceDraw)) {
         return idx
       }
     }

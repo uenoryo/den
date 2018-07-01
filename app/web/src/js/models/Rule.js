@@ -3,6 +3,7 @@ import Constants from '../constants'
 export default class Rule {
   static canPut(field, target, isForceDraw) {
     if (isForceDraw === true) {
+      console.log(target)
       return target.Num === Constants.CardSkillDrawTwo
     }
 
