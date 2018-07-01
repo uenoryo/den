@@ -56,7 +56,7 @@ export default {
   DealerReceiveCardIntervalMs: 100,
 
   // Computer
-  ComputerPutActionIntervalMs: 2000,
+  ComputerPutActionIntervalMs: 1000,
   ComputerDenActionIntervalMs: 1000,
 
   // ActionType
