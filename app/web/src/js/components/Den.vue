@@ -120,16 +120,19 @@ export default {
 
         this.dealerTriggerCardSkill()
       } else {
-        console.log(this.players[id].show(handIdx))
         this.dealerRejectReceivingCard()
       }
+
+      this.computerResetPutTimer(this.autoPutAction)
     },
     draw () {
       this.dealerDeal(this.dealerTurnPlayer())
       this.dealerGoNextTurn()
+      this.computerResetPutTimer(this.autoPutAction)
     },
     reply (id, type, param) {
       this.dealerListenReply(this.players[id], type, param)
+      this.computerResetPutTimer(this.autoPutAction)
     },
     den (id) {
       this.dealerJudgeDen(this.players[id])
