@@ -16,9 +16,9 @@
           <div
             class='modal'
             :class='{open:dealerIsAttachPhase() && dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman()}'>
-            <div>追加でカードを出すことができます</div>
-            <div>
-              <div @click='reply(id, constants.PlayerReplyAttachPass)'>パス</div>
+            <div class='modal__inner'>
+              <div class='modal__body'>追加でカードを出すことができます</div>
+              <div class='modal__foot btn' @click='reply(id, constants.PlayerReplyAttachPass)'>パス</div>
             </div>
           </div>
         </div>

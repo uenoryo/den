@@ -117,8 +117,9 @@ export default {
           this.dealerGoNextTurn()
           break
 
-        case Constants.CardSkillChangeMark:
+        case Constants.CardSkillWildCard:
           this.dealer.changePhase(Constants.DealerPhaseChangeMark)
+          break
 
         case Constants.CardSkillAttach:
           this.dealer.changePhase(Constants.DealerPhaseAttach)
