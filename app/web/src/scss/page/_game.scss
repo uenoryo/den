@@ -196,6 +196,24 @@ html, body {
   &__foot {
     margin: 8px 0;
   }
+  &--hard {
+    &:before {
+      content: '';
+      position: fixed;
+      background-color: $color_blinder;
+      z-index: 20;
+      @include full-size;
+    }
+    .Card {
+      &:before {
+        content: '';
+        background-color: $color_blinder_hard;
+        position: absolute;
+        border-radius: 4px;
+        @include full-size;
+      }
+    }
+  }
   display: none;
 }
 

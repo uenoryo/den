@@ -23,7 +23,7 @@
             </div>
           </div>
           <div
-            class='modal'
+            class='modal modal--hard'
             :class='{open:dealerIsChangeMarkPhase() && dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman()}'>
             <div class='modal__inner'>
               <div class='modal__body'>変更するマークを選んでください</div>
