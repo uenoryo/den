@@ -118,7 +118,7 @@ export default {
       }
 
       if (this.dealerCanReceiveCard(this.players[id].show(handIdx))) {
-        this.dealerReceiveCard(this.players[id].pick(handIdx))
+        this.dealerReceiveCard(this.players[id].pick(handIdx), id)
 
         this.dealerCheckDone(this.players[id])
 

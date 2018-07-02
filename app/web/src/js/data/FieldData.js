@@ -21,6 +21,7 @@ export default class FieldData {
   }
 
   putPlayerID(putPlayerID) {
+    putPlayerID = parseInt(putPlayerID)
     if (
       putPlayerID !== 0 &&
       putPlayerID !== Constants.Player1ID &&

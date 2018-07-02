@@ -36,6 +36,7 @@ export default {
 
     dealerPutCard () {
       this.dealer.put()
+      this.dealer.field.putPlayerID(0)
     },
 
     dealerGoNextTurn () {
@@ -93,7 +94,11 @@ export default {
     },
 
     dealerJudgeDen (player) {
+      console.log(this.dealer.field.PutPlayerID)
       if (this.dealerPlayerIsTurnPlayer(player.data.ID)) {
+        return
+      }
+      if (player.data.ID === this.dealer.field.PutPlayerID) {
         return
       }
       if (this.isGameSet === false && parseInt(this.dealer.fieldCard().Num) === player.handCardNumTotal()) {
@@ -104,8 +109,11 @@ export default {
       }
     },
 
-    dealerReceiveCard (card) {
-      this.dealer.receive(card)
+    dealerReceiveCard (card, playerID) {
+      if (playerID === undefined) {
+        playerID = 0
+      }
+      this.dealer.receive(card, playerID)
       this.isBusy = true
       setTimeout(() => {
         this.isBusy = false

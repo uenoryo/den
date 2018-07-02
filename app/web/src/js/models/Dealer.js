@@ -49,12 +49,16 @@ export default class Dealer {
     }
   }
 
-  receive(card) {
+  receive(card, playerID) {
     if (card.constructor.name !== 'CardData') {
       throw new Error(`Invalid Card will add to hand [${card.constructor.name}]`)
     }
+    if (playerID === undefined) {
+      playerID = 0
+    }
 
     this.field.Cards.push(card)
+    this.field.putPlayerID(playerID)
   }
 
   put() {
