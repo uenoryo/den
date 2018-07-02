@@ -104,10 +104,6 @@ export default class Dealer {
     this.turnTable.reverse()
   }
 
-  isForceDrawMode() {
-    return this.forceDrawAmount > 0
-  }
-
   increaseForceDrawAmount(amount) {
      this.forceDrawAmount += amount
   }

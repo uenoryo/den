@@ -47,6 +47,14 @@ describe('Dealer', () => {
     })
   })
 
+  describe ('.receive()', () => {
+    describe ('カードをフィールドに出すことができる', () => {
+      it ('カードがフィールドの先頭に追加される')
+
+      it ('カードを出したプレイヤーのIDが保存される')
+    })
+  })
+
   describe('.deal()', () => {
     it('カードを引いてプレイヤーに渡すことができる', () => {
       let deck = new Deck(new DeckData([
@@ -135,11 +143,31 @@ describe('Dealer', () => {
     it('次のターンに進めることができる')
   })
 
+  describe ('.playerIsTurnPlayer()', () => {
+    describe ('プレイヤーIDを受け取り、そのプレイヤーが現在のターンプレイヤーかどうかを返すことができる', () => {
+      it ('現在のターンプレイヤーと一致する場合Trueを返す')
+
+      it ('現在のターンプレイヤーと一致しない場合Falseを返す')
+    })
+  })
+
   describe('.turnPlayer()', () => {
     it('エントリープレイヤーの中から現在のターンのプレイヤーを返すことができる')
   })
 
   describe('.reverseTurnTable()', () => {
     it('ターンを逆順にできる')
+  })
+
+  describe ('.increaseForceDrawAmount()', () => {
+    it ('forceDrawAmountを増加させることができる')
+  })
+
+  describe ('.changePhase()', () => {
+    describe ('フェーズを切り替えることができる', () => {
+      it ('特定のフェーズに切り替えることができる')
+
+      it ('存在しないフェーズを指定した場合は Normal フェーズになる')
+    })
   })
 })
