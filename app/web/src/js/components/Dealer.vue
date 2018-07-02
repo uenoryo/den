@@ -94,7 +94,6 @@ export default {
     },
 
     dealerJudgeDen (player) {
-      console.log(this.dealer.field.PutPlayerID)
       if (this.dealerPlayerIsTurnPlayer(player.data.ID)) {
         return
       }
