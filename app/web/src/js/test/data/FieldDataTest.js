@@ -46,4 +46,10 @@ describe('FieldData', () => {
       assert.throws(() => {new FieldData(cards)})
     })
   })
+
+  describe('.putPlayerID()', () => {
+    it('カードを出したプレイヤーのIDを更新できる')
+
+    it('0または存在するプレイヤーID以外を入れようとした場合はエラーになる')
+  })
 })

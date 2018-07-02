@@ -3,6 +3,7 @@ import Constants from '../constants'
 export default class FieldData {
   constructor(cards) {
     this.cards(cards)
+    this.putPlayerID
   }
 
   cards(cards) {
@@ -17,5 +18,19 @@ export default class FieldData {
     }
 
     this.Cards = cards
+  }
+
+  putPlayerID(putPlayerID) {
+    if (
+      putPlayerID !== 0 &&
+      putPlayerID !== Constants.Player1ID &&
+      putPlayerID !== Constants.Player2ID &&
+      putPlayerID !== Constants.Player3ID &&
+      putPlayerID !== Constants.Player4ID
+    ) {
+      throw new Error(`Invalid putPlayerID [${putPlayerID}].`)
+    }
+
+    this.PutPlayerID = putPlayerID
   }
 }
