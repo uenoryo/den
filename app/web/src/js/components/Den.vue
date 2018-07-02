@@ -11,7 +11,7 @@
             @click='put(id, handIdx)'
             :class='{"Sleeve--disabled":dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman() && !dealerCanPut(card)}'
             class='Sleeve'>
-            <div v-if='player.isHuman() || player.handIsReversed()' class='Card' :class='["Card__ID" + card.id()]'></div>
+            <div v-if='env.DEBUG || player.isHuman() || player.handIsReversed()' class='Card' :class='["Card__ID" + card.id()]'></div>
             <div v-else='player.isHuman()' class='Card Card--reversed' :class='["Card__ID" + card.id()]'></div>
           </div>
           <div
@@ -78,13 +78,16 @@ import Config from '@/config'
 import Constants from '@/constants'
 import Dealer from '@/components/Dealer'
 import Computer from '@/components/Computer'
+import Debug from '@/components/Debug'
 import Rule from '@/models/Rule'
+import Env from '@/env'
 
 export default {
   name: 'Den',
-  mixins: [Dealer, Computer],
+  mixins: [Dealer, Computer, Debug],
   data() {
     return {
+      env: null,
       confing: null,
       constants: null,
       rule: null,
@@ -94,10 +97,15 @@ export default {
   },
 
   beforeMount () {
+    this.env = Env
     this.config = Config
     this.constants = Constants
     this.rule = Rule
-    this.setup()
+    if (Env.DEBUG === true) {
+      this.debugSetup()
+    } else {
+      this.setup()
+    }
     this.computerStandby(this.autoPutAction, this.autoDenAction)
   },
 
