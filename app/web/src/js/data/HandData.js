@@ -31,6 +31,7 @@ export default class HandData {
     this.IsReversed = isReversed
   }
 
+  // TODO: HandDataにセッターはいらないかもしれない #21
   set(idx, card) {
     if (card.constructor.name !== 'CardData') {
       throw new Error(`Invalid Card [${card.constructor.name}]`)
