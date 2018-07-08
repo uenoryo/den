@@ -20,6 +20,8 @@ export default {
       this.dealerDealCardToPlayersAtFirst()
 
       this.dealerPutCard()
+
+      this.animationSetup()
     },
     getDeck (id) {
       let cards = this.debugDeck[id]

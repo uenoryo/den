@@ -7,13 +7,16 @@
       <div class='hands'>
         <div v-for='player, id in players' class='PlayerCardArea' :class='["PlayerCardArea__ID" + id]'>
           <div
-            v-for='card, handIdx in player.hand.Cards'
-            @click='put(id, handIdx)'
-            :class='{"Sleeve--disabled":dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman() && !dealerCanPut(card)}'
-            class='Sleeve'>
-            <div v-if='env.DEBUG || player.isHuman() || player.handIsReversed()' class='Card' :class='["Card__ID" + card.id()]'></div>
-            <div v-else='player.isHuman()' class='Card Card--reversed' :class='["Card__ID" + card.id()]'></div>
+            v-for='card, handIdx in animator.hands[id].Cards'
+            v-if='card !== null'
+              @click='put(id, handIdx)'
+              :id='["CardCell__ID" + id + handIdx]'
+              :class='{"Sleeve--disabled":dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman() && !dealerCanPut(card)}'
+              class='Sleeve'>
+              <div v-if='env.DEBUG || player.isHuman() || player.handIsReversed()' class='Card' :class='["Card__ID" + card.id()]'></div>
+              <div v-else='player.isHuman()' class='Card Card--reversed' :class='["Card__ID" + card.id()]'></div>
           </div>
+          <div v-else :id='["CardCell__ID" + id + handIdx + "--empty"]'></div>
           <div
             class='modal'
             :class='{open:dealerIsAttachPhase() && dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman()}'>
@@ -77,6 +80,7 @@
 import Config from '@/config'
 import Constants from '@/constants'
 import Dealer from '@/components/Dealer'
+import Animation from '@/components/Animation'
 import Computer from '@/components/Computer'
 import Debug from '@/components/Debug'
 import Rule from '@/models/Rule'
@@ -84,7 +88,7 @@ import Env from '@/env'
 
 export default {
   name: 'Den',
-  mixins: [Dealer, Computer, Debug],
+  mixins: [Dealer, Computer, Animation, Debug],
   data() {
     return {
       env: null,
@@ -118,6 +122,8 @@ export default {
       this.dealerDealCardToPlayersAtFirst()
 
       this.dealerPutCard()
+
+      this.animationSetup()
     },
 
     put (id, handIdx) {
