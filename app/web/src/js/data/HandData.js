@@ -4,6 +4,10 @@ export default class HandData {
   constructor (cards) {
     this.cards(cards)
     this.isReversed(false)
+    this.Hand = []
+    for (let i = 0; i < Constants.PlayerHandMaxAmount; i++) {
+      this.Hand[i] = cards[i] === undefined ? null : cards[i]
+    }
   }
 
   cards (cards) {
@@ -25,5 +29,25 @@ export default class HandData {
       throw new Error(`Invalid isReversed [${isReversed}].`)
     }
     this.IsReversed = isReversed
+  }
+
+  // TODO: HandDataにセッターはいらないかもしれない #21
+  set(idx, card) {
+    if (card.constructor.name !== 'CardData') {
+      throw new Error(`Invalid Card [${card.constructor.name}]`)
+    }
+
+    if (idx < 0 || idx > Constants.PlayerHandMaxAmount) {
+      throw new Error(`Invalid Hand index ${idx}`)
+    }
+
+    this.Cards[idx] = card
+  }
+
+  get(idx) {
+    if (idx < 0 || idx > Constants.PlayerHandMaxAmount) {
+      throw new Error(`Invalid Hand index ${idx}`)
+    }
+    return this.Cards[idx]
   }
 }
