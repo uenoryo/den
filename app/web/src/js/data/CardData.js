@@ -4,6 +4,7 @@ export default class CardData {
   constructor(mark, num) {
     this.mark(mark)
     this.num(num)
+    this.IsEmpty = false
   }
 
   mark(mark) {

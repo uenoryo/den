@@ -1,8 +1,10 @@
 import Constants from '../constants'
+import EmptyCardData from './EmptyCardData'
 
 export default class HandFantomData {
   constructor (cards) {
     this.cards(cards)
+    this.CSS = {}
   }
 
   cards (cards) {
@@ -16,7 +18,7 @@ export default class HandFantomData {
     this.Cards = []
     for (let i = 0; i < Constants.PlayerHandMaxAmount; i++) {
       if (cards[i] === undefined) {
-        this.Cards[i] = null
+        this.Cards[i] = new EmptyCardData
         continue
       }
       if (cards[i].constructor.name !== 'CardFantomData') {

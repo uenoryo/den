@@ -18,7 +18,7 @@ export default class Animator {
     for (let i = 0; i < cards.length; i++) {
       this.hands[playerID].Cards[i + this.firstInsertIdx(cards.length)] = this.makeCardFantom(cards[i])
     }
-    console.log(this.hands[playerID].Cards[4])
+    this.expandHand(playerID)
   }
 
   resetHand (playerID) {
@@ -40,5 +40,31 @@ export default class Animator {
 
   firstInsertIdx (num) {
     return parseInt(Constants.PlayerHandMaxAmount / 2) - parseInt(num / 2)
+  }
+
+  emptyHandCards (playerID) {
+    let empty = []
+    for (let idx in this.hands[playerID].Cards) {
+      if (this.hands[playerID].Cards[idx].IsEmpty) {
+        empty.push(this.hands[playerID].Cards[idx])
+      }
+    }
+    return empty
+  }
+
+  expandHand (playerID) {
+    if (parseInt(playerID) === 1) {
+      let width = this.emptyHandCards(playerID).length * 50
+      width = width > 100 ? 100 : width
+      this.hands[playerID].CSS.minWidth = `${width}%`
+    } else if (playerID % 2 === 0) {
+      let height = this.emptyHandCards(playerID).length * 6
+      height = height > 100 ? 100 : height
+      this.hands[playerID].CSS.minHeight = `${height}%`
+    } else {
+      let width = this.emptyHandCards(playerID).length * 6
+      width = width > 100 ? 100 : width
+      this.hands[playerID].CSS.minWidth = `${width}%`
+    }
   }
 }

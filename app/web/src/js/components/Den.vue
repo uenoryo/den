@@ -5,18 +5,23 @@
     </div>
     <div @click='den(config.MainPlayerID)' class='game'>
       <div class='hands'>
-        <div v-for='player, id in players' class='PlayerCardArea' :class='["PlayerCardArea__ID" + id]'>
+        <div
+          v-for='player, id in players'
+          class='PlayerCardArea'
+          :class='["PlayerCardArea__ID" + id]'
+          :style='animator.hands[id].CSS'>
           <div
             v-for='card, handIdx in animator.hands[id].Cards'
-            v-if='card !== null'
-              @click='put(id, handIdx)'
-              :id='["CardCell__ID" + id + handIdx]'
-              :class='{"Sleeve--disabled":dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman() && !dealerCanPut(card)}'
-              class='Sleeve'>
+            v-if='card.IsEmpty === false'
+            @click='put(id, handIdx)'
+            :style='card.CSS'
+            :id='["CardCell__ID" + id + handIdx]'
+            :class='{"Sleeve--disabled":dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman() && !dealerCanPut(card)}'
+            class='Sleeve'>
               <div v-if='env.DEBUG || player.isHuman() || player.handIsReversed()' class='Card' :class='["Card__ID" + card.id()]'></div>
               <div v-else='player.isHuman()' class='Card Card--reversed' :class='["Card__ID" + card.id()]'></div>
           </div>
-          <div v-else :id='["CardCell__ID" + id + handIdx + "--empty"]'></div>
+          <div v-else :style='card.CSS'></div>
           <div
             class='modal'
             :class='{open:dealerIsAttachPhase() && dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman()}'>
