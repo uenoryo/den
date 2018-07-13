@@ -2,6 +2,8 @@ import Config from '../config'
 import Constants from '../constants'
 import HandFantomData from '../data/HandFantomData'
 import CardFantomData from '../data/CardFantomData'
+import EmptyCardData from '../data/EmptyCardData'
+import CardData from '../data/CardData'
 
 export default class Animator {
   constructor () {
@@ -27,11 +29,19 @@ export default class Animator {
 
   insertableHandIdx (playerID, card) {
     for (let idx in this.hands[playerID].Cards) {
+      if (this.hands[playerID].Cards[idx].IsEmpty) {
+        continue
+      }
       if (card.score() > this.hands[playerID].Cards[idx].score()) {
         return idx
       }
     }
     return 0
+  }
+
+  // 指定された手札のIndex番号に空のカードを挿入する
+  insertEmpty (playerID, idx) {
+    this.hands[playerID].Cards.splice(idx, 0, new CardData(1,1))
   }
 
   makeCardFantom (card) {

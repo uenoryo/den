@@ -7,4 +7,8 @@ export default class EmptyCardData {
     }
     this.IsEmpty = true
   }
+
+  score() {
+    return 0
+  }
 }

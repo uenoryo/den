@@ -47,8 +47,8 @@ export default {
       if (! this.dealerCanDeal(player)) {
         return
       }
-      this.dealer.deal(player)
-      this.animationDraw(player.data.ID)
+      let card = this.dealer.deal(player)
+      this.animationDraw(player.data.ID, card)
       if (Rule.isPank(player.hand)) {
         alert(`[パンク] プレイヤー${player.data.ID}の負け`)
       }

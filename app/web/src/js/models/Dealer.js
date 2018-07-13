@@ -40,6 +40,7 @@ export default class Dealer {
       return
     }
     player.receive(card)
+    return card
   }
 
   forceDeal(player) {
