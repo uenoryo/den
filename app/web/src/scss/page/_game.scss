@@ -67,6 +67,9 @@ html, body {
     &__ID#{$i} {
       background-image: url(/img/cards/card#{$i}.png)
     }
+    &Display__ID#{$i} {
+      background-image: url(/img/cards/card#{$i}.png)
+    }
   }
   &--reversed {
     z-index: 9;

@@ -41,11 +41,11 @@
             <div class='modal__inner'>
               <div class='modal__body'>変更するマークを選んでください</div>
               <div class='modal__marks'>
-                <div @click='reply(id, constants.PlayerReplyChangeMarkClub)' class='markItem Card__ID28'></div>
-                <div @click='reply(id, constants.PlayerReplyChangeMarkDiamond)' class='markItem Card__ID29'></div>
-                <div @click='reply(id, constants.PlayerReplyChangeMarkHeart)' class='markItem Card__ID30'></div>
-                <div @click='reply(id, constants.PlayerReplyChangeMarkSpade)' class='markItem Card__ID31'></div>
-                <div @click='reply(id, constants.PlayerReplyChangeMarkJoker)' class='markItem Card__ID52'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkClub)' class='markItem CardDisplay__ID28'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkDiamond)' class='markItem CardDisplay__ID29'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkHeart)' class='markItem CardDisplay__ID30'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkSpade)' class='markItem CardDisplay__ID31'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkJoker)' class='markItem CardDisplay__ID52'></div>
               </div>
             </div>
           </div>
