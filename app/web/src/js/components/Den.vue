@@ -5,7 +5,12 @@
     </div>
     <div @click='den(config.MainPlayerID)' class='game'>
       <div class='hands'>
-        <div v-for='player, id in players' class='PlayerCardArea' :class='["PlayerCardArea__ID" + id]'>
+        <div
+          v-for='player, id in players'
+          class='PlayerCardArea'
+          :id='["PlayerHand__" + id]'
+          :class='["PlayerCardArea__ID" + id]'
+          :style='player.hand.CSS'>
           <div
             v-for='card, handIdx in player.hand.Cards'
             @click='put(id, handIdx)'
@@ -78,13 +83,14 @@ import Config from '@/config'
 import Constants from '@/constants'
 import Dealer from '@/components/Dealer'
 import Computer from '@/components/Computer'
+import Animator from '@/components/Animator'
 import Debug from '@/components/Debug'
 import Rule from '@/models/Rule'
 import Env from '@/env'
 
 export default {
   name: 'Den',
-  mixins: [Dealer, Computer, Debug],
+  mixins: [Dealer, Computer, Animator, Debug],
   data() {
     return {
       env: null,
