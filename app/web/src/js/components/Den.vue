@@ -56,7 +56,9 @@
           <div v-if='dealer.fieldCard() !== null'>
             <div v-for='card in dealer.field.Cards'
               class='Card'
-              :class='["Card__ID" + card.id()]'>
+              :style='card.CSS'
+              :class='["Card__ID" + card.id()]'
+              :id='["Card__ID" + card.id()]'>
             </div>
           </div>
         </div>

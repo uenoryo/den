@@ -75,6 +75,29 @@ export default {
       })
     },
 
+    animateReceive (dealer, card, playerID) {
+      card.CSS.display = 'none'
+      dealer.receive(card, playerID)
+      setTimeout(() => {
+        anime({
+          targets: `#Card__ID${card.id()}`,
+          translateX: this.translation('put', playerID, 'x'),
+          translateY: this.translation('put', playerID, 'y'),
+          duration: 0,
+          easing: 'easeOutQuad',
+        })
+        this.show(`Card__ID${card.id()}`)
+        anime({
+          targets: `#Card__ID${card.id()}`,
+          translateX: `${Math.floor(Math.random() * 40) - 20}px`,
+          translateY: `${Math.floor(Math.random() * 40) - 20}px`,
+          rotate: `${Math.floor(Math.random() * 180)}`,
+          duration: 120,
+          easing: 'easeOutQuad',
+        })
+      }, 1)
+    },
+
     el (elID) {
       return document.getElementById(elID)
     },
@@ -84,11 +107,11 @@ export default {
     },
 
     show (elID) {
-      this.el('AnimationCardReversed').style.display = 'block'
+      this.el(elID).style.display = 'block'
     },
 
     hide (elID) {
-      this.el('AnimationCardReversed').style.display = 'none'
+      this.el(elID).style.display = 'none'
     },
 
     reset (els) {
@@ -134,7 +157,25 @@ export default {
             x: '20px',
             y: '0px',
           }
-        }
+        },
+        put: {
+          1: {
+            x: '0px',
+            y: '180px',
+          },
+          2: {
+            x: '-180px',
+            y: '0px',
+          },
+          3: {
+            x: '0px',
+            y: '-180px',
+          },
+          4: {
+            x: '180px',
+            y: '0px',
+          }
+        },
       }
       return translationSet[type][playerID][xORy]
     },

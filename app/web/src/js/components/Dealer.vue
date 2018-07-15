@@ -112,7 +112,7 @@ export default {
       if (playerID === undefined) {
         playerID = 0
       }
-      this.dealer.receive(card, playerID)
+      this.animateReceive(this.dealer, card, playerID)
       this.isBusy = true
       setTimeout(() => {
         this.isBusy = false
