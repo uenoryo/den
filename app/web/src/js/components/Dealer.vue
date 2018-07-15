@@ -47,7 +47,7 @@ export default {
       if (! this.dealerCanDeal(player)) {
         return
       }
-      this.dealer.deal(player)
+      this.animateDeal(this.dealer, player)
       if (Rule.isPank(player.hand)) {
         alert(`[パンク] プレイヤー${player.data.ID}の負け`)
       }
@@ -112,7 +112,7 @@ export default {
       if (playerID === undefined) {
         playerID = 0
       }
-      this.dealer.receive(card, playerID)
+      this.animateReceive(this.dealer, card, playerID)
       this.isBusy = true
       setTimeout(() => {
         this.isBusy = false

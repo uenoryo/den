@@ -49,6 +49,7 @@
     "android >= 4.4"
   ],
   "dependencies": {
+    "animejs": "^2.2.0",
     "asserts": "^4.0.2",
     "mocha": "^5.2.0",
     "vue": "^2.5",

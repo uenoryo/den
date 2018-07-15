@@ -5,7 +5,12 @@
     </div>
     <div @click='den(config.MainPlayerID)' class='game'>
       <div class='hands'>
-        <div v-for='player, id in players' class='PlayerCardArea' :class='["PlayerCardArea__ID" + id]'>
+        <div
+          v-for='player, id in players'
+          class='PlayerCardArea'
+          :id='["PlayerHand__" + id]'
+          :class='["PlayerCardArea__ID" + id]'
+          :style='player.hand.CSS'>
           <div
             v-for='card, handIdx in player.hand.Cards'
             @click='put(id, handIdx)'
@@ -36,11 +41,11 @@
             <div class='modal__inner'>
               <div class='modal__body'>変更するマークを選んでください</div>
               <div class='modal__marks'>
-                <div @click='reply(id, constants.PlayerReplyChangeMarkClub)' class='markItem Card__ID28'></div>
-                <div @click='reply(id, constants.PlayerReplyChangeMarkDiamond)' class='markItem Card__ID29'></div>
-                <div @click='reply(id, constants.PlayerReplyChangeMarkHeart)' class='markItem Card__ID30'></div>
-                <div @click='reply(id, constants.PlayerReplyChangeMarkSpade)' class='markItem Card__ID31'></div>
-                <div @click='reply(id, constants.PlayerReplyChangeMarkJoker)' class='markItem Card__ID52'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkClub)' class='markItem CardDisplay__ID28'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkDiamond)' class='markItem CardDisplay__ID29'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkHeart)' class='markItem CardDisplay__ID30'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkSpade)' class='markItem CardDisplay__ID31'></div>
+                <div @click='reply(id, constants.PlayerReplyChangeMarkJoker)' class='markItem CardDisplay__ID52'></div>
               </div>
             </div>
           </div>
@@ -48,10 +53,13 @@
       </div>
       <div class='field'>
         <div class='Sleeve'>
-          <div
-            v-if='dealer.fieldCard() !== null'
-            class='Card'
-            :class='["Card__ID" + dealer.fieldCard().id()]'>
+          <div v-if='dealer.fieldCard() !== null'>
+            <div v-for='card in dealer.field.Cards'
+              class='Card'
+              :style='card.CSS'
+              :class='["Card__ID" + card.id()]'
+              :id='["Card__ID" + card.id()]'>
+            </div>
           </div>
         </div>
       </div>
@@ -67,6 +75,9 @@
             class='Card Card--reversed'
           ></div>
         </div>
+        <div id='AnimationCardReversed' class='Sleeve'>
+          <div class='Card Card--reversed'></div>
+        </div>
       </div>
     </div>
     <div class='gameBottomSpace'></div>
@@ -78,13 +89,14 @@ import Config from '@/config'
 import Constants from '@/constants'
 import Dealer from '@/components/Dealer'
 import Computer from '@/components/Computer'
+import Animator from '@/components/Animator'
 import Debug from '@/components/Debug'
 import Rule from '@/models/Rule'
 import Env from '@/env'
 
 export default {
   name: 'Den',
-  mixins: [Dealer, Computer, Debug],
+  mixins: [Dealer, Computer, Animator, Debug],
   data() {
     return {
       env: null,
