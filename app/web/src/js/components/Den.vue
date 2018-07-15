@@ -53,10 +53,11 @@
       </div>
       <div class='field'>
         <div class='Sleeve'>
-          <div
-            v-if='dealer.fieldCard() !== null'
-            class='Card'
-            :class='["Card__ID" + dealer.fieldCard().id()]'>
+          <div v-if='dealer.fieldCard() !== null'>
+            <div v-for='card in dealer.field.Cards'
+              class='Card'
+              :class='["Card__ID" + card.id()]'>
+            </div>
           </div>
         </div>
       </div>
