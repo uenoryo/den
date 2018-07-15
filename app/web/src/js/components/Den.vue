@@ -72,6 +72,9 @@
             class='Card Card--reversed'
           ></div>
         </div>
+        <div id='AnimationCardReversed' class='Sleeve'>
+          <div class='Card Card--reversed'></div>
+        </div>
       </div>
     </div>
     <div class='gameBottomSpace'></div>

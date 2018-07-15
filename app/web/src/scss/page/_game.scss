@@ -252,3 +252,15 @@ html, body {
 .open {
   display: block;
 }
+
+
+#AnimationCardReversed {
+  position: fixed;
+  // top: 45%;
+  // left: 40%;
+  // @include wide-layout {
+  //   left: 43%;
+  // }
+  z-index: 20;
+  display: none;
+}
