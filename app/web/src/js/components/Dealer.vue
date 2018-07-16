@@ -37,6 +37,7 @@ export default {
     dealerPutCard () {
       this.dealer.put()
       this.dealer.field.putPlayerID(0)
+      this.dealerTriggerCardSkillAtFirst()
     },
 
     dealerGoNextTurn () {
@@ -143,7 +144,7 @@ export default {
           break
 
         case Constants.CardSkillDrawTwo:
-          this.dealer.dealerTriggerCardSkillDrawTwo()
+          this.dealerTriggerCardSkillDrawTwo()
           this.dealerGoNextTurn()
           break
 
@@ -157,6 +158,30 @@ export default {
 
         default:
           this.dealerGoNextTurn()
+      }
+    },
+
+    dealerTriggerCardSkillAtFirst () {
+      if (this.dealer.fieldCard() === null) {
+        return
+      }
+
+      switch (this.dealer.fieldCard().Num) {
+        case Constants.CardSkillBack:
+          this.dealerTriggerCardSkillReverse()
+          break
+
+        case Constants.CardSkillSkip:
+          this.dealerTriggerCardSkillSkip()
+          break
+
+        case Constants.CardSkillDrawTwo:
+          this.dealerTriggerCardSkillDrawTwo()
+          break
+
+        case Constants.CardSkillWildCard:
+          this.dealerTriggerCardSkillWildCardForceJoker()
+          break
       }
     },
 
@@ -175,6 +200,10 @@ export default {
 
     dealerTriggerCardSkillWildCard () {
       this.dealer.changePhase(Constants.DealerPhaseChangeMark)
+    },
+
+    dealerTriggerCardSkillWildCardForceJoker () {
+      this.dealer.fieldCard().Mark = Constants.CardMarkJokerA
     },
 
     dealerTriggerCardSkillSkillAttach () {
@@ -209,30 +238,22 @@ export default {
       switch (reply) {
         case Constants.PlayerReplyChangeMarkClub:
           this.dealer.fieldCard().Mark = Constants.CardMarkClub
-          this.dealer.changePhase()
-          this.dealerGoNextTurn()
           break
         case Constants.PlayerReplyChangeMarkDiamond:
           this.dealer.fieldCard().Mark = Constants.CardMarkDiamond
-          this.dealer.changePhase()
-          this.dealerGoNextTurn()
           break
         case Constants.PlayerReplyChangeMarkHeart:
           this.dealer.fieldCard().Mark = Constants.CardMarkHeart
-          this.dealer.changePhase()
-          this.dealerGoNextTurn()
           break
         case Constants.PlayerReplyChangeMarkSpade:
           this.dealer.fieldCard().Mark = Constants.CardMarkSpade
-          this.dealer.changePhase()
-          this.dealerGoNextTurn()
           break
         case Constants.PlayerReplyChangeMarkJoker:
           this.dealer.fieldCard().Mark = Constants.CardMarkJokerA
-          this.dealer.changePhase()
-          this.dealerGoNextTurn()
           break
       }
+      this.dealer.changePhase()
+      this.dealerGoNextTurn()
     },
 
     dealerListenReplyForceDraw (player, reply) {
