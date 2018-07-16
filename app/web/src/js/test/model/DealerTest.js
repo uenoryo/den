@@ -120,6 +120,7 @@ describe('Dealer', () => {
 
       d.maintenance()
       assert.equal(d.deck.data.Cards.length, 3)
+      assert.equal(d.field.Cards[0].Num, 3)
     })
   })
 

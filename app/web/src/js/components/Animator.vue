@@ -98,6 +98,39 @@ export default {
       }, 1)
     },
 
+    animateMaintenance (dealer) {
+      for (let idx in dealer.field.Cards) {
+        if (parseInt(idx) === (dealer.field.Cards.length - 1)) {
+          anime({
+            targets: `#Card__ID${dealer.field.Cards[idx].id()}`,
+            translateX: '0px',
+            translateY: '0px',
+            rotate: 0,
+            duration: 300,
+            easing: 'easeOutQuad',
+          })
+          continue
+        }
+        this.el(`Card__ID${dealer.field.Cards[idx].id()}`).classList.add('Card--reversed')
+        anime({
+          targets: `#Card__ID${dealer.field.Cards[idx].id()}`,
+          translateX: '0px',
+          duration: 200,
+          rotate: 0,
+          delay: parseInt(idx) * 100,
+          easing: 'easeOutQuad',
+        })
+      }
+      setTimeout(() => {
+        dealer.maintenance()
+        setTimeout(() => {
+          for (let idx in dealer.field.Cards) {
+            this.show(`Card__ID${dealer.field.Cards[idx].id()}`)
+          }
+        }, 100)
+      }, dealer.field.Cards.length * 100 + 200)
+    },
+
     el (elID) {
       return document.getElementById(elID)
     },

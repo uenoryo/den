@@ -51,6 +51,10 @@ export default {
       this.animateDeal(this.dealer, player)
       if (Rule.isPank(player.hand)) {
         alert(`[パンク] プレイヤー${player.data.ID}の負け`)
+        return
+      }
+      if (this.dealer.shouldMaintenance()) {
+        this.animateMaintenance(this.dealer)
       }
     },
 
