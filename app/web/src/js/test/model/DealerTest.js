@@ -190,6 +190,15 @@ describe('Dealer', () => {
         p.receive(new CardData(0, 10))
         assert.equal(d.judgeDen(p), Constants.GameSetTypeDen)
       })
+      it ('手札に同じ数字が3枚ある場合は暗刻', () => {
+        let p = new Player(pd)
+        p.receive(new CardData(0, 1))
+        p.receive(new CardData(0, 2))
+        p.receive(new CardData(0, 13))
+        p.receive(new CardData(1, 13))
+        p.receive(new CardData(2, 13))
+        assert.equal(d.judgeDen(p), Constants.GameSetTypeAnko)
+      })
       it ('手札の合計が一致しない場合はnull', () => {
         let p = new Player(pd)
         p.receive(new CardData(0, 1))
