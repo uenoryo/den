@@ -50,4 +50,12 @@ export default class HandData {
     }
     return this.Cards[idx]
   }
+
+  aggregate () {
+    let agr = {}
+    for (let idx in this.Cards) {
+      agr[this.Cards[idx].Num] = agr[this.Cards[idx].Num] === undefined ? 1 : agr[this.Cards[idx].Num]+1
+    }
+    return agr
+  }
 }
