@@ -127,38 +127,58 @@ export default {
       if (this.dealer.fieldCard() === null) {
         return
       }
+
+      // Phase をリセット
+      this.dealer.changePhase()
+
       switch (this.dealer.fieldCard().Num) {
         case Constants.CardSkillBack:
-          this.dealer.changePhase()
-          this.dealer.reverseTurnTable()
+          this.dealerTriggerCardSkillReverse()
           this.dealerGoNextTurn()
           break
 
         case Constants.CardSkillSkip:
-          this.dealer.changePhase()
-          this.dealerGoNextTurn()
+          this.dealerTriggerCardSkillSkip()
           this.dealerGoNextTurn()
           break
 
         case Constants.CardSkillDrawTwo:
-          this.dealer.changePhase(Constants.DealerPhaseForceDraw)
-          this.dealer.increaseForceDrawAmount(2)
+          this.dealer.dealerTriggerCardSkillDrawTwo()
           this.dealerGoNextTurn()
           break
 
         case Constants.CardSkillWildCard:
-          this.dealer.changePhase(Constants.DealerPhaseChangeMark)
+          this.dealerTriggerCardSkillWildCard()
           break
 
         case Constants.CardSkillAttach:
-          this.dealer.changePhase(Constants.DealerPhaseAttach)
+          this.dealerTriggerCardSkillSkillAttach()
           break
 
         default:
-          this.dealer.changePhase()
           this.dealerGoNextTurn()
-          break
       }
+    },
+
+    dealerTriggerCardSkillReverse () {
+      this.dealer.reverseTurnTable()
+    },
+
+    dealerTriggerCardSkillSkip () {
+      this.dealerGoNextTurn()
+    },
+
+    dealerTriggerCardSkillDrawTwo () {
+      this.dealer.changePhase(Constants.DealerPhaseForceDraw)
+      this.dealer.increaseForceDrawAmount(2)
+    },
+
+    dealerTriggerCardSkillWildCard () {
+      this.dealer.changePhase(Constants.DealerPhaseChangeMark)
+    },
+
+    dealerTriggerCardSkillSkillAttach () {
+      this.dealer.changePhase(Constants.DealerPhaseAttach)
     },
 
     dealerListenReply (player, reply, param) {
