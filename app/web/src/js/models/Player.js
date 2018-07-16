@@ -129,6 +129,21 @@ export default class Player {
     return amount
   }
 
+  lonelyHandCardForChitoi () {
+    //
+  }
+
+  handPairCount () {
+    let agr = this.hand.aggregate()
+    let count = 0
+    for (let cardNum in agr) {
+      if (agr[cardNum] >= 2) {
+        count += parseInt(agr[cardNum] / 2)
+      }
+    }
+    return count
+  }
+
   isHuman() {
     return this.data.Type === Constants.PlayerTypeHuman
   }
