@@ -75,7 +75,36 @@ describe ('HandData', () => {
     it ('カードをセットできる')
   })
 
-  describe ('get()', () => {
+  describe ('.get()', () => {
     it ('指定したインデックスのカードを取得できる')
+  })
+
+  describe ('.aggregate()', () => {
+    describe ('カードの数字毎に枚数を集計したオブジェクトを返すことができる', () => {
+      let cards = [
+          new CardData(0, 1),
+          new CardData(0, 13),
+          new CardData(1, 13),
+          new CardData(2, 13),
+          new CardData(3, 13),
+          new CardData(4, 0),
+          new CardData(5, 0),
+      ]
+      let hd = new HandData(cards)
+      let res = hd.aggregate()
+
+      it ('A は 1枚', () => {
+        assert.equal(res[1], 1)
+      })
+      it ('JOKER は 2枚', () => {
+        assert.equal(res[0], 2)
+      })
+      it ('K は 4枚', () => {
+        assert.equal(res[13], 4)
+      })
+      it ('それ以外は undefined', () => {
+        assert.equal(res[2], undefined)
+      })
+    })
   })
 })
