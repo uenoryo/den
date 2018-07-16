@@ -40,6 +40,7 @@ export default class Dealer {
       return
     }
     player.receive(card)
+    this.field.denable = false
     return card
   }
 
@@ -64,6 +65,7 @@ export default class Dealer {
 
   put() {
     this.field.Cards.push(this.draw())
+    this.field.denable = true
   }
 
   fieldCard() {

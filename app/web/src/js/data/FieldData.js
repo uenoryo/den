@@ -4,6 +4,7 @@ export default class FieldData {
   constructor(cards) {
     this.cards(cards)
     this.putPlayerID
+    this.denable = true
   }
 
   cards(cards) {
