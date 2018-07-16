@@ -67,4 +67,5 @@
   GameSetTypePlainDone: 1,
   GameSetTypePank: 2,
   GameSetTypeDen: 3,
+  GameSetTypeAnko: 4,
 }

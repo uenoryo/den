@@ -77,6 +77,9 @@ export default class Dealer {
     if (parseInt(this.fieldCard().Num) === player.handCardNumTotal()) {
       return Constants.GameSetTypeDen
     }
+    if (player.handNumAmount(this.fieldCard().Num) === 3) {
+      return Constants.GameSetTypeAnko
+    }
     return null
   }
 
