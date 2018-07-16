@@ -129,8 +129,19 @@ export default class Player {
     return amount
   }
 
-  lonelyHandCardForChitoi () {
-    //
+  lonelyHandNumForChitoi () {
+    let agr = this.hand.aggregate()
+    let num = null
+    for (let cardNum in agr) {
+      if (agr[cardNum] % 2 === 1) {
+        // 枚数が奇数の数字が2種類以上ある場合は該当しない
+        if (num !== null) {
+          return null
+        }
+        num = cardNum
+      }
+    }
+    return num
   }
 
   handPairCount () {
