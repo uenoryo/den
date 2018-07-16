@@ -68,4 +68,5 @@
   GameSetTypePank: 2,
   GameSetTypeDen: 3,
   GameSetTypeAnko: 4,
+  GameSetTypeChitoi: 5,
 }

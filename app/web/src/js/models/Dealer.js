@@ -74,6 +74,12 @@ export default class Dealer {
   }
 
   judgeDen (player) {
+    if (
+      player.handPairCount() >= 3 &&
+      parseInt(this.fieldCard().Num) === parseInt(player.lonelyHandNumForChitoi())
+    ) {
+      return Constants.GameSetTypeChitoi
+    }
     if (parseInt(this.fieldCard().Num) === player.handCardNumTotal()) {
       return Constants.GameSetTypeDen
     }
