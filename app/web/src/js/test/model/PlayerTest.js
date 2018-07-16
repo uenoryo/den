@@ -194,6 +194,48 @@ describe('Player', () => {
     })
   })
 
+  describe('.handPairCount()', () => {
+    describe ('手札に含まれているペアの数を返すことができる', () => {
+      let pd = new PlayerData(1, 1)
+      it ('ペアなし', () => {
+          let p = new Player(pd)
+          p.receive(new CardData(0, 1))
+          p.receive(new CardData(0, 2))
+          p.receive(new CardData(0, 3))
+          assert.equal(p.handPairCount(), 0)
+      })
+      it ('1ペア', () => {
+          let p = new Player(pd)
+          p.receive(new CardData(0, 1))
+          p.receive(new CardData(0, 2))
+          p.receive(new CardData(1, 2))
+          assert.equal(p.handPairCount(), 1)
+      })
+      it ('2ペア', () => {
+          let p = new Player(pd)
+          p.receive(new CardData(0, 4))
+          p.receive(new CardData(0, 5))
+          p.receive(new CardData(1, 5))
+          p.receive(new CardData(0, 6))
+          p.receive(new CardData(1, 6))
+          p.receive(new CardData(2, 6))
+          assert.equal(p.handPairCount(), 2)
+      })
+      it ('3ペア (同じカード4枚も含む)', () => {
+          let p = new Player(pd)
+          p.receive(new CardData(3, 11))
+          p.receive(new CardData(0, 9))
+          p.receive(new CardData(1, 9))
+          p.receive(new CardData(2, 9))
+          p.receive(new CardData(3, 9))
+          p.receive(new CardData(4, 0))
+          p.receive(new CardData(5, 0))
+          p.receive(new CardData(0, 13))
+          assert.equal(p.handPairCount(), 3)
+      })
+    })
+  })
+
   describe('.openHand()', () => {
     it('手札を公開できる')
   })
