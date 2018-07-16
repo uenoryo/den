@@ -49,10 +49,14 @@ export default {
         return
       }
       this.animateDeal(this.dealer, player)
-      if (Rule.isPank(player.hand)) {
-        alert(`[パンク] プレイヤー${player.data.ID}の負け`)
-        return
-      }
+
+      setTimeout(() => {
+        if (Rule.isPank(player.hand)) {
+          alert(`[パンク] プレイヤー${player.data.ID}の負け`)
+          this.gameSet()
+          return
+        }
+      }, 1000)
       if (this.dealer.shouldMaintenance()) {
         this.animateMaintenance(this.dealer)
       }
