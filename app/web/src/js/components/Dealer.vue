@@ -95,9 +95,6 @@ export default {
     },
 
     dealerJudgeDen (player) {
-      if (this.dealerPlayerIsTurnPlayer(player.data.ID)) {
-        return
-      }
       if (player.data.ID === this.dealer.field.PutPlayerID) {
         return
       }
