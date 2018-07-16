@@ -1,4 +1,5 @@
 import assert from 'assert'
+import Constants from '../../constants'
 import Deck from '../../models/Deck'
 import DeckData from '../../data/DeckData'
 import CardData from '../../data/CardData'
@@ -168,6 +169,33 @@ describe('Dealer', () => {
       it ('特定のフェーズに切り替えることができる')
 
       it ('存在しないフェーズを指定した場合は Normal フェーズになる')
+    })
+  })
+
+  describe ('.judgeDen()', () => {
+    // フィールドのカードは spade の 13
+    let deck = new Deck(new DeckData([
+      new CardData(3, 13),
+    ]))
+    let d = new Dealer(deck)
+    d.put()
+
+    let pd = new PlayerData(1, 1)
+
+    describe ('普通のDENを判定することができる', () => {
+      it ('手札の合計が一致する場合はDEN', () => {
+        let p = new Player(pd)
+        p.receive(new CardData(0, 1))
+        p.receive(new CardData(0, 2))
+        p.receive(new CardData(0, 10))
+        assert.equal(d.judgeDen(p), Constants.GameSetTypeDen)
+      })
+      it ('手札の合計が一致しない場合はnull', () => {
+        let p = new Player(pd)
+        p.receive(new CardData(0, 1))
+        p.receive(new CardData(0, 2))
+        assert.equal(d.judgeDen(p), null)
+      })
     })
   })
 })
