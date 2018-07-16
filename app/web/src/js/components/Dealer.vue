@@ -115,6 +115,9 @@ export default {
         case Constants.GameSetTypeDen:
           //
           break
+        case Constants.GameSetTypeAnko:
+          alert('暗刻')
+          break
       }
       alert(`${player.data.ID}の勝ち`)
       player.openHand()
