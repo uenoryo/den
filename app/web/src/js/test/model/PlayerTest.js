@@ -175,15 +175,34 @@ describe('Player', () => {
     })
   })
 
-  describe('openHand()', () => {
+  describe('.handNumAmount()', () => {
+    let pd = new PlayerData(1, 1)
+    it ('指定された数字のカードが手札に何枚含まれているかを返すことができる', () => {
+        let p = new Player(pd)
+        p.receive(new CardData(0, 2))
+        p.receive(new CardData(0, 10))
+        p.receive(new CardData(1, 10))
+        p.receive(new CardData(2, 10))
+        assert.equal(p.handNumAmount(2), 1)
+        assert.equal(p.handNumAmount(10), 3)
+    })
+    it ('存在しない数字を指定されたら0を返す', () => {
+        let p = new Player(pd)
+        p.receive(new CardData(0, 2))
+        p.receive(new CardData(0, 10))
+        assert.equal(p.handNumAmount(99), 0)
+    })
+  })
+
+  describe('.openHand()', () => {
     it('手札を公開できる')
   })
 
-  describe('closeHand()', () => {
+  describe('.closeHand()', () => {
     it('手札を秘匿できる')
   })
 
-  describe('handIsReversed()', () => {
+  describe('.handIsReversed()', () => {
     it('手札が公開されているかどうかを返すことができる')
   })
 })

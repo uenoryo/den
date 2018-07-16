@@ -120,6 +120,15 @@ export default class Player {
     return sum
   }
 
+  handNumAmount (num) {
+    let amount = 0
+    for (let idx in this.hand.Cards) {
+      if (parseInt(num) === parseInt(this.hand.Cards[idx].Num))
+      amount++
+    }
+    return amount
+  }
+
   isHuman() {
     return this.data.Type === Constants.PlayerTypeHuman
   }
