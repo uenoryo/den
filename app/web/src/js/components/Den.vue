@@ -3,7 +3,8 @@
     <div class='ads'>
       ads
     </div>
-    <div @click='den(config.MainPlayerID)' class='game'>
+    <div class='game'>
+      <div class='denActionArea' @click='den(config.MainPlayerID)'></div>
       <div class='hands'>
         <div
           v-for='player, id in players'
@@ -57,7 +58,7 @@
           </div>
         </div>
       </div>
-      <div class='field'>
+      <div class='field' @click='den(config.MainPlayerID)'>
         <div class='Sleeve'>
           <div v-if='dealer.fieldCard() !== null'>
             <div v-for='card in dealer.field.Cards'

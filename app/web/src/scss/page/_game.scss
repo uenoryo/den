@@ -18,6 +18,13 @@ html, body {
   }
 }
 
+.denActionArea {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 7;
+}
+
 .gameContainer {
   background-image: url(/img/bg/bg_green.png);
   background-position: center;
@@ -78,6 +85,10 @@ html, body {
     left: -1 * $pc_card_width / 2;
     top: -1 * $pc_card_height / 2;
   }
+}
+
+.PlayerCardArea__ID1 {
+  z-index: 17
 }
 
 .PlayerCardArea__ID1, .PlayerCardArea__ID3 {
