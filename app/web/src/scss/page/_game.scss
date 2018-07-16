@@ -64,9 +64,6 @@ html, body {
   top: -1 * $sp_card_height / 2;
   z-index: 15;
   @for $i from 0 through 54 {
-    &__ID#{$i} {
-      background-image: url(/img/cards/card#{$i}.png)
-    }
     &Display__ID#{$i} {
       background-image: url(/img/cards/card#{$i}.png)
     }

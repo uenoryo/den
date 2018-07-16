@@ -4,6 +4,7 @@ export default class CardData {
   constructor(mark, num) {
     this.mark(mark)
     this.num(num)
+    this.id()
     this.CSS = {}
   }
 
@@ -76,13 +77,22 @@ export default class CardData {
   }
 
   id () {
+    if (this._ID !== undefined) {
+      return this._ID
+    }
+    this._ID = this.displayID()
+
+    return this._ID
+  }
+
+  displayID () {
     if (this.Mark === Constants.CardMarkJokerA) {
       return 52
-    }
-    if (this.Mark === Constants.CardMarkJokerB) {
+    } else if (this.Mark === Constants.CardMarkJokerB) {
       return 53
+    } else {
+      return this.score()
     }
-    return this.score()
   }
 
   score() {

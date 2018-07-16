@@ -16,8 +16,14 @@
             @click='put(id, handIdx)'
             :class='{"Sleeve--disabled":dealerPlayerIsTurnPlayer(id) && dealerTurnPlayer().isHuman() && !dealerCanPut(card)}'
             class='Sleeve'>
-            <div v-if='env.DEBUG || player.isHuman() || player.handIsReversed()' class='Card' :class='["Card__ID" + card.id()]'></div>
-            <div v-else='player.isHuman()' class='Card Card--reversed' :class='["Card__ID" + card.id()]'></div>
+            <div
+              v-if='env.DEBUG || player.isHuman() || player.handIsReversed()'
+              class='Card'
+              :class='["CardDisplay__ID" + card.displayID(), "Card__ID" + card.id()]'></div>
+            <div
+              v-else
+              class='Card Card--reversed'
+              :class='["CardDisplay__ID" + card.displayID()]'></div>
           </div>
           <div
             class='modal'
@@ -57,7 +63,7 @@
             <div v-for='card in dealer.field.Cards'
               class='Card'
               :style='card.CSS'
-              :class='["Card__ID" + card.id()]'
+              :class='["CardDisplay__ID" + card.displayID(), "Card__ID" + card.id()]'
               :id='["Card__ID" + card.id()]'>
             </div>
           </div>
