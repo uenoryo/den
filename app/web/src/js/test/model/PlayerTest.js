@@ -236,6 +236,42 @@ describe('Player', () => {
     })
   })
 
+  describe('.lonelyHandNumForChitoi()', () => {
+    describe ('ペアがない1種類のカードを返すことができる', () => {
+      let pd = new PlayerData(1, 1)
+      it ('該当しない (ペア以外が複数ある)', () => {
+          let p = new Player(pd)
+          p.receive(new CardData(0, 1))
+          p.receive(new CardData(1, 1))
+          p.receive(new CardData(0, 2))
+          p.receive(new CardData(0, 3))
+          assert.equal(p.lonelyHandNumForChitoi(), null)
+      })
+      it ('該当しない (ペアのみ)', () => {
+          let p = new Player(pd)
+          p.receive(new CardData(0, 4))
+          p.receive(new CardData(1, 4))
+          p.receive(new CardData(0, 5))
+          p.receive(new CardData(2, 5))
+          assert.equal(p.lonelyHandNumForChitoi(), null)
+      })
+      it ('該当する (1枚単体)', () => {
+          let p = new Player(pd)
+          p.receive(new CardData(0, 5))
+          assert.equal(p.lonelyHandNumForChitoi(), 5)
+      })
+      it ('該当する (ペアあり)', () => {
+          let p = new Player(pd)
+          p.receive(new CardData(0, 8))
+          p.receive(new CardData(1, 8))
+          p.receive(new CardData(0, 9))
+          p.receive(new CardData(1, 9))
+          p.receive(new CardData(2, 12))
+          assert.equal(p.lonelyHandNumForChitoi(), 12)
+      })
+    })
+  })
+
   describe('.openHand()', () => {
     it('手札を公開できる')
   })
