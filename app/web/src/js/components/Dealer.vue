@@ -118,6 +118,9 @@ export default {
         case Constants.GameSetTypeAnko:
           alert('暗刻')
           break
+        case Constants.GameSetTypeChitoi:
+          alert('チートイ')
+          break
       }
       alert(`${player.data.ID}の勝ち`)
       player.openHand()
