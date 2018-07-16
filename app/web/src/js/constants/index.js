@@ -1,4 +1,4 @@
-export default {
+  export default {
   // Player
   PlayerTypeHuman: 0,
   PlayerTypeComputer: 1,
@@ -63,4 +63,8 @@ export default {
   ActionTypeDraw: 1,
   ActionTypePut: 2,
   ActionTypeForceDraw: 3,
+
+  GameSetTypePlainDone: 1,
+  GameSetTypePank: 2,
+  GameSetTypeDen: 3,
 }

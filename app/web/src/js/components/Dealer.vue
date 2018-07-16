@@ -101,12 +101,24 @@ export default {
       if (player.data.ID === this.dealer.field.PutPlayerID) {
         return
       }
-      if (this.isGameSet === false && parseInt(this.dealer.fieldCard().Num) === player.handCardNumTotal()) {
-        player.openHand()
-        alert('DEN')
-        alert(`${player.data.ID}の勝ち`)
-        this.gameSet()
+      if (this.isGameSet === true) {
+        return
       }
+
+      let type = this.dealer.judgeDen(player)
+      if (type === null) {
+        return
+      }
+      alert('DEN')
+
+      switch (type) {
+        case Constants.GameSetTypeDen:
+          //
+          break
+      }
+      alert(`${player.data.ID}の勝ち`)
+      player.openHand()
+      this.gameSet()
     },
 
     dealerReceiveCard (card, playerID) {

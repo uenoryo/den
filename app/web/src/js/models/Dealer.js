@@ -73,6 +73,13 @@ export default class Dealer {
     return this.field.Cards[this.field.Cards.length-1]
   }
 
+  judgeDen (player) {
+    if (parseInt(this.fieldCard().Num) === player.handCardNumTotal()) {
+      return Constants.GameSetTypeDen
+    }
+    return null
+  }
+
   maintenance() {
     // TODO 変えたマークを元に戻す
     // カードのIDの仕組みから変えないとだめそう
