@@ -20,11 +20,13 @@
             <div
               v-if='env.DEBUG || player.isHuman() || player.handIsReversed()'
               class='Card'
+              :id='["Card__ID" + card.id()]'
               :class='["CardDisplay__ID" + card.displayID(), "Card__ID" + card.id()]'></div>
             <div
               v-else
               class='Card Card--reversed'
-              :class='["CardDisplay__ID" + card.displayID()]'></div>
+              :id='["Card__ID" + card.id()]'
+              :class='["CardDisplay__ID" + card.displayID(), "Card__ID" + card.id()]'></div>
           </div>
           <div
             class='modal'

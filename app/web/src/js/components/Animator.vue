@@ -98,6 +98,34 @@ export default {
       }, 1)
     },
 
+    animateDen (dealer, player) {
+      for (let idx in dealer.field.Cards) {
+        anime({
+          targets: `#Card__ID${dealer.field.Cards[idx].id()}`,
+          translateX: `${Math.floor(Math.random() * 40) - 20}px`,
+          translateY: `${Math.floor(Math.random() * 40) - 20}px`,
+          rotate: `${Math.floor(Math.random() * 320)}`,
+          duration: 300,
+          easing: 'easeOutQuad',
+        })
+      }
+      for (let id in this.players) {
+        if (player.data.ID === parseInt(id)) {
+          continue
+        }
+        for (let idx in this.players[id].hand.Cards) {
+          anime({
+            targets: `#Card__ID${this.players[id].hand.Cards[idx].id()}`,
+            translateX: `${Math.floor(Math.random() * 40) - 20}px`,
+            translateY: `${Math.floor(Math.random() * 40) - 20}px`,
+            rotate: `${Math.floor(Math.random() * 320)}`,
+            duration: 300,
+            easing: 'easeOutQuad',
+          })
+        }
+      }
+    },
+
     animateMaintenance (dealer) {
       for (let idx in dealer.field.Cards) {
         if (parseInt(idx) === (dealer.field.Cards.length - 1)) {

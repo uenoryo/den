@@ -117,7 +117,8 @@ export default {
       if (type === null) {
         return
       }
-      alert('DEN')
+      this.animateDen(this.dealer, player)
+      // alert('DEN')
 
       switch (type) {
         case Constants.GameSetTypeDen:
@@ -130,7 +131,7 @@ export default {
           alert('チートイ')
           break
       }
-      alert(`${player.data.ID}の勝ち`)
+      // alert(`${player.data.ID}の勝ち`)
       player.openHand()
       this.gameSet()
     },
