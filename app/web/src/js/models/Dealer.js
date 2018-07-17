@@ -59,6 +59,7 @@ export default class Dealer {
       playerID = 0
     }
 
+    this.field.denable = true
     this.field.Cards.push(card)
     this.field.putPlayerID(playerID)
   }
