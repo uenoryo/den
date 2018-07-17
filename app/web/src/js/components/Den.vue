@@ -1,5 +1,5 @@
 <template>
-  <div class='gameContainer'>
+  <div class='gameContainer' id='View'>
     <div class='ads'>
       ads
     </div>
