@@ -58,4 +58,12 @@ export default class HandData {
     }
     return agr
   }
+
+  cost () {
+    let cost = 0
+    for (let idx in this.Cards) {
+      cost += this.Cards[idx].cost()
+    }
+    return cost
+  }
 }
