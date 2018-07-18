@@ -73,6 +73,16 @@ export default class Dealer {
     return this.field.Cards[this.field.Cards.length-1]
   }
 
+  maintenance () {
+    // TODO 変えたマークを元に戻す
+    // カードのIDの仕組みから変えないとだめそう
+
+    // 1枚だけフィールドに残し、その他をデッキに加える
+    while (this.field.Cards.length > 1) {
+      this.deck.data.Cards.push(this.field.Cards.shift())
+    }
+  }
+
   judgeDen (player) {
     if (
       player.handPairCount() >= 3 &&
@@ -87,16 +97,6 @@ export default class Dealer {
       return Constants.GameSetTypeAnko
     }
     return null
-  }
-
-  maintenance () {
-    // TODO 変えたマークを元に戻す
-    // カードのIDの仕組みから変えないとだめそう
-
-    // 1枚だけフィールドに残し、その他をデッキに加える
-    while (this.field.Cards.length > 1) {
-      this.deck.data.Cards.push(this.field.Cards.shift())
-    }
   }
 
   shouldMaintenance () {
