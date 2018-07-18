@@ -3,6 +3,13 @@ html, body {
   overflow: hidden;
   background-color: #000;
 }
+
+.View {
+  &--inverted {
+    filter: invert(100%);
+  }
+}
+
 .full {
   height: 100%;
 }

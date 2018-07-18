@@ -47,9 +47,6 @@ export default {
               duration: addHandSpeedMs,
             })
           }
-          setTimeout(() => {
-            this.reset(this.els(`Card__ID${card.id()}`))
-          }, 600)
         }, 10)
       }, deckToHandSpeedMs)
     },
@@ -100,12 +97,17 @@ export default {
 
     animateDen (dealer, player) {
       // 画面を揺らす
+      this.el('View').classList.add('View--inverted')
       anime({
         targets: '#View',
         translateY: [50, 0],
         translateX: [50, 0],
         duration: 400,
       })
+      setTimeout(() => {
+        this.el('View').classList.remove('View--inverted')
+      }, 40)
+
       for (let id in this.players) {
         if (player.data.ID === parseInt(id)) {
           continue
@@ -170,12 +172,6 @@ export default {
 
     hide (elID) {
       this.el(elID).style.display = 'none'
-    },
-
-    reset (els) {
-      for (let i = 0; i < els.length; i++) {
-        //console.log(els[i].removeAttribute('style'))
-      }
     },
 
     translation (type, playerID, xORy) {
