@@ -1,4 +1,5 @@
 import Constants from '../constants'
+import CardCost from '../constants/CardCost'
 
 export default class CardData {
   constructor(mark, num) {
@@ -103,5 +104,12 @@ export default class CardData {
       return 0
     }
     return this.Mark + (this.Num * 4) - 4
+  }
+
+  cost () {
+    if (CardCost[this.Num] === undefined) {
+      return 0
+    }
+    return parseInt(CardCost[this.Num])
   }
 }
