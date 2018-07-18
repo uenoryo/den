@@ -5,10 +5,7 @@ export default class ScoreData {
     this.winnerID(winnerID)
     this.loserID(loserID)
     this.type(type)
-    this.player1HandCost(p1HandCost)
-    this.player2HandCost(p2HandCost)
-    this.player3HandCost(p3HandCost)
-    this.player4HandCost(p4HandCost)
+    this.playerHandCosts(p1HandCost, p2HandCost, p3HandCost, p4HandCost)
   }
 
   winnerID (playerID) {
@@ -35,20 +32,14 @@ export default class ScoreData {
     this.Type = type
   }
 
-  player1HandCost (cost) {
-    this.Player1HandCost = cost
-  }
-
-  player2HandCost (cost) {
-    this.Player2HandCost = cost
-  }
-
-  player3HandCost (cost) {
-    this.Player3HandCost = cost
-  }
-
-  player4HandCost (cost) {
-    this.Player4HandCost = cost
+  playerHandCosts (p1cost, p2cost, p3cost, p4cost) {
+    if (p1cost + p2cost + p3cost + p4cost !== 0) {
+      throw new Error(`The sub Player Hand costs should be 0. got ${p1cost + p2cost + p3cost + p4cost}`)
+    }
+    this.Player1HandCost = parseInt(p1cost)
+    this.Player2HandCost = parseInt(p2cost)
+    this.Player3HandCost = parseInt(p3cost)
+    this.Player4HandCost = parseInt(p4cost)
   }
 
   _existsPlayerID (playerID) {
