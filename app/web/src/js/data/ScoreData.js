@@ -3,7 +3,7 @@ import Constants from '../constants'
 export default class ScoreData {
   constructor (winnerID, loserID, type, p1HandCost, p2HandCost, p3HandCost, p4HandCost) {
     this.winnerID(winnerID)
-    this.loserID(winnerID)
+    this.loserID(loserID)
     this.type(type)
     this.player1HandCost(p1HandCost)
     this.player2HandCost(p2HandCost)
@@ -16,19 +16,19 @@ export default class ScoreData {
       throw new Error(`Invalid winner Player ID [${playerID}].`)
     }
     if (playerID === this.LoserID) {
-      throw new Error(`Winner Player ID [${playerID}] is equal to Loser Player ID.`)
+      throw new Error(`Winner player ID [${playerID}] is equal to loser player ID.`)
     }
     this.WinnerID = parseInt(playerID)
   }
 
   loserID (playerID) {
     if (! this._existsPlayerID(playerID)) {
-      throw new Error(`Invalid winner Player ID [${playerID}].`)
+      throw new Error(`Invalid loser player ID [${playerID}].`)
     }
-    if (playerID === this.LoserID) {
-      throw new Error(`Winner Player ID [${playerID}] is equal to Loser Player ID.`)
+    if (playerID === this.WinnerID) {
+      throw new Error(`Loser player ID [${playerID}] is equal to winner player ID.`)
     }
-    this.WinnerID = parseInt(playerID)
+    this.LoserID = parseInt(playerID)
   }
 
   type (type) {
@@ -36,19 +36,19 @@ export default class ScoreData {
   }
 
   player1HandCost (cost) {
-    this,Player1HandCost = cost
+    this.Player1HandCost = cost
   }
 
   player2HandCost (cost) {
-    this,Player2HandCost = cost
+    this.Player2HandCost = cost
   }
 
   player3HandCost (cost) {
-    this,Player3HandCost = cost
+    this.Player3HandCost = cost
   }
 
   player4HandCost (cost) {
-    this,Player4HandCost = cost
+    this.Player4HandCost = cost
   }
 
   _existsPlayerID (playerID) {
