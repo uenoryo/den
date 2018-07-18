@@ -3,7 +3,7 @@ import Config from '../config'
 import FieldData from '../data/FieldData'
 
 export default class Dealer {
-  constructor(deck) {
+  constructor (deck) {
     if (deck.constructor.name !== 'Deck') {
       throw new Error(`Invalid deck [${deck.constructor.name}]`)
     }
@@ -18,14 +18,14 @@ export default class Dealer {
     this.turn = Constants.Player1ID
   }
 
-  draw() {
+  draw () {
     if (this.deck.cardNum() === 0) {
       return
     }
     return this.deck.turn()
   }
 
-  shuffle() {
+  shuffle () {
     for (let i = this.deck.data.Cards.length - 1; i > 0; i--) {
       let r = Math.floor(Math.random() * (i + 1))
       let tmp = this.deck.data.Cards[i];
@@ -34,7 +34,7 @@ export default class Dealer {
     }
   }
 
-  deal(player) {
+  deal (player) {
     let card = this.draw()
     if (card === null) {
       return
@@ -44,17 +44,14 @@ export default class Dealer {
     return card
   }
 
-  forceDeal(player) {
+  forceDeal (player) {
     this.deal(player)
     if (this.forceDrawAmount !== 0) {
       this.forceDrawAmount--
     }
   }
 
-  receive(card, playerID) {
-    if (card.constructor.name !== 'CardData') {
-      throw new Error(`Invalid Card will add to hand [${card.constructor.name}]`)
-    }
+  receive (card, playerID) {
     if (playerID === undefined) {
       playerID = 0
     }
@@ -64,12 +61,12 @@ export default class Dealer {
     this.field.putPlayerID(playerID)
   }
 
-  put() {
+  put () {
     this.field.Cards.push(this.draw())
     this.field.denable = true
   }
 
-  fieldCard() {
+  fieldCard () {
     if (this.field.Cards.length === 0) {
       return null
     }
@@ -92,7 +89,7 @@ export default class Dealer {
     return null
   }
 
-  maintenance() {
+  maintenance () {
     // TODO 変えたマークを元に戻す
     // カードのIDの仕組みから変えないとだめそう
 
@@ -102,11 +99,11 @@ export default class Dealer {
     }
   }
 
-  shouldMaintenance() {
+  shouldMaintenance () {
     return this.deck.cardNum() <= Constants.DeckShuffleRemainingAmount
   }
 
-  goNextTurn() {
+  goNextTurn () {
     let turnIdx = this.turnTable.indexOf(this.turn)
     if (turnIdx >= this.turnTable.length-1) {
       turnIdx = 0
@@ -116,19 +113,19 @@ export default class Dealer {
     this.turn = this.turnTable[turnIdx]
   }
 
-  playerIsTurnPlayer(id) {
+  playerIsTurnPlayer (id) {
     return parseInt(id) === this.turn
   }
 
-  reverseTurnTable() {
+  reverseTurnTable () {
     this.turnTable.reverse()
   }
 
-  increaseForceDrawAmount(amount) {
+  increaseForceDrawAmount (amount) {
      this.forceDrawAmount += amount
   }
 
-  changePhase(phase) {
+  changePhase (phase) {
     this.phase = Constants.DealerPhaseNormal;
     if (
       phase === Constants.DealerPhaseForceDraw ||
