@@ -48,14 +48,6 @@ describe('Dealer', () => {
     })
   })
 
-  describe ('.receive()', () => {
-    describe ('カードをフィールドに出すことができる', () => {
-      it ('カードがフィールドの先頭に追加される')
-
-      it ('カードを出したプレイヤーのIDが保存される')
-    })
-  })
-
   describe('.deal()', () => {
     it('カードを引いてプレイヤーに渡すことができる', () => {
       let deck = new Deck(new DeckData([
@@ -67,6 +59,18 @@ describe('Dealer', () => {
       d.deal(player)
       assert.equal(player.hand.Cards[0].Mark, 1)
       assert.equal(player.hand.Cards[0].Num, 1)
+    })
+  })
+
+  describe ('.forceDeal()', () => {
+    it ('forceDrawAmountを減らしながらプレイヤーにカードを渡すことができる')
+  })
+
+  describe ('.receive()', () => {
+    describe ('カードをフィールドに出すことができる', () => {
+      it ('カードがフィールドの先頭に追加される')
+
+      it ('カードを出したプレイヤーのIDが保存される')
     })
   })
 
@@ -153,7 +157,7 @@ describe('Dealer', () => {
     })
   })
 
-  describe('.turnPlayer()', () => {
+  describe('.playerIsTurnPlayer()', () => {
     it('エントリープレイヤーの中から現在のターンのプレイヤーを返すことができる')
   })
 

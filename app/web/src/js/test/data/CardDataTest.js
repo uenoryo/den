@@ -65,4 +65,12 @@ describe('CardData', () => {
       assert.equal(cd.toString(), '♡ K')
     })
   })
+
+  describe('.cost()', () => {
+    it ('カードのコストを返すことができる', () => {
+      // 8 のコストは 3
+      let cd = new CardData(2, 8)
+      assert.equal(cd.cost(), 3)
+    })
+  })
 })

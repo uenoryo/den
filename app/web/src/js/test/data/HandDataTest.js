@@ -107,4 +107,38 @@ describe ('HandData', () => {
       })
     })
   })
+
+  describe ('.cost()', () => {
+    describe ('手札のコストの合計を返すことができる', () => {
+      it ('手札が少ないケース', () => {
+        let cards = [
+            new CardData(0, 1),
+            new CardData(0, 13),
+        ]
+        let hd = new HandData(cards)
+        assert.equal(hd.cost(), 2)
+      })
+
+      it ('手札がないケース', () => {
+        let hd = new HandData([])
+        assert.equal(hd.cost(), 0)
+      })
+
+      it ('手札が多いケース', () => {
+        let cards = [
+            new CardData(0, 0), // 5
+            new CardData(0, 1), // 1
+            new CardData(0, 2), // 2
+            new CardData(0, 3), // 1
+            new CardData(0, 4), // 1
+            new CardData(0, 5), // 1
+            new CardData(0, 6), // 1
+            new CardData(0, 7), // 1
+            new CardData(0, 8), // 3
+        ]
+        let hd = new HandData(cards)
+        assert.equal(hd.cost(), 16)
+      })
+    })
+  })
 })
