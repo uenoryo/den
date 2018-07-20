@@ -32,4 +32,11 @@ export default class BrainData {
     }
     this.PutCards = cards
   }
+
+  pushPutCard (card) {
+    if (card.constructor.name !== 'CardData') {
+      throw new Error(`Invalid CardData [${card}]`)
+    }
+    this.PutCards.push(card)
+  }
 }
