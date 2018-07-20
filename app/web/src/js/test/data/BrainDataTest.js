@@ -53,4 +53,19 @@ describe ('BrainData', () => {
       assert.throws(() => {bd.putCards(null)})
     })
   })
+
+  describe ('.pushPutCard()', () => {
+    it ('フィールドに置かれたカードを追加できる', () => {
+      let bd = new BrainData
+      bd.pushPutCard(new CardData(2, 1))
+      bd.pushPutCard(new CardData(0, 13))
+      assert.equal(bd.PutCards[0].Mark, 2)
+      assert.equal(bd.PutCards.length, 2)
+    })
+
+    it ('追加されるカードがおかしい場合はエラーになる', () => {
+      let bd = new BrainData
+      assert.throws(() => {bd.pushPutCard(null)})
+    })
+  })
 })
