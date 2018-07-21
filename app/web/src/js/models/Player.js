@@ -63,6 +63,13 @@ export default class Player {
   }
 
   wantPut(field, isForceDraw) {
+    if (! this.canPut(field, isForceDraw)) {
+      return false
+    }
+    return true
+  }
+
+  canPut(field, isForceDraw) {
     for (let idx in this.hand.Cards) {
       if (Rule.canPut(field, this.hand.Cards[idx], isForceDraw)) {
         return true
