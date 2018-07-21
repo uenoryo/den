@@ -9,11 +9,54 @@ export default class Brain {
   input (type, object) {
     switch (type) {
       case 'FieldCard':
-        return this.data.fieldCard(object)
+        this.data.fieldCard(object)
+        break
       case 'SelfHand':
-        return this.data.selfHand(object)
+        this.data.selfHand(object)
+        break
       case 'PutCard':
-        return this.data.pushPutCard(object)
+        this.data.pushPutCard(object)
+        break
     }
+
+    this.interpret()
+
+    this.setTarget()
+  }
+
+  interpret () {
+    //
+  }
+
+  setTarget () {
+    //
+  }
+
+  output (type) {
+    if (this.data.FieldCard === null || this.data.SelfHand === null) {
+      console.warn('Not enough input to output something, it need field card and self hand at least.')
+      return null
+    }
+
+    switch (type) {
+      case 'Put':
+        return this.put()
+      case 'ChangeMark':
+        return this.changeMark()
+      case 'Den':
+        return this.den()
+    }
+  }
+
+  put () {
+    //
+  }
+
+  changeMark () {
+    //
+  }
+
+  den () {
+    //
   }
 }
