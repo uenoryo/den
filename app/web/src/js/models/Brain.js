@@ -35,7 +35,14 @@ export default class Brain {
   output (type) {
     if (this.data.FieldCard === null || this.data.SelfHand === null) {
       console.warn('Not enough input to output something, it need field card and self hand at least.')
-      return null
+      switch (type) {
+        case 'PutOrDraw':
+          return -1
+        case 'ChangeMark':
+          return Constants.CardMarkJokerA
+        case 'Den':
+          return false
+      }
     }
 
     switch (type) {
@@ -49,7 +56,7 @@ export default class Brain {
   }
 
   putOrDraw () {
-    //
+    return -1
   }
 
   changeMark () {

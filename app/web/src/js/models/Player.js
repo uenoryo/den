@@ -1,13 +1,18 @@
 import Constants from '../constants'
 import HandData from '../data/HandData'
+import Brain from './Brain'
 import Rule from './Rule'
 
 export default class Player {
-  constructor(data) {
+  constructor(data, brain) {
     if (data.constructor.name !== 'PlayerData') {
       throw new Error('Invalid PlayerData')
     }
+    if (brain === undefined) {
+      brain = new Brain
+    }
     this.data = data
+    this.brain = brain
     this.hand = new HandData([])
   }
 
@@ -66,6 +71,9 @@ export default class Player {
     if (! this.canPut(field, isForceDraw)) {
       return false
     }
+    if (this.think() === -1) {
+      return false
+    }
     return true
   }
 
@@ -91,13 +99,8 @@ export default class Player {
     return Constants.ActionTypeDraw
   }
 
-  think(field, isForceDraw) {
-    for (let idx in this.hand.Cards) {
-      if (Rule.canPut(field, this.hand.Cards[idx], isForceDraw)) {
-        return idx
-      }
-    }
-    return null
+  think () {
+    return this.brain.output('PutOrDraw')
   }
 
   thinkChangeMark() {
