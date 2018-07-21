@@ -39,8 +39,8 @@ export default class Brain {
     }
 
     switch (type) {
-      case 'Put':
-        return this.put()
+      case 'PutOrDraw':
+        return this.putOrDraw()
       case 'ChangeMark':
         return this.changeMark()
       case 'Den':
@@ -48,7 +48,7 @@ export default class Brain {
     }
   }
 
-  put () {
+  putOrDraw () {
     //
   }
 
