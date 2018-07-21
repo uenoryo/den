@@ -119,6 +119,43 @@ describe('Player', () => {
     })
   })
 
+  describe ('.canPut()', () => {
+    let pd = new PlayerData(1, 1)
+    describe ('Normalのモードの場合', () => {
+      it ('出せるカードがある', () => {
+        let p = new Player(pd)
+        let field = new CardData(0, 3)
+        p.receive(new CardData(2, 2))
+        p.receive(new CardData(3, 3))
+        assert.equal(p.canPut(field, false), true)
+      })
+      it ('出せるカードがない', () => {
+        let p = new Player(pd)
+        let field = new CardData(0, 3)
+        p.receive(new CardData(2, 2))
+        p.receive(new CardData(3, 4))
+        assert.equal(p.canPut(field, false), false)
+      })
+    })
+
+    describe ('ForceDrawモードの場合', () => {
+      it ('出せるカードがある (2がある)', () => {
+        let p = new Player(pd)
+        let field = new CardData(1, 2)
+        p.receive(new CardData(0, 2))
+        p.receive(new CardData(4, 0))
+        assert.equal(p.canPut(field, true), true)
+      })
+      it ('出したいカードがない (2がない)', () => {
+        let p = new Player(pd)
+        let field = new CardData(1, 2)
+        p.receive(new CardData(0, 9))
+        p.receive(new CardData(4, 0))
+        assert.equal(p.canPut(field, true), false)
+      })
+    })
+  })
+
   describe('.wantPut()', () => {
     it('出したいカードがある')
     it('出したいカードがない')
