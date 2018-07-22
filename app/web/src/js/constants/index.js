@@ -64,9 +64,14 @@
   ActionTypePut: 2,
   ActionTypeForceDraw: 3,
 
+  // GameSetType
   GameSetTypePlainDone: 1,
   GameSetTypePank: 2,
   GameSetTypeDen: 3,
   GameSetTypeAnko: 4,
   GameSetTypeChitoi: 5,
+
+  // Plan
+  PlanTargetPlainDone: 1,
+  PlanTargetDenAndPlainDone: 2,
 }
