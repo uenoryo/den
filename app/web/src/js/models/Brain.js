@@ -1,5 +1,6 @@
 import Constants from '../constants'
 import BrainData from '../data/BrainData'
+import Rule from './Rule'
 import DecidePlanBrainCell from './DecidePlanBrainCell'
 
 export default class Brain {
@@ -19,22 +20,41 @@ export default class Brain {
         this.data.pushPutCard(object)
         break
     }
-
     this.interpret()
-
-    this.consider()
   }
 
   interpret () {
     //
   }
 
-  consider () {
-    DecidePlanBrainCell.wantPlainDone(this.data)
+  narrow (isForceDraw) {
+    let puttables = {
+      '-1': 0
+    }
+    for (let idx in this.data.SelfHand.Cards) {
+      if (Rule.canPut(this.data.FieldCard, this.data.SelfHand.Cards[idx], isForceDraw)) {
+        puttables[idx] = 0
+      }
+    }
+    this.data.puttableIdx(puttables)
   }
 
   decide () {
-    //
+    let priorityIdx = -1
+    if (Object.keys(this.data.PuttableIdx).length === 0) {
+      return priorityIdx
+    }
+
+    // BrainData.PuttableIdx から値の一番大きい idx を取得する
+    let maxPriority = null
+    for (let idx in this.data.PuttableIdx) {
+      if (maxPriority === null || maxPriority < this.data.PuttableIdx[idx]) {
+        maxPriority = this.data.PuttableIdx[idx]
+        priorityIdx = idx
+      }
+    }
+
+    return parseInt(priorityIdx)
   }
 
   output (type) {
@@ -52,7 +72,11 @@ export default class Brain {
 
     switch (type) {
       case 'PutOrDraw':
+        this.narrow()
         return this.putOrDraw()
+      case 'PutOrForceDraw':
+        this.narrow(true)
+        return this.putOrForceDraw()
       case 'ChangeMark':
         return this.changeMark()
       case 'Den':
@@ -61,7 +85,11 @@ export default class Brain {
   }
 
   putOrDraw () {
-    return -1
+    return this.decide()
+  }
+
+  putOrForceDraw () {
+    return this.decide()
   }
 
   changeMark () {

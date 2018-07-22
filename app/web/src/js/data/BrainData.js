@@ -4,6 +4,7 @@ export default class BrainData {
   constructor () {
     this.FieldCard = null
     this.SelfHand = null
+    this.PuttableIdx = []
     this.PutCards = []
   }
 
@@ -38,5 +39,20 @@ export default class BrainData {
       throw new Error(`Invalid CardData [${card}]`)
     }
     this.PutCards.push(card)
+  }
+
+  puttableIdx (puttables) {
+    if (Object.keys(puttables).length > this.SelfHand.Cards.length + 1) {
+      throw new Error(`puttables is too long, max [${this.SelfHand.Cards.length + 1}]`)
+    }
+    for (let idx in puttables) {
+      if (parseInt(idx) !== -1 && this.SelfHand.Cards[idx] == null) {
+        throw new Error(`Invalid hand index [${idx}]. hand: ${this.SelfHand.Cards}`)
+      }
+      if (puttables[idx] < -99 || puttables[idx] > 99) {
+        throw new Error(`puttable card priorities must be from -99 to +99`)
+      }
+    }
+    this.PuttableIdx = puttables
   }
 }

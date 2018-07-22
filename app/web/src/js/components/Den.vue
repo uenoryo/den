@@ -153,6 +153,8 @@ export default {
       if (this.dealerCanReceiveCard(this.players[id].show(handIdx))) {
         this.dealerReceiveCard(this.players[id].pick(handIdx), id)
 
+        this.computerLookField(this.dealer.fieldCard())
+
         this.dealerCheckDone(this.players[id])
 
         this.dealerTriggerCardSkill()
@@ -185,6 +187,8 @@ export default {
       if (! this.dealerTurnPlayer().isComputer()) {
         return
       }
+
+      this.computerLookSelfHand()
 
       // ForceDraw
       if (this.dealerIsForceDrawPhase()) {
