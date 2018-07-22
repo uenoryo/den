@@ -34,6 +34,55 @@ describe ('Brain', () => {
     })
   })
 
+  describe('.narrow()', () => {
+    describe('通常モード', () => {
+      let bd = new BrainData
+      let hand = new HandData([
+        new CardData(0, 5),
+        new CardData(1, 5),
+        new CardData(2, 5),
+      ])
+      bd.SelfHand = hand
+      let b = new Brain
+      bd.FieldCard = new CardData(2, 10)
+      b.data = bd
+      it ('手札から出せるカードを優先度を初期化しつつまとめられる', () => {
+        b.narrow()
+        assert.deepEqual(b.data.PuttableIdx, {'-1': 0, 2: 0})
+      })
+    })
+
+    describe('ForceDrawモード', () => {
+      it ('2がない場合はDrawしかない', () => {
+        let bd = new BrainData
+        let hand = new HandData([
+          new CardData(0, 5),
+          new CardData(1, 5),
+          new CardData(2, 5),
+        ])
+        bd.SelfHand = hand
+        let b = new Brain
+        bd.FieldCard = new CardData(2, 2)
+        b.data = bd
+        b.narrow(true)
+        assert.deepEqual(b.data.PuttableIdx, {'-1': 0})
+      })
+      it ('2がある場合', () => {
+        let bd = new BrainData
+        let hand = new HandData([
+          new CardData(0, 5),
+          new CardData(1, 2),
+        ])
+        bd.SelfHand = hand
+        let b = new Brain
+        bd.FieldCard = new CardData(2, 2)
+        b.data = bd
+        b.narrow(true)
+        assert.deepEqual(b.data.PuttableIdx, {'-1': 0, 1: 0})
+      })
+    })
+  })
+
   describe('.decide()', () => {
     let bd = new BrainData
     let hand = new HandData([
