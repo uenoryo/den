@@ -234,11 +234,11 @@ export default {
     },
 
     autoDenAction () {
-      for (let idx in this.players) {
-        if (this.players[idx].isHuman()) {
+      for (let id in this.players) {
+        if (this.players[id].isHuman() || ! this.players[id].wantDen()) {
           continue
         }
-        this.dealerJudgeDen(this.players[idx])
+        this.den(id)
       }
     },
 

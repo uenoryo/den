@@ -94,6 +94,10 @@ export default class Player {
     return false
   }
 
+  wantDen() {
+    return this.thinkDen()
+  }
+
   noPutAction() {
     return Constants.ActionTypeDraw
   }
@@ -104,6 +108,10 @@ export default class Player {
 
   thinkChangeMark() {
     return this.brain.output('ChangeMark')
+  }
+
+  thinkDen() {
+    return this.brain.output('Den')
   }
 
   hasNoCard() {
