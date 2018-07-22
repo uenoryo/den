@@ -94,15 +94,6 @@ export default class Player {
     return false
   }
 
-  wantForcePut() {
-    for (let idx in this.hand.Cards) {
-      if (this.hand.Cards[idx].Num === Constants.CardAbilityDrawTwo) {
-        return idx
-      }
-    }
-    return false
-  }
-
   noPutAction() {
     return Constants.ActionTypeDraw
   }
