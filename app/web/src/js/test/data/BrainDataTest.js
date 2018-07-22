@@ -68,17 +68,4 @@ describe ('BrainData', () => {
       assert.throws(() => {bd.pushPutCard(null)})
     })
   })
-
-  describe ('.plan', () => {
-    it ('作戦を更新できる', () => {
-      let bd = new BrainData
-      bd.plan(10)
-      assert.equal(bd.Plan, 10)
-    })
-
-    it ('作戦IDがおかしい場合はエラーになる', () => {
-      let bd = new BrainData
-      assert.throws(() => {bd.plan(-1)})
-    })
-  })
 })

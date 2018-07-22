@@ -1,5 +1,6 @@
 import Constants from '../constants'
 import BrainData from '../data/BrainData'
+import DecidePlanBrainCell from './DecidePlanBrainCell'
 
 export default class Brain {
   constructor () {
@@ -21,14 +22,18 @@ export default class Brain {
 
     this.interpret()
 
-    this.decidePlan()
+    this.consider()
   }
 
   interpret () {
     //
   }
 
-  decidePlan () {
+  consider () {
+    DecidePlanBrainCell.wantPlainDone(this.data)
+  }
+
+  decide () {
     //
   }
 
