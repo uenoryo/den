@@ -73,10 +73,12 @@ export default class Brain {
     switch (type) {
       case 'PutOrDraw':
         this.narrow()
-        return this.putOrDraw()
+        this.putOrDraw()
+        return this.decide()
       case 'PutOrForceDraw':
         this.narrow(true)
-        return this.putOrForceDraw()
+        this.putOrForceDraw()
+        return this.decide()
       case 'ChangeMark':
         return this.changeMark()
       case 'Den':
@@ -85,11 +87,11 @@ export default class Brain {
   }
 
   putOrDraw () {
-    return this.decide()
+    //
   }
 
   putOrForceDraw () {
-    return this.decide()
+    this.putOrDraw()
   }
 
   changeMark () {
