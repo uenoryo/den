@@ -21,14 +21,14 @@ export default class Brain {
 
     this.interpret()
 
-    this.decideTarget()
+    this.decidePlan()
   }
 
   interpret () {
     //
   }
 
-  decideTarget () {
+  decidePlan () {
     //
   }
 
