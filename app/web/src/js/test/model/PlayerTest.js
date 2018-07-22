@@ -7,6 +7,7 @@ import DeckData from '../../data/DeckData'
 import CardData from '../../data/CardData'
 import HandData from '../../data/CardData'
 import Dealer from '../../models/Dealer'
+import DummyBrain from '../dummy/Brain'
 
 describe('Player', () => {
   describe('.constructor()', () => {
@@ -162,7 +163,13 @@ describe('Player', () => {
   })
 
   describe('.think()', () => {
-    it('数字の大きいカードは優先的に処理する')
+    it ('Brainでoutputされた内容を返すことができる', () => {
+      let pd = new PlayerData(1, 1)
+      let b = new DummyBrain
+      b.PutOrDrawOutput = 'ok'
+      let p = new Player(pd, b)
+      assert.equal(p.think(), 'ok')
+    })
   })
 
   describe('.hasNoCard()', () => {
