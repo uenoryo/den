@@ -1,4 +1,7 @@
 export default {
   DEBUG: false,
   DEBUG_DECK_ID: 0,
+  Player2Brain: 'FastDone',
+  Player3Brain: 'FastDone',
+  Player4Brain: 'FastDone',
 }

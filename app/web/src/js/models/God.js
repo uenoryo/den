@@ -1,11 +1,14 @@
 import Config from '../config'
 import Constants from '../constants'
+import Env from '../env'
 import Dealer from './Dealer'
 import Player from './Player'
 import PlayerData from '../data/PlayerData'
 import Deck from './Deck'
 import DeckData from '../data/DeckData'
 import CardData from '../data/CardData'
+
+import BrainFastDone from './brains/FastDone'
 
 /**
  * God can setup game
@@ -16,11 +19,15 @@ export default class God {
   }
 
   createPlayers() {
-    let players = Config.EntryPlayers
-    let playersByID = {}
-    for (let id in players) {
-      let data = new PlayerData(id, players[id])
-      playersByID[id] = new Player(data)
+    let data1 = new PlayerData(1, Config.EntryPlayers[1])
+    let data2 = new PlayerData(2, Config.EntryPlayers[2])
+    let data3 = new PlayerData(3, Config.EntryPlayers[3])
+    let data4 = new PlayerData(4, Config.EntryPlayers[4])
+    let playersByID = {
+      1: new Player(data1),
+      2: new Player(data2, this.createBrain(Env.Player2Brain)),
+      3: new Player(data3, this.createBrain(Env.Player3Brain)),
+      4: new Player(data4, this.createBrain(Env.Player4Brain)),
     }
     return playersByID
   }
@@ -42,5 +49,14 @@ export default class God {
 
     let data = new DeckData(cards)
     return new Deck(data)
+  }
+
+  createBrain(type) {
+    switch (type) {
+      case 'FastDone':
+        return new BrainFastDone
+      default:
+        return new BrainFastDone
+    }
   }
 }
