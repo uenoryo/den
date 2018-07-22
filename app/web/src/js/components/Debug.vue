@@ -19,7 +19,11 @@ export default {
 
       this.dealerDealCardToPlayersAtFirst()
 
+      this.computerLookSelfHand()
+
       this.dealerPutCard()
+
+      this.computerLookField(this.dealer.fieldCard())
     },
     getDeck (id) {
       let cards = this.debugDeck[id]
@@ -308,6 +312,49 @@ export default {
         /* ---------- */
 
           [h, 10],
+          [h, 5],
+          [h, 6],
+          [h, 7],
+          [h, 1],
+          [h, 9],
+          [h, 10],
+          [h, 11],
+          [h, 12],
+          [h, 13],
+          [h, 1],
+          [h, 2],
+          [h, 5],
+          [h, 4],
+          [h, 5],
+          [h, 6],
+          [h, 7],
+          [h, 1],
+          [h, 9],
+          [h, 10],
+          [h, 11],
+          [h, 12],
+          [h, 13],
+
+        ],
+
+        8: [
+
+        /* Debug Deck: 8 [Den される] ------- */
+        /* [P1]     [P2]     [P3]     [P4] */
+          [c, 13], [c, 1],  [h, 9],  [h, 11],
+          [d, 5],  [d, 1],  [d, 9],  [d, 11],
+          [h, 5],  [h, 1],  [c, 9],  [c, 10],
+          [s, 5],  [s, 1],  [s, 9],  [s, 10],
+          [c, 6],  [c, 2],  [s, 8],  [h, 11],
+          [d, 7],  [d, 3],  [c, 8],  [c, 9],
+          [h, 8],  [h, 4],  [h, 6],  [s, 9],
+        /* -------------------------------- */
+
+        /* Field Card */
+          [c, 3],
+        /* ---------- */
+
+          [h, 4],
           [h, 5],
           [h, 6],
           [h, 7],

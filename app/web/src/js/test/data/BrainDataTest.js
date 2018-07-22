@@ -68,4 +68,39 @@ describe ('BrainData', () => {
       assert.throws(() => {bd.pushPutCard(null)})
     })
   })
+
+  describe ('.puttableIdx()', () => {
+    let hand = new HandData([
+      new CardData(1, 3),
+      new CardData(2, 3),
+    ])
+    it ('カードの優先順位を更新できる', () => {
+      let bd = new BrainData
+      bd.SelfHand = hand
+      bd.puttableIdx({
+        '-1': 10,
+        1   : -5,
+      })
+      assert.deepEqual(bd.PuttableIdx, {'-1': 10, 1: -5,})
+    })
+
+    it ('手札の枚数+1以上の長さだとエラー (Drawを含むため)', () => {
+      let bd = new BrainData
+      bd.SelfHand = hand
+      assert.throws(() => {bd.puttableIdx({'-1': 10, 1: -5, 2: 20})})
+    })
+
+    it ('存在しないHandIdxが含まれているとエラー', () => {
+      let bd = new BrainData
+      bd.SelfHand = hand
+      assert.throws(() => {bd.puttableIdx({'-1': 10, 3: -5})})
+    })
+
+    it ('優先順位が範囲外だとエラー', () => {
+      let bd = new BrainData
+      bd.SelfHand = hand
+      assert.throws(() => {bd.puttableIdx({'-1': 10, 1: 100})})
+      assert.throws(() => {bd.puttableIdx({'-1': 10, 1: -100})})
+    })
+  })
 })

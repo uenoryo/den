@@ -46,6 +46,18 @@ export default {
     computerStartDenTimer (denAction) {
       this.denTimer = setInterval(denAction, Constants.ComputerDenActionIntervalMs)
     },
+
+    computerLookField (field) {
+      for (let id in this.players) {
+        this.players[id].lookField(field)
+      }
+    },
+
+    computerLookSelfHand () {
+      for (let id in this.players) {
+        this.players[id].lookSelfHand()
+      }
+    },
   },
 }
 </script>

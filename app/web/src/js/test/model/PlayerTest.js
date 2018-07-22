@@ -7,6 +7,7 @@ import DeckData from '../../data/DeckData'
 import CardData from '../../data/CardData'
 import HandData from '../../data/CardData'
 import Dealer from '../../models/Dealer'
+import DummyBrain from '../dummy/Brain'
 
 describe('Player', () => {
   describe('.constructor()', () => {
@@ -15,6 +16,26 @@ describe('Player', () => {
       let p = new Player(pd)
       assert.equal(p.data.ID, 1)
       assert.equal(p.data.Type, 1)
+    })
+  })
+
+  describe ('.lookField()', () => {
+    it ('フィールドを確認し、Brainにinputできる', () => {
+      let pd = new PlayerData(1, 1)
+      let b = new DummyBrain
+      let p = new Player(pd, b)
+      p.lookField(new CardData(1, 2))
+      assert.equal(p.brain.IsInput, true)
+    })
+  })
+
+  describe ('.lookSelfHand()', () => {
+    it ('自身の手札を確認し、Brainにinputできる', () => {
+      let pd = new PlayerData(1, 1)
+      let b = new DummyBrain
+      let p = new Player(pd, b)
+      p.lookSelfHand()
+      assert.equal(p.brain.IsInput, true)
     })
   })
 
@@ -119,13 +140,66 @@ describe('Player', () => {
     })
   })
 
+  describe ('.canPut()', () => {
+    let pd = new PlayerData(1, 1)
+    describe ('Normalのモードの場合', () => {
+      it ('出せるカードがある', () => {
+        let p = new Player(pd)
+        let field = new CardData(0, 3)
+        p.receive(new CardData(2, 2))
+        p.receive(new CardData(3, 3))
+        assert.equal(p.canPut(field, false), true)
+      })
+      it ('出せるカードがない', () => {
+        let p = new Player(pd)
+        let field = new CardData(0, 3)
+        p.receive(new CardData(2, 2))
+        p.receive(new CardData(3, 4))
+        assert.equal(p.canPut(field, false), false)
+      })
+    })
+
+    describe ('ForceDrawモードの場合', () => {
+      it ('出せるカードがある (2がある)', () => {
+        let p = new Player(pd)
+        let field = new CardData(1, 2)
+        p.receive(new CardData(0, 2))
+        p.receive(new CardData(4, 0))
+        assert.equal(p.canPut(field, true), true)
+      })
+      it ('出したいカードがない (2がない)', () => {
+        let p = new Player(pd)
+        let field = new CardData(1, 2)
+        p.receive(new CardData(0, 9))
+        p.receive(new CardData(4, 0))
+        assert.equal(p.canPut(field, true), false)
+      })
+    })
+  })
+
   describe('.wantPut()', () => {
     it('出したいカードがある')
     it('出したいカードがない')
   })
 
   describe('.think()', () => {
-    it('数字の大きいカードは優先的に処理する')
+    it ('Brainでoutputされた内容を返すことができる', () => {
+      let pd = new PlayerData(1, 1)
+      let b = new DummyBrain
+      b.PutOrDrawOutput = 'ok'
+      let p = new Player(pd, b)
+      assert.equal(p.think(), 'ok')
+    })
+  })
+
+  describe('.changeMark()', () => {
+    it ('Brainでoutputされた内容を返すことができる', () => {
+      let pd = new PlayerData(1, 1)
+      let b = new DummyBrain
+      b.ChangeMarkOutput = 'ok'
+      let p = new Player(pd, b)
+      assert.equal(p.thinkChangeMark(), 'ok')
+    })
   })
 
   describe('.hasNoCard()', () => {

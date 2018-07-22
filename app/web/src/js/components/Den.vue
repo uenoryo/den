@@ -138,7 +138,11 @@ export default {
 
       this.dealerDealCardToPlayersAtFirst()
 
+      this.computerLookSelfHand()
+
       this.dealerPutCard()
+
+      this.computerLookField(this.dealer.fieldCard())
     },
 
     put (id, handIdx) {
@@ -148,6 +152,8 @@ export default {
 
       if (this.dealerCanReceiveCard(this.players[id].show(handIdx))) {
         this.dealerReceiveCard(this.players[id].pick(handIdx), id)
+
+        this.computerLookField(this.dealer.fieldCard())
 
         this.dealerCheckDone(this.players[id])
 
@@ -182,12 +188,14 @@ export default {
         return
       }
 
+      this.computerLookSelfHand()
+
       // ForceDraw
       if (this.dealerIsForceDrawPhase()) {
         if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
           this.put(
             this.dealerTurnPlayer().data.ID,
-            this.dealerTurnPlayer().think(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())
+            this.dealerTurnPlayer().think(this.dealerIsForceDrawPhase())
           )
         } else {
           this.reply(this.dealerTurnPlayer().data.ID, Constants.PlayerReplyForceDrawDraw)
@@ -200,7 +208,7 @@ export default {
         if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
           this.put(
             this.dealerTurnPlayer().data.ID,
-            this.dealerTurnPlayer().think(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())
+            this.dealerTurnPlayer().think()
           )
         } else {
           this.reply(this.dealerTurnPlayer().data.ID, Constants.PlayerReplyAttachPass)
@@ -218,7 +226,7 @@ export default {
       if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
         this.put(
           this.dealerTurnPlayer().data.ID,
-          this.dealerTurnPlayer().think(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())
+          this.dealerTurnPlayer().think()
         )
       } else {
         this.draw()
@@ -226,11 +234,11 @@ export default {
     },
 
     autoDenAction () {
-      for (let idx in this.players) {
-        if (this.players[idx].isHuman()) {
+      for (let id in this.players) {
+        if (this.players[id].isHuman() || ! this.players[id].wantDen()) {
           continue
         }
-        this.dealerJudgeDen(this.players[idx])
+        this.den(id)
       }
     },
 

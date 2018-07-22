@@ -1,14 +1,27 @@
 import Constants from '../constants'
 import HandData from '../data/HandData'
+import Brain from './Brain'
 import Rule from './Rule'
 
 export default class Player {
-  constructor(data) {
+  constructor(data, brain) {
     if (data.constructor.name !== 'PlayerData') {
       throw new Error('Invalid PlayerData')
     }
+    if (brain === undefined) {
+      brain = new Brain
+    }
     this.data = data
+    this.brain = brain
     this.hand = new HandData([])
+  }
+
+  lookField(card) {
+    this.brain.input('FieldCard', card)
+  }
+
+  lookSelfHand() {
+    this.brain.input('SelfHand', this.hand)
   }
 
   receive(card) {
@@ -63,6 +76,16 @@ export default class Player {
   }
 
   wantPut(field, isForceDraw) {
+    if (! this.canPut(field, isForceDraw)) {
+      return false
+    }
+    if (this.think(isForceDraw) === -1) {
+      return false
+    }
+    return true
+  }
+
+  canPut(field, isForceDraw) {
     for (let idx in this.hand.Cards) {
       if (Rule.canPut(field, this.hand.Cards[idx], isForceDraw)) {
         return true
@@ -71,41 +94,27 @@ export default class Player {
     return false
   }
 
-  wantForcePut() {
-    for (let idx in this.hand.Cards) {
-      if (this.hand.Cards[idx].Num === Constants.CardAbilityDrawTwo) {
-        return idx
-      }
-    }
-    return false
+  wantDen() {
+    return this.thinkDen()
   }
 
   noPutAction() {
     return Constants.ActionTypeDraw
   }
 
-  think(field, isForceDraw) {
-    for (let idx in this.hand.Cards) {
-      if (Rule.canPut(field, this.hand.Cards[idx], isForceDraw)) {
-        return idx
-      }
+  think (isForceDraw) {
+    if (isForceDraw === null) {
+      throw new Error('think is required isForceDraw')
     }
-    return null
+    return this.brain.output(isForceDraw ? 'PutOrForceDraw' : 'PutOrDraw')
   }
 
   thinkChangeMark() {
-    switch(this.hand.Cards[0].Mark) {
-      case Constants.CardMarkClub:
-        return Constants.PlayerReplyChangeMarkClub
-      case Constants.CardMarkDiamond:
-        return Constants.PlayerReplyChangeMarkDiamond
-      case Constants.CardMarkHeart:
-        return Constants.PlayerReplyChangeMarkHeart
-      case Constants.CardMarkSpade:
-        return Constants.PlayerReplyChangeMarkSpade
-      default:
-        return Constants.PlayerReplyChangeMarkJoker
-    }
+    return this.brain.output('ChangeMark')
+  }
+
+  thinkDen() {
+    return this.brain.output('Den')
   }
 
   hasNoCard() {

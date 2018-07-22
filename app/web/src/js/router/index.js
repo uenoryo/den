@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/components/Home'
-import Game from '@/components/Game'
 import Den from '@/components/Den'
 import God from '@/components/God'
 import NotFound from '@/components/NotFound'
@@ -17,11 +16,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Den
-    },
-    {
-      path: '/game',
-      name: 'game',
-      component: Game
     },
     {
       path: '/error/404',
