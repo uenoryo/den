@@ -16,6 +16,14 @@ export default class Player {
     this.hand = new HandData([])
   }
 
+  lookField(card) {
+    this.brain.input('FieldCard', card)
+  }
+
+  lookSelfHand() {
+    this.brain.input('SelfHand', this.hand)
+  }
+
   receive(card) {
     if (card === null) {
       return
