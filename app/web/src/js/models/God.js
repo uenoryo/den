@@ -9,6 +9,7 @@ import DeckData from '../data/DeckData'
 import CardData from '../data/CardData'
 
 import BrainFastDone from './brains/FastDone'
+import BrainBasic from './brains/Basic'
 
 /**
  * God can setup game
@@ -53,10 +54,12 @@ export default class God {
 
   createBrain(type) {
     switch (type) {
+      case 'Basic':
+        return new BrainBasic
       case 'FastDone':
         return new BrainFastDone
       default:
-        return new BrainFastDone
+        return new BrainBasic
     }
   }
 }

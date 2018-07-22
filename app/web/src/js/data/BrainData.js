@@ -55,4 +55,17 @@ export default class BrainData {
     }
     this.PuttableIdx = puttables
   }
+
+  getPuttableIdxByNum (num) {
+    let res = []
+    for (let idx in this.PuttableIdx) {
+      if (idx === '-1') {
+        continue
+      }
+      if (parseInt(this.SelfHand.Cards[idx].Num) === num) {
+        res.push(parseInt(idx))
+      }
+    }
+    return res
+  }
 }
