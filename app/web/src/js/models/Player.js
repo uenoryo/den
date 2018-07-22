@@ -98,8 +98,8 @@ export default class Player {
     return Constants.ActionTypeDraw
   }
 
-  think () {
-    return this.brain.output('PutOrDraw')
+  think (isForceDraw) {
+    return this.brain.output(isForceDraw ? 'PutOrForceDraw' : 'PutOrDraw')
   }
 
   thinkChangeMark() {
