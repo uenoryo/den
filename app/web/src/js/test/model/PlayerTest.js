@@ -192,6 +192,16 @@ describe('Player', () => {
     })
   })
 
+  describe('.changeMark()', () => {
+    it ('Brainでoutputされた内容を返すことができる', () => {
+      let pd = new PlayerData(1, 1)
+      let b = new DummyBrain
+      b.ChangeMarkOutput = 'ok'
+      let p = new Player(pd, b)
+      assert.equal(p.thinkChangeMark(), 'ok')
+    })
+  })
+
   describe('.hasNoCard()', () => {
     describe('手札が無いかどうかを返すことができる', () => {
       let pd = new PlayerData(1, 1)
