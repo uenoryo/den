@@ -59,6 +59,15 @@ export default class HandData {
     return agr
   }
 
+  numAmount (num) {
+    let amount = 0
+    for (let idx in this.Cards) {
+      if (parseInt(num) === parseInt(this.Cards[idx].Num))
+      amount++
+    }
+    return amount
+  }
+
   cost () {
     let cost = 0
     for (let idx in this.Cards) {

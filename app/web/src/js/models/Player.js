@@ -130,12 +130,7 @@ export default class Player {
   }
 
   handNumAmount (num) {
-    let amount = 0
-    for (let idx in this.hand.Cards) {
-      if (parseInt(num) === parseInt(this.hand.Cards[idx].Num))
-      amount++
-    }
-    return amount
+    return this.hand.numAmount(num)
   }
 
   lonelyHandNumForChitoi () {
