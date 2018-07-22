@@ -6,6 +6,9 @@ export default class BrainCell {
     if (value == null) {
       value = 10
     }
+    if (data.SelfHand.Cards.length !== 1) {
+      return
+    }
     if (Object.keys(data.PuttableIdx).length === 2 && BrainCell.hit(rate)) {
       data.PuttableIdx['-1'] += value
     }
