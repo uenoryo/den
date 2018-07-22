@@ -29,6 +29,16 @@ describe('Player', () => {
     })
   })
 
+  describe ('.lookSelfHand()', () => {
+    it ('自身の手札を確認し、Brainにinputできる', () => {
+      let pd = new PlayerData(1, 1)
+      let b = new DummyBrain
+      let p = new Player(pd, b)
+      p.lookSelfHand()
+      assert.equal(p.brain.IsInput, true)
+    })
+  })
+
   describe('.receive()', () => {
     it('カードを手札に加えられる', () => {
       let pd = new PlayerData(1, 1)
