@@ -19,7 +19,11 @@ export default {
 
       this.dealerDealCardToPlayersAtFirst()
 
+      this.computerLookSelfHand()
+
       this.dealerPutCard()
+
+      this.computerLookField(this.dealer.fieldCard())
     },
     getDeck (id) {
       let cards = this.debugDeck[id]
