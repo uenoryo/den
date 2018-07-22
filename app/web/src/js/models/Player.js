@@ -79,7 +79,7 @@ export default class Player {
     if (! this.canPut(field, isForceDraw)) {
       return false
     }
-    if (this.think() === -1) {
+    if (this.think(isForceDraw) === -1) {
       return false
     }
     return true
