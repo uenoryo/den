@@ -103,6 +103,9 @@ export default class Player {
   }
 
   think (isForceDraw) {
+    if (isForceDraw === null) {
+      throw new Error('think is required isForceDraw')
+    }
     return this.brain.output(isForceDraw ? 'PutOrForceDraw' : 'PutOrDraw')
   }
 
