@@ -5,6 +5,7 @@ export default class BrainData {
     this.FieldCard = null
     this.SelfHand = null
     this.PutCards = []
+    this.plan(Constants.PlanTargetPlainDone)
   }
 
   fieldCard (card) {
@@ -38,5 +39,12 @@ export default class BrainData {
       throw new Error(`Invalid CardData [${card}]`)
     }
     this.PutCards.push(card)
+  }
+
+  plan (plan) {
+    if (plan < 1 || plan > 99) {
+      throw new Error(`Invalid plan [${plan}]`)
+    }
+    this.Plan = plan
   }
 }
