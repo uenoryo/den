@@ -8,6 +8,6 @@ export default class Basic extends Brain {
   }
 
   den () {
-    return false
+    return true
   }
 }
