@@ -3,14 +3,14 @@ import BrainData from '../../data/BrainData'
 export default class Deck {
   constructor() {
     this.data = new BrainData
-    this.isInput = false
+    this.IsInput = false
     this.PutOrDrawOutput = null
     this.ChangeMarkOutput = null
     this.DenOutput = null
   }
 
   input (type, object) {
-    this.isInput = true
+    this.IsInput = true
   }
 
   output (type) {

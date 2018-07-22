@@ -19,6 +19,16 @@ describe('Player', () => {
     })
   })
 
+  describe ('.lookField()', () => {
+    it ('フィールドを確認し、Brainにinputできる', () => {
+      let pd = new PlayerData(1, 1)
+      let b = new DummyBrain
+      let p = new Player(pd, b)
+      p.lookField(new CardData(1, 2))
+      assert.equal(p.brain.IsInput, true)
+    })
+  })
+
   describe('.receive()', () => {
     it('カードを手札に加えられる', () => {
       let pd = new PlayerData(1, 1)
