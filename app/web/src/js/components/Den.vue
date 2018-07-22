@@ -195,7 +195,7 @@ export default {
         if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
           this.put(
             this.dealerTurnPlayer().data.ID,
-            this.dealerTurnPlayer().think(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())
+            this.dealerTurnPlayer().think(this.dealerIsForceDrawPhase())
           )
         } else {
           this.reply(this.dealerTurnPlayer().data.ID, Constants.PlayerReplyForceDrawDraw)
@@ -208,7 +208,7 @@ export default {
         if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
           this.put(
             this.dealerTurnPlayer().data.ID,
-            this.dealerTurnPlayer().think(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())
+            this.dealerTurnPlayer().think()
           )
         } else {
           this.reply(this.dealerTurnPlayer().data.ID, Constants.PlayerReplyAttachPass)
@@ -226,7 +226,7 @@ export default {
       if (this.dealerTurnPlayer().wantPut(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
         this.put(
           this.dealerTurnPlayer().data.ID,
-          this.dealerTurnPlayer().think(this.dealer.fieldCard(), this.dealerIsForceDrawPhase())
+          this.dealerTurnPlayer().think()
         )
       } else {
         this.draw()
