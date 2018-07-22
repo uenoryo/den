@@ -1,7 +1,6 @@
 import Constants from '../constants'
 import BrainData from '../data/BrainData'
 import Rule from './Rule'
-import DecidePlanBrainCell from './DecidePlanBrainCell'
 
 export default class Brain {
   constructor () {
@@ -64,7 +63,7 @@ export default class Brain {
         case 'PutOrDraw':
           return -1
         case 'ChangeMark':
-          return Constants.CardMarkJokerA
+          return Constants.PlayerReplyChangeMarkJoker
         case 'Den':
           return false
       }
@@ -95,10 +94,10 @@ export default class Brain {
   }
 
   changeMark () {
-    //
+    return Constants.PlayerReplyChangeMarkJoker
   }
 
   den () {
-    //
+    return true
   }
 }

@@ -103,18 +103,7 @@ export default class Player {
   }
 
   thinkChangeMark() {
-    switch(this.hand.Cards[0].Mark) {
-      case Constants.CardMarkClub:
-        return Constants.PlayerReplyChangeMarkClub
-      case Constants.CardMarkDiamond:
-        return Constants.PlayerReplyChangeMarkDiamond
-      case Constants.CardMarkHeart:
-        return Constants.PlayerReplyChangeMarkHeart
-      case Constants.CardMarkSpade:
-        return Constants.PlayerReplyChangeMarkSpade
-      default:
-        return Constants.PlayerReplyChangeMarkJoker
-    }
+    return this.brain.output('ChangeMark')
   }
 
   hasNoCard() {
