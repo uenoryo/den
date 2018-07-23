@@ -20,6 +20,17 @@ export default class ScoreKeeper {
           this.playerPlainDoneScoreByPlayerID(4, winnerID, players)
         )
         break
+      case Constants.GameSetTypeDen:
+        score = new ScoreData(
+          winnerID,
+          loserID,
+          type,
+          this.playerDenScoreByPlayerID(1, winnerID, players),
+          this.playerDenScoreByPlayerID(2, winnerID, players),
+          this.playerDenScoreByPlayerID(3, winnerID, players),
+          this.playerDenScoreByPlayerID(4, winnerID, players)
+        )
+        break
       default:
         throw new Error(`Invalid game set type ${type}.`)
     }
@@ -36,6 +47,23 @@ export default class ScoreKeeper {
       if (id === playerID) {
         continue
       }
+      sum += players[id].hand.cost()
+    }
+    return sum
+  }
+
+  playerDenScoreByPlayerID (playerID, winnerID, loserID, players) {
+    if (playerID !== winnerID && playerID !== loserID) {
+      return players[playerID].hand.cost() * -1
+    }
+
+    if (playerID === loserID) {
+      // loser は winner の手札を受け取ってスコアを算出
+      return (players[playerID].hand.cost() + players[winnerID].hand.cost()) * -1
+    }
+
+    let sum = 0
+    for (let id in players) {
       sum += players[id].hand.cost()
     }
     return sum
