@@ -23,6 +23,10 @@ export default class ScoreData {
   }
 
   loserID (playerID) {
+    if (playerID === null) {
+      this.LoserID = null
+      return
+    }
     if (! this._existsPlayerID(playerID)) {
       throw new Error(`Invalid loser player ID [${playerID}].`)
     }
