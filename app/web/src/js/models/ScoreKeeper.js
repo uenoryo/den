@@ -26,18 +26,6 @@ export default class ScoreKeeper {
     this.scores.push(score)
   }
 
-  makePlainDoneScore (winnerID, players) {
-    let score = new ScoreData(winnerID, null, Constants.GameSetTypePlainDone,
-      players[1].hand.cost(),
-      players[2].hand.cost(),
-      players[3].hand.cost(),
-      players[4].hand.cost()
-    )
-
-    console.log(score)
-    return score
-  }
-
   playerPlainDoneScoreByPlayerID (playerID, winnerID, players) {
     if (playerID !== winnerID) {
       return players[playerID].hand.cost() * -1
