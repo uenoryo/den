@@ -151,5 +151,49 @@ describe('ScoreKeeper', () => {
         assert.equal(sk.playerDenScoreByPlayerID(2, 4, 3, players), -1)
       })
     })
+
+    describe('AnkoのケースでPlayerのスコアを計算できる', () => {
+      let players = {
+        1: new Player(new PlayerData(1, 1)),
+        2: new Player(new PlayerData(2, 1)),
+        3: new Player(new PlayerData(3, 1)),
+        4: new Player(new PlayerData(4, 1)),
+      }
+
+      // Player1 の手札: コスト1
+      players[1].receive(new CardData(0, 1))
+
+      // Player2 の手札: コスト1
+      players[2].receive(new CardData(0, 11))
+
+      // Player3 の手札: コスト7
+      players[3].receive(new CardData(0, 2))
+      players[3].receive(new CardData(1, 2))
+      players[3].receive(new CardData(2, 2))
+      players[3].receive(new CardData(0, 13))
+
+      // Player4 の手札: コスト8
+      players[4].receive(new CardData(4, 0))
+      players[4].receive(new CardData(0, 8))
+
+      // Player3 が Player4 に対してAnkoで勝利
+      let sk = new ScoreKeeper()
+
+      it ('Winnerのケース', () => {
+        assert.equal(sk.playerAnkoScoreByPlayerID(4, 4, 3, players), 1+1+7+8)
+      })
+
+      it ('Loserのケース', () => {
+        assert.equal(sk.playerAnkoScoreByPlayerID(3, 4, 3, players), -7 -8)
+      })
+
+      it ('それ以外のケース 1', () => {
+        assert.equal(sk.playerAnkoScoreByPlayerID(1, 4, 3, players), -1)
+      })
+
+      it ('それ以外のケース 2', () => {
+        assert.equal(sk.playerAnkoScoreByPlayerID(2, 4, 3, players), -1)
+      })
+    })
   })
 })
