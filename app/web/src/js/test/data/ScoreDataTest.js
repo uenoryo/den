@@ -113,4 +113,16 @@ describe ('ScoreData', () => {
       assert.equal(sd.width(), 300)
     })
   })
+
+  describe ('_handCostByPlayerID', () => {
+    it ('指定したプレイヤーのスコアを取得できる', () => {
+      let sd = new ScoreData(null, 2, 3, 100, -150, 20, 30)
+      assert.equal(sd._handCostByPlayerID(3), 20)
+    })
+
+    it ('存在しないプレイヤーを指定するとエラー', () => {
+      let sd = new ScoreData(null, 2, 3, 100, -150, 20, 30)
+      assert.throws(() => {sd._handCostByPlayerID(0)})
+    })
+  })
 })
