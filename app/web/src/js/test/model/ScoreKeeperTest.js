@@ -69,6 +69,16 @@ describe('ScoreKeeper', () => {
         assert.equal(score.Player4HandCost, 11)
       })
     })
+    it ('無効なGameSetTypeはエラーになる', () => {
+      let players = {
+        1: new Player(new PlayerData(1, 1)),
+        2: new Player(new PlayerData(2, 1)),
+        3: new Player(new PlayerData(3, 1)),
+        4: new Player(new PlayerData(4, 1)),
+      }
+      let sk = new ScoreKeeper()
+      assert.throws(() => {sk.keep(1, 2, 99, players)})
+    })
   })
 
   describe('.playerPlainDoneScoreByPlayerID()', () => {
