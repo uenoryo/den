@@ -42,6 +42,17 @@ export default class ScoreKeeper {
           this.playerAnkoScoreByPlayerID(4, winnerID, players)
         )
         break
+      case Constants.GameSetTypeChitoi:
+        score = new ScoreData(
+          winnerID,
+          loserID,
+          type,
+          this.playerChitoiScoreByPlayerID(1, winnerID, players),
+          this.playerChitoiScoreByPlayerID(2, winnerID, players),
+          this.playerChitoiScoreByPlayerID(3, winnerID, players),
+          this.playerChitoiScoreByPlayerID(4, winnerID, players)
+        )
+        break
       default:
         throw new Error(`Invalid game set type ${type}.`)
     }
@@ -80,8 +91,13 @@ export default class ScoreKeeper {
     return sum
   }
 
+  // Den と Anko は同じ
   playerAnkoScoreByPlayerID (playerID, winnerID, loserID, players) {
-    // Den と Anko は同じ
     return this.playerDenScoreByPlayerID(playerID, winnerID, loserID, players)
+  }
+
+  // Chitoi は 3倍
+  playerChitoiScoreByPlayerID (playerID, winnerID, loserID, players) {
+    return this.playerDenScoreByPlayerID(playerID, winnerID, loserID, players) * 3
   }
 }
