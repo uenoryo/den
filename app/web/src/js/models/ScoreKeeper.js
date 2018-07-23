@@ -31,6 +31,17 @@ export default class ScoreKeeper {
           this.playerDenScoreByPlayerID(4, winnerID, players)
         )
         break
+      case Constants.GameSetTypeAnko:
+        score = new ScoreData(
+          winnerID,
+          loserID,
+          type,
+          this.playerAnkoScoreByPlayerID(1, winnerID, players),
+          this.playerAnkoScoreByPlayerID(2, winnerID, players),
+          this.playerAnkoScoreByPlayerID(3, winnerID, players),
+          this.playerAnkoScoreByPlayerID(4, winnerID, players)
+        )
+        break
       default:
         throw new Error(`Invalid game set type ${type}.`)
     }
@@ -67,5 +78,10 @@ export default class ScoreKeeper {
       sum += players[id].hand.cost()
     }
     return sum
+  }
+
+  playerAnkoScoreByPlayerID (playerID, winnerID, loserID, players) {
+    // Den と Anko は同じ
+    return this.playerDenScoreByPlayerID(playerID, winnerID, loserID, players)
   }
 }
