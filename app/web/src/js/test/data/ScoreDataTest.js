@@ -102,4 +102,15 @@ describe ('ScoreData', () => {
       assert.equal(sd._isValidScoresOrFail(), null)
     })
   })
+
+  describe ('.width()', () => {
+    it ('スコアの開きの合計を絶対値で返すことができる', () => {
+      let sd = new ScoreData(1, 2, 3, 50, -20, -20, -10)
+      assert.equal(sd.width(), 100)
+    })
+    it ('Winnerがnullのケースでも問題なく返せる', () => {
+      let sd = new ScoreData(null, 2, 3, 50, -150, 50, 50)
+      assert.equal(sd.width(), 300)
+    })
+  })
 })
