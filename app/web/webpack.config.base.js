@@ -53,6 +53,14 @@ module.exports = {
                 }
             },
             {
+                test: /\.ts$/,
+                loader: 'ts-loader',
+                exclude: /(node_modules)/,
+                options: {
+                   appendTsSuffixTo: [/\.vue$/],
+                }
+            },
+            {
                 test: /\.pug$/,
                 use: [
                     {
@@ -112,7 +120,7 @@ module.exports = {
     cache: true,
     // 拡張子省略時のpath解決
     resolve: {
-        extensions: ['.js', '.json', '.vue', '*'],
+        extensions: ['.js', '.json', '.vue', '.ts', '*'],
         alias: {
             '@': path.join(__dirname, SRC, 'js'),
             'vue$': 'vue/dist/vue.esm.js',

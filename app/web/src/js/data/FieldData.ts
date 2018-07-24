@@ -1,9 +1,12 @@
 import Constants from '../constants'
 
 export default class FieldData {
-  constructor(cards) {
+  public Cards: any
+  public PutPlayerID: number
+  public denable: boolean
+
+  constructor(cards: any) {
     this.cards(cards)
-    this.putPlayerID
     this.denable = true
   }
 
@@ -21,8 +24,7 @@ export default class FieldData {
     this.Cards = cards
   }
 
-  putPlayerID(putPlayerID) {
-    putPlayerID = parseInt(putPlayerID)
+  putPlayerID(putPlayerID: any) {
     if (
       putPlayerID !== 0 &&
       putPlayerID !== Constants.Player1ID &&

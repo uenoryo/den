@@ -52,6 +52,8 @@
     "animejs": "^2.2.0",
     "asserts": "^4.0.2",
     "mocha": "^5.2.0",
+    "ts-loader": "^4.4.2",
+    "typescript": "^2.9.2",
     "vue": "^2.5",
     "vue-form-generator": "^2.1.0",
     "vue-loader": "^14.0.0",
