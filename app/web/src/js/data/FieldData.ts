@@ -26,7 +26,7 @@ export default class FieldData {
     this.Cards = cards
   }
 
-  putPlayerID(putPlayerID: any) {
+  putPlayerID(putPlayerID: number) {
     if (
       putPlayerID !== 0 &&
       putPlayerID !== Constants.Player1ID &&
