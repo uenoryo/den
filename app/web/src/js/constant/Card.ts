@@ -1,6 +1,6 @@
-import { CardNum } from '../type/Type'
+import { CardNum, CardMark } from '../type/Type'
 
-export const CardMarkIntegers: { [index: string]: number } = {
+export const CardMarkIntegers: { [index: string]: CardMark } = {
   Club: 0,
   Diamond: 1,
   Heart: 2,
@@ -32,6 +32,14 @@ export const CardCosts: { [index: number]: number } = {
   11: 1,
   12: 1,
   13: 1,
+}
+
+export const CardSkillNums: { [index: string]: CardNum } = {
+  Skip: 1,
+  DrawTwo: 2,
+  WildCard: 8,
+  Back: 9,
+  Attach: 12,
 }
 
 export const CardNums: CardNum[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
