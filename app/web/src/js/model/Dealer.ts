@@ -103,7 +103,7 @@ export default class Dealer {
     return null
   }
 
-  shouldMaintenance(): bool {
+  shouldMaintenance(): boolean {
     return this.deck.cardNum() <= Constants.DeckMaintenanceRemainingAmount
   }
 
@@ -117,7 +117,7 @@ export default class Dealer {
     this.TurnPlayerID = this.TurnTable[turnIdx]
   }
 
-  playerIsTurnPlayer(id: PlayerID): bool {
+  playerIsTurnPlayer(id: PlayerID): boolean {
     return id === this.TurnPlayerID
   }
 
