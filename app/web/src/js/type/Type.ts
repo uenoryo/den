@@ -9,3 +9,19 @@ export type CardMark = 0 | 1 | 2| 3 | 4 | 5
 
 // カードの数字 (0 は Joker)
 export type CardNum = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13
+
+// Dealer のアクションフェーズ
+export enum Phase {
+  Normal,
+  ForceDraw,
+  Attach,
+  ChangeMark,
+}
+
+export enum GameSetType {
+  PlainDone,
+  Pank,
+  Den,
+  Anko,
+  Chitoi,
+}
