@@ -7,7 +7,8 @@
   "scripts": {
     "build": "webpack --mode production --progress",
     "start": "webpack-dev-server --mode development --inline --open",
-    "test": "NODE_ENV=test mocha --compilers js:babel-register ./src/js/test/*"
+    "test": "NODE_ENV=test mocha --compilers ts:espower-typescript/guess ./src/js/test/*",
+    "tsd": "tsd"
   },
   "devDependencies": {
     "autoprefixer": "^8.2.0",
@@ -51,8 +52,11 @@
   "dependencies": {
     "animejs": "^2.2.0",
     "asserts": "^4.0.2",
+    "espower-typescript": "^9.0.0",
     "mocha": "^5.2.0",
+    "power-assert": "^1.6.0",
     "ts-loader": "^4.4.2",
+    "tsd": "^0.6.5",
     "typescript": "^2.9.2",
     "vue": "^2.5",
     "vue-form-generator": "^2.1.0",
