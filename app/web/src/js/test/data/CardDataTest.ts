@@ -1,2 +1,2 @@
-import { PlayerID } from '../../constants/Type'
+import { PlayerID } from '../../type/Type'
 let PlayerID:PlayerID = 4
