@@ -33,7 +33,7 @@ export default class DeckData {
     return agr
   }
 
-  numAmount(num:CardNum): number {
+  numAmount(num: CardNum): number {
     let amount = 0
     for (let card of this.Cards) {
       if (num === card.Num) {
