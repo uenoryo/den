@@ -1,4 +1,4 @@
-import { CardMarkIntegers, CardMarkStrings, CardCosts } from '../constant/Constant'
+import { CardMarkIntegers, CardMarkStrings, CardCosts } from '../constant/Card'
 import { CardMark, CardNum } from '../type/Type'
 
 export default class CardData {
