@@ -11,11 +11,11 @@ export default class CardData {
     this.id = this.DisplayID
   }
 
-  get Mark(): number {
+  get Mark(): CardMark {
     return this.mark
   }
 
-  get Num(): number {
+  get Num(): CardNum {
     return this.num
   }
 
