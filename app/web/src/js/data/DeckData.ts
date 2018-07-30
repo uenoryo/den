@@ -8,4 +8,16 @@ export default class DeckData {
   get Cards():CardData[] {
     return this.cards
   }
+
+  get CardAmount(): number {
+    return this.Cards.length
+  }
+
+  turn(): CardData {
+    let card = this.Cards.shift()
+    if (card === undefined) {
+      throw new Error('Cant trun Empty deck')
+    }
+    return card
+  }
 }
