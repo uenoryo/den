@@ -1,4 +1,5 @@
-import Deck from './Deck'
+import Player from './Player'
+import DeckData from '../data/DeckData'
 import CardData from '../data/CardData'
 import FieldData from '../data/FieldData'
 import { Config } from '../config/Config'
@@ -13,7 +14,7 @@ export default class Dealer {
   public ForceDrawAmount: number
   public TurnPlayerID: PlayerID
 
-  constructor (deck: Deck) {
+  constructor (public Deck: DeckData) {
     this.Phase = Phase.Normal
     this.FieldCardOwnerID = null
     this.Field = new FieldData([])
@@ -24,35 +25,35 @@ export default class Dealer {
     this.TurnPlayerID = 1
   }
 
-  draw(): CardData {
-    if (this.deck.CardAmount === 0) {
-      return
+  draw(): CardData | null {
+    if (this.Deck.CardAmount === 0) {
+      return null
     }
-    return this.deck.turn()
+    return this.Deck.turn()
   }
 
   shuffle(): void {
     for (let i = this.Deck.CardAmount - 1; i > 0; i--) {
       let r:number = Math.floor(Math.random() * (i + 1))
-      let tmp:CardData = this.Deck.Data.Cards[i]
-      this.Deck.Data.Cards[i] = this.Deck.Data.Cards[r]
-      this.Deck.Data.Cards[r] = tmp;
+      let tmp:CardData = this.Deck.Cards[i]
+      this.Deck.Cards[i] = this.Deck.Cards[r]
+      this.Deck.Cards[r] = tmp;
     }
   }
 
-  deal(player): CardData {
+  deal(player: Player): CardData {
     let card = this.draw()
     if (card === null) {
-      return
+      throw new Error('Dealer tried draw card to deal from empty deck.')
     }
     player.receive(card)
     // this.field.denable = false
     return card
   }
 
-  forceDeal(player): CardData {
-    if (this.forceDrawAmount !== 0) {
-      this.forceDrawAmount--
+  forceDeal(player: Player): CardData {
+    if (this.ForceDrawAmount !== 0) {
+      this.ForceDrawAmount--
     }
     return this.deal(player)
   }
@@ -64,17 +65,21 @@ export default class Dealer {
   }
 
   put(): void {
-    this.field.Cards.push(this.draw())
+    let card = this.draw()
+    if (card === null) {
+      throw new Error('Dealer tried draw card to put from empty deck.')
+    }
+    this.Field.Cards.push()
     // this.field.denable = true
   }
 
   fieldCard(): CardData | null {
     // TODO: Amountを生やしてinterface化する
-    if (this.field.Cards.length === 0) {
+    if (this.Field.Cards.length === 0) {
       return null
     }
     // TODO: わかりにくい
-    return this.field.Cards[this.field.Cards.length - 1]
+    return this.Field.Cards[this.Field.Cards.length - 1]
   }
 
   maintenance(): void {
@@ -82,29 +87,37 @@ export default class Dealer {
     // カードのIDの仕組みから変えないとだめそう
 
     // 1枚だけフィールドに残し、その他をデッキに加える
-    while (this.field.Cards.length > 1) {
-      this.deck.data.Cards.push(this.field.Cards.shift())
+    while (this.Field.Cards.length > 1) {
+      let card = this.Field.Cards.shift()
+      if (card === undefined) {
+        throw new Error('Empty card will push to deck.')
+      }
+      this.Deck.Cards.push(card)
     }
   }
 
-  judgeDen(player): GameSetType | null {
+  judgeDen(player: Player): GameSetType | null {
+    let field = this.fieldCard()
+    if (field === null) {
+      return null
+    }
     if (
       player.handPairCount() >= 3 &&
-      this.fieldCard().Num === player.lonelyHandNumForChitoi()
+      field.Num === player.lonelyHandNumForChitoi()
     ) {
       return GameSetType.Chitoi
     }
-    if (parseInt(this.fieldCard().Num) === player.handCardNumTotal()) {
+    if (field.Num === player.handCardNumTotal()) {
       return GameSetType.Den
     }
-    if (player.handNumAmount(this.fieldCard().Num) === 3) {
+    if (player.handNumAmount(field.Num) === 3) {
       return GameSetType.Anko
     }
     return null
   }
 
   shouldMaintenance(): boolean {
-    return this.deck.cardNum() <= Constants.DeckMaintenanceRemainingAmount
+    return this.Deck.CardAmount <= Constants.DeckMaintenanceRemainingAmount
   }
 
   goNextTurn(): void {
