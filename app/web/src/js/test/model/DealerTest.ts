@@ -224,4 +224,19 @@ describe('Dealer', () => {
       })
     })
   })
+
+  describe('.playerIsTurnPlayer()', () => {
+    describe('プレイヤーがターンプレイヤーかどうか返すことができる', () => {
+      let deck = new DeckData([
+        new CardData(3, 13),
+      ])
+      let d = new Dealer(deck)
+      it('ターンプレイヤーはtrue', () => {
+        assert.equal(d.playerIsTurnPlayer(1), true)
+      })
+      it('ターンプレイヤーでなければfalse', () => {
+        assert.equal(d.playerIsTurnPlayer(4), false)
+      })
+    })
+  })
 })
