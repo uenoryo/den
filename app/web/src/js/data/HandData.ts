@@ -49,13 +49,13 @@ export default class DeckData {
 
   lonelyNumForChitoi(): CardNum | null {
     let num: CardNum | null = null
-    for (let card of this.Cards) {
-      if (this.numAmount(card.Num) % 2 === 1) {
+    for (let n of CardNums) {
+      if (this.numAmount(n) % 2 === 1) {
         // 枚数が奇数の数字が2種類以上ある場合は該当しない
         if (num !== null) {
           return null
         }
-        num = card.Num
+        num = n
       }
     }
     return num

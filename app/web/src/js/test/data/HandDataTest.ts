@@ -150,11 +150,21 @@ describe('HandData', () => {
         let deck = new HandData([
           new CardData(0, 8),
           new CardData(1, 8),
+          new CardData(0, 2),
+          new CardData(1, 2),
+          new CardData(2, 5),
+        ])
+        assert.equal(deck.lonelyNumForChitoi(), 5)
+      })
+      it('該当する (Ankoを満たすペア)', () => {
+        let deck = new HandData([
+          new CardData(0, 8),
+          new CardData(1, 8),
           new CardData(0, 9),
           new CardData(1, 9),
-          new CardData(2, 12),
+          new CardData(2, 9),
         ])
-        assert.equal(deck.lonelyNumForChitoi(), 12)
+        assert.equal(deck.lonelyNumForChitoi(), 9)
       })
     })
   })
