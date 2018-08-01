@@ -3,12 +3,13 @@ import { Constants } from '../constant/Basic'
 import PlayerData from '../data/PlayerData'
 import HandData from '../data/HandData'
 import CardData from '../data/CardData'
+import Dealer from './Dealer'
 import Rule from './Rule'
 
 export default class Player {
   public Hand: HandData
 
-  constructor(data: PlayerData) {
+  constructor(public Data: PlayerData) {
     // TODO: Brain導入
     // if (brain === undefined) {
     //   brain = new Brain
@@ -46,7 +47,7 @@ export default class Player {
   }
 
   put(idx: number, dealer: Dealer): void {
-    dealer.receive(this.pick(idx))
+    dealer.receive(this.pick(idx), this.Data.ID)
   }
 
   sort(): void {
@@ -86,63 +87,25 @@ export default class Player {
   }
 
   noPutAction(): ActionType {
-    return Constants.ActionTypeDraw
+    return ActionType.Draw
   }
 
-  // think(isForceDraw: boolean): number {
-  //   return this.brain.output(isForceDraw ? 'PutOrForceDraw' : 'PutOrDraw')
-  // }
+  think(isForceDraw: boolean): number {
+    return 0
+    // return this.brain.output(isForceDraw ? 'PutOrForceDraw' : 'PutOrDraw')
+  }
 
   // thinkChangeMark(): number {
   //   return this.brain.output('ChangeMark')
   // }
 
-  // thinkDen(): boolean {
-  //   return this.brain.output('Den')
-  // }
+  thinkDen(): boolean {
+    return true
+    // return this.brain.output('Den')
+  }
 
   hasNoCard(): boolean {
     return this.Hand.Cards.length === 0
-  }
-
-  // TODO: Handに持たせる
-  handCardNumTotal(): number {
-    let sum = 0
-    for (let idx in this.Hand.Cards) {
-      sum += this.Hand.Cards[idx].Num
-    }
-    return sum
-  }
-
-  // TODO: いらなさそう
-  handNumAmount(num: CardNum): number {
-    return this.Hand.numAmount(num)
-  }
-
-  lonelyHandNumForChitoi(): CardNum | null {
-    let agr = this.Hand.aggregate()
-    let num = null
-    for (let cardNum in agr) {
-      if (agr[cardNum] % 2 === 1) {
-        // 枚数が奇数の数字が2種類以上ある場合は該当しない
-        if (num !== null) {
-          return null
-        }
-        num = cardNum
-      }
-    }
-    return num
-  }
-
-  handPairCount(): number {
-    let agr = this.Hand.aggregate()
-    let count = 0
-    for (let amount of agr) {
-      if (amount >= 2) {
-        count += parseInt(amount / 2)
-      }
-    }
-    return count
   }
 
   isHuman(): boolean {
@@ -154,11 +117,11 @@ export default class Player {
   }
 
   openHand(): void {
-    this.Hand.isReversed(true)
+    this.Hand.IsReversed = true
   }
 
   closeHand(): void {
-    this.Hand.isReversed(false)
+    this.Hand.IsReversed = false
   }
 
   handIsReversed(): boolean {
