@@ -11,18 +11,23 @@ export default class Dealer {
   public FieldCardOwnerID: PlayerID | null
   public Field: FieldData
   public TurnTable: PlayerID[]
-  public ForceDrawAmount: number
   public TurnPlayerID: PlayerID
+
+  private forceDrawAmount: number
 
   constructor (public Deck: DeckData) {
     this.Phase = Phase.Normal
     this.FieldCardOwnerID = null
     this.Field = new FieldData([])
     this.TurnTable = Config.TurnTable
-    this.ForceDrawAmount = 0
+    this.forceDrawAmount = 0
 
     // [ハードコード] 順番を決められるようにする #3
     this.TurnPlayerID = 1
+  }
+
+  get ForceDrawAmount(): number {
+    return this.forceDrawAmount
   }
 
   draw(): CardData | null {
@@ -52,8 +57,8 @@ export default class Dealer {
   }
 
   forceDeal(player: Player): CardData {
-    if (this.ForceDrawAmount !== 0) {
-      this.ForceDrawAmount--
+    if (this.forceDrawAmount !== 0) {
+      this.forceDrawAmount--
     }
     return this.deal(player)
   }
@@ -69,17 +74,8 @@ export default class Dealer {
     if (card === null) {
       throw new Error('Dealer tried draw card to put from empty deck.')
     }
-    this.Field.Cards.push()
+    this.Field.Cards.push(card)
     // this.field.denable = true
-  }
-
-  fieldCard(): CardData | null {
-    // TODO: Amountを生やしてinterface化する
-    if (this.Field.Cards.length === 0) {
-      return null
-    }
-    // TODO: わかりにくい
-    return this.Field.Cards[this.Field.Cards.length - 1]
   }
 
   maintenance(): void {
@@ -96,28 +92,28 @@ export default class Dealer {
     }
   }
 
+  shouldMaintenance(): boolean {
+    return this.Deck.CardAmount <= Constants.DeckMaintenanceRemainingAmount
+  }
+
   judgeDen(player: Player): GameSetType | null {
-    let field = this.fieldCard()
+    let field = this.Field.top()
     if (field === null) {
       return null
     }
     if (
-      player.handPairCount() >= 3 &&
-      field.Num === player.lonelyHandNumForChitoi()
+      player.Hand.pairCount() >= 3 &&
+      field.Num === player.Hand.lonelyNumForChitoi()
     ) {
       return GameSetType.Chitoi
     }
-    if (field.Num === player.handCardNumTotal()) {
+    if (field.Num === player.Hand.numTotal()) {
       return GameSetType.Den
     }
-    if (player.handNumAmount(field.Num) === 3) {
+    if (player.Hand.numAmount(field.Num) === 3) {
       return GameSetType.Anko
     }
     return null
-  }
-
-  shouldMaintenance(): boolean {
-    return this.Deck.CardAmount <= Constants.DeckMaintenanceRemainingAmount
   }
 
   goNextTurn(): void {
@@ -139,6 +135,6 @@ export default class Dealer {
   }
 
   increaseForceDrawAmount(amount: number): void {
-     this.ForceDrawAmount += amount
+     this.forceDrawAmount += amount
   }
 }
