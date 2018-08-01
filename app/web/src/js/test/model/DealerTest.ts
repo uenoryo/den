@@ -240,12 +240,22 @@ describe('Dealer', () => {
     })
   })
 
-  describe('.  reverseTurnTable()', () => {
+  describe('.reverseTurnTable()', () => {
     it('ターンテーブルを逆順にできる', () => {
       let deck = new DeckData([])
       let d = new Dealer(deck)
       d.reverseTurnTable()
       assert.deepEqual(d.TurnTable, [4, 3, 2, 1])
+    })
+  })
+
+  describe('.increaseForceDrawAmount()', () => {
+    it('ForceDrawAmountを増加させられる', () => {
+      let deck = new DeckData([])
+      let d = new Dealer(deck)
+      d.increaseForceDrawAmount(20)
+      d.increaseForceDrawAmount(10)
+      assert.equal(d.ForceDrawAmount, 30)
     })
   })
 })
