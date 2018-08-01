@@ -18,11 +18,25 @@ describe('FieldData', () => {
       assert.equal(fd.PutPlayerID, null)
     })
   })
-  describe('.PutPlayerID()', () => {
-    let fd = new FieldData([])
-    it('プレイヤーIDが正しく設定される', () => {
-      fd.PutPlayerID = 1
-      assert.equal(fd.PutPlayerID, 1)
+
+  describe('.top()', () => {
+    it('フィールドに出されているカードのトップを取得できる', () => {
+      let field = new FieldData([
+          new CardData(0, 1),
+          new CardData(0, 2),
+          new CardData(0, 3),
+      ])
+      let card = field.top()
+      if (card === null) {
+        throw new Error('error field top')
+      }
+      assert.equal(card.Mark, 0)
+      assert.equal(card.Num, 3)
+    })
+    it('出されていなければnullが返る', () => {
+      let field = new FieldData([])
+      let card = field.top()
+      assert.equal(card, null)
     })
   })
 })

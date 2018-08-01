@@ -5,12 +5,12 @@ export default class FieldData {
   private putPlayerID: PlayerID | null
 
   constructor(
-    private cards:CardData[]
+    private cards: CardData[]
   ) {
     this.putPlayerID = null
   }
 
-  get Cards():CardData[] {
+  get Cards(): CardData[] {
     return this.cards
   }
 
@@ -20,5 +20,12 @@ export default class FieldData {
 
   set PutPlayerID(id: PlayerID | null) {
     this.putPlayerID = id
+  }
+
+  top(): CardData | null {
+    if (this.cards.length === 0) {
+      return null
+    }
+    return this.cards[this.cards.length - 1]
   }
 }
