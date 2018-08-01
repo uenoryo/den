@@ -208,4 +208,20 @@ describe('Dealer', () => {
       })
     })
   })
+
+  describe('.goNextTurn()', () => {
+    describe('ターンテーブルを見て次のターンに進めることができる', () => {
+      let deck = new DeckData([
+        new CardData(3, 13),
+      ])
+      let d = new Dealer(deck)
+      it('初期プレイヤーのIDを確認', () => {
+        assert.equal(d.TurnPlayerID, 1)
+      })
+      it('次のターンに進められる', () => {
+        d.goNextTurn()
+        assert.equal(d.TurnPlayerID, 2)
+      })
+    })
+  })
 })

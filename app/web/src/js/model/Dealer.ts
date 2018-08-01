@@ -11,9 +11,9 @@ export default class Dealer {
   public FieldCardOwnerID: PlayerID | null
   public Field: FieldData
   public TurnTable: PlayerID[]
-  public TurnPlayerID: PlayerID
 
   private forceDrawAmount: number
+  private turnPlayerID: PlayerID
 
   constructor (public Deck: DeckData) {
     this.Phase = Phase.Normal
@@ -23,11 +23,15 @@ export default class Dealer {
     this.forceDrawAmount = 0
 
     // [ハードコード] 順番を決められるようにする #3
-    this.TurnPlayerID = 1
+    this.turnPlayerID = 1
   }
 
   get ForceDrawAmount(): number {
     return this.forceDrawAmount
+  }
+
+  get TurnPlayerID(): PlayerID {
+    return this.turnPlayerID
   }
 
   draw(): CardData | null {
@@ -123,7 +127,7 @@ export default class Dealer {
     } else {
       turnIdx++
     }
-    this.TurnPlayerID = this.TurnTable[turnIdx]
+    this.turnPlayerID = this.TurnTable[turnIdx]
   }
 
   playerIsTurnPlayer(id: PlayerID): boolean {
