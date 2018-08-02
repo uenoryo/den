@@ -21,4 +21,13 @@ describe('BrainData', () => {
       assert.deepEqual(bd.HandActionPriorities[0], [-1, 0])
     })
   })
+
+  describe('.topPriorityActionID()', () => {
+    describe('優先度が最も高いactionIDを返すことができる', () => {
+      let bd = new BrainData
+      it('初期値は-1', () => {
+        assert.equal(bd.topPriorityActionID(), -1)
+      })
+    })
+  })
 })

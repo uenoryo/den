@@ -7,6 +7,11 @@ export type CardMark = 0 | 1 | 2| 3 | 4 | 5
 // カードの数字 (0 は Joker)
 export type CardNum = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13
 
+// 手札操作のアクションID, 0 ~ 13 が手札を操作することを示し、-1 がDrawすることを示す
+export type HandActionID = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13
+
+export type HandActionPriority = [HandActionID, number]
+
 // PlayerType
 export enum PlayerType {
   Computer,
