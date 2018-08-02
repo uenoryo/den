@@ -40,4 +40,20 @@ describe('BrainData', () => {
       })
     })
   })
+
+  describe('.inputPriority()', () => {
+    describe('優先度をセットできる', () => {
+      it('追加するパターン', () => {
+        let bd = new BrainData
+        bd.inputPriority(4, 10)
+        assert.deepEqual(bd.HandActionPriorities[1], [4, 10])
+      })
+      it('上書きするパターン', () => {
+        let bd = new BrainData
+        bd.inputPriority(4, 10)
+        bd.inputPriority(4, 20)
+        assert.deepEqual(bd.HandActionPriorities[1], [4, 20])
+      })
+    })
+  })
 })
