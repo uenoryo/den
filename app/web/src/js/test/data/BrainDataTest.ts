@@ -17,5 +17,8 @@ describe('BrainData', () => {
     it('出されたカードの配列の初期値は空', () => {
       assert.deepEqual(bd.PutCards, [])
     })
+    it('HandActionPriority は Drawのみが初期値', () => {
+      assert.deepEqual(bd.HandActionPriorities[0], [-1, 0])
+    })
   })
 })
