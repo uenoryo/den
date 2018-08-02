@@ -24,9 +24,19 @@ describe('BrainData', () => {
 
   describe('.topPriorityActionID()', () => {
     describe('優先度が最も高いactionIDを返すことができる', () => {
-      let bd = new BrainData
       it('初期値は-1', () => {
+        let bd = new BrainData
         assert.equal(bd.topPriorityActionID(), -1)
+      })
+      it('複数ある場合は優先度が最も高いものが返る', () => {
+        let bd = new BrainData
+        bd.HandActionPriorities = [
+          [-1, 0],
+          [0 , -10],
+          [4 , 20],
+          [8 , 1],
+        ]
+        assert.equal(bd.topPriorityActionID(), 4)
       })
     })
   })
