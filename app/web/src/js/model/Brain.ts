@@ -65,17 +65,6 @@ export default class Brain {
     }
   }
 
-  decide(): number {
-    let draw = -1
-    if (this.Data.PuttableIdx.length === null) {
-      return draw
-    }
-    if (this.Data.HandActionPriorities.length === 0) {
-      return draw
-    }
-    return this.Data.topPriorityActionID()
-  }
-
   interpret(): void {
     //
   }

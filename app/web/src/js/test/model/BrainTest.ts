@@ -4,11 +4,28 @@ import Brain from '../../model/Brain'
 import CardData from '../../data/CardData'
 import HandData from '../../data/HandData'
 import BrainData from '../../data/BrainData'
+import { CardMark } from '../../type/Type'
 
 describe('Brain', () => {
   describe ('.constructor()', () => {
     it ('正しく初期化できる', () => {
       new Brain
+    })
+    it ('putOrDraw の初期値はdraw', () => {
+      let brain = new Brain
+      assert.equal(brain.putOrDraw(), -1)
+    })
+    it ('putOrForceDraw の初期値はdraw', () => {
+      let brain = new Brain
+      assert.equal(brain.putOrForceDraw(), -1)
+    })
+    it ('changeMark の初期値はJokerA', () => {
+      let brain = new Brain
+      assert.equal(brain.changeMark(), CardMark.JokerA)
+    })
+    it ('den の初期値はtrue', () => {
+      let brain = new Brain
+      assert.equal(brain.den(), true)
     })
   })
 
