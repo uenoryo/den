@@ -1,4 +1,4 @@
-import { ActionType, CardNum, PlayerType } from '../type/Type'
+import { ActionType, CardMark, CardNum, PlayerType } from '../type/Type'
 import { Constants } from '../constant/Basic'
 import PlayerData from '../data/PlayerData'
 import HandData from '../data/HandData'
@@ -91,17 +91,15 @@ export default class Player {
   }
 
   think(isForceDraw: boolean): number {
-    return 0
-    // return this.brain.output(isForceDraw ? 'PutOrForceDraw' : 'PutOrDraw')
+    return isForceDraw ? this.Brain.outputPutOrForceDraw() : this.Brain.outputPutOrDraw()
   }
 
-  // thinkChangeMark(): number {
-  //   return this.brain.output('ChangeMark')
-  // }
+  thinkChangeMark(): CardMark {
+    return this.Brain.outputChangeMark()
+  }
 
   thinkDen(): boolean {
-    return true
-    // return this.brain.output('Den')
+    return this.Brain.outputDen()
   }
 
   hasNoCard(): boolean {
