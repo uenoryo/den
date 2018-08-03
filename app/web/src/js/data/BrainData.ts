@@ -1,24 +1,24 @@
 import CardData from './CardData'
 import HandData from './HandData'
-import { HandActionID, HandActionPriority } from '../type/Type'
+import { HandActionPriority } from '../type/Type'
 
 export default class BrainData {
   public FieldCard: CardData | null
-  public SelfCard: HandData | null
+  public SelfHand: HandData | null
   public PutCards: CardData[]
   public HandActionPriorities: HandActionPriority[]
   public PuttableIdx: number[]
 
   constructor() {
     this.FieldCard = null
-    this.SelfCard = null
+    this.SelfHand = null
     this.PuttableIdx = []
     this.HandActionPriorities = [ [-1, 0] ]
     this.PutCards = []
   }
 
-  topPriorityActionID(): HandActionID {
-    let actionID: HandActionID = -1
+  topPriorityActionID(): number {
+    let actionID: number = -1
     if (this.HandActionPriorities.length === 0) {
       return actionID
     }
@@ -32,7 +32,7 @@ export default class BrainData {
     return actionID
   }
 
-  inputPriority(actionID: HandActionID, priority: number): void {
+  inputPriority(actionID: number, priority: number): void {
     for (let idx in this.HandActionPriorities) {
       if (this.HandActionPriorities[idx][0] === actionID) {
         this.HandActionPriorities[idx][1] = priority
