@@ -29,6 +29,32 @@ describe('Brain', () => {
     })
   })
 
+  describe ('.inputFieldCard()', () => {
+    it ('フィールドカードを記憶できる', () => {
+      let b = new Brain
+      b.inputFieldCard(new CardData(1, 1))
+      assert.deepEqual(b.Data.FieldCard, new CardData(1, 1))
+    })
+  })
+
+  describe ('.inputSelfHand()', () => {
+    it ('手札を記憶できる', () => {
+      let b = new Brain
+      let hand = new HandData([new CardData(0, 5)])
+      b.inputSelfHand(hand)
+      assert.deepEqual(b.Data.SelfHand, new HandData([new CardData(0, 5)]))
+    })
+  })
+
+  describe ('.inputPutCard()', () => {
+    it ('場に出されたカードを記憶できる', () => {
+      let b = new Brain
+      b.inputPutCard(new CardData(0, 1))
+      b.inputPutCard(new CardData(0, 2))
+      assert.deepEqual(b.Data.PutCards, [new CardData(0, 1), new CardData(0, 2)])
+    })
+  })
+
   describe('.narrow()', () => {
     describe('通常モード', () => {
       let bd = new BrainData
