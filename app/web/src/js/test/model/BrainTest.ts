@@ -60,4 +60,31 @@ describe('Brain', () => {
       })
     })
   })
+
+  describe('.confirm()', () => {
+    it('FieldCardがなければエラーになる', () => {
+      let bd = new BrainData
+      bd.SelfHand = new HandData([])
+      let b = new Brain
+      b.Data = bd
+      assert.throws(() => { b.confirm() })
+    })
+
+    it('SelfHandがなければエラーになる', () => {
+      let bd = new BrainData
+      bd.FieldCard = new CardData(2, 2)
+      let b = new Brain
+      b.Data = bd
+      assert.throws(() => { b.confirm() })
+    })
+
+    it('FieldCardとSelfHandがなければエラーにならない', () => {
+      let bd = new BrainData
+      bd.SelfHand = new HandData([])
+      bd.FieldCard = new CardData(2, 2)
+      let b = new Brain
+      b.Data = bd
+      b.confirm()
+    })
+  })
 })
