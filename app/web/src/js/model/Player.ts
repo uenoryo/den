@@ -4,27 +4,27 @@ import PlayerData from '../data/PlayerData'
 import HandData from '../data/HandData'
 import CardData from '../data/CardData'
 import Dealer from './Dealer'
+import Brain from './Brain'
 import Rule from './Rule'
 
 export default class Player {
   public Hand: HandData
 
-  constructor(public Data: PlayerData) {
-    // TODO: Brain導入
-    // if (brain === undefined) {
-    //   brain = new Brain
-    // }
-    // this.brain = brain
+  constructor(public Data: PlayerData, public Brain: Brain) {
     this.Hand = new HandData([])
   }
 
-  // lookField(card) {
-  //   this.brain.input('FieldCard', card)
-  // }
+  lookField(card: CardData): void {
+    this.Brain.inputPutCard(card)
+  }
 
-  // lookSelfHand() {
-  //   this.brain.input('SelfHand', this.Hand)
-  // }
+  lookSelfHand() {
+    this.Brain.inputSelfHand(this.Hand)
+  }
+
+  lookPutCard(card: CardData): void {
+    this.Brain.inputPutCard(card)
+  }
 
   receive(card: CardData): void {
     this.Hand.Cards.push(card)
