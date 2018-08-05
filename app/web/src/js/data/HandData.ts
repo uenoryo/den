@@ -71,4 +71,8 @@ export default class DeckData {
     }
     return count
   }
+
+  isReach(): boolean {
+    return this.Cards.length === 1
+  }
 }

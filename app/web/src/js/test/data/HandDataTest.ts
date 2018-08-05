@@ -168,4 +168,24 @@ describe('HandData', () => {
       })
     })
   })
+
+  describe ('.isReach()', () => {
+    describe ('手札の枚数が残り1枚かどうかを返すことができる', () => {
+      it ('手札の枚数が残り複数枚', () => {
+        let cards = [
+            new CardData(0, 1),
+            new CardData(0, 13),
+        ]
+        let hd = new HandData(cards)
+        assert.equal(hd.isReach(), false)
+      })
+
+      it ('手札の枚数が残り1枚', () => {
+        let hd = new HandData([
+          new CardData(0, 1)
+        ])
+        assert.equal(hd.isReach(), true)
+      })
+    })
+  })
 })
