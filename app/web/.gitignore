@@ -39,3 +39,4 @@ bower_components
 
 # Js Env file for development
 src/js/env/index.js
+src/js/env.ts
