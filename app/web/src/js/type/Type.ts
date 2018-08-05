@@ -3,7 +3,7 @@ export type PlayerID = 1 | 2 | 3 | 4
 
 // カードのマーク
 export enum CardMark {
-  Clover,
+  Club,
   Diamond,
   Heart,
   Spade,

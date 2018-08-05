@@ -47,6 +47,8 @@ export const CardSkillNums: { [index: string]: CardNum } = {
 
 export const CardNums: CardNum[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 
+export const CardNumsWithoutJoker: CardNum[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+
 export const CardMaxNum = 13
 
 export const CardJokerNum = 0

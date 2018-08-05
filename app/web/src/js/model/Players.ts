@@ -1,10 +1,17 @@
-import { PlayerID } from './type/Type'
+import { PlayerID } from '../type/Type'
 import Player from './Player'
 
 export default class Players {
-  constructor(Player1: Player, Player2: Player, Player3: Player, Player4: Player) {}
+  constructor(
+    public Player1: Player,
+    public Player2: Player,
+    public Player3: Player,
+    public Player4: Player
+  ) {
+    //
+  }
 
-  get(id: PlayerID): Plyaer {
+  get(id: PlayerID): Player {
     switch(id) {
       case 1:
         return this.Player1
