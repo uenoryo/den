@@ -1,5 +1,6 @@
-import { PlayerID, PlayerType, CardMark } from './type/Type'
-import { CardMaxNum, CardJokerNum } from './constant/Card'
+import { PlayerID, PlayerType, CardMark } from '../type/Type'
+import { CardMaxNum, CardJokerNum, CardNumsWithoutJoker } from '../constant/Card'
+import PlayerData from '../data/PlayerData'
 import CardData from '../data/CardData'
 import DeckData from '../data/DeckData'
 import Configer from '../config/Configer'
@@ -12,7 +13,7 @@ export default class God {
   private config: Configer
 
   constructor() {
-    this.config = new Config
+    this.config = Config.app()
   }
 
   createDealer(deck: DeckData) {
@@ -33,7 +34,7 @@ export default class God {
     let cards: CardData[] = []
 
     // Prepare normal cards
-    for (let num = 1; num <= CardMaxNum; num++) {
+    for (let num of CardNumsWithoutJoker) {
       cards.push(new CardData(CardMark.Club, num))
       cards.push(new CardData(CardMark.Diamond, num))
       cards.push(new CardData(CardMark.Heart, num))
