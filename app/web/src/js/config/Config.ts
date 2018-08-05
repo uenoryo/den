@@ -3,11 +3,11 @@ import ENV from '../env'
 import AppConfig from './App'
 import DebugAppConfig from './DebugApp'
 
-export class {
+export default class {
   app(): Configer {
-    if (ENV.debug) {
-      return DebugAppConfig
+    if (ENV.DEBUG) {
+      return new DebugAppConfig
     }
-    return AppConfig
+    return new AppConfig
   }
 }
