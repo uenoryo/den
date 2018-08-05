@@ -9,7 +9,7 @@ describe('BrainData', () => {
       assert.equal(bd.FieldCard, null)
     })
     it('手札カードの初期値はnull', () => {
-      assert.equal(bd.SelfCard, null)
+      assert.equal(bd.SelfHand, null)
     })
     it('出せるカードの配列の初期値は空', () => {
       assert.deepEqual(bd.PuttableIdx, [])
@@ -18,7 +18,7 @@ describe('BrainData', () => {
       assert.deepEqual(bd.PutCards, [])
     })
     it('HandActionPriority は Drawのみが初期値', () => {
-      assert.deepEqual(bd.HandActionPriorities[0], [-1, 0])
+      assert.deepEqual(bd.HandPriorities[0], [-1, 0])
     })
   })
 
@@ -30,7 +30,7 @@ describe('BrainData', () => {
       })
       it('複数ある場合は優先度が最も高いものが返る', () => {
         let bd = new BrainData
-        bd.HandActionPriorities = [
+        bd.HandPriorities = [
           [-1, 0],
           [0 , -10],
           [4 , 20],
@@ -46,13 +46,13 @@ describe('BrainData', () => {
       it('追加するパターン', () => {
         let bd = new BrainData
         bd.inputPriority(4, 10)
-        assert.deepEqual(bd.HandActionPriorities[1], [4, 10])
+        assert.deepEqual(bd.HandPriorities[1], [4, 10])
       })
       it('上書きするパターン', () => {
         let bd = new BrainData
         bd.inputPriority(4, 10)
         bd.inputPriority(4, 20)
-        assert.deepEqual(bd.HandActionPriorities[1], [4, 20])
+        assert.deepEqual(bd.HandPriorities[1], [4, 20])
       })
     })
   })

@@ -69,7 +69,7 @@ describe('Brain', () => {
       b.Data = bd
       it ('手札から出せるカードを優先度を初期化しつつまとめられる', () => {
         b.narrow(false)
-        assert.deepEqual(b.Data.HandActionPriorities,  [ [ -1, 0 ], [ 2, 0 ] ])
+        assert.deepEqual(b.Data.HandPriorities,  [ [ -1, 0 ], [ 2, 0 ] ])
       })
     })
 
@@ -86,7 +86,7 @@ describe('Brain', () => {
         bd.FieldCard = new CardData(2, 2)
         b.Data = bd
         b.narrow(true)
-        assert.deepEqual(b.Data.HandActionPriorities, [ [ -1, 0 ] ])
+        assert.deepEqual(b.Data.HandPriorities, [ [ -1, 0 ] ])
       })
       it ('2がある場合', () => {
         let bd = new BrainData
@@ -99,7 +99,7 @@ describe('Brain', () => {
         bd.FieldCard = new CardData(2, 2)
         b.Data = bd
         b.narrow(true)
-        assert.deepEqual(b.Data.HandActionPriorities,  [ [ -1, 0 ], [ 1, 0 ] ])
+        assert.deepEqual(b.Data.HandPriorities,  [ [ -1, 0 ], [ 1, 0 ] ])
       })
     })
   })

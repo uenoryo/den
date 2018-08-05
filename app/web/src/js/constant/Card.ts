@@ -17,6 +17,9 @@ export const CardMarkStrings: { [index: string]: string } = {
   Joker: '$',
 }
 
+// ActionID のうち、Drawすることを示す値
+export const DrawActionID = -1
+
 export const CardCosts: { [index: number]: number } = {
   0: 5,
   1: 1,

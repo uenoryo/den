@@ -2,13 +2,17 @@ import { CardMark, BrainInputType, BrainOutputType, HandActionPriority } from '.
 import BrainData from '../data/BrainData'
 import CardData from '../data/CardData'
 import HandData from '../data/HandData'
+import BrainCell from './BrainCell'
 import Rule from './Rule'
 
 export default class Brain {
   public Data: BrainData
 
+  private Cell: BrainCell
+
   constructor() {
     this.Data = new BrainData
+    this.Cell = new BrainCell
   }
 
   inputFieldCard(card: CardData): void {

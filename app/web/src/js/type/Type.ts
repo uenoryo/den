@@ -15,7 +15,7 @@ export enum CardMark {
 export type CardNum = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13
 
 // [手札操作のアクションID: 優先順位] のタプル
-export type HandActionPriority = [number, number]
+export type HandPriority = [number, number]
 
 // PlayerType
 export enum PlayerType {
