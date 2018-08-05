@@ -2,7 +2,7 @@ import Player from './Player'
 import DeckData from '../data/DeckData'
 import CardData from '../data/CardData'
 import FieldData from '../data/FieldData'
-import { Config } from '../config/Config'
+import Config from '../config/Config'
 import { Constants } from '../constant/Basic'
 import { PlayerID, Phase, GameSetType } from '../type/Type'
 
@@ -19,7 +19,7 @@ export default class Dealer {
     this.Phase = Phase.Normal
     this.FieldCardOwnerID = null
     this.Field = new FieldData([])
-    this.turnTable = Config.TurnTable
+    this.turnTable = Config.app().TurnTable()
     this.forceDrawAmount = 0
 
     // [ハードコード] 順番を決められるようにする #3

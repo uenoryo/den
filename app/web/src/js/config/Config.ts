@@ -4,7 +4,7 @@ import AppConfig from './App'
 import DebugAppConfig from './DebugApp'
 
 export default class {
-  app(): Configer {
+  static app(): Configer {
     if (ENV.DEBUG) {
       return new DebugAppConfig
     }

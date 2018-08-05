@@ -1,5 +1,5 @@
 import { PlayerID } from '../type/Type'
 
-export default interface Configer = {
+export default interface Configer {
   TurnTable(): PlayerID[]
 }
