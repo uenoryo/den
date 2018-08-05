@@ -1,5 +1,13 @@
-import { PlayerID } from '../type/Type'
+import Configer from './Configer'
+import ENV from '../env'
+import AppConfig from './App'
+import DebugAppConfig from './DebugApp'
 
-export namespace Config {
-  export let TurnTable: PlayerID[] = [1, 2, 3, 4]
+export class {
+  app(): Configer {
+    if (ENV.debug) {
+      return DebugAppConfig
+    }
+    return AppConfig
+  }
 }
