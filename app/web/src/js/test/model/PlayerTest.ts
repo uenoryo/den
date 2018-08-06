@@ -6,21 +6,24 @@ import DeckData from '../../data/DeckData'
 import PlayerData from '../../data/PlayerData'
 import Dealer from '../../model/Dealer'
 import Player from '../../model/Player'
+import Brain from '../../model/Brain'
 
 describe('Player', () => {
   describe('.constructor()', () => {
     it('正しく初期化できる', () => {
       let pd = new PlayerData(1, 1)
-      let p = new Player(pd)
+      let b = new Brain
+      let p = new Player(pd, b)
       assert.equal(p.Data.ID, 1)
       assert.equal(p.Data.Type, 1)
     })
   })
 
   describe('.receive()', () => {
-    it('カードを手札に加えられる', () => {
+    it('カードを手札に加えることができる', () => {
       let pd = new PlayerData(1, 1)
-      let p = new Player(pd)
+      let b = new Brain
+      let p = new Player(pd, b)
       let card = new CardData(1, 7)
 
       p.receive(card)
@@ -32,7 +35,8 @@ describe('Player', () => {
   describe('.pick()', () => {
     it('カードを手札から１枚抜き取ることができる', () => {
       let pd = new PlayerData(1, 1)
-      let p = new Player(pd)
+      let b = new Brain
+      let p = new Player(pd, b)
       let card = new CardData(2, 4)
 
       p.receive(card)
@@ -44,7 +48,8 @@ describe('Player', () => {
 
     it('抜き取ろうとする位置にカードがなければエラー', () => {
       let pd = new PlayerData(1, 1)
-      let p = new Player(pd)
+      let b = new Brain
+      let p = new Player(pd, b)
       let card = new CardData(2, 4)
 
       p.receive(card)
@@ -55,7 +60,8 @@ describe('Player', () => {
   describe('.put()', () => {
     it('カードをディーラーに渡すことができる', () => {
       let pd = new PlayerData(1, 1)
-      let p = new Player(pd)
+      let b = new Brain
+      let p = new Player(pd, b)
       let dealer = new Dealer(new DeckData([]))
       let card = new CardData(0, 11)
       p.receive(card)
@@ -70,7 +76,8 @@ describe('Player', () => {
   describe('.sort()', () => {
     it('手札をスコア順に並び替えられる', () => {
       let pd = new PlayerData(1, 1)
-      let p = new Player(pd)
+      let b = new Brain
+      let p = new Player(pd, b)
 
       p.receive(new CardData(3, 0))
       p.receive(new CardData(0, 12))
@@ -92,16 +99,17 @@ describe('Player', () => {
 
   describe ('.canPut()', () => {
     let pd = new PlayerData(1, 1)
+    let b = new Brain
     describe ('Normalのモードの場合', () => {
       it ('出せるカードがある', () => {
-        let p = new Player(pd)
+        let p = new Player(pd, b)
         let field = new CardData(0, 3)
         p.receive(new CardData(2, 2))
         p.receive(new CardData(3, 3))
         assert.equal(p.canPut(field, false), true)
       })
       it ('出せるカードがない', () => {
-        let p = new Player(pd)
+        let p = new Player(pd, b)
         let field = new CardData(0, 3)
         p.receive(new CardData(2, 2))
         p.receive(new CardData(3, 4))
@@ -111,14 +119,14 @@ describe('Player', () => {
 
     describe ('ForceDrawモードの場合', () => {
       it ('出せるカードがある (2がある)', () => {
-        let p = new Player(pd)
+        let p = new Player(pd, b)
         let field = new CardData(1, 2)
         p.receive(new CardData(0, 2))
         p.receive(new CardData(4, 0))
         assert.equal(p.canPut(field, true), true)
       })
       it ('出したいカードがない (2がない)', () => {
-        let p = new Player(pd)
+        let p = new Player(pd, b)
         let field = new CardData(1, 2)
         p.receive(new CardData(0, 9))
         p.receive(new CardData(4, 0))
@@ -130,7 +138,8 @@ describe('Player', () => {
   describe('.hasNoCard()', () => {
     describe('手札が無いかどうかを返すことができる', () => {
       let pd = new PlayerData(1, 1)
-      let p = new Player(pd)
+      let b = new Brain
+      let p = new Player(pd, b)
       it('手札が無い場合はTrueを返す', () => {
         assert.equal(p.hasNoCard(), true)
       })
@@ -146,13 +155,15 @@ describe('Player', () => {
     describe('プレイヤータイプが人間かどうかを返すことができる', () => {
       it('人間である場合はTrueを返す', () => {
         let pd = new PlayerData(1, PlayerType.Human)
-        let p = new Player(pd)
+        let b = new Brain
+        let p = new Player(pd, b)
         assert.equal(p.isHuman(), true)
       })
 
       it('人間ではない場合はFalseを返す', () => {
         let pd = new PlayerData(1, PlayerType.Computer)
-        let p = new Player(pd)
+        let b = new Brain
+        let p = new Player(pd, b)
         assert.equal(p.isHuman(), false)
       })
     })
@@ -162,13 +173,15 @@ describe('Player', () => {
     describe('プレイヤータイプがコンピューターかどうかを返すことができる', () => {
       it('コンピューターである場合はTrueを返す', () => {
         let pd = new PlayerData(1, PlayerType.Computer)
-        let p = new Player(pd)
+        let b = new Brain
+        let p = new Player(pd, b)
         assert.equal(p.isComputer(), true)
       })
 
       it('コンピューターではない場合はFalseを返す', () => {
         let pd = new PlayerData(1, PlayerType.Human)
-        let p = new Player(pd)
+        let b = new Brain
+        let p = new Player(pd, b)
         assert.equal(p.isComputer(), false)
       })
     })
