@@ -31,7 +31,7 @@ const htmlTemplates = routeDataMapper({
 module.exports = {
     // エントリーファイル
     entry: {
-        'js/main.js': `${SRC}/js/main.js`,
+        'js/main.ts': `${SRC}/js/main.ts`,
         'css/style.css': `${SRC}/scss/style.scss`,
     },
     // 出力するディレクトリ・ファイル名などの設定
