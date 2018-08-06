@@ -6,6 +6,7 @@ import CardData from '../../data/CardData'
 import PlayerData from '../../data/PlayerData'
 import Player from '../../model/Player'
 import Dealer from '../../model/Dealer'
+import Brain from '../../model/Brain'
 
 describe('Dealer', () => {
   describe('.constructor()', () => {
@@ -57,7 +58,7 @@ describe('Dealer', () => {
         new CardData(2, 2),
       ])
       let d = new Dealer(deck)
-      let player = new Player(new PlayerData(1, 1))
+      let player = new Player(new PlayerData(1, 1), new Brain)
       d.deal(player)
       assert.equal(player.Hand.Cards[0].Mark, 1)
       assert.equal(player.Hand.Cards[0].Num, 1)
@@ -72,7 +73,7 @@ describe('Dealer', () => {
       ])
       let d = new Dealer(deck)
       d.increaseForceDrawAmount(10)
-      let player = new Player(new PlayerData(1, 1))
+      let player = new Player(new PlayerData(1, 1), new Brain)
       d.forceDeal(player)
       it('カードが渡されている', () => {
         assert.equal(player.Hand.Cards[0].Mark, 1)
@@ -84,17 +85,17 @@ describe('Dealer', () => {
     })
   })
 
-  describe ('.receive()', () => {
-    describe ('カードをフィールドに出すことができる', () => {
+  describe('.receive()', () => {
+    describe('カードをフィールドに出すことができる', () => {
       let deck = new DeckData([])
       let d = new Dealer(deck)
       d.receive(new CardData(1, 1), 3)
-      it ('カードがフィールドの先頭に追加される', () => {
+      it('カードがフィールドの先頭に追加される', () => {
         assert.equal(d.Field.Cards[0].Mark, 1)
         assert.equal(d.Field.Cards[0].Num, 1)
       })
 
-      it ('カードを出したプレイヤーのIDが保存される', () => {
+      it('カードを出したプレイヤーのIDが保存される', () => {
         assert.equal(d.Field.PutPlayerID, 3)
       })
     })
@@ -149,7 +150,7 @@ describe('Dealer', () => {
     })
   })
 
-  describe ('.judgeDen()', () => {
+  describe('.judgeDen()', () => {
     // フィールドのカードは spade の 13
     let deck = new DeckData([
       new CardData(3, 13),
@@ -158,17 +159,18 @@ describe('Dealer', () => {
     d.put()
 
     let pd = new PlayerData(1, 1)
+    let b = new Brain
 
-    describe ('普通のDENを判定することができる', () => {
-      it ('手札の合計が一致する場合はDEN', () => {
-        let p = new Player(pd)
+    describe('普通のDENを判定することができる', () => {
+      it('手札の合計が一致する場合はDEN', () => {
+        let p = new Player(pd, b)
         p.receive(new CardData(0, 1))
         p.receive(new CardData(0, 2))
         p.receive(new CardData(0, 10))
         assert.equal(d.judgeDen(p), GameSetType.Den)
       })
-      it ('手札に同じ数字が3枚ある場合は暗刻', () => {
-        let p = new Player(pd)
+      it('手札に同じ数字が3枚ある場合は暗刻', () => {
+        let p = new Player(pd, b)
         p.receive(new CardData(0, 1))
         p.receive(new CardData(0, 2))
         p.receive(new CardData(0, 13))
@@ -176,8 +178,8 @@ describe('Dealer', () => {
         p.receive(new CardData(2, 13))
         assert.equal(d.judgeDen(p), GameSetType.Anko)
       })
-      it ('3ペア以上あり、ペア以外のカードが1枚でフィールドのカードと一致していたらチートイ', () => {
-        let p = new Player(pd)
+      it('3ペア以上あり、ペア以外のカードが1枚でフィールドのカードと一致していたらチートイ', () => {
+        let p = new Player(pd, b)
         p.receive(new CardData(4, 0))
         p.receive(new CardData(5, 0))
         p.receive(new CardData(0, 8))
@@ -189,8 +191,8 @@ describe('Dealer', () => {
         p.receive(new CardData(0, 13))
         assert.equal(d.judgeDen(p), GameSetType.Chitoi)
       })
-      it ('暗刻とチートイどちらも満たしていたらチートイが優先される', () => {
-        let p = new Player(pd)
+      it('暗刻とチートイどちらも満たしていたらチートイが優先される', () => {
+        let p = new Player(pd, b)
         p.receive(new CardData(2, 3))
         p.receive(new CardData(3, 3))
         p.receive(new CardData(2, 4))
@@ -200,8 +202,8 @@ describe('Dealer', () => {
         p.receive(new CardData(3, 13))
         assert.equal(d.judgeDen(p), GameSetType.Chitoi)
       })
-      it ('手札の合計が一致しない場合はnull', () => {
-        let p = new Player(pd)
+      it('手札の合計が一致しない場合はnull', () => {
+        let p = new Player(pd, b)
         p.receive(new CardData(0, 1))
         p.receive(new CardData(0, 2))
         assert.equal(d.judgeDen(p), null)
