@@ -12,7 +12,7 @@ import DealerService from './DealerService'
 
 export default {
   name: 'Den',
-  mixins: [GodService],
+  mixins: [GodService, DealerService],
   data() {
     return {
       god: null,
@@ -30,7 +30,8 @@ export default {
       this.god = this.godBirth()
       this.players = this.godCreatePlayers()
       this.dealer = this.godCreateDealer()
-      console.log(this.dealer)
+
+      this.dealerShuffleDeck()
     },
   }
 }
