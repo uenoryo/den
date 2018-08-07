@@ -9,12 +9,14 @@
 <script>
 import GodService from './GodService'
 import DealerService from './DealerService'
+import { Constants } from '../constant/Basic'
 
 export default {
   name: 'Den',
   mixins: [GodService, DealerService],
   data() {
     return {
+      constants: null,
       god: null,
       players: null,
       dealer: null,
@@ -27,11 +29,16 @@ export default {
 
   methods: {
     setup() {
+      this.constants = Constants
       this.god = this.godBirth()
       this.players = this.godCreatePlayers()
       this.dealer = this.godCreateDealer()
 
       this.dealerShuffleDeck()
+
+      this.dealerDealCardToPlayersAtFirst()
+
+      console.log(this.players)
     },
   }
 }
