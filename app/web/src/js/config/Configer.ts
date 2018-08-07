@@ -1,5 +1,5 @@
 import { PlayerID } from '../type/Type'
-import { Brain } from '../model/Brain'
+import Brain from '../model/Brain'
 
 export default interface Configer {
   TurnTable(): PlayerID[]

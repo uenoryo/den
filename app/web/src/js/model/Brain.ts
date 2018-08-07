@@ -1,4 +1,4 @@
-import { CardMark, BrainInputType, BrainOutputType, HandActionPriority } from '../type/Type'
+import { CardMark, BrainInputType, BrainOutputType, HandPriority } from '../type/Type'
 import BrainData from '../data/BrainData'
 import CardData from '../data/CardData'
 import HandData from '../data/HandData'
