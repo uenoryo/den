@@ -8,18 +8,16 @@
 
 <script>
 import GodService from './GodService'
+import DealerService from './DealerService'
 
 export default {
   name: 'Den',
   mixins: [GodService],
   data() {
     return {
-      env: null,
-      confing: null,
-      constants: null,
-      rule: null,
+      god: null,
       players: null,
-      isGameSet: false,
+      dealer: null,
     }
   },
 
@@ -31,6 +29,8 @@ export default {
     setup() {
       this.god = this.godBirth()
       this.players = this.godCreatePlayers()
+      this.dealer = this.godCreateDealer()
+      console.log(this.dealer)
     },
   }
 }

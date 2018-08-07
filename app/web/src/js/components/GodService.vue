@@ -6,10 +6,14 @@ export default {
 
   methods: {
     godBirth() {
-        return new God
+      return new God
     },
     godCreatePlayers() {
-        return this.god.createPlayers()
+      return this.god.createPlayers()
+    },
+    godCreateDealer() {
+      let deck = this.god.createDeck()
+      return this.god.createDealer(deck)
     }
   }
 }
