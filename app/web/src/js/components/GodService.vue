@@ -9,11 +9,11 @@ export default {
       return new God
     },
     godCreatePlayers() {
-      return this.god.createPlayers()
+      return this.God.createPlayers()
     },
     godCreateDealer() {
-      let deck = this.god.createDeck()
-      return this.god.createDealer(deck)
+      let deck = this.God.createDeck()
+      return this.God.createDealer(deck)
     }
   }
 }

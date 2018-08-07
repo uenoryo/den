@@ -41,7 +41,7 @@ export const CardSkillNums: { [index: string]: CardNum } = {
   Skip: 1,
   DrawTwo: 2,
   WildCard: 8,
-  Back: 9,
+  Reverse: 9,
   Attach: 12,
 }
 

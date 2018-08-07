@@ -16,10 +16,10 @@ export default {
   mixins: [GodService, DealerService],
   data() {
     return {
-      constants: null,
-      god: null,
-      players: null,
-      dealer: null,
+      Constants: null,
+      God: null,
+      Players: null,
+      Dealer: null,
     }
   },
 
@@ -29,16 +29,18 @@ export default {
 
   methods: {
     setup() {
-      this.constants = Constants
-      this.god = this.godBirth()
-      this.players = this.godCreatePlayers()
-      this.dealer = this.godCreateDealer()
+      this.Constants = Constants
+      this.God = this.godBirth()
+      this.Players = this.godCreatePlayers()
+      this.Dealer = this.godCreateDealer()
 
       this.dealerShuffleDeck()
 
       this.dealerDealCardToPlayersAtFirst()
 
-      console.log(this.players)
+      this.dealerPutCard()
+
+      this.dealerTriggerCardSkillAtFirst()
     },
   }
 }
