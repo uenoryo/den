@@ -24,4 +24,13 @@ export default class Players {
     }
     throw new Error(`Invalid Player id:${id}`)
   }
+
+  all(): Player[] {
+    return [
+      this.Player1,
+      this.Player2,
+      this.Player3,
+      this.Player4,
+    ]
+  }
 }

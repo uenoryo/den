@@ -22,4 +22,8 @@ export default class implements Configer {
   Player4Brain(): Brain {
     return new Brain
   }
+
+  MainPlayerID(): PlayerID {
+    return 1
+  }
 }

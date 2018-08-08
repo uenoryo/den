@@ -7,16 +7,16 @@ import { Constants } from '../constant/Basic'
 import { PlayerID, Phase, GameSetType } from '../type/Type'
 
 export default class Dealer {
-  public Phase: Phase
   public FieldCardOwnerID: PlayerID | null
   public Field: FieldData
 
   private forceDrawAmount: number
   private turnPlayerID: PlayerID
   private turnTable: PlayerID[]
+  private phase: Phase
 
   constructor (public Deck: DeckData) {
-    this.Phase = Phase.Normal
+    this.phase = Phase.Normal
     this.FieldCardOwnerID = null
     this.Field = new FieldData([])
     this.turnTable = Config.app().TurnTable()
@@ -36,6 +36,10 @@ export default class Dealer {
 
   get TurnTable(): PlayerID[] {
     return this.turnTable
+  }
+
+  get Phase(): Phase {
+    return this.phase
   }
 
   draw(): CardData | null {
@@ -144,5 +148,9 @@ export default class Dealer {
 
   increaseForceDrawAmount(amount: number): void {
      this.forceDrawAmount += amount
+  }
+
+  changePhase(phase: Phase): void {
+    this.phase = phase
   }
 }

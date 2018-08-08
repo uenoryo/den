@@ -2,7 +2,7 @@ import { CardNum } from '../type/Type'
 import { CardNums } from '../constant/Card'
 import CardData from './CardData'
 
-export default class DeckData {
+export default class HandData {
   private isReversed: boolean = false
 
   constructor(

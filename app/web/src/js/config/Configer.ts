@@ -7,4 +7,5 @@ export default interface Configer {
   Player2Brain(): Brain
   Player3Brain(): Brain
   Player4Brain(): Brain
+  MainPlayerID(): PlayerID
 }
