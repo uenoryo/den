@@ -10,4 +10,10 @@ export namespace Constants {
 
   // デッキのメンテナンスが行われる残り枚数
   export const DeckMaintenanceRemainingAmount = 0
+
+  // コンピュータがカードを出そうとする間隔 (ミリ秒)
+  export const ComputerPutActionIntervalMs = 1000
+
+  // コンピュータがDENをしようとする間隔 (ミリ秒)
+  export const ComputerDenActionIntervalMs = 1000
 }

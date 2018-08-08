@@ -38,6 +38,26 @@ export enum ActionType {
   ForceDraw,
 }
 
+// Attacheアクションの返答タイプ
+export enum ReplyActionAttach {
+  AttachPass,
+  ForceDrawDraw,
+}
+
+// ChangeMarkアクションの返答タイプ
+export enum ReplyActionChangeMark {
+  ChangeMarkClub,
+  ChangeMarkDiamond,
+  ChangeMarkHeart,
+  ChangeMarkSpade,
+  ChangeMarkJoker,
+}
+
+// ForceDrawアクションの返答タイプ
+export enum ReplyActionForceDraw {
+  Draw,
+}
+
 // Brain の入力内容タイプ
 export enum BrainInputType {
   FieldCard,
