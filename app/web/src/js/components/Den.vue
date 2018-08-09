@@ -13,7 +13,7 @@
           :class='["PlayerCardArea__ID" + player.Data.ID]'>
           <div
             v-for='card, handIdx in player.Hand.Cards'
-            @click='put(id, handIdx)'
+            @click='put(player.Data.ID, handIdx)'
             :class='{"Sleeve--disabled":dealerPlayerIsTurnPlayer(player.Data.ID) && dealerTurnPlayer().isHuman() && !dealerCanPut(card)}'
             class='Sleeve'>
             <div
@@ -158,12 +158,12 @@ export default {
 
       this.computerResetPutTimer(this.autoPutAction)
 
-      if (this.dealerCanReceiveCard(this.players[id].show(handIdx))) {
-        this.dealerReceiveCard(this.players[id].pick(handIdx), id)
+      if (this.dealerCanReceiveCard(this.Players.get(id).show(handIdx))) {
+        this.dealerReceiveCard(this.Players.get(id).pick(handIdx), id)
 
         // this.computerLookField(this.dealer.fieldCard())
 
-        this.dealerCheckDone(this.players[id])
+        this.dealerCheckDone(this.Players.get(id))
 
         this.dealerTriggerCardSkill()
 
@@ -187,13 +187,13 @@ export default {
     },
 
     reply(id, type, param) {
-      this.dealerListenReply(this.players[id], type, param)
+      this.dealerListenReply(this.Players.get(id), type, param)
 
       this.computerResetPutTimer(this.autoPutAction)
     },
 
     den(id) {
-      this.dealerJudgeDen(this.players[id])
+      this.dealerJudgeDen(this.Players.get(id))
     },
 
     gameSet() {

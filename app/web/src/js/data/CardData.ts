@@ -19,11 +19,11 @@ export default class CardData {
     return this.num
   }
 
-  toString():string {
+  toString(): string {
     return this.toStringMark() + ' ' + this.toStringNum()
   }
 
-  toStringNum():string {
+  toStringNum(): string {
     switch(this.Num) {
       case 1:
         return 'A'
@@ -37,7 +37,7 @@ export default class CardData {
     return String(this.Num)
   }
 
-  toStringMark():string {
+  toStringMark(): string {
     switch(this.Mark) {
       case CardMarkIntegers.Club:
         return CardMarkStrings.Club
@@ -56,15 +56,19 @@ export default class CardData {
     }
   }
 
-  isJoker():boolean {
+  changeMark(mark: CardMark): void {
+    this.mark = mark
+  }
+
+  isJoker(): boolean {
     return this.Mark === CardMarkIntegers.JokerA || this.Mark === CardMarkIntegers.JokerB
   }
 
-  get ID():number {
+  get ID(): number {
     return this.id
   }
 
-  get DisplayID():number {
+  get DisplayID(): number {
     if (this.Mark === CardMarkIntegers.JokerA) {
       return 52
     } else if (this.Mark === CardMarkIntegers.JokerA) {
@@ -74,14 +78,14 @@ export default class CardData {
     }
   }
 
-  get Score():number {
+  get Score(): number {
     if (this.isJoker()) {
       return 0
     }
     return this.Mark + (this.Num * 4) - 4
   }
 
-  get Cost():number {
+  get Cost(): number {
     if (CardCosts[this.Num] === undefined) {
       return 0
     }
