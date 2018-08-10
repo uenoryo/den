@@ -68,40 +68,40 @@ export default {
 
       // ForceDraw
       if (this.dealerIsForceDrawPhase()) {
-        if (this.dealerTurnPlayer().wantPut(this.Dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
+        if (this.dealerTurnPlayer().wantPut(this.Dealer.Field.top(), this.dealerIsForceDrawPhase())) {
           this.put(
-            this.dealerTurnPlayer().data.ID,
+            this.dealerTurnPlayer().Data.ID,
             this.dealerTurnPlayer().think(this.dealerIsForceDrawPhase())
           )
         } else {
-          this.reply(this.dealerTurnPlayer().data.ID, Constants.PlayerReplyForceDrawDraw)
+          this.reply(this.dealerTurnPlayer().Data.ID, Constants.PlayerReplyForceDrawDraw)
         }
         return
       }
 
       // Attach
       if (this.dealerIsAttachPhase()) {
-        if (this.dealerTurnPlayer().wantPut(this.Dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
+        if (this.dealerTurnPlayer().wantPut(this.Dealer.Field.top(), this.dealerIsForceDrawPhase())) {
           this.put(
-            this.dealerTurnPlayer().data.ID,
+            this.dealerTurnPlayer().Data.ID,
             this.dealerTurnPlayer().think()
           )
         } else {
-          this.reply(this.dealerTurnPlayer().data.ID, Constants.PlayerReplyAttachPass)
+          this.reply(this.dealerTurnPlayer().Data.ID, Constants.PlayerReplyAttachPass)
         }
         return
       }
 
       // WildCard
       if (this.dealerIsChangeMarkPhase()) {
-        this.reply(this.dealerTurnPlayer().data.ID, this.dealerTurnPlayer().thinkChangeMark())
+        this.reply(this.dealerTurnPlayer().Data.ID, this.dealerTurnPlayer().thinkChangeMark())
         return
       }
 
       // 通常
-      if (this.dealerTurnPlayer().wantPut(this.Dealer.fieldCard(), this.dealerIsForceDrawPhase())) {
+      if (this.dealerTurnPlayer().wantPut(this.Dealer.Field.top(), this.dealerIsForceDrawPhase())) {
         this.put(
-          this.dealerTurnPlayer().data.ID,
+          this.dealerTurnPlayer().Data.ID,
           this.dealerTurnPlayer().think()
         )
       } else {
@@ -110,11 +110,11 @@ export default {
     },
 
     computerDenAction() {
-      for (let id in this.Players) {
-        if (this.Players[id].isHuman() || !this.Players[id].wantDen()) {
+      for (let player of this.Players.all()) {
+        if (player.isHuman() || !player.wantDen()) {
           continue
         }
-        this.den(id)
+        this.den(player.Data.ID)
       }
     },
   },
