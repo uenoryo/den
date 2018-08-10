@@ -48,13 +48,13 @@ export default {
     },
 
     computerLookField(field) {
-      for (let player of this.Players) {
+      for (let player of this.Players.all()) {
         // player.lookField(field)
       }
     },
 
     computerLookSelfHand() {
-      for (let player of this.Players) {
+      for (let player of this.Players.all()) {
         // player.lookSelfHand()
       }
     },

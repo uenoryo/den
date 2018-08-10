@@ -146,6 +146,8 @@ export default {
       this.dealerPutCard()
 
       this.dealerTriggerCardSkillAtFirst()
+
+      this.computerStandby()
     },
 
     put(id, handIdx) {
@@ -162,7 +164,7 @@ export default {
       if (this.dealerCanReceiveCard(this.Players.get(id).show(handIdx))) {
         this.dealerReceiveCard(this.Players.get(id).pick(handIdx), id)
 
-        // this.computerLookField(this.dealer.fieldCard())
+        this.computerLookField(this.Dealer.Field.top())
 
         this.dealerCheckDone(this.Players.get(id))
 
