@@ -81,3 +81,7 @@ export enum GameSetType {
   Anko,
   Chitoi,
 }
+
+export type Style = {
+  display: string,
+}

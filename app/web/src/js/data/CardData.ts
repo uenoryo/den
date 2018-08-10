@@ -1,14 +1,18 @@
 import { CardMarkIntegers, CardMarkStrings, CardCosts } from '../constant/Card'
-import { CardMark, CardNum } from '../type/Type'
+import { CardMark, CardNum, Style } from '../type/Type'
 
 export default class CardData {
-  private id:number
+  private id: number
+  public CSS: Style
 
   constructor(
     private mark: CardMark,
     private num: CardNum
   ) {
     this.id = this.DisplayID
+    this.CSS = {
+      display: 'initial'
+    }
   }
 
   get Mark(): CardMark {
