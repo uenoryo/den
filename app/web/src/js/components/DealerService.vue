@@ -135,7 +135,7 @@ export default {
       if (! this.dealerCanDeal(player)) {
         return
       }
-      // this.animateDeal(this.dealer, player)
+      this.animationDeal(this.Dealer, player)
 
       setTimeout(() => {
         if (Rule.isPank(player.Hand)) {

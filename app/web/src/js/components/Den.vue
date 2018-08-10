@@ -96,6 +96,7 @@
 import GodService from './GodService'
 import DealerService from './DealerService'
 import ComputerService from './ComputerService'
+import AnimationService from './AnimationService'
 import { Constants } from '../constant/Basic'
 import Config from '../config/Config'
 
@@ -105,6 +106,7 @@ export default {
     GodService,
     DealerService,
     ComputerService,
+    AnimationService,
   ],
   data() {
     return {
@@ -132,7 +134,6 @@ export default {
       this.God = this.godBirth()
 
       this.Players = this.godCreatePlayers()
-      console.log(this.Players.all())
 
       this.Dealer = this.godCreateDealer()
     },
@@ -182,8 +183,6 @@ export default {
       this.dealerDeal(this.dealerTurnPlayer())
 
       this.dealerGoNextTurn()
-
-      // this.computerResetPutTimer(this.autoPutAction)
     },
 
     reply(id, type, param) {
