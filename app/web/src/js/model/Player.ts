@@ -15,7 +15,7 @@ export default class Player {
   }
 
   lookField(card: CardData): void {
-    this.Brain.inputPutCard(card)
+    this.Brain.inputFieldCard(card)
   }
 
   lookSelfHand() {

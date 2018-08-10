@@ -73,21 +73,21 @@ export default {
     },
 
     dealerJudgeDen (player) {
-      if (this.dealer.field.denable === false) {
+      if (this.Dealer.Field.denable === false) {
         return
       }
-      if (player.data.ID === this.dealer.field.PutPlayerID) {
+      if (player.Data.ID === this.Dealer.Field.PutPlayerID) {
         return
       }
-      if (this.isGameSet === true) {
+      if (this.isGameSet() === true) {
         return
       }
 
-      let type = this.dealer.judgeDen(player)
+      let type = this.Dealer.judgeDen(player)
       if (type === null) {
         return
       }
-      this.animateDen(this.dealer, player)
+      this.animateDen(this.Dealer, player)
       // alert('DEN')
 
       switch (type) {
@@ -163,7 +163,7 @@ export default {
     },
 
     dealerReceiveCard(card, playerID) {
-      // this.animateReceive(this.dealer, card, playerID)
+      this.animationReceive(this.Dealer, card, playerID)
       this.isBusy = true
       setTimeout(() => {
         this.isBusy = false

@@ -11,7 +11,12 @@ export default {
   },
   methods: {
     computerStandby() {
+      this.computerLookField()
+
+      this.computerLookSelfHand()
+
       this.computerStartPutTimer()
+
       this.computerStartDenTimer()
     },
 
@@ -49,13 +54,13 @@ export default {
 
     computerLookField(field) {
       for (let player of this.Players.all()) {
-        // player.lookField(field)
+        player.lookField(field)
       }
     },
 
     computerLookSelfHand() {
       for (let player of this.Players.all()) {
-        // player.lookSelfHand()
+        player.lookSelfHand()
       }
     },
 
@@ -63,6 +68,8 @@ export default {
       if (!this.dealerTurnPlayer().isComputer()) {
         return
       }
+
+      this.computerLookField()
 
       this.computerLookSelfHand()
 
