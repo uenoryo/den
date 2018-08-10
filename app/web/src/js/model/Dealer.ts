@@ -2,9 +2,10 @@ import Player from './Player'
 import DeckData from '../data/DeckData'
 import CardData from '../data/CardData'
 import FieldData from '../data/FieldData'
+import PhaseData from '../data/PhaseData'
 import Config from '../config/Config'
 import { Constants } from '../constant/Basic'
-import { PlayerID, Phase, GameSetType } from '../type/Type'
+import { PlayerID, GameSetType, Phase } from '../type/Type'
 
 export default class Dealer {
   public FieldCardOwnerID: PlayerID | null
@@ -13,10 +14,10 @@ export default class Dealer {
   private forceDrawAmount: number
   private turnPlayerID: PlayerID
   private turnTable: PlayerID[]
-  private phase: Phase
+  private phase: PhaseData
 
   constructor (public Deck: DeckData) {
-    this.phase = Phase.Normal
+    this.phase = new PhaseData
     this.FieldCardOwnerID = null
     this.Field = new FieldData([])
     this.turnTable = Config.app().TurnTable()
@@ -38,7 +39,7 @@ export default class Dealer {
     return this.turnTable
   }
 
-  get Phase(): Phase {
+  get Phase(): PhaseData {
     return this.phase
   }
 
@@ -151,6 +152,6 @@ export default class Dealer {
   }
 
   changePhase(phase: Phase): void {
-    this.phase = phase
+    this.phase.Value = phase
   }
 }

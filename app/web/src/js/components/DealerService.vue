@@ -33,14 +33,6 @@ export default {
       this.Dealer.goNextTurn()
     },
 
-    dealerTurnPlayer() {
-      return this.Players.get(this.Dealer.TurnPlayerID)
-    },
-
-    dealerPlayerIsTurnPlayer (playerID) {
-      return this.Dealer.playerIsTurnPlayer(playerID)
-    },
-
     dealerTriggerCardSkillAtFirst() {
       if (this.Dealer.Field.top() === null) {
         return
@@ -259,33 +251,35 @@ export default {
 
 
     dealerCanPut(card) {
-      return Rule.canPut(this.Dealer.Field.top(), card, this.dealerIsForceDrawPhase())
+      return Rule.canPut(this.Dealer.Field.top(), card, this.Dealer.Phase.dealerIsForceDrawPhase)
     },
 
     dealerCanDeal(player) {
       return this.Dealer.playerIsTurnPlayer(player.Data.ID)
-        && this.Dealer.phase === Phase.Normal
+        && this.Dealer.Phase.IsNormal
     },
 
     dealerListenReply(player, reply, param) {
-      if (!this.dealerPlayerIsTurnPlayer(player.Data.ID)) {
+      if (!this.Dealer.playerIsTurnPlayer(player.Data.ID)) {
         return
       }
-      if (this.dealerIsAttachPhase()) {
-        this.dealerListenReplyAttach(reply)
-      }
-      if (this.dealerIsChangeMarkPhase()) {
-        this.dealerListenReplyChangeMark(reply)
-      }
-      if (this.dealerIsForceDrawPhase()) {
-        this.dealerListenReplyForceDraw(player, reply)
+
+      switch (true) {
+        case this.Dealer.Phase.IsAttach:
+          return this.dealerListenReplyAttach(reply)
+
+        case this.Dealer.Phase.IsChangeMark:
+          return this.dealerListenReplyChangeMark(reply)
+
+        case this.Dealer.Phase.dealerIsForceDrawPhase:
+          return this.dealerListenReplyForceDraw(player, reply)
       }
     },
 
-    dealerListenReplyAttach (reply) {
+    dealerListenReplyAttach(reply) {
       switch (reply) {
         case Constants.PlayerReplyAttachPass:
-          this.Dealer.changePhase()
+          this.Dealer.changePhase(Phase.Normal)
           this.dealerGoNextTurn()
           break
       }
@@ -309,7 +303,7 @@ export default {
           this.Dealer.Field.top().Mark = CardMark.JokerA
           break
       }
-      this.Dealer.changePhase()
+      this.Dealer.changePhase(Phase.Normal)
       this.dealerGoNextTurn()
     },
 
@@ -324,19 +318,6 @@ export default {
           this.dealerGoNextTurn()
           break
       }
-    },
-
-    dealerIsAttachPhase() {
-      return this.Dealer.phase === Phase.Attach
-    },
-
-    dealerIsChangeMarkPhase() {
-      return this.Dealer.phase === Phase.ChangeMark
-    },
-
-    dealerIsForceDrawPhase() {
-      return this.Dealer.phase === Phase.ForceDraw
-        && this.Dealer.forceDrawAmount > 0
     },
   }
 }

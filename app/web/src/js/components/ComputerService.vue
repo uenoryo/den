@@ -1,5 +1,6 @@
 <script>
 import { Constants } from '../constant/Basic'
+import { ReplyActionForceDraw, ReplyActionAttach } from '../type/Type'
 
 export default {
   name: 'Computer',
@@ -65,7 +66,7 @@ export default {
     },
 
     computerPutAction() {
-      if (!this.dealerTurnPlayer().isComputer()) {
+      if (!this.turnPlayer().isComputer()) {
         return
       }
 
@@ -73,46 +74,34 @@ export default {
 
       this.computerLookSelfHand()
 
-      // ForceDraw
-      if (this.dealerIsForceDrawPhase()) {
-        if (this.dealerTurnPlayer().wantPut(this.Dealer.Field.top(), this.dealerIsForceDrawPhase())) {
-          this.put(
-            this.dealerTurnPlayer().Data.ID,
-            this.dealerTurnPlayer().think(this.dealerIsForceDrawPhase())
-          )
-        } else {
-          this.reply(this.dealerTurnPlayer().Data.ID, Constants.PlayerReplyForceDrawDraw)
-        }
-        return
-      }
+      switch (true) {
+        case this.Dealer.Phase.IsForceDraw:
+          if (this.turnPlayer().wantPut(this.Dealer.Field.top(), true)) {
+            this.put(this.turnPlayerID(), this.turnPlayer().think(true))
+          } else {
+            this.reply(this.turnPlayerID(), ReplyActionForceDraw.Draw)
+          }
+          return
 
-      // Attach
-      if (this.dealerIsAttachPhase()) {
-        if (this.dealerTurnPlayer().wantPut(this.Dealer.Field.top(), this.dealerIsForceDrawPhase())) {
-          this.put(
-            this.dealerTurnPlayer().Data.ID,
-            this.dealerTurnPlayer().think()
-          )
-        } else {
-          this.reply(this.dealerTurnPlayer().Data.ID, Constants.PlayerReplyAttachPass)
-        }
-        return
-      }
+        case this.Dealer.Phase.IsAttach:
+          if (this.turnPlayer().wantPut(this.Dealer.Field.top(), false)) {
+            this.put(this.turnPlayerID(), this.turnPlayer().think(false))
+          } else {
+            this.reply(this.turnPlayerID(), ReplyActionAttach.Pass)
+          }
+          return
 
-      // WildCard
-      if (this.dealerIsChangeMarkPhase()) {
-        this.reply(this.dealerTurnPlayer().Data.ID, this.dealerTurnPlayer().thinkChangeMark())
-        return
-      }
+        case this.Dealer.Phase.IsChangeMark:
+          this.reply(this.turnPlayerID(), this.turnPlayer().thinkChangeMark())
+          return
 
-      // 通常
-      if (this.dealerTurnPlayer().wantPut(this.Dealer.Field.top(), this.dealerIsForceDrawPhase())) {
-        this.put(
-          this.dealerTurnPlayer().Data.ID,
-          this.dealerTurnPlayer().think()
-        )
-      } else {
-        this.draw()
+        default:
+          if (this.turnPlayer().wantPut(this.Dealer.Field.top(), false)) {
+            this.put(this.turnPlayerID(), this.turnPlayer().think())
+          } else {
+            this.draw()
+          }
+          return
       }
     },
 

@@ -14,7 +14,7 @@
           <div
             v-for='card, handIdx in player.Hand.Cards'
             @click='put(player.Data.ID, handIdx)'
-            :class='{"Sleeve--disabled":dealerPlayerIsTurnPlayer(player.Data.ID) && dealerTurnPlayer().isHuman() && !dealerCanPut(card)}'
+            :class='{"Sleeve--disabled":isTurnPlayer(player.Data.ID) && turnPlayer().isHuman() && !dealerCanPut(card)}'
             class='Sleeve'>
             <div
               v-if='player.isHuman() || player.handIsReversed()'
@@ -29,7 +29,7 @@
           </div>
           <div
             class='modal'
-            :class='{open:dealerIsAttachPhase() && dealerPlayerIsTurnPlayer(player.Data.ID) && dealerTurnPlayer().isHuman()}'>
+            :class='{open:Dealer.Phase.IsAttach && isTurnPlayer(player.Data.ID) && turnPlayer().isHuman()}'>
             <div class='modal__inner'>
               <div class='modal__body'>追加でカードを出すことができます</div>
               <div class='modal__foot btn' @click='reply(player.Data.ID, Constants.PlayerReplyAttachPass)'>パス</div>
@@ -37,7 +37,7 @@
           </div>
           <div
             class='modal'
-            :class='{open:dealerIsForceDrawPhase() && dealerPlayerIsTurnPlayer(player.Data.ID) && dealerTurnPlayer().isHuman()}'>
+            :class='{open:Dealer.Phase.IsForceDrawIs && isTurnPlayer(player.Data.ID) && turnPlayer().isHuman()}'>
             <div class='modal__inner'>
               <div class='modal__body'>2を出すか{{ Dealer.forceDrawAmount }}枚引いてください</div>
               <div class='modal__foot btn' @click='reply(player.Data.ID, Constants.PlayerReplyForceDrawDraw)'>ドロー</div>
@@ -45,7 +45,7 @@
           </div>
           <div
             class='modal modal--hard'
-            :class='{open:dealerIsChangeMarkPhase() && dealerPlayerIsTurnPlayer(player.Data.ID) && dealerTurnPlayer().isHuman()}'>
+            :class='{open:Dealer.Phase.IsChangeMark && isTurnPlayer(player.Data.ID) && turnPlayer().isHuman()}'>
             <div class='modal__inner'>
               <div class='modal__body'>変更するマークを選んでください</div>
               <div class='modal__marks'>
@@ -74,7 +74,7 @@
       <div class='deck'>
         <div class='Sleeve'>
           <div
-            v-if='dealerTurnPlayer().isHuman()'
+            v-if='turnPlayer().isHuman()'
             @click='draw()'
             class='Card Card--reversed'
           ></div>
@@ -155,7 +155,7 @@ export default {
         return
       }
 
-      if (!this.dealerPlayerIsTurnPlayer(id)) {
+      if (!this.isTurnPlayer(id)) {
         return
       }
 
@@ -180,7 +180,7 @@ export default {
         return
       }
 
-      this.dealerDeal(this.dealerTurnPlayer())
+      this.dealerDeal(this.turnPlayer())
 
       this.dealerGoNextTurn()
     },
@@ -205,6 +205,18 @@ export default {
 
     isGameSet() {
       return this.IsGameSet
+    },
+
+    turnPlayerID() {
+      return this.Dealer.TurnPlayerID
+    },
+
+    turnPlayer() {
+      return this.Players.get(this.turnPlayerID())
+    },
+
+    isTurnPlayer(playerID) {
+      return this.Dealer.playerIsTurnPlayer(playerID)
     },
   }
 }

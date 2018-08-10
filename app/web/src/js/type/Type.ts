@@ -41,7 +41,6 @@ export enum ActionType {
 // Attacheアクションの返答タイプ
 export enum ReplyActionAttach {
   AttachPass,
-  ForceDrawDraw,
 }
 
 // ChangeMarkアクションの返答タイプ
