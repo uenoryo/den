@@ -159,22 +159,20 @@ export default {
         return
       }
 
-      this.computerResetPutTimer(this.autoPutAction)
-
-      if (this.dealerCanReceiveCard(this.Players.get(id).show(handIdx))) {
-        this.dealerReceiveCard(this.Players.get(id).pick(handIdx), id)
-
-        this.computerLookField(this.Dealer.Field.top())
-
-        this.dealerCheckDone(this.Players.get(id))
-
-        this.dealerTriggerCardSkill()
-
+      if (!this.dealerCanReceiveCard(this.Players.get(id).show(handIdx))) {
+        this.dealerRejectReceivingCard()
         return
       }
 
-      this.dealerRejectReceivingCard()
+      this.computerResetPutTimer(this.autoPutAction)
 
+      this.dealerReceiveCard(this.Players.get(id).pick(handIdx), id)
+
+      this.computerLookField(this.Dealer.Field.top())
+
+      this.dealerCheckDone(this.Players.get(id))
+
+      this.dealerTriggerCardSkill()
     },
 
     draw() {
