@@ -71,6 +71,11 @@ describe('Brain', () => {
         b.narrow(false)
         assert.deepEqual(b.Data.HandPriorities,  [ [ -1, 0 ], [ 2, 0 ] ])
       })
+      it ('フィールドのカードが変わったら優先度が変化する', () => {
+        bd.FieldCard = new CardData(3, 12)
+        b.narrow(false)
+        assert.deepEqual(b.Data.HandPriorities,  [ [ -1, 0 ] ])
+      })
     })
 
     describe('ForceDrawモード', () => {

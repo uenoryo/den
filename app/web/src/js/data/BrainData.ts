@@ -42,6 +42,10 @@ export default class BrainData {
     return null
   }
 
+  resetPriority(): void {
+    this.HandPriorities = [ [DrawActionID, 0] ]
+  }
+
   inputPriority(actionID: number, priority: number): void {
     for (let idx in this.HandPriorities) {
       if (this.HandPriorities[idx][0] === actionID) {

@@ -62,6 +62,7 @@ export default class Brain {
     if (this.Data.FieldCard === null || this.Data.SelfHand === null) {
       throw new Error('Not enough to narrow behavior, it need field card and self hand at least.')
     }
+    this.Data.resetPriority()
     for (let idx in this.Data.SelfHand.Cards) {
       if (Rule.canPut(this.Data.FieldCard, this.Data.SelfHand.Cards[idx], isForceDraw)) {
         this.Data.inputPriority(parseInt(idx), 0)
