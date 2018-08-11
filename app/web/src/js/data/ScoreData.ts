@@ -83,4 +83,8 @@ export default class ScoreData {
 
     return true
   }
+
+  validatePlayerID(): boolean {
+    return this.WinnerID !== this.LoserID
+  }
 }

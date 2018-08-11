@@ -71,5 +71,26 @@ describe('ScoreData', () => {
       sd.setScore(4, 50)
       assert.equal(sd.validateScore(), false)
     })
+
+    describe('.validatePlayerID()', () => {
+      it('初期値は false', () => {
+        let sd = new ScoreData(GameSetType.Den)
+        assert.equal(sd.validatePlayerID(), false)
+      })
+
+      it('WinnerID と LoserID が違っていれば true を返す', () => {
+        let sd = new ScoreData(GameSetType.Den)
+        sd.WinnerID = 1
+        sd.LoserID = 2
+        assert.equal(sd.validatePlayerID(), true)
+      })
+
+      it('WinnerID と LoserID が同じであれば false を返す', () => {
+        let sd = new ScoreData(GameSetType.Den)
+        sd.WinnerID = 1
+        sd.LoserID = 1
+        assert.equal(sd.validatePlayerID(), false)
+      })
+    })
   })
 })
