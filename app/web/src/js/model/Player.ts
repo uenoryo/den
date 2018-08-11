@@ -64,7 +64,7 @@ export default class Player {
   }
 
   wantPut(field: CardData, isForceDraw: boolean): boolean {
-    if (! this.canPut(field, isForceDraw)) {
+    if (!this.canPut(field, isForceDraw)) {
       return false
     }
     if (this.think(isForceDraw) === -1) {
