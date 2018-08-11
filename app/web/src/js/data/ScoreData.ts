@@ -41,28 +41,46 @@ export default class ScoreData {
     throw new Error(`Invalid Player id:${id}`)
   }
 
-  validateScore(): void {
-    // Winner, Loser のプラマイチェック
+  setScore(id: PlayerID | 0, value: number): void {
+    switch(id) {
+      case 1:
+        this.p1Score = value
+        return
+      case 2:
+        this.p2Score = value
+        return
+      case 3:
+        this.p3Score = value
+        return
+      case 4:
+        this.p4Score = value
+        return
+    }
+    throw new Error(`Invalid Player id:${id}`)
+  }
+
+  // validateScore は Winnerのスコアが 0以上で、 Loserのスコアが 0 以下であることと、
+  // Winner と Loserそれぞれのスコアがスコアが Width と一致しているかどうかを返します
+  validateScore(): boolean {
     if (this.WinnerID !== 0 && this.getScore(this.WinnerID) < 0) {
-      throw new Error(`winner score ${this.getScore(this.WinnerID)} must not be minus value.`)
+      return false
     }
     if (this.LoserID !== 0 && this.getScore(this.LoserID) > 0) {
-      throw new Error(`loser score ${this.getScore(this.LoserID)} must not be plus value.`)
+      return false
     }
 
-    // WinnerID が 0 の場合はPank -> loser のスコアが Width になっているかどうか
-    if (this.WinnerID === 0) {
-      let ls = this.getScore(this.LoserID)
-      if (Math.abs(ls) !== this.Width) {
-        throw new Error(`Invalid loser score ${ls}, want ${this.Width}.`)
+    if (this.WinnerID === 0 && this.LoserID !== 0) {
+      if (Math.abs(this.getScore(this.LoserID)) !== this.Width) {
+        return false
       }
-      return
     }
 
-    // winner のスコアが Width になっているかどうか
-    let ws = this.getScore(this.WinnerID)
-    if (ws !== this.Width) {
-      throw new Error(`Invalid winner score ${ws}, want ${this.Width}.`)
+    if (this.LoserID === 0 && this.WinnerID !== 0) {
+      if (this.getScore(this.WinnerID) !== this.Width) {
+        return false
+      }
     }
+
+    return true
   }
 }

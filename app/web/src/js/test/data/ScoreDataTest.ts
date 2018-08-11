@@ -24,23 +24,52 @@ describe('ScoreData', () => {
         assert.equal(sd.Width, 0)
       })
     })
+  })
 
-    // context('値がバリデーションされる', () => {
-    //   it('正しく設定される', () => {
-    //     new ScoreData(GameSetType.Den, 1, 2, 50, -30, -10, -10)
-    //   })
+  describe('.validateScore()', () => {
+    it('初期値は正常', () => {
+      let sd = new ScoreData(GameSetType.Den)
+      assert.equal(sd.validateScore(), true)
+    })
 
-    //   it('正しく設定される (pank)', () => {
-    //     new ScoreData(GameSetType.Den, 0, 2, 50, -150, 50, 50)
-    //   })
+    it('スコアが正しく入力されていれば true を返す', () => {
+      let sd = new ScoreData(GameSetType.Den)
+      sd.WinnerID = 1
+      sd.setScore(1, 150)
+      sd.setScore(2, -50)
+      sd.setScore(3, -50)
+      sd.setScore(4, -50)
+      assert.equal(sd.validateScore(), true)
+    })
 
-    //   it('widthと一致しない場合はエラー', () => {
-    //     assert.throws(() => { new ScoreData(GameSetType.Den, 1, 2, 60, -30, 10, -10) })
-    //   })
+    it('スコアが正しく入力されていれば true を返す (pank)', () => {
+      let sd = new ScoreData(GameSetType.Den)
+      sd.LoserID = 1
+      sd.setScore(1, -150)
+      sd.setScore(2, 50)
+      sd.setScore(3, 50)
+      sd.setScore(4, 50)
+      assert.equal(sd.validateScore(), true)
+    })
 
-    //   it('widthと一致しない場合はエラー (pank)', () => {
-    //     assert.throws(() => { new ScoreData(GameSetType.Den, 0, 2, 50, -100, 50, 50) })
-    //   })
-    // })
+    it('widthと一致しない場合は false を返す', () => {
+      let sd = new ScoreData(GameSetType.Den)
+      sd.WinnerID = 1
+      sd.setScore(1, 160)
+      sd.setScore(2, -50)
+      sd.setScore(3, -50)
+      sd.setScore(4, -50)
+      assert.equal(sd.validateScore(), false)
+    })
+
+    it('widthと一致しない場合は false を返す (pank)', () => {
+      let sd = new ScoreData(GameSetType.Den)
+      sd.LoserID = 1
+      sd.setScore(1, -160)
+      sd.setScore(2, 50)
+      sd.setScore(3, 50)
+      sd.setScore(4, 50)
+      assert.equal(sd.validateScore(), false)
+    })
   })
 })
