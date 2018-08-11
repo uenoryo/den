@@ -57,7 +57,7 @@ export default {
 
     dealerCheckDone (player) {
       if (player.hasNoCard()) {
-        alert(`[素上がり]Player ${player.data.ID}の勝ち`)
+        alert(`[素上がり]Player ${player.Data.ID}の勝ち`)
         this.gameSet()
       }
     },
@@ -77,7 +77,7 @@ export default {
       if (type === null) {
         return
       }
-      this.animateDen(this.Dealer, player)
+      this.animationDen(this.Dealer, player)
       // alert('DEN')
 
       switch (type) {
