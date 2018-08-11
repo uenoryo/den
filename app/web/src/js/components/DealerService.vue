@@ -250,7 +250,7 @@ export default {
 
 
     dealerCanPut(card) {
-      return Rule.canPut(this.Dealer.Field.top(), card, this.Dealer.Phase.dealerIsForceDrawPhase)
+      return Rule.canPut(this.Dealer.Field.top(), card, this.Dealer.Phase.IsForceDraw)
     },
 
     dealerCanDeal(player) {
