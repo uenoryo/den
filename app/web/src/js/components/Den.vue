@@ -97,6 +97,7 @@ import GodService from './GodService'
 import DealerService from './DealerService'
 import ComputerService from './ComputerService'
 import AnimationService from './AnimationService'
+import DebugService from './DebugService'
 import { Constants } from '../constant/Basic'
 import { ReplyAction } from '../type/Type'
 import Config from '../config/Config'
@@ -108,6 +109,7 @@ export default {
     DealerService,
     ComputerService,
     AnimationService,
+    DebugService,
   ],
   data() {
     return {
@@ -124,7 +126,11 @@ export default {
   beforeMount() {
     this.create()
 
-    this.setup()
+    if (this.Config.IsDebug()) {
+      this.debugSetup()
+    } else {
+      this.setup()
+    }
   },
 
   methods: {
