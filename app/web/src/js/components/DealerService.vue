@@ -124,7 +124,7 @@ export default {
     },
 
     dealerDeal (player) {
-      if (! this.dealerCanDeal(player)) {
+      if (!this.dealerCanDeal(player)) {
         return
       }
       this.animationDeal(this.Dealer, player)
@@ -169,7 +169,7 @@ export default {
       }
 
       // Phase をリセット
-      this.Dealer.changePhase(Phase.Nomal)
+      this.Dealer.changePhase(Phase.Normal)
 
       switch (this.Dealer.Field.top().Num) {
         case CardSkillNums.Reverse:
