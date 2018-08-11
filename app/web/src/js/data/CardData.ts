@@ -75,7 +75,7 @@ export default class CardData {
   get DisplayID(): number {
     if (this.Mark === CardMarkIntegers.JokerA) {
       return 52
-    } else if (this.Mark === CardMarkIntegers.JokerA) {
+    } else if (this.Mark === CardMarkIntegers.JokerB) {
       return 53
     } else {
       return this.Score
