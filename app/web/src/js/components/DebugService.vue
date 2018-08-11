@@ -7,7 +7,11 @@ import Env from '../env'
 export default {
   methods: {
     debugSetup () {
-      this.Dealer.Deck = this.getDeck(Env.DEBUG_DECK_ID)
+      if (Env.DEBUG_DECK_ID === 0) {
+        this.dealerShuffleDeck()
+      } else {
+        this.Dealer.Deck = this.getDeck(Env.DEBUG_DECK_ID)
+      }
 
       this.dealerDealCardToPlayersAtFirst()
 
