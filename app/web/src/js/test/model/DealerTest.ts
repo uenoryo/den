@@ -17,7 +17,7 @@ describe('Dealer', () => {
       ])
       let d = new Dealer(dd)
       it('PhaseがNormalで初期化されている', () => {
-        assert.equal(d.Phase, Phase.Normal)
+        assert.equal(d.Phase.Value, Phase.Normal)
       })
     })
   })
