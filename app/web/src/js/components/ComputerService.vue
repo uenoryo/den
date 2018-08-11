@@ -3,7 +3,6 @@ import { Constants } from '../constant/Basic'
 import { ReplyAction } from '../type/Type'
 
 export default {
-  name: 'Computer',
   data() {
     return {
       DenTimer: null,

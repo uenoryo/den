@@ -5,8 +5,6 @@ import { CardMark, Phase, ReplyAction } from '../type/Type'
 import Rule from '../model/Rule'
 
 export default {
-  name: 'Dealer',
-
   methods: {
     dealerShuffleDeck() {
       this.Dealer.shuffle()
