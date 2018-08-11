@@ -26,10 +26,10 @@ describe('ScoreData', () => {
     })
   })
 
-  describe('.validateScore()', () => {
+  describe('.isValidScore()', () => {
     it('初期値は正常', () => {
       let sd = new ScoreData(GameSetType.Den)
-      assert.equal(sd.validateScore(), true)
+      assert.equal(sd.isValidScore(), true)
     })
 
     it('スコアが正しく入力されていれば true を返す', () => {
@@ -39,7 +39,7 @@ describe('ScoreData', () => {
       sd.setScore(2, -50)
       sd.setScore(3, -50)
       sd.setScore(4, -50)
-      assert.equal(sd.validateScore(), true)
+      assert.equal(sd.isValidScore(), true)
     })
 
     it('スコアが正しく入力されていれば true を返す (pank)', () => {
@@ -49,7 +49,7 @@ describe('ScoreData', () => {
       sd.setScore(2, 50)
       sd.setScore(3, 50)
       sd.setScore(4, 50)
-      assert.equal(sd.validateScore(), true)
+      assert.equal(sd.isValidScore(), true)
     })
 
     it('widthと一致しない場合は false を返す', () => {
@@ -59,7 +59,7 @@ describe('ScoreData', () => {
       sd.setScore(2, -50)
       sd.setScore(3, -50)
       sd.setScore(4, -50)
-      assert.equal(sd.validateScore(), false)
+      assert.equal(sd.isValidScore(), false)
     })
 
     it('widthと一致しない場合は false を返す (pank)', () => {
@@ -69,27 +69,27 @@ describe('ScoreData', () => {
       sd.setScore(2, 50)
       sd.setScore(3, 50)
       sd.setScore(4, 50)
-      assert.equal(sd.validateScore(), false)
+      assert.equal(sd.isValidScore(), false)
     })
 
-    describe('.validatePlayerID()', () => {
+    describe('.isValidPlayerID()', () => {
       it('初期値は false', () => {
         let sd = new ScoreData(GameSetType.Den)
-        assert.equal(sd.validatePlayerID(), false)
+        assert.equal(sd.isValidPlayerID(), false)
       })
 
       it('WinnerID と LoserID が違っていれば true を返す', () => {
         let sd = new ScoreData(GameSetType.Den)
         sd.WinnerID = 1
         sd.LoserID = 2
-        assert.equal(sd.validatePlayerID(), true)
+        assert.equal(sd.isValidPlayerID(), true)
       })
 
       it('WinnerID と LoserID が同じであれば false を返す', () => {
         let sd = new ScoreData(GameSetType.Den)
         sd.WinnerID = 1
         sd.LoserID = 1
-        assert.equal(sd.validatePlayerID(), false)
+        assert.equal(sd.isValidPlayerID(), false)
       })
     })
   })

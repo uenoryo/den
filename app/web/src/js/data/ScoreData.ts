@@ -61,7 +61,7 @@ export default class ScoreData {
 
   // validateScore は Winnerのスコアが 0以上で、 Loserのスコアが 0 以下であることと、
   // Winner と Loserそれぞれのスコアがスコアが Width と一致しているかどうかを返します
-  validateScore(): boolean {
+  isValidScore(): boolean {
     if (this.WinnerID !== 0 && this.getScore(this.WinnerID) < 0) {
       return false
     }
@@ -84,7 +84,7 @@ export default class ScoreData {
     return true
   }
 
-  validatePlayerID(): boolean {
+  isValidPlayerID(): boolean {
     return this.WinnerID !== this.LoserID
   }
 }
