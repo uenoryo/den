@@ -1,7 +1,7 @@
 <script>
 import { Constants } from '../constant/Basic'
 import { CardSkillNums } from '../constant/Card'
-import { CardMark, Phase, ReplyAction } from '../type/Type'
+import { CardMark, Phase, GameSetType, ReplyAction } from '../type/Type'
 import Rule from '../model/Rule'
 
 export default {
@@ -55,14 +55,14 @@ export default {
       }
     },
 
-    dealerCheckDone (player) {
+    dealerCheckDone(player) {
       if (player.hasNoCard()) {
         alert(`[素上がり]Player ${player.Data.ID}の勝ち`)
         this.gameSet()
       }
     },
 
-    dealerJudgeDen (player) {
+    dealerJudgeDen(player) {
       if (this.Dealer.Field.denable === false) {
         return
       }
@@ -78,20 +78,18 @@ export default {
         return
       }
       this.animationDen(this.Dealer, player)
-      // alert('DEN')
 
       switch (type) {
-        case Constants.GameSetTypeDen:
+        case GameSetType.Den:
           //
           break
-        case Constants.GameSetTypeAnko:
-          alert('暗刻')
+        case GameSetType.Anko:
+          console.log('Anko')
           break
-        case Constants.GameSetTypeChitoi:
-          alert('チートイ')
+        case GameSetType.Chitoi:
+          console.log('Chitoi')
           break
       }
-      // alert(`${player.data.ID}の勝ち`)
       player.openHand()
       this.gameSet()
     },
