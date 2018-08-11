@@ -3,8 +3,8 @@ import Cell from '../BrainCell'
 
 export default class Basic extends Brain {
   putOrDraw () {
-    Cell.canDoneButDraw(this.data, 10)
-    Cell.waitAnko(this.data, 5)
+    Cell.canDoneButDraw(this.Data, 10)
+    Cell.waitAnko(this.Data, 5)
   }
 
   den () {

@@ -1,15 +1,24 @@
-import Constants from '../constants'
-import Config from '../config'
-import FieldData from '../data/FieldData'
+declare function require(x: string): any;
+const Constants = require('../constants')
+const Config = require('../config')
+const FieldData = require('../data/FieldData')
 
 export default class Dealer {
-  constructor (deck) {
+  public deck: any
+  public phase: number
+  public fieldCardOwnerID: number
+  public field: any
+  public turnTable: number[]
+  public forceDrawAmount: number
+  public turn: number
+
+  constructor (deck: any) {
     if (deck.constructor.name !== 'Deck') {
       throw new Error(`Invalid deck [${deck.constructor.name}]`)
     }
     this.deck = deck
     this.phase = Constants.DealerPhaseNormal
-    this.fieldCardOwnerID = null
+    this.fieldCardOwnerID = 0
     this.field = new FieldData([])
     this.turnTable = Config.Turn
     this.forceDrawAmount = 0
@@ -34,7 +43,7 @@ export default class Dealer {
     }
   }
 
-  deal (player) {
+  deal (player: any) {
     let card = this.draw()
     if (card === null) {
       return
@@ -44,14 +53,14 @@ export default class Dealer {
     return card
   }
 
-  forceDeal (player) {
+  forceDeal (player: any) {
     this.deal(player)
     if (this.forceDrawAmount !== 0) {
       this.forceDrawAmount--
     }
   }
 
-  receive (card, playerID) {
+  receive (card: any, playerID: number) {
     if (playerID === undefined) {
       playerID = 0
     }
@@ -83,7 +92,7 @@ export default class Dealer {
     }
   }
 
-  judgeDen (player) {
+  judgeDen (player: any) {
     if (
       player.handPairCount() >= 3 &&
       parseInt(this.fieldCard().Num) === parseInt(player.lonelyHandNumForChitoi())
@@ -113,19 +122,19 @@ export default class Dealer {
     this.turn = this.turnTable[turnIdx]
   }
 
-  playerIsTurnPlayer (id) {
-    return parseInt(id) === this.turn
+  playerIsTurnPlayer (id: number) {
+    return id === this.turn
   }
 
   reverseTurnTable () {
     this.turnTable.reverse()
   }
 
-  increaseForceDrawAmount (amount) {
+  increaseForceDrawAmount (amount: number) {
      this.forceDrawAmount += amount
   }
 
-  changePhase (phase) {
+  changePhase (phase: number) {
     this.phase = Constants.DealerPhaseNormal;
     if (
       phase === Constants.DealerPhaseForceDraw ||

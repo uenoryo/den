@@ -1,13 +1,18 @@
-import Constants from '../constants'
+declare function require(x: string): any;
+const Constants = require('../constants')
 
 export default class FieldData {
-  constructor(cards) {
+  public Cards: any
+  public PutPlayerID: number
+  public denable: boolean
+
+  constructor(cards: any) {
     this.cards(cards)
-    this.putPlayerID
+    this.PutPlayerID = 0
     this.denable = true
   }
 
-  cards(cards) {
+  cards(cards: any) {
     if (Array.isArray(cards) === false) {
       throw new Error(`Invalid Cards [${cards}].`)
     }
@@ -21,8 +26,7 @@ export default class FieldData {
     this.Cards = cards
   }
 
-  putPlayerID(putPlayerID) {
-    putPlayerID = parseInt(putPlayerID)
+  putPlayerID(putPlayerID: number) {
     if (
       putPlayerID !== 0 &&
       putPlayerID !== Constants.Player1ID &&

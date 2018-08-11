@@ -46,10 +46,18 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /(node_modules)/,
+                exclude: /node_modules/,
                 options: {
                     compact: true,
                     cacheDirectory: true,
+                }
+            },
+            {
+                test: /\.ts$/,
+                loader: 'ts-loader',
+                exclude: /node_modules/,
+                options: {
+                   appendTsSuffixTo: [/\.vue$/],
                 }
             },
             {
@@ -112,11 +120,10 @@ module.exports = {
     cache: true,
     // 拡張子省略時のpath解決
     resolve: {
-        extensions: ['.js', '.json', '.vue', '*'],
+        extensions: ['.js', '.json', '.vue', '.ts', '*'],
         alias: {
-            '@': path.join(__dirname, SRC, 'js'),
-            'vue$': 'vue/dist/vue.esm.js',
-        }
+          'vue$': 'vue/dist/vue.esm.js'
+        },
     },
 
     plugins: [
