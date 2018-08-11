@@ -151,6 +151,10 @@ export default class Dealer {
      this.forceDrawAmount += amount
   }
 
+  resetForceDrawAmount(): void {
+    this.forceDrawAmount = 0
+  }
+
   changePhase(phase: Phase): void {
     this.phase.Value = phase
   }

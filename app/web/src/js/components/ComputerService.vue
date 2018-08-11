@@ -1,6 +1,6 @@
 <script>
 import { Constants } from '../constant/Basic'
-import { ReplyActionForceDraw, ReplyActionAttach } from '../type/Type'
+import { ReplyAction } from '../type/Type'
 
 export default {
   name: 'Computer',
@@ -79,7 +79,7 @@ export default {
           if (this.turnPlayer().wantPut(this.Dealer.Field.top(), true)) {
             this.put(this.turnPlayerID(), this.turnPlayer().think(true))
           } else {
-            this.reply(this.turnPlayerID(), ReplyActionForceDraw.Draw)
+            this.reply(this.turnPlayerID(), ReplyAction.ForceDraw.Draw)
           }
           return
 
@@ -87,7 +87,7 @@ export default {
           if (this.turnPlayer().wantPut(this.Dealer.Field.top(), false)) {
             this.put(this.turnPlayerID(), this.turnPlayer().think(false))
           } else {
-            this.reply(this.turnPlayerID(), ReplyActionAttach.Pass)
+            this.reply(this.turnPlayerID(), ReplyAction.Attach.Pass)
           }
           return
 

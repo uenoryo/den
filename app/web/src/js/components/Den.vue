@@ -40,7 +40,7 @@
             :class='{open:Dealer.Phase.IsForceDraw && isTurnPlayer(player.Data.ID) && turnPlayer().isHuman()}'>
             <div class='modal__inner'>
               <div class='modal__body'>2を出すか{{ Dealer.forceDrawAmount }}枚引いてください</div>
-              <div class='modal__foot btn' @click='reply(player.Data.ID, ReplyActionForceDraw.Draw)'>ドロー</div>
+              <div class='modal__foot btn' @click='reply(player.Data.ID, ReplyAction.ForceDraw.Draw)'>ドロー</div>
             </div>
           </div>
           <div

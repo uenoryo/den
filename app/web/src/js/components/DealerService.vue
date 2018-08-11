@@ -271,7 +271,7 @@ export default {
         case this.Dealer.Phase.IsChangeMark:
           return this.dealerListenReplyChangeMark(reply)
 
-        case this.Dealer.Phase.dealerIsForceDrawPhase:
+        case this.Dealer.Phase.IsForceDraw:
           return this.dealerListenReplyForceDraw(player, reply)
       }
     },
@@ -310,11 +310,11 @@ export default {
     dealerListenReplyForceDraw (player, reply) {
       switch (reply) {
         case ReplyAction.ForceDraw.Draw:
-          this.Dealer.changePhase()
-          for (let i = 0; i < this.Dealer.forceDrawAmount; i++) {
+          this.Dealer.changePhase(Phase.Normal)
+          for (let i = 0; i < this.Dealer.ForceDrawAmount; i++) {
             this.dealerDeal(player)
           }
-          this.Dealer.forceDrawAmount = 0;
+          this.Dealer.resetForceDrawAmount()
           this.dealerGoNextTurn()
           break
       }
