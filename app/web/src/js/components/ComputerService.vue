@@ -42,15 +42,15 @@ export default {
       if (this.DenTimer === undefined) {
         return
       }
-      clearInterval(this.DenTimer);
+      // clearInterval(this.DenTimer);
     },
 
     computerStartPutTimer() {
-      this.PutTimer = setInterval(this.computerPutAction(), Constants.ComputerPutActionIntervalMs)
+      this.PutTimer = setInterval(this.computerPutAction, Constants.ComputerPutActionIntervalMs)
     },
 
     computerStartDenTimer() {
-      this.DenTimer = setInterval(this.computerDenAction(), Constants.ComputerDenActionIntervalMs)
+      this.DenTimer = setInterval(this.computerDenAction, 1000)
     },
 
     computerLookField(field) {
