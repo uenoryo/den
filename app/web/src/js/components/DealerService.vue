@@ -116,7 +116,7 @@ export default {
     },
 
     dealerTriggerCardSkillWildCardForceJoker() {
-      this.Dealer.Field.top().Mark = CardMark.JokerA
+      this.Dealer.Field.top().changeMark(CardMark.JokerA)
     },
 
     dealerTriggerCardSkillSkillAttach() {
@@ -288,19 +288,19 @@ export default {
     dealerListenReplyChangeMark (reply) {
       switch (reply) {
         case ReplyAction.ChangeMark.Club:
-          this.Dealer.Field.top().Mark = CardMark.Club
+          this.Dealer.Field.top().changeMark(CardMark.Club)
           break
         case ReplyAction.ChangeMark.Diamond:
-          this.Dealer.Field.top().Mark = CardMark.Diamond
+          this.Dealer.Field.top().changeMark(CardMark.Diamond)
           break
         case ReplyAction.ChangeMark.Heart:
-          this.Dealer.Field.top().Mark = CardMark.Heart
+          this.Dealer.Field.top().changeMark(CardMark.Heart)
           break
         case ReplyAction.ChangeMark.Spade:
-          this.Dealer.Field.top().Mark = CardMark.Spade
+          this.Dealer.Field.top().changeMark(CardMark.Spade)
           break
         case ReplyAction.ChangeMark.Joker:
-          this.Dealer.Field.top().Mark = CardMark.JokerA
+          this.Dealer.Field.top().changeMark(CardMark.JokerA)
           break
       }
       this.Dealer.changePhase(Phase.Normal)
