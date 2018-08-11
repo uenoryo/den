@@ -25,7 +25,7 @@ export default class BrainData {
     }
     let max = -99999
     for (let priority of this.HandPriorities) {
-      if (max < priority[1]) {
+      if (max <= priority[1]) {
         max = priority[1]
         actionID = priority[0]
       }

@@ -160,6 +160,9 @@ export default {
       }, Constants.DealerReceiveCardIntervalMs)
     },
 
+    dealerRejectReceivingCard() {
+      console.log("Dealer reject receiving card.")
+    },
 
     dealerTriggerCardSkill() {
       if (this.Dealer.Field.top() === null) {

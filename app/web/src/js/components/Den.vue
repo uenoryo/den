@@ -178,7 +178,9 @@ export default {
 
       this.dealerReceiveCard(this.Players.get(id).pick(handIdx), id)
 
-      this.computerLookField(this.Dealer.Field.top())
+      this.computerLookField()
+
+      this.computerLookSelfHand()
 
       this.dealerCheckDone(this.Players.get(id))
 

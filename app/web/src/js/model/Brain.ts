@@ -74,7 +74,7 @@ export default class Brain {
   }
 
   putOrDraw(): number {
-    return -1
+    return this.Data.topPriorityActionID()
   }
 
   putOrForceDraw(): number {
