@@ -17,7 +17,7 @@
             :class='{"Sleeve--disabled":isTurnPlayer(player.Data.ID) && turnPlayer().isHuman() && !dealerCanPut(card)}'
             class='Sleeve'>
             <div
-              v-if='player.isHuman() || player.handIsReversed()'
+              v-if='Config.IsDebug() || player.isHuman() || player.handIsReversed()'
               class='Card'
               :id='["Card__ID" + card.ID]'
               :class='["CardDisplay__ID" + card.DisplayID, "Card__ID" + card.ID]'></div>

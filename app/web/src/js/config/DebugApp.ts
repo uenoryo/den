@@ -3,6 +3,10 @@ import { PlayerID } from '../type/Type'
 import Brain from '../model/Brain'
 
 export default class implements Configer {
+  IsDebug(): boolean {
+    return true
+  }
+
   TurnTable(): PlayerID[] {
     return [1, 2, 3, 4]
   }
