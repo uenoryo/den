@@ -13,7 +13,6 @@ export default {
 
       // デッキからプレイヤー側にカードを移動
       this.dealAnimationCardReversed(player.Data.ID, deckToHandSpeedMs)
-
       // カードを手札に加える
       setTimeout(() => {
         this.resetAnimationCardReversed()
@@ -108,13 +107,13 @@ export default {
         this.el('View').classList.remove('View--inverted')
       }, 40)
 
-      for (let id in this.players) {
-        if (player.Data.ID === parseInt(id)) {
+      for (let p of this.Players.all()) {
+        if (player.Data.ID === p.Data.ID) {
           continue
         }
-        for (let idx in this.players[id].hand.Cards) {
+        for (let idx in p.Hand.Cards) {
           anime({
-            targets: `#Card__ID${this.Players.get(id).Hand.Cards[idx].ID}`,
+            targets: `#Card__ID${p.Hand.Cards[idx].ID}`,
             translateX: `${Math.floor(Math.random() * 60) - 30}px`,
             translateY: `${Math.floor(Math.random() * 60) - 30}px`,
             rotate: `${Math.floor(Math.random() * 320)}`,
