@@ -1,7 +1,7 @@
 <script>
 import { Constants } from '../constant/Basic'
 import { CardSkillNums } from '../constant/Card'
-import { CardMark, Phase } from '../type/Type'
+import { CardMark, Phase, ReplyAction } from '../type/Type'
 import Rule from '../model/Rule'
 
 export default {
@@ -278,7 +278,7 @@ export default {
 
     dealerListenReplyAttach(reply) {
       switch (reply) {
-        case Constants.PlayerReplyAttachPass:
+        case ReplyAction.Attach.Pass:
           this.Dealer.changePhase(Phase.Normal)
           this.dealerGoNextTurn()
           break
@@ -287,19 +287,19 @@ export default {
 
     dealerListenReplyChangeMark (reply) {
       switch (reply) {
-        case Constants.PlayerReplyChangeMarkClub:
+        case ReplyAction.ChangeMark.Club:
           this.Dealer.Field.top().Mark = CardMark.Club
           break
-        case Constants.PlayerReplyChangeMarkDiamond:
+        case ReplyAction.ChangeMark.Diamond:
           this.Dealer.Field.top().Mark = CardMark.Diamond
           break
-        case Constants.PlayerReplyChangeMarkHeart:
+        case ReplyAction.ChangeMark.Heart:
           this.Dealer.Field.top().Mark = CardMark.Heart
           break
-        case Constants.PlayerReplyChangeMarkSpade:
+        case ReplyAction.ChangeMark.Spade:
           this.Dealer.Field.top().Mark = CardMark.Spade
           break
-        case Constants.PlayerReplyChangeMarkJoker:
+        case ReplyAction.ChangeMark.Joker:
           this.Dealer.Field.top().Mark = CardMark.JokerA
           break
       }
@@ -309,7 +309,7 @@ export default {
 
     dealerListenReplyForceDraw (player, reply) {
       switch (reply) {
-        case Constants.PlayerReplyForceDrawDraw:
+        case ReplyAction.ForceDraw.Draw:
           this.Dealer.changePhase()
           for (let i = 0; i < this.Dealer.forceDrawAmount; i++) {
             this.dealerDeal(player)

@@ -32,15 +32,15 @@
             :class='{open:Dealer.Phase.IsAttach && isTurnPlayer(player.Data.ID) && turnPlayer().isHuman()}'>
             <div class='modal__inner'>
               <div class='modal__body'>追加でカードを出すことができます</div>
-              <div class='modal__foot btn' @click='reply(player.Data.ID, Constants.PlayerReplyAttachPass)'>パス</div>
+              <div class='modal__foot btn' @click='reply(player.Data.ID, ReplyAction.Attach.Pass)'>パス</div>
             </div>
           </div>
           <div
             class='modal'
-            :class='{open:Dealer.Phase.IsForceDrawIs && isTurnPlayer(player.Data.ID) && turnPlayer().isHuman()}'>
+            :class='{open:Dealer.Phase.IsForceDraw && isTurnPlayer(player.Data.ID) && turnPlayer().isHuman()}'>
             <div class='modal__inner'>
               <div class='modal__body'>2を出すか{{ Dealer.forceDrawAmount }}枚引いてください</div>
-              <div class='modal__foot btn' @click='reply(player.Data.ID, Constants.PlayerReplyForceDrawDraw)'>ドロー</div>
+              <div class='modal__foot btn' @click='reply(player.Data.ID, ReplyActionForceDraw.Draw)'>ドロー</div>
             </div>
           </div>
           <div
@@ -49,11 +49,11 @@
             <div class='modal__inner'>
               <div class='modal__body'>変更するマークを選んでください</div>
               <div class='modal__marks'>
-                <div @click='reply(player.Data.ID, Constants.PlayerReplyChangeMarkClub)' class='markItem CardDisplay__ID28'></div>
-                <div @click='reply(player.Data.ID, Constants.PlayerReplyChangeMarkDiamond)' class='markItem CardDisplay__ID29'></div>
-                <div @click='reply(player.Data.ID, Constants.PlayerReplyChangeMarkHeart)' class='markItem CardDisplay__ID30'></div>
-                <div @click='reply(player.Data.ID, Constants.PlayerReplyChangeMarkSpade)' class='markItem CardDisplay__ID31'></div>
-                <div @click='reply(player.Data.ID, Constants.PlayerReplyChangeMarkJoker)' class='markItem CardDisplay__ID52'></div>
+                <div @click='reply(player.Data.ID, ReplyAction.ChangeMark.Club)' class='markItem CardDisplay__ID28'></div>
+                <div @click='reply(player.Data.ID, ReplyAction.ChangeMark.Diamond)' class='markItem CardDisplay__ID29'></div>
+                <div @click='reply(player.Data.ID, ReplyAction.ChangeMark.Heart)' class='markItem CardDisplay__ID30'></div>
+                <div @click='reply(player.Data.ID, ReplyAction.ChangeMark.Spade)' class='markItem CardDisplay__ID31'></div>
+                <div @click='reply(player.Data.ID, ReplyAction.ChangeMark.Joker)' class='markItem CardDisplay__ID52'></div>
               </div>
             </div>
           </div>
@@ -98,6 +98,7 @@ import DealerService from './DealerService'
 import ComputerService from './ComputerService'
 import AnimationService from './AnimationService'
 import { Constants } from '../constant/Basic'
+import { ReplyAction } from '../type/Type'
 import Config from '../config/Config'
 
 export default {
@@ -115,6 +116,7 @@ export default {
       Players: null,
       Dealer: null,
       Config: null,
+      ReplyAction: null,
       IsGameSet: false,
     }
   },
@@ -130,6 +132,8 @@ export default {
       this.Constants = Constants
 
       this.Config = Config.app()
+
+      this.ReplyAction = ReplyAction
 
       this.God = this.godBirth()
 
