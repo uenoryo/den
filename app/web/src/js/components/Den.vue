@@ -183,6 +183,8 @@ export default {
       this.dealerDeal(this.turnPlayer())
 
       this.dealerGoNextTurn()
+
+      this.computerResetPutTimer(this.autoPutAction)
     },
 
     reply(id, type, param) {
