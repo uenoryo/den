@@ -42,7 +42,7 @@ export default {
       if (this.DenTimer === undefined) {
         return
       }
-      // clearInterval(this.DenTimer);
+      clearInterval(this.DenTimer);
     },
 
     computerStartPutTimer() {
@@ -53,9 +53,9 @@ export default {
       this.DenTimer = setInterval(this.computerDenAction, 1000)
     },
 
-    computerLookField(field) {
+    computerLookField() {
       for (let player of this.Players.all()) {
-        player.lookField(field)
+        player.lookField(this.Dealer.Field.top())
       }
     },
 
