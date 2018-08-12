@@ -1,6 +1,7 @@
 import * as mocha from "mocha"
 import * as assert from 'power-assert'
 import { testPlayers } from '../Helpers'
+import MockStorage from '../mock/MockStorage'
 import { GameSetType } from '../../type/Type'
 import CardData from '../../data/CardData'
 import HandData from '../../data/HandData'
@@ -49,6 +50,63 @@ describe('ScoreKeeper', () => {
         sd.setScore(4, 10)
         assert.throws(() => { sk.check(sd) })
       })
+    })
+  })
+
+  describe('.save()', () => {
+    it('Scoreを保存できる', () => {
+      let sk = new ScoreKeeper
+      let storage = new MockStorage
+      let players = testPlayers()
+      sk.keep(1, 4, GameSetType.Den, players)
+      sk.keep(1, 4, GameSetType.Den, players)
+      sk.keep(1, 4, GameSetType.Den, players)
+
+      sk.save(storage)
+
+      if (storage.ScoreData === null) {
+        throw new Error('failed to fetch score data')
+      }
+
+      assert.equal(storage.ScoreData.length, 3)
+    })
+  })
+
+  describe('.fetch()', () => {
+    it('Scoreを保存できる', () => {
+      let sk = new ScoreKeeper
+      let storage = new MockStorage
+      let players = testPlayers()
+      sk.keep(1, 4, GameSetType.Den, players)
+      sk.keep(1, 4, GameSetType.Den, players)
+      sk.keep(1, 4, GameSetType.Den, players)
+
+      storage.ScoreData = sk.Data
+
+      sk.fetch(storage)
+
+      if (sk.Data === null) {
+        throw new Error('failed to fetch score data')
+      }
+
+      assert.equal(sk.Data.length, 3)
+    })
+  })
+
+  describe('.clear()', () => {
+    it('Scoreを保存できる', () => {
+      let sk = new ScoreKeeper
+      let storage = new MockStorage
+      let players = testPlayers()
+      sk.keep(1, 4, GameSetType.Den, players)
+      sk.keep(1, 4, GameSetType.Den, players)
+      sk.keep(1, 4, GameSetType.Den, players)
+
+      sk.save(storage)
+      sk.clear(storage)
+
+      assert.equal(sk.Data.length, 0)
+      assert.equal(storage.ScoreData, null)
     })
   })
 

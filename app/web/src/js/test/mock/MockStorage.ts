@@ -1,5 +1,5 @@
-import Storager from './Storager'
-import ScoreData from '../data/ScoreData'
+import Storager from '../../storage/Storager'
+import ScoreData from '../../data/ScoreData'
 
 export default class MockStorage implements Storager {
   public ScoreData: ScoreData[] | null

@@ -1,3 +1,4 @@
+import Storager from '../storage/Storager'
 import ScoreData from '../data/ScoreData'
 import { PlayerID, GameSetType } from '../type/Type'
 import { ScoreRateBase, ScoreRate, PankScore } from '../constant/Card'
@@ -8,8 +9,8 @@ export default class ScoreKeeper {
   private rate: number
 
   constructor() {
-    this.data = []
     this.rate = ScoreRateBase * ScoreRate
+    this.data = []
   }
 
   get Data(): ScoreData[] {
@@ -46,13 +47,31 @@ export default class ScoreKeeper {
     this.Data.push(score)
   }
 
-  check(data: ScoreData) : void {
+  check(data: ScoreData): void {
     if (!data.isValidScore()) {
       throw new Error(`score is invalid. ${this.data}`)
     }
     if (!data.isValidPlayerID()) {
       throw new Error(`score player id is invalid. ${this.data}`)
     }
+  }
+
+  save(storage: Storager): void {
+    storage.saveScore(this.Data)
+  }
+
+  fetch(storage: Storager): void {
+    let data = storage.getScore()
+    if (data === null) {
+      this.data = []
+      return
+    }
+    this.data = data
+  }
+
+  clear(storage: Storager): void {
+    storage.clearScore()
+    this.fetch(storage)
   }
 
   writePlainDone(data: ScoreData, winnerID: PlayerID | 0, players: Players): ScoreData {
