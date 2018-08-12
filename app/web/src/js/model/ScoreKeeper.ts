@@ -149,4 +149,28 @@ export default class ScoreKeeper {
     }
     return data
   }
+
+  // TODO: JSONにした時にメソッドが消えるのでなんとかする
+  aggregate(id: PlayerID): number {
+    let result = 0
+    for (let score of this.Data) {
+      switch(id) {
+        case 1:
+          result += score.p1Score
+          break
+        case 2:
+          result += score.p2Score
+          break
+        case 3:
+          result += score.p3Score
+          break
+        case 4:
+          result += score.p4Score
+          break
+        default:
+          throw new Error(`Invalid Player id:${id}`)
+      }
+    }
+    return result
+  }
 }

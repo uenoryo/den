@@ -5,10 +5,10 @@ export default class ScoreData {
   public WinnerID: PlayerID | 0
   public LoserID: PlayerID | 0
 
-  private p1Score: number
-  private p2Score: number
-  private p3Score: number
-  private p4Score: number
+  public p1Score: number
+  public p2Score: number
+  public p3Score: number
+  public p4Score: number
 
   constructor() {
     this.Type = GameSetType.PlainDone

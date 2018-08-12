@@ -58,6 +58,8 @@ export default {
     dealerCheckDone(player) {
       if (player.hasNoCard()) {
         alert(`[素上がり]Player ${player.Data.ID}の勝ち`)
+        this.ScoreKeeper.keep(GameSetType.PlainDone, player.Data.ID, 0, this.Players)
+        this.ScoreKeeper.save()
         this.gameSet()
       }
     },

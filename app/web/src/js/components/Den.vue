@@ -13,9 +13,52 @@
               <div class='StartView'>
                 <h3>DEN</h3>
                 <div class='StartView__BtnList'>
-                  <div @click='gameStart(true)' class='StartView__Btn btn'>はじめから</div>
-                  <div @click='gameStart(false)' class='StartView__Btn btn'>つづきから</div>
+                  <div @click='gamePrepare(true)' class='StartView__Btn btn'>はじめから</div>
+                  <div @click='gamePrepare(false)' class='StartView__Btn btn'>つづきから</div>
                   <div @click='howTo()' class='StartView__Btn btn'>あそびかた</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-else-if='Phase === GamePhase.Prepare' id="GameStartView">
+        <div class='modal open'>
+          <div class='modal__inner modal__inner--full'>
+            <div class='modal__body'>
+              <div class='StartView'>
+                <h3>Round</h3>
+                <div class='StartView__Body'>
+                  <table>
+                    <tr>
+                      <td>YOU</td>
+                      <td>COM1</td>
+                      <td>COM2</td>
+                      <td>COM3</td>
+                    </tr>
+                    <tr class='blue'>
+                      <td :class='{"red": ScoreKeeper.aggregate(1) < 0 }'>{{ ScoreKeeper.aggregate(1) }}</td>
+                      <td :class='{"red": ScoreKeeper.aggregate(2) < 0 }'>{{ ScoreKeeper.aggregate(2) }}</td>
+                      <td :class='{"red": ScoreKeeper.aggregate(3) < 0 }'>{{ ScoreKeeper.aggregate(3) }}</td>
+                      <td :class='{"red": ScoreKeeper.aggregate(4) < 0 }'>{{ ScoreKeeper.aggregate(4) }}</td>
+                    </tr>
+                  </table>
+                </div>
+                <hr>
+                <div class='ScoreList'>
+                  <div v-for='(s, idx) in ScoreKeeper.Data'>
+                    <h4>Round {{ idx + 1 }}</h4>
+                    <div class='ScoreList__list blue'>
+                      <div class='ScoreList__item' :class='{"red": s.p1Score < 0 }'>{{ s.p1Score }}</div>
+                      <div class='ScoreList__item' :class='{"red": s.p2Score < 0 }'>{{ s.p2Score }}</div>
+                      <div class='ScoreList__item' :class='{"red": s.p3Score < 0 }'>{{ s.p3Score }}</div>
+                      <div class='ScoreList__item' :class='{"red": s.p4Score < 0 }'>{{ s.p4Score }}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class='StartView__BtnList'>
+                  <div @click='gameStart()' class='StartView__Btn btn'>スタート</div>
                 </div>
               </div>
             </div>
@@ -187,6 +230,7 @@ export default {
       this.dealerTriggerCardSkillAtFirst()
 
       this.computerStandby()
+      console.log(this.ScoreKeeper.Data)
     },
 
     put(id, handIdx) {
@@ -262,11 +306,15 @@ export default {
       return this.Dealer.playerIsTurnPlayer(playerID)
     },
 
-    gameStart(reset) {
+    gameStart() {
       this.Phase = GamePhase.Main
+    },
+
+    gamePrepare(reset) {
       if (reset) {
         this.ScoreKeeper.clear()
       }
+      this.Phase = GamePhase.Prepare
     },
 
     howTo() {
