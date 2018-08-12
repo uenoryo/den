@@ -16,6 +16,17 @@ describe('ScoreKeeper', () => {
     })
   })
 
+  describe('.keep()', () => {
+    it('スコアが(追加)記録される', () => {
+      let sk = new ScoreKeeper
+      let players = testPlayers()
+      sk.keep(1, 4, GameSetType.Den, players)
+      sk.keep(1, 4, GameSetType.Den, players)
+      sk.keep(1, 4, GameSetType.Den, players)
+      assert.equal(sk.Data.length, 3)
+    })
+  })
+
   describe('.check()', () => {
     context('scoreが正しく設定されているかをチェックできる', () => {
       let sk = new ScoreKeeper
