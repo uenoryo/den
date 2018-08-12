@@ -2,21 +2,21 @@ import Storager from './Storager'
 import ScoreData from '../data/ScoreData'
 
 export default class MockStorage implements Storager {
-  private scoreData: ScoreData[] | null
+  public ScoreData: ScoreData[] | null
 
   constructor() {
-    this.scoreData = null
+    this.ScoreData = null
   }
 
   saveScore(score: ScoreData[]): void {
-    this.scoreData = score
+    this.ScoreData = score
   }
 
   getScore(): ScoreData[] | null {
-    return this.scoreData
+    return this.ScoreData
   }
 
   clearScore(): void {
-    this.scoreData = null
+    this.ScoreData = null
   }
 }
