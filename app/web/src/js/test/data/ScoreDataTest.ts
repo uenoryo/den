@@ -9,7 +9,7 @@ describe('ScoreData', () => {
       let sd = new ScoreData
 
       it('GameSetType が正しく設定される', () => {
-        assert.equal(sd.GameSetType, GameSetType.PlainDone)
+        assert.equal(sd.Type, GameSetType.PlainDone)
       })
 
       it('WinnerID が正しく設定される', () => {
