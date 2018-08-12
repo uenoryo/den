@@ -82,6 +82,15 @@ export enum GameSetType {
   Chitoi,
 }
 
+// スタイルオブジェクト
 export type Style = {
   display: string,
+}
+
+// ゲームフェイズ
+export enum GamePhase {
+  Start,
+  Prepare,
+  Main,
+  Result,
 }

@@ -5,7 +5,25 @@
     </div>
     <div class='game'>
       <div class='denActionArea' @click='den(Config.MainPlayerID())'></div>
-      <div class='hands'>
+
+      <div v-if='Phase === GamePhase.Start' id="GameStartView">
+        <div class='modal open'>
+          <div class='modal__inner modal__inner--full'>
+            <div class='modal__body'>
+              <div class='StartView'>
+                <h3>DEN</h3>
+                <div class='StartView__BtnList'>
+                  <div @click='gameStart(true)' class='StartView__Btn btn'>はじめから</div>
+                  <div @click='gameStart(false)' class='StartView__Btn btn'>つづきから</div>
+                  <div @click='howTo()' class='StartView__Btn btn'>あそびかた</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-else id="GameMainView">
         <div
           v-for='player of Players.all()'
           class='PlayerCardArea'
@@ -58,33 +76,33 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class='field' @click='den(config.MainPlayerID)'>
-        <div class='Sleeve'>
-          <div v-if='Dealer.Field.top() !== null'>
-            <div v-for='card in Dealer.Field.Cards'
-              class='Card'
-              :style='card.CSS'
-              :class='["CardDisplay__ID" + card.DisplayID, "Card__ID" + card.ID]'
-              :id='["Card__ID" + card.ID]'>
+        <div class='field' @click='den(config.MainPlayerID)'>
+          <div class='Sleeve'>
+            <div v-if='Dealer.Field.top() !== null'>
+              <div v-for='card in Dealer.Field.Cards'
+                class='Card'
+                :style='card.CSS'
+                :class='["CardDisplay__ID" + card.DisplayID, "Card__ID" + card.ID]'
+                :id='["Card__ID" + card.ID]'>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class='deck'>
-        <div class='Sleeve'>
-          <div
-            v-if='turnPlayer().isHuman()'
-            @click='draw()'
-            class='Card Card--reversed'
-          ></div>
-          <div
-            v-else
-            class='Card Card--reversed'
-          ></div>
-        </div>
-        <div id='AnimationCardReversed' class='Sleeve'>
-          <div class='Card Card--reversed'></div>
+        <div class='deck'>
+          <div class='Sleeve'>
+            <div
+              v-if='turnPlayer().isHuman()'
+              @click='draw()'
+              class='Card Card--reversed'
+            ></div>
+            <div
+              v-else
+              class='Card Card--reversed'
+            ></div>
+          </div>
+          <div id='AnimationCardReversed' class='Sleeve'>
+            <div class='Card Card--reversed'></div>
+          </div>
         </div>
       </div>
     </div>
@@ -99,7 +117,7 @@ import ComputerService from './ComputerService'
 import AnimationService from './AnimationService'
 import DebugService from './DebugService'
 import { Constants } from '../constant/Basic'
-import { ReplyAction } from '../type/Type'
+import { ReplyAction, GamePhase } from '../type/Type'
 import Config from '../config/Config'
 import LocalStorage from '../storage/LocalStorage'
 
@@ -122,6 +140,7 @@ export default {
       Config: null,
       ReplyAction: null,
       IsGameSet: false,
+      Phase: null,
     }
   },
 
@@ -142,6 +161,10 @@ export default {
       this.Config = Config.app()
 
       this.ReplyAction = ReplyAction
+
+      this.GamePhase = GamePhase
+
+      this.Phase = GamePhase.Start
 
       this.God = this.godBirth()
 
@@ -237,6 +260,17 @@ export default {
 
     isTurnPlayer(playerID) {
       return this.Dealer.playerIsTurnPlayer(playerID)
+    },
+
+    gameStart(reset) {
+      this.Phase = GamePhase.Main
+      if (reset) {
+        this.ScoreKeeper.clear()
+      }
+    },
+
+    howTo() {
+      alert('手札がなくなるかDENしたら勝ち')
     },
   }
 }
