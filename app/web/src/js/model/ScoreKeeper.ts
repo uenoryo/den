@@ -17,6 +17,10 @@ export default class ScoreKeeper {
     return this.data
   }
 
+  get DataReversed(): ScoreData[] {
+    return this.data.reverse()
+  }
+
   get Rate(): number {
     return this.rate
   }
