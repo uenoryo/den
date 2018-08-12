@@ -1,6 +1,7 @@
 import { PlayerID, GameSetType } from '../type/Type'
 
 export default class ScoreData {
+  public Type: GameSetType
   public WinnerID: PlayerID | 0
   public LoserID: PlayerID | 0
 
@@ -9,17 +10,14 @@ export default class ScoreData {
   private p3Score: number
   private p4Score: number
 
-  constructor(private gameSetType: GameSetType) {
+  constructor() {
+    this.Type = GameSetType.PlainDone
     this.WinnerID = 0
     this.LoserID = 0
     this.p1Score = 0
     this.p2Score = 0
     this.p3Score = 0
     this.p4Score = 0
-  }
-
-  get GameSetType(): GameSetType {
-    return this.gameSetType
   }
 
   get Width(): number {

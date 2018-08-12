@@ -6,7 +6,7 @@ import { GameSetType } from '../../type/Type'
 describe('ScoreData', () => {
   describe('.constructor()', () => {
     context('正しく初期化できる', () => {
-      let sd = new ScoreData(GameSetType.PlainDone)
+      let sd = new ScoreData
 
       it('GameSetType が正しく設定される', () => {
         assert.equal(sd.GameSetType, GameSetType.PlainDone)
@@ -27,7 +27,7 @@ describe('ScoreData', () => {
   })
 
   describe('.addScore()', () => {
-    let sd = new ScoreData(GameSetType.PlainDone)
+    let sd = new ScoreData
     sd.setScore(1, 20)
     it('指定したプレイヤーのスコアに加算できる', () => {
       sd.addScore(1, 30)
@@ -36,7 +36,7 @@ describe('ScoreData', () => {
   })
 
   describe('.subtractScore()', () => {
-    let sd = new ScoreData(GameSetType.PlainDone)
+    let sd = new ScoreData
     sd.setScore(1, 20)
     it('指定したプレイヤーのスコアを減算できる', () => {
       sd.subtractScore(1, 30)
@@ -46,12 +46,12 @@ describe('ScoreData', () => {
 
   describe('.isValidScore()', () => {
     it('初期値は正常', () => {
-      let sd = new ScoreData(GameSetType.Den)
+      let sd = new ScoreData
       assert.equal(sd.isValidScore(), true)
     })
 
     it('スコアが正しく入力されていれば true を返す', () => {
-      let sd = new ScoreData(GameSetType.Den)
+      let sd = new ScoreData
       sd.WinnerID = 1
       sd.setScore(1, 150)
       sd.setScore(2, -50)
@@ -61,7 +61,7 @@ describe('ScoreData', () => {
     })
 
     it('スコアが正しく入力されていれば true を返す (pank)', () => {
-      let sd = new ScoreData(GameSetType.Den)
+      let sd = new ScoreData
       sd.LoserID = 1
       sd.setScore(1, -150)
       sd.setScore(2, 50)
@@ -71,7 +71,7 @@ describe('ScoreData', () => {
     })
 
     it('widthと一致しない場合は false を返す', () => {
-      let sd = new ScoreData(GameSetType.Den)
+      let sd = new ScoreData
       sd.WinnerID = 1
       sd.setScore(1, 160)
       sd.setScore(2, -50)
@@ -81,7 +81,7 @@ describe('ScoreData', () => {
     })
 
     it('widthと一致しない場合は false を返す (pank)', () => {
-      let sd = new ScoreData(GameSetType.Den)
+      let sd = new ScoreData
       sd.LoserID = 1
       sd.setScore(1, -160)
       sd.setScore(2, 50)
@@ -92,19 +92,19 @@ describe('ScoreData', () => {
 
     describe('.isValidPlayerID()', () => {
       it('初期値は false', () => {
-        let sd = new ScoreData(GameSetType.Den)
+        let sd = new ScoreData
         assert.equal(sd.isValidPlayerID(), false)
       })
 
       it('WinnerID と LoserID が違っていれば true を返す', () => {
-        let sd = new ScoreData(GameSetType.Den)
+        let sd = new ScoreData
         sd.WinnerID = 1
         sd.LoserID = 2
         assert.equal(sd.isValidPlayerID(), true)
       })
 
       it('WinnerID と LoserID が同じであれば false を返す', () => {
-        let sd = new ScoreData(GameSetType.Den)
+        let sd = new ScoreData
         sd.WinnerID = 1
         sd.LoserID = 1
         assert.equal(sd.isValidPlayerID(), false)
