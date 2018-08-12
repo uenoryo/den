@@ -8,7 +8,7 @@ export default class ScoreKeeper {
   private data: ScoreData[]
   private rate: number
 
-  constructor() {
+  constructor(private storage: Storager) {
     this.rate = ScoreRateBase * ScoreRate
     this.data = []
   }
@@ -56,12 +56,12 @@ export default class ScoreKeeper {
     }
   }
 
-  save(storage: Storager): void {
-    storage.saveScore(this.Data)
+  save(): void {
+    this.storage.saveScore(this.Data)
   }
 
-  fetch(storage: Storager): void {
-    let data = storage.getScore()
+  fetch(): void {
+    let data = this.storage.getScore()
     if (data === null) {
       this.data = []
       return
@@ -69,9 +69,9 @@ export default class ScoreKeeper {
     this.data = data
   }
 
-  clear(storage: Storager): void {
-    storage.clearScore()
-    this.fetch(storage)
+  clear(): void {
+    this.storage.clearScore()
+    this.fetch()
   }
 
   writePlainDone(data: ScoreData, winnerID: PlayerID | 0, players: Players): ScoreData {

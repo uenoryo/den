@@ -13,13 +13,13 @@ import ScoreKeeper from '../../model/ScoreKeeper'
 describe('ScoreKeeper', () => {
   describe('.constructor()', () => {
     it('正しく初期化できる', () => {
-      new ScoreKeeper
+      new ScoreKeeper(new MockStorage)
     })
   })
 
   describe('.keep()', () => {
     it('スコアが(追加)記録される', () => {
-      let sk = new ScoreKeeper
+      let sk = new ScoreKeeper(new MockStorage)
       let players = testPlayers()
       sk.keep(GameSetType.Den, 1, 4, players)
       sk.keep(GameSetType.Den, 1, 4, players)
@@ -30,7 +30,7 @@ describe('ScoreKeeper', () => {
 
   describe('.check()', () => {
     context('scoreが正しく設定されているかをチェックできる', () => {
-      let sk = new ScoreKeeper
+      let sk = new ScoreKeeper(new MockStorage)
       it('正しいパターンは何も返らない', () => {
         let sd = new ScoreData
         sd.LoserID = 1
@@ -55,14 +55,14 @@ describe('ScoreKeeper', () => {
 
   describe('.save()', () => {
     it('Scoreを保存できる', () => {
-      let sk = new ScoreKeeper
       let storage = new MockStorage
+      let sk = new ScoreKeeper(storage)
       let players = testPlayers()
       sk.keep(GameSetType.Den, 1, 4, players)
       sk.keep(GameSetType.Den, 1, 4, players)
       sk.keep(GameSetType.Den, 1, 4, players)
 
-      sk.save(storage)
+      sk.save()
 
       if (storage.ScoreData === null) {
         throw new Error('failed to fetch score data')
@@ -74,8 +74,8 @@ describe('ScoreKeeper', () => {
 
   describe('.fetch()', () => {
     it('Scoreを保存できる', () => {
-      let sk = new ScoreKeeper
       let storage = new MockStorage
+      let sk = new ScoreKeeper(storage)
       let players = testPlayers()
       sk.keep(GameSetType.Den, 1, 4, players)
       sk.keep(GameSetType.Den, 1, 4, players)
@@ -83,7 +83,7 @@ describe('ScoreKeeper', () => {
 
       storage.ScoreData = sk.Data
 
-      sk.fetch(storage)
+      sk.fetch()
 
       if (sk.Data === null) {
         throw new Error('failed to fetch score data')
@@ -95,15 +95,15 @@ describe('ScoreKeeper', () => {
 
   describe('.clear()', () => {
     it('Scoreを保存できる', () => {
-      let sk = new ScoreKeeper
       let storage = new MockStorage
+      let sk = new ScoreKeeper(storage)
       let players = testPlayers()
       sk.keep(GameSetType.Den, 1, 4, players)
       sk.keep(GameSetType.Den, 1, 4, players)
       sk.keep(GameSetType.Den, 1, 4, players)
 
-      sk.save(storage)
-      sk.clear(storage)
+      sk.save()
+      sk.clear()
 
       assert.equal(sk.Data.length, 0)
       assert.equal(storage.ScoreData, null)
@@ -128,7 +128,7 @@ describe('ScoreKeeper', () => {
         new CardData(1, 7),
       ])
 
-      let sk = new ScoreKeeper
+      let sk = new ScoreKeeper(new MockStorage)
       sk.keep(GameSetType.PlainDone, 1, 0, players)
       let score = sk.Data[0]
 
@@ -184,7 +184,7 @@ describe('ScoreKeeper', () => {
         new CardData(1, 7),
       ])
 
-      let sk = new ScoreKeeper
+      let sk = new ScoreKeeper(new MockStorage)
       sk.keep(GameSetType.Den, 1, 4, players)
       let score = sk.Data[0]
 
@@ -242,7 +242,7 @@ describe('ScoreKeeper', () => {
         new CardData(1, 7),
       ])
 
-      let sk = new ScoreKeeper
+      let sk = new ScoreKeeper(new MockStorage)
       sk.keep(GameSetType.Anko, 1, 4, players)
       let score = sk.Data[0]
 
@@ -306,7 +306,7 @@ describe('ScoreKeeper', () => {
         new CardData(1, 7),
       ])
 
-      let sk = new ScoreKeeper
+      let sk = new ScoreKeeper(new MockStorage)
       sk.keep(GameSetType.Chitoi, 1, 4, players)
       let score = sk.Data[0]
 
@@ -343,7 +343,7 @@ describe('ScoreKeeper', () => {
   describe('.writePank()', () => {
     context('pank のスコアを記入できる', () => {
       let players = testPlayers()
-      let sk = new ScoreKeeper
+      let sk = new ScoreKeeper(new MockStorage)
       sk.keep(GameSetType.Pank, 0, 1, players)
       let score = sk.Data[0]
 
