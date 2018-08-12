@@ -30,6 +30,9 @@ export default class ScoreKeeper {
       case GameSetType.Den:
         score = this.writeDen(score, winnerID, loserID, players)
         break
+      case GameSetType.Anko:
+        score = this.writeAnko(score, winnerID, loserID, players)
+        break
     }
 
     this.check(score)
@@ -77,5 +80,9 @@ export default class ScoreKeeper {
       }
     }
     return data
+  }
+
+  writeAnko(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players): ScoreData {
+    return this.writeDen(data, winnerID, loserID, players)
   }
 }
