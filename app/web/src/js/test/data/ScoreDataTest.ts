@@ -26,6 +26,24 @@ describe('ScoreData', () => {
     })
   })
 
+  describe('.addScore()', () => {
+    let sd = new ScoreData(GameSetType.PlainDone)
+    sd.setScore(1, 20)
+    it('指定したプレイヤーのスコアに加算できる', () => {
+      sd.addScore(1, 30)
+      assert.equal(sd.getScore(1), 50)
+    })
+  })
+
+  describe('.subtractScore()', () => {
+    let sd = new ScoreData(GameSetType.PlainDone)
+    sd.setScore(1, 20)
+    it('指定したプレイヤーのスコアを減算できる', () => {
+      sd.subtractScore(1, 30)
+      assert.equal(sd.getScore(1), -10)
+    })
+  })
+
   describe('.isValidScore()', () => {
     it('初期値は正常', () => {
       let sd = new ScoreData(GameSetType.Den)
