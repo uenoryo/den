@@ -206,4 +206,41 @@ describe('ScoreKeeper', () => {
       })
     })
   })
+
+  describe('.writePank()', () => {
+    context('plain done のスコアを記入できる', () => {
+      let players = testPlayers()
+      let sk = new ScoreKeeper
+      sk.keep(0, 1, GameSetType.Pank, players)
+      let score = sk.Data[0]
+
+      it('チェックしてもエラーが起きない', () => {
+        sk.check(score)
+      })
+
+      it('WinnerID が正しく記録されている', () => {
+        assert.equal(score.WinnerID, 0)
+      })
+
+      it('LoserID が正しく記録されている', () => {
+        assert.equal(score.LoserID, 1)
+      })
+
+      it('Player1のID が正しく記録されている', () => {
+        assert.equal(score.getScore(1), 150 * sk.Rate * -1)
+      })
+
+      it('Player2のID が正しく記録されている', () => {
+        assert.equal(score.getScore(2), 50 * sk.Rate)
+      })
+
+      it('Player3のID が正しく記録されている', () => {
+        assert.equal(score.getScore(3), 50 * sk.Rate)
+      })
+
+      it('Player4のID が正しく記録されている', () => {
+        assert.equal(score.getScore(4), 50 * sk.Rate)
+      })
+    })
+  })
 })

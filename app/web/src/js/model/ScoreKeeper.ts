@@ -1,6 +1,6 @@
 import ScoreData from '../data/ScoreData'
 import { PlayerID, GameSetType } from '../type/Type'
-import { ScoreRateBase, ScoreRate } from '../constant/Card'
+import { ScoreRateBase, ScoreRate, PankScore } from '../constant/Card'
 import Players from '../model/Players'
 
 export default class ScoreKeeper {
@@ -32,6 +32,9 @@ export default class ScoreKeeper {
         break
       case GameSetType.Anko:
         score = this.writeAnko(score, winnerID, loserID, players)
+        break
+      case GameSetType.Pank:
+        score = this.writePank(score, loserID, players)
         break
     }
 
@@ -84,5 +87,18 @@ export default class ScoreKeeper {
 
   writeAnko(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players): ScoreData {
     return this.writeDen(data, winnerID, loserID, players)
+  }
+
+  writePank(data: ScoreData, loserID: PlayerID | 0, players: Players): ScoreData {
+    data.Type = GameSetType.Pank
+    data.LoserID = loserID
+
+    for (let player of players.all()) {
+      if (player.Data.ID !== loserID) {
+        data.addScore(player.Data.ID, PankScore * this.Rate)
+        data.subtractScore(loserID, PankScore * this.Rate)
+      }
+    }
+    return data
   }
 }

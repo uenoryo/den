@@ -43,6 +43,9 @@ export const ScoreRateBase = 10
 // CardCost からスコアに換算する際に掛けられる倍率
 export const ScoreRate = 1
 
+// Pank のスコア
+export const PankScore = 50
+
 export const CardSkillNums: { [index: string]: CardNum } = {
   Skip: 1,
   DrawTwo: 2,
