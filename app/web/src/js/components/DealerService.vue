@@ -2,7 +2,9 @@
 import { Constants } from '../constant/Basic'
 import { CardSkillNums } from '../constant/Card'
 import { CardMark, Phase, GameSetType, ReplyAction } from '../type/Type'
+import LocalStorage from '../storage/LocalStorage'
 import Rule from '../model/Rule'
+import ScoreKeeper from '../model/ScoreKeeper'
 
 export default {
   methods: {
@@ -79,19 +81,24 @@ export default {
       }
       this.animationDen(this.Dealer, player)
 
+      let keeper = new ScoreKeeper
+
       switch (type) {
         case GameSetType.Den:
-          //
+          keeper.keep(GameSetType.Den, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players)
           break
         case GameSetType.Anko:
-          console.log('Anko')
+          keeper.keep(GameSetType.Anko, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players)
           break
         case GameSetType.Chitoi:
-          console.log('Chitoi')
+          keeper.keep(GameSetType.Chitoi, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players)
           break
       }
       player.openHand()
       this.gameSet()
+
+      let storage = new LocalStorage
+      keeper.save(storage)
     },
 
     dealerTriggerCardSkillReverse() {
