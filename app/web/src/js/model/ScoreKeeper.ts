@@ -33,6 +33,9 @@ export default class ScoreKeeper {
       case GameSetType.Anko:
         score = this.writeAnko(score, winnerID, loserID, players)
         break
+      case GameSetType.Chitoi:
+        score = this.writeChitoi(score, winnerID, loserID, players)
+        break
       case GameSetType.Pank:
         score = this.writePank(score, loserID, players)
         break
@@ -97,6 +100,32 @@ export default class ScoreKeeper {
       if (player.Data.ID !== loserID) {
         data.addScore(player.Data.ID, PankScore * this.Rate)
         data.subtractScore(loserID, PankScore * this.Rate)
+      }
+    }
+    return data
+  }
+
+  writeChitoi(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players): ScoreData {
+    if (winnerID === 0) {
+      throw new Error('chitoi requires winnerID')
+    }
+
+    data.Type = GameSetType.Den
+    data.WinnerID = winnerID
+    data.LoserID = loserID
+
+    let bonus = players.get(winnerID).Hand.pairCount() + 1
+
+    for (let player of players.all()) {
+      if (player.Data.ID !== winnerID) {
+        if (player.Data.ID === loserID) {
+          let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost + bonus
+          data.subtractScore(loserID, loserCost * this.Rate)
+          data.addScore(winnerID, loserCost * this.Rate)
+        } else {
+          data.subtractScore(player.Data.ID, (player.Hand.Cost + bonus) * this.Rate)
+          data.addScore(winnerID, (player.Hand.Cost + bonus) * this.Rate)
+        }
       }
     }
     return data
