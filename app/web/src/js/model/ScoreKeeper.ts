@@ -27,6 +27,9 @@ export default class ScoreKeeper {
       case GameSetType.PlainDone:
         score = this.writePlainDone(score, winnerID, players)
         break
+      case GameSetType.Den:
+        score = this.writeDen(score, winnerID, loserID, players)
+        break
     }
 
     this.check(score)
@@ -51,6 +54,26 @@ export default class ScoreKeeper {
       if (player.Data.ID !== winnerID) {
         data.subtractScore(player.Data.ID, player.Hand.Cost * this.Rate)
         data.addScore(winnerID, player.Hand.Cost * this.Rate)
+      }
+    }
+    return data
+  }
+
+  writeDen(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players): ScoreData {
+    data.Type = GameSetType.Den
+    data.WinnerID = winnerID
+    data.LoserID = loserID
+
+    for (let player of players.all()) {
+      if (player.Data.ID !== winnerID && winnerID !== 0) {
+        if (player.Data.ID === loserID) {
+          let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost
+          data.subtractScore(loserID, loserCost * this.Rate)
+          data.addScore(winnerID, loserCost * this.Rate)
+        } else {
+          data.subtractScore(player.Data.ID, player.Hand.Cost * this.Rate)
+          data.addScore(winnerID, player.Hand.Cost * this.Rate)
+        }
       }
     }
     return data
