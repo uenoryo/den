@@ -21,9 +21,9 @@ describe('ScoreKeeper', () => {
     it('スコアが(追加)記録される', () => {
       let sk = new ScoreKeeper
       let players = testPlayers()
-      sk.keep(1, 4, GameSetType.Den, players)
-      sk.keep(1, 4, GameSetType.Den, players)
-      sk.keep(1, 4, GameSetType.Den, players)
+      sk.keep(GameSetType.Den, 1, 4, players)
+      sk.keep(GameSetType.Den, 1, 4, players)
+      sk.keep(GameSetType.Den, 1, 4, players)
       assert.equal(sk.Data.length, 3)
     })
   })
@@ -58,9 +58,9 @@ describe('ScoreKeeper', () => {
       let sk = new ScoreKeeper
       let storage = new MockStorage
       let players = testPlayers()
-      sk.keep(1, 4, GameSetType.Den, players)
-      sk.keep(1, 4, GameSetType.Den, players)
-      sk.keep(1, 4, GameSetType.Den, players)
+      sk.keep(GameSetType.Den, 1, 4, players)
+      sk.keep(GameSetType.Den, 1, 4, players)
+      sk.keep(GameSetType.Den, 1, 4, players)
 
       sk.save(storage)
 
@@ -77,9 +77,9 @@ describe('ScoreKeeper', () => {
       let sk = new ScoreKeeper
       let storage = new MockStorage
       let players = testPlayers()
-      sk.keep(1, 4, GameSetType.Den, players)
-      sk.keep(1, 4, GameSetType.Den, players)
-      sk.keep(1, 4, GameSetType.Den, players)
+      sk.keep(GameSetType.Den, 1, 4, players)
+      sk.keep(GameSetType.Den, 1, 4, players)
+      sk.keep(GameSetType.Den, 1, 4, players)
 
       storage.ScoreData = sk.Data
 
@@ -98,9 +98,9 @@ describe('ScoreKeeper', () => {
       let sk = new ScoreKeeper
       let storage = new MockStorage
       let players = testPlayers()
-      sk.keep(1, 4, GameSetType.Den, players)
-      sk.keep(1, 4, GameSetType.Den, players)
-      sk.keep(1, 4, GameSetType.Den, players)
+      sk.keep(GameSetType.Den, 1, 4, players)
+      sk.keep(GameSetType.Den, 1, 4, players)
+      sk.keep(GameSetType.Den, 1, 4, players)
 
       sk.save(storage)
       sk.clear(storage)
@@ -129,7 +129,7 @@ describe('ScoreKeeper', () => {
       ])
 
       let sk = new ScoreKeeper
-      sk.keep(1, 0, GameSetType.PlainDone, players)
+      sk.keep(GameSetType.PlainDone, 1, 0, players)
       let score = sk.Data[0]
 
       it('チェックしてもエラーが起きない', () => {
@@ -185,7 +185,7 @@ describe('ScoreKeeper', () => {
       ])
 
       let sk = new ScoreKeeper
-      sk.keep(1, 4, GameSetType.Den, players)
+      sk.keep(GameSetType.Den, 1, 4, players)
       let score = sk.Data[0]
 
       it('チェックしてもエラーが起きない', () => {
@@ -243,7 +243,7 @@ describe('ScoreKeeper', () => {
       ])
 
       let sk = new ScoreKeeper
-      sk.keep(1, 4, GameSetType.Anko, players)
+      sk.keep(GameSetType.Anko, 1, 4, players)
       let score = sk.Data[0]
 
       it('チェックしてもエラーが起きない', () => {
@@ -307,7 +307,7 @@ describe('ScoreKeeper', () => {
       ])
 
       let sk = new ScoreKeeper
-      sk.keep(1, 4, GameSetType.Chitoi, players)
+      sk.keep(GameSetType.Chitoi, 1, 4, players)
       let score = sk.Data[0]
 
       it('チェックしてもエラーが起きない', () => {
@@ -344,7 +344,7 @@ describe('ScoreKeeper', () => {
     context('pank のスコアを記入できる', () => {
       let players = testPlayers()
       let sk = new ScoreKeeper
-      sk.keep(0, 1, GameSetType.Pank, players)
+      sk.keep(GameSetType.Pank, 0, 1, players)
       let score = sk.Data[0]
 
       it('チェックしてもエラーが起きない', () => {

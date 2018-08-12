@@ -21,7 +21,7 @@ export default class ScoreKeeper {
     return this.rate
   }
 
-  keep(winnerID: PlayerID | 0, loserID: PlayerID | 0, type: GameSetType, players: Players): void {
+  keep(type: GameSetType, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players): void {
     let score = new ScoreData
 
     switch (type) {
