@@ -37,6 +37,12 @@ export const CardCosts: { [index: number]: number } = {
   13: 1,
 }
 
+// CardCost からスコアに換算する際に掛けられるベースの倍率
+export const ScoreRateBase = 10
+
+// CardCost からスコアに換算する際に掛けられる倍率
+export const ScoreRate = 1
+
 export const CardSkillNums: { [index: string]: CardNum } = {
   Skip: 1,
   DrawTwo: 2,
