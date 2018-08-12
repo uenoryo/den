@@ -8,13 +8,20 @@ export default {
     godBirth() {
       return new God
     },
+
     godCreatePlayers() {
       return this.God.createPlayers()
     },
+
     godCreateDealer() {
       let deck = this.God.createDeck()
       return this.God.createDealer(deck)
-    }
+    },
+
+    godCreateScoreKeeper() {
+      let storage = this.God.createStorage()
+      return this.God.createScoreKeeper(storage)
+    },
   }
 }
 </script>

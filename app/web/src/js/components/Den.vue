@@ -101,6 +101,7 @@ import DebugService from './DebugService'
 import { Constants } from '../constant/Basic'
 import { ReplyAction } from '../type/Type'
 import Config from '../config/Config'
+import LocalStorage from '../storage/LocalStorage'
 
 export default {
   name: 'Den',
@@ -117,6 +118,7 @@ export default {
       God: null,
       Players: null,
       Dealer: null,
+      ScoreKeeper: null,
       Config: null,
       ReplyAction: null,
       IsGameSet: false,
@@ -146,9 +148,13 @@ export default {
       this.Players = this.godCreatePlayers()
 
       this.Dealer = this.godCreateDealer()
+
+      this.ScoreKeeper = this.godCreateScoreKeeper()
     },
 
     setup() {
+      this.ScoreKeeper.fetch()
+
       this.dealerShuffleDeck()
 
       this.dealerDealCardToPlayersAtFirst()

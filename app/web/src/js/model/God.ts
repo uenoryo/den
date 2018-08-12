@@ -8,6 +8,9 @@ import Config from '../config/Config'
 import Dealer from './Dealer'
 import Players from './Players'
 import Player from './Player'
+import ScoreKeeper from './ScoreKeeper'
+import Storager from '../storage/Storager'
+import LocalStorage from '../storage/LocalStorage'
 
 export default class God {
   private config: Configer
@@ -18,6 +21,10 @@ export default class God {
 
   createDealer(deck: DeckData) {
     return new Dealer(deck)
+  }
+
+  createStorage(): Storager {
+    return new LocalStorage
   }
 
   createPlayers(): Players {
@@ -46,5 +53,9 @@ export default class God {
     cards.push(new CardData(CardMark.JokerB, CardJokerNum))
 
     return new DeckData(cards)
+  }
+
+  createScoreKeeper(storage: Storager): ScoreKeeper {
+    return new ScoreKeeper(storage)
   }
 }

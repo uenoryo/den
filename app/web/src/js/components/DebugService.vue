@@ -7,6 +7,8 @@ import Env from '../env'
 export default {
   methods: {
     debugSetup () {
+      this.ScoreKeeper.fetch()
+
       if (Env.DEBUG_DECK_ID === 0) {
         this.dealerShuffleDeck()
       } else {
