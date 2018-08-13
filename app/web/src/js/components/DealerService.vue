@@ -141,6 +141,10 @@ export default {
       }
     },
 
+    dealerResotre() {
+      this.Dealer.restore(this.Players)
+    },
+
     // Todo: dealer.isBusyをモデルで管理する
     dealerCanReceiveCard(card) {
       if (this.isBusy) {
@@ -251,7 +255,6 @@ export default {
     dealerTriggerCardSkillSkillAttach() {
       this.Dealer.changePhase(Phase.Attach)
     },
-
 
     dealerCanPut(card) {
       return Rule.canPut(this.Dealer.Field.top(), card, this.Dealer.Phase.IsForceDraw)
