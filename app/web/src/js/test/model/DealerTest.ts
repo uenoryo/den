@@ -1,7 +1,9 @@
 import * as mocha from "mocha";
 import * as assert from 'power-assert';
+import { testPlayers } from '../Helpers'
 import { Phase, GameSetType } from '../../type/Type'
 import DeckData from '../../data/DeckData'
+import HandData from '../../data/HandData'
 import CardData from '../../data/CardData'
 import PlayerData from '../../data/PlayerData'
 import Player from '../../model/Player'
@@ -130,6 +132,44 @@ describe('Dealer', () => {
       d.maintenance()
       assert.equal(d.Deck.Cards.length, 3)
       assert.equal(d.Deck.Cards[0].Num, 4)
+    })
+  })
+
+  describe('.restore()', () => {
+    it('フィールドと全プレイヤーの手札を全てデッキに入れられる', () => {
+      let deck = new DeckData([
+        new CardData(0, 1),
+        new CardData(1, 2),
+        new CardData(2, 3),
+        new CardData(3, 4),
+      ])
+      let dealer = new Dealer(deck)
+      dealer.put()
+      dealer.put()
+      dealer.put()
+
+      let players = testPlayers()
+
+      players.get(1).Hand = new HandData([
+        new CardData(1, 9),
+      ])
+      players.get(2).Hand = new HandData([
+        new CardData(0, 1),
+      ])
+
+      players.get(3).Hand = new HandData([
+        new CardData(1, 3),
+        new CardData(1, 4),
+      ])
+
+      players.get(4).Hand = new HandData([
+        new CardData(1, 5),
+        new CardData(1, 6),
+      ])
+
+      dealer.restore(players)
+
+      assert.equal(deck.Cards.length, 10)
     })
   })
 

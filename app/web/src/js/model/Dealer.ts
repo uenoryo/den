@@ -1,4 +1,5 @@
 import Player from './Player'
+import Players from './Players'
 import DeckData from '../data/DeckData'
 import CardData from '../data/CardData'
 import FieldData from '../data/FieldData'
@@ -102,6 +103,25 @@ export default class Dealer {
         throw new Error('Empty card will push to deck.')
       }
       this.Deck.Cards.push(card)
+    }
+  }
+
+  restore(players: Players): void {
+    while (this.Field.Cards.length > 0) {
+      let card = this.Field.Cards.shift()
+      if (card === undefined) {
+        throw new Error('Empty card will push to deck.')
+      }
+      this.Deck.Cards.push(card)
+    }
+    for (let player of players.all()) {
+      while (player.Hand.Cards.length > 0) {
+        let card = player.Hand.Cards.shift()
+        if (card === undefined) {
+          throw new Error('Empty card will push to deck.')
+        }
+        this.Deck.Cards.push(card)
+      }
     }
   }
 
