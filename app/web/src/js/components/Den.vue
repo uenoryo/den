@@ -28,7 +28,7 @@
           <div class='modal__inner modal__inner--full'>
             <div class='modal__body'>
               <div class='StartView'>
-                <h3>Round</h3>
+                <h3>Round {{ ScoreKeeper.DataReversed.length + 1 }}</h3>
                 <div class='StartView__Body'>
                   <table>
                     <tr>
@@ -47,8 +47,8 @@
                 </div>
                 <hr>
                 <div class='ScoreList'>
-                  <div v-for='(s, idx) in ScoreKeeper.Data'>
-                    <h4>Round {{ idx + 1 }}</h4>
+                  <div v-for='(s, idx) in ScoreKeeper.DataReversed'>
+                    <h4>Round {{ ScoreKeeper.DataReversed.length - idx }}</h4>
                     <div class='ScoreList__list blue'>
                       <div class='ScoreList__item' :class='{"red": s.p1Score < 0 }'>{{ s.p1Score }}</div>
                       <div class='ScoreList__item' :class='{"red": s.p2Score < 0 }'>{{ s.p2Score }}</div>
@@ -59,6 +59,21 @@
                 </div>
                 <div class='StartView__BtnList'>
                   <div @click='gameStart()' class='StartView__Btn btn'>スタート</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-else-if='Phase === GamePhase.Result' id="GameStartView">
+        <div class='modal open'>
+          <div class='modal__inner modal__inner--full'>
+            <div class='modal__body'>
+              <div class='StartView'>
+                <h3>Round</h3>
+                <div class='StartView__BtnList'>
+                  <div @click='gameReload()' class='StartView__Btn btn'>次へ</div>
                 </div>
               </div>
             </div>
@@ -207,7 +222,7 @@ export default {
 
       this.GamePhase = GamePhase
 
-      this.Phase = GamePhase.Start
+      this.Phase = GamePhase.Result
 
       this.God = this.godBirth()
 
@@ -230,7 +245,6 @@ export default {
       this.dealerTriggerCardSkillAtFirst()
 
       this.computerStandby()
-      console.log(this.ScoreKeeper.Data)
     },
 
     put(id, handIdx) {
@@ -314,6 +328,12 @@ export default {
       if (reset) {
         this.ScoreKeeper.clear()
       }
+      this.Phase = GamePhase.Prepare
+    },
+
+    gameReload() {
+      this.dealerResotre()
+      this.setup()
       this.Phase = GamePhase.Prepare
     },
 
