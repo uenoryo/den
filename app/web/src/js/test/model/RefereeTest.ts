@@ -107,4 +107,83 @@ describe('Referee', () => {
       }
     })
   })
+
+  describe('.isAnko()', () => {
+    context('Ankoかどうかを返すことができる', () => {
+      let tests = [
+        {
+          title: 'Anko',
+          hand: new HandData([
+            new CardData(1, 13),
+            new CardData(2, 13),
+            new CardData(3, 13),
+            new CardData(1, 1),
+          ]),
+          output: true,
+        },
+        {
+          title: 'Ankoではない',
+          hand: new HandData([
+            new CardData(0, 12),
+            new CardData(0, 12),
+            new CardData(0, 12),
+            new CardData(0, 1),
+          ]),
+          output: false,
+        },
+      ]
+      let card = new CardData(0, 13)
+      let referee = new Referee
+      let player = TestPlayer()
+      for (let test of tests) {
+        it(test.title, () => {
+          player.Hand = test.hand
+          assert.equal(referee.isAnko(player, card), test.output)
+        })
+      }
+    })
+  })
+
+  describe('.isChitoi()', () => {
+    context('Chitoiかどうかを返すことができる', () => {
+      let tests = [
+        {
+          title: 'Chitoi',
+          hand: new HandData([
+            new CardData(1, 13),
+            new CardData(2, 13),
+            new CardData(3, 13),
+            new CardData(0, 11),
+            new CardData(1, 11),
+            new CardData(0, 10),
+            new CardData(1, 10),
+          ]),
+          output: true,
+        },
+        {
+          title: 'Chitoiではない',
+          hand: new HandData([
+            new CardData(1, 9),
+            new CardData(1, 9),
+            new CardData(2, 13),
+            new CardData(3, 13),
+            new CardData(0, 11),
+            new CardData(1, 11),
+            new CardData(0, 10),
+            new CardData(1, 10),
+          ]),
+          output: false,
+        },
+      ]
+      let card = new CardData(0, 13)
+      let referee = new Referee
+      let player = TestPlayer()
+      for (let test of tests) {
+        it(test.title, () => {
+          player.Hand = test.hand
+          assert.equal(referee.isChitoi(player, card), test.output)
+        })
+      }
+    })
+  })
 })
