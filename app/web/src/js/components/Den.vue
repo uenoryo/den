@@ -171,6 +171,7 @@
 <script>
 import GodService from './GodService'
 import DealerService from './DealerService'
+import RefereeService from './RefereeService'
 import ComputerService from './ComputerService'
 import AnimationService from './AnimationService'
 import DebugService from './DebugService'
@@ -184,6 +185,7 @@ export default {
   mixins: [
     GodService,
     DealerService,
+    RefereeService,
     ComputerService,
     AnimationService,
     DebugService,
@@ -194,6 +196,7 @@ export default {
       God: null,
       Players: null,
       Dealer: null,
+      Referee: null,
       ScoreKeeper: null,
       Config: null,
       ReplyAction: null,
@@ -222,13 +225,15 @@ export default {
 
       this.GamePhase = GamePhase
 
-      this.Phase = GamePhase.Result
+      this.Phase = GamePhase.Start
 
       this.God = this.godBirth()
 
       this.Players = this.godCreatePlayers()
 
       this.Dealer = this.godCreateDealer()
+
+      this.Referee = this.godCreateReferee()
 
       this.ScoreKeeper = this.godCreateScoreKeeper()
     },
@@ -269,7 +274,7 @@ export default {
 
       this.computerLookSelfHand()
 
-      this.dealerCheckDone(this.Players.get(id))
+      this.refereeJudgePlainDone(this.Players.get(id))
 
       this.dealerTriggerCardSkill()
     },
@@ -293,7 +298,7 @@ export default {
     },
 
     den(id) {
-      this.dealerJudgeDen(this.Players.get(id))
+      this.refereeJudgeDen(this.Players.get(id))
     },
 
     gameSet() {

@@ -18,6 +18,10 @@ export default {
       return this.God.createDealer(deck)
     },
 
+    godCreateReferee() {
+      return this.God.createReferee()
+    },
+
     godCreateScoreKeeper() {
       let storage = this.God.createStorage()
       return this.God.createScoreKeeper(storage)
