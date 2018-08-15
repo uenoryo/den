@@ -11,6 +11,7 @@ import Player from './Player'
 import ScoreKeeper from './ScoreKeeper'
 import Storager from '../storage/Storager'
 import LocalStorage from '../storage/LocalStorage'
+import Referee from './Referee'
 
 export default class God {
   private config: Configer
@@ -21,6 +22,10 @@ export default class God {
 
   createDealer(deck: DeckData) {
     return new Dealer(deck)
+  }
+
+  createReferee() {
+    return new Referee
   }
 
   createStorage(): Storager {

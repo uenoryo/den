@@ -22,6 +22,13 @@ describe('God', () => {
     })
   })
 
+  describe('.createReferee()', () => {
+    it('Refereeを作成できる', () => {
+      let g = new God()
+      g.createReferee()
+    })
+  })
+
   describe('.createPlayers()', () => {
     it('Playersを作成できる', () => {
       let g = new God
