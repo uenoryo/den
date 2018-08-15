@@ -14,6 +14,24 @@ describe('Referee', () => {
     })
   })
 
+  describe('.judgePlainDone()', () => {
+    context('素上がりの状態かどうかを返すことができる', () => {
+      let player = TestPlayer()
+      let referee = new Referee
+      it('素上がりのケース', () => {
+        player.Hand = new HandData([])
+        assert.equal(referee.judgePlainDone(player), true)
+      })
+
+      it('素上がりではないケース', () => {
+        player.Hand = new HandData([
+          new CardData(0, 12),
+        ])
+        assert.equal(referee.judgePlainDone(player), false)
+      })
+    })
+  })
+
   describe('.judgeDen()', () => {
     context('プレイヤーの手札で成立している GameSetType を返すことができる', () => {
       let tests = [
