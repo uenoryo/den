@@ -3,6 +3,10 @@ import Brain from '../model/Brain'
 import Player from '../model/Player'
 import Players from '../model/Players'
 
+export function TestPlayer() {
+  return new Player(new PlayerData(1, 0), new Brain)
+}
+
 export function testPlayers() {
   return new Players(
     new Player(new PlayerData(1, 0), new Brain),
