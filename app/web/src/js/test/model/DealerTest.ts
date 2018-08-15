@@ -190,67 +190,6 @@ describe('Dealer', () => {
     })
   })
 
-  describe('.judgeDen()', () => {
-    // フィールドのカードは spade の 13
-    let deck = new DeckData([
-      new CardData(3, 13),
-    ])
-    let d = new Dealer(deck)
-    d.put()
-
-    let pd = new PlayerData(1, 1)
-    let b = new Brain
-
-    describe('普通のDENを判定することができる', () => {
-      it('手札の合計が一致する場合はDEN', () => {
-        let p = new Player(pd, b)
-        p.receive(new CardData(0, 1))
-        p.receive(new CardData(0, 2))
-        p.receive(new CardData(0, 10))
-        assert.equal(d.judgeDen(p), GameSetType.Den)
-      })
-      it('手札に同じ数字が3枚ある場合は暗刻', () => {
-        let p = new Player(pd, b)
-        p.receive(new CardData(0, 1))
-        p.receive(new CardData(0, 2))
-        p.receive(new CardData(0, 13))
-        p.receive(new CardData(1, 13))
-        p.receive(new CardData(2, 13))
-        assert.equal(d.judgeDen(p), GameSetType.Anko)
-      })
-      it('3ペア以上あり、ペア以外のカードが1枚でフィールドのカードと一致していたらチートイ', () => {
-        let p = new Player(pd, b)
-        p.receive(new CardData(4, 0))
-        p.receive(new CardData(5, 0))
-        p.receive(new CardData(0, 8))
-        p.receive(new CardData(1, 8))
-        p.receive(new CardData(2, 8))
-        p.receive(new CardData(3, 8))
-        p.receive(new CardData(0, 10))
-        p.receive(new CardData(1, 10))
-        p.receive(new CardData(0, 13))
-        assert.equal(d.judgeDen(p), GameSetType.Chitoi)
-      })
-      it('暗刻とチートイどちらも満たしていたらチートイが優先される', () => {
-        let p = new Player(pd, b)
-        p.receive(new CardData(2, 3))
-        p.receive(new CardData(3, 3))
-        p.receive(new CardData(2, 4))
-        p.receive(new CardData(3, 4))
-        p.receive(new CardData(1, 13))
-        p.receive(new CardData(2, 13))
-        p.receive(new CardData(3, 13))
-        assert.equal(d.judgeDen(p), GameSetType.Chitoi)
-      })
-      it('手札の合計が一致しない場合はnull', () => {
-        let p = new Player(pd, b)
-        p.receive(new CardData(0, 1))
-        p.receive(new CardData(0, 2))
-        assert.equal(d.judgeDen(p), null)
-      })
-    })
-  })
-
   describe('.goNextTurn()', () => {
     describe('ターンテーブルを見て次のターンに進めることができる', () => {
       let deck = new DeckData([

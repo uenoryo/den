@@ -55,49 +55,6 @@ export default {
       }
     },
 
-    dealerCheckDone(player) {
-      if (player.hasNoCard()) {
-        alert(`[素上がり]Player ${player.Data.ID}の勝ち`)
-        this.ScoreKeeper.keep(GameSetType.PlainDone, player.Data.ID, 0, this.Players)
-        this.ScoreKeeper.save()
-        this.gameSet()
-      }
-    },
-
-    dealerJudgeDen(player) {
-      if (this.Dealer.Field.denable === false) {
-        return
-      }
-      if (player.Data.ID === this.Dealer.Field.PutPlayerID) {
-        return
-      }
-      if (this.isGameSet() === true) {
-        return
-      }
-
-      let type = this.Dealer.judgeDen(player)
-      if (type === null) {
-        return
-      }
-      this.animationDen(this.Dealer, player)
-
-      switch (type) {
-        case GameSetType.Den:
-          this.ScoreKeeper.keep(GameSetType.Den, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players)
-          break
-        case GameSetType.Anko:
-          this.ScoreKeeper.keep(GameSetType.Anko, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players)
-          break
-        case GameSetType.Chitoi:
-          this.ScoreKeeper.keep(GameSetType.Chitoi, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players)
-          break
-      }
-      player.openHand()
-      this.gameSet()
-
-      this.ScoreKeeper.save()
-    },
-
     dealerTriggerCardSkillReverse() {
       this.Dealer.reverseTurnTable()
     },

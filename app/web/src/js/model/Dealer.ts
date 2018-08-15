@@ -129,26 +129,6 @@ export default class Dealer {
     return this.Deck.CardAmount <= Constants.DeckMaintenanceRemainingAmount
   }
 
-  judgeDen(player: Player): GameSetType | null {
-    let field = this.Field.top()
-    if (field === null) {
-      return null
-    }
-    if (
-      player.Hand.pairCount() >= 3 &&
-      field.Num === player.Hand.lonelyNumForChitoi()
-    ) {
-      return GameSetType.Chitoi
-    }
-    if (field.Num === player.Hand.numTotal()) {
-      return GameSetType.Den
-    }
-    if (player.Hand.numAmount(field.Num) === 3) {
-      return GameSetType.Anko
-    }
-    return null
-  }
-
   goNextTurn(): void {
     let turnIdx = this.TurnTable.indexOf(this.TurnPlayerID)
     if (turnIdx >= this.TurnTable.length-1) {
