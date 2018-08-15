@@ -77,4 +77,34 @@ describe('Referee', () => {
       }
     })
   })
+
+  describe('.isNormalDen()', () => {
+    context('Denかどうかを返すことができる', () => {
+      let tests = [
+        {
+          title: 'Den',
+          hand: new HandData([
+            new CardData(1, 13),
+          ]),
+          output: true,
+        },
+        {
+          title: 'Denではない',
+          hand: new HandData([
+            new CardData(0, 11),
+          ]),
+          output: false,
+        },
+      ]
+      let card = new CardData(0, 13)
+      let referee = new Referee
+      let player = TestPlayer()
+      for (let test of tests) {
+        it(test.title, () => {
+          player.Hand = test.hand
+          assert.equal(referee.isNormalDen(player, card), test.output)
+        })
+      }
+    })
+  })
 })
