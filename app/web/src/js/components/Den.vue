@@ -305,6 +305,8 @@ export default {
     gameSet() {
       this.IsGameSet = true
 
+      this.Phase = GamePhase.Result
+
       this.computerStopPutTimer()
 
       this.computerStopDenTimer()
