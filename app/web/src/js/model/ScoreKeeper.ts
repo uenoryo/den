@@ -18,7 +18,8 @@ export default class ScoreKeeper {
   }
 
   get DataReversed(): ScoreData[] {
-    return this.data.reverse()
+    let data = this.data.slice()
+    return data.reverse()
   }
 
   get Rate(): number {

@@ -28,7 +28,7 @@
           <div class='modal__inner modal__inner--full'>
             <div class='modal__body'>
               <div class='StartView'>
-                <h3>Round {{ ScoreKeeper.DataReversed.length + 1 }}</h3>
+                <h3>Round {{ ScoreKeeper.Data.length + 1 }}</h3>
                 <div class='StartView__Body'>
                   <table>
                     <tr>
@@ -48,7 +48,7 @@
                 <hr>
                 <div class='ScoreList'>
                   <div v-for='(s, idx) in ScoreKeeper.DataReversed'>
-                    <h4>Round {{ ScoreKeeper.DataReversed.length - idx }}</h4>
+                    <h4>Round {{ ScoreKeeper.Data.length - idx }}</h4>
                     <div class='ScoreList__list blue'>
                       <div class='ScoreList__item' :class='{"red": s.p1Score < 0 }'>{{ s.p1Score }}</div>
                       <div class='ScoreList__item' :class='{"red": s.p2Score < 0 }'>{{ s.p2Score }}</div>
