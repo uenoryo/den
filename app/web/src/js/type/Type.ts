@@ -80,6 +80,9 @@ export enum GameSetType {
   Den,
   Anko,
   Chitoi,
+  CounterDen,
+  CounterAnko,
+  CounterChitoi,
 }
 
 // スタイルオブジェクト
