@@ -349,6 +349,7 @@ export default {
       this.dealerResotre()
       this.setup()
       this.Phase = GamePhase.Prepare
+      this.IsGameSet = false
     },
 
     howTo() {

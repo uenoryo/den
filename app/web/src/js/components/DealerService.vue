@@ -99,8 +99,8 @@ export default {
     },
 
     dealerResotre() {
-      this.animationResetAll()
       this.Dealer.restore(this.Players)
+      this.animationResetAll()
     },
 
     // Todo: dealer.isBusyをモデルで管理する

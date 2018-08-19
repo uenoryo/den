@@ -54,7 +54,8 @@ export default class ScoreKeeper {
 
   check(data: ScoreData): void {
     if (!data.isValidScore()) {
-      throw new Error(`score is invalid. ${this.data}`)
+      throw new Error(`score is invalid.`)
+      console.warn(this.data)
     }
     if (!data.isValidPlayerID()) {
       throw new Error(`score player id is invalid. ${this.data}`)

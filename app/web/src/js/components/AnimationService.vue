@@ -189,11 +189,11 @@ export default {
         translateX: [0],
         duration: 0,
       })
-      this.animate({
-        targets: '.Card--horizontal',
-        rotate: '-90deg',
-        duration: 0,
-      })
+      setTimeout(() => {
+        for (let el of this.els('Card')) {
+            el.removeAttribute('style')
+        }
+      }, 100)
       for (let obj of this.AnimeObjects) {
         obj.reset()
         obj = null
