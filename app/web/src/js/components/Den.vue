@@ -335,6 +335,7 @@ export default {
     },
 
     gameStart() {
+      this.IsGameSet = false
       this.Phase = GamePhase.Main
     },
 
@@ -349,7 +350,6 @@ export default {
       this.dealerResotre()
       this.setup()
       this.Phase = GamePhase.Prepare
-      this.IsGameSet = false
     },
 
     howTo() {
