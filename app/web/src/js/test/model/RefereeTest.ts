@@ -33,6 +33,18 @@ describe('Referee', () => {
   })
 
   describe('.judgeDen()', () => {
+    it('自身にはDenできない', () => {
+      let player = TestPlayer()
+      player.Hand = new HandData([
+        new CardData(1, 13),
+      ])
+      let field = new FieldData([
+        new CardData(0, 13),
+      ])
+      field.PutPlayerID = player.Data.ID
+      let referee = new Referee
+      assert.equal(referee.judgeDen(player, field) === null, true)
+    })
     context('プレイヤーの手札で成立している GameSetType を返すことができる', () => {
       let tests = [
         {
