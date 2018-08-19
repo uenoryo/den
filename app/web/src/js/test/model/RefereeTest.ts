@@ -45,6 +45,7 @@ describe('Referee', () => {
       let referee = new Referee
       assert.equal(referee.judgeDen(player, field) === null, true)
     })
+
     context('プレイヤーの手札で成立している GameSetType を返すことができる', () => {
       let tests = [
         {
@@ -103,6 +104,100 @@ describe('Referee', () => {
         it(test.title, () => {
           player.Hand = test.hand
           assert.equal(referee.judgeDen(player, field), test.output)
+        })
+      }
+    })
+  })
+
+  describe('.judgeCounterDen()', () => {
+    context('Denをされたプレイヤー以外は CounterDen できない', () => {
+      let player = TestPlayer()
+      player.Hand = new HandData([
+        new CardData(1, 13),
+      ])
+      let field = new FieldData([
+        new CardData(0, 13),
+      ])
+      let referee = new Referee
+      it ('CounterDenできる', () => {
+        field.PutPlayerID = player.Data.ID
+        referee.DenedPlayerID = player.Data.ID
+        assert.equal(referee.judgeCounterDen(player, field) !== null, true)
+      })
+
+      it ('CounterDenできない (出したプレイヤーが違う)', () => {
+        field.PutPlayerID = 2
+        referee.DenedPlayerID = player.Data.ID
+        assert.equal(referee.judgeCounterDen(player, field) === null, true)
+      })
+
+      it ('CounterDenできない (Denされたプレイヤーが違う)', () => {
+        field.PutPlayerID = player.Data.ID
+        referee.DenedPlayerID = 2
+        assert.equal(referee.judgeCounterDen(player, field) === null, true)
+      })
+    })
+
+    context('プレイヤーの手札で成立している GameSetType を返すことができる', () => {
+      let tests = [
+        {
+          title: '手札が存在しない',
+          hand: new HandData([
+            new CardData(0, 12),
+          ]),
+          output: null,
+        },
+        {
+          title: '役が成立していない',
+          hand: new HandData([
+            new CardData(0, 10),
+            new CardData(0, 11),
+          ]),
+          output: null,
+        },
+        {
+          title: 'Den',
+          hand: new HandData([
+            new CardData(0, 3),
+            new CardData(0, 10),
+          ]),
+          output: GameSetType.CounterDen,
+        },
+        {
+          title: 'Anko',
+          hand: new HandData([
+            new CardData(0, 3),
+            new CardData(1, 13),
+            new CardData(2, 13),
+            new CardData(3, 13),
+          ]),
+          output: GameSetType.CounterAnko,
+        },
+        {
+          title: 'Chitoi',
+          hand: new HandData([
+            new CardData(1, 13),
+            new CardData(2, 13),
+            new CardData(3, 13),
+            new CardData(0, 11),
+            new CardData(1, 11),
+            new CardData(0, 10),
+            new CardData(1, 10),
+          ]),
+          output: GameSetType.CounterChitoi,
+        },
+      ]
+      let field = new FieldData([
+        new CardData(0, 13),
+      ])
+      let referee = new Referee
+      let player = TestPlayer()
+      referee.DenedPlayerID = player.Data.ID
+      field.PutPlayerID = player.Data.ID
+      for (let test of tests) {
+        it(test.title, () => {
+          player.Hand = test.hand
+          assert.equal(referee.judgeCounterDen(player, field), test.output)
         })
       }
     })
