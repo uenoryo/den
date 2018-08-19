@@ -3,7 +3,16 @@ import anime from 'animejs'
 
 export default {
   name: 'Animator',
+  data() {
+    return {
+      AnimeObjects: [],
+    }
+  },
   methods: {
+    animate(obj) {
+      let animeObj = anime(obj)
+      this.AnimeObjects.push(animeObj)
+    },
     animationDeal(dealer, player) {
       // デッキから手札までのスピード
       const deckToHandSpeedMs = 400
@@ -21,25 +30,25 @@ export default {
         // 時差をつけないとvueのエレメント更新が追いつかなくて反応しない...
         setTimeout(() => {
           if (player.Data.ID % 2 === 0) {
-            anime({
+            this.animate({
               targets: `.Card__ID${card.ID}`,
               translateY: '0',
               translateX: '-20px',
               duration: 0,
             })
-            anime({
+            this.animate({
               targets: `.Card__ID${card.ID}`,
               rotate: '90',
               duration: addHandSpeedMs,
             })
           } else {
-            anime({
+            this.animate({
               targets: `.Card__ID${card.ID}`,
               translateY: '-20px',
               translateX: '0',
               duration: 0,
             })
-            anime({
+            this.animate({
               targets: `.Card__ID${card.ID}`,
               translateX: '0px',
               translateY: '0px',
@@ -52,7 +61,7 @@ export default {
 
     resetAnimationCardReversed() {
       this.hide('AnimationCardReversed')
-      anime({
+      this.animate({
         targets: '#AnimationCardReversed',
         translateY: '0',
         translateX: '0',
@@ -61,7 +70,7 @@ export default {
 
     dealAnimationCardReversed(playerID, speed) {
       this.show('AnimationCardReversed')
-      anime({
+      this.animate({
         targets: '#AnimationCardReversed',
         translateX: this.translation('deal', playerID, 'x'),
         translateY: this.translation('deal', playerID, 'y'),
@@ -75,7 +84,7 @@ export default {
       card.CSS.display = 'none'
       dealer.receive(card, playerID)
       setTimeout(() => {
-        anime({
+        this.animate({
           targets: `#Card__ID${card.ID}`,
           translateX: this.translation('put', playerID, 'x'),
           translateY: this.translation('put', playerID, 'y'),
@@ -83,7 +92,7 @@ export default {
           easing: 'easeOutQuad',
         })
         this.show(`Card__ID${card.ID}`)
-        anime({
+        this.animate({
           targets: `#Card__ID${card.ID}`,
           translateX: `${Math.floor(Math.random() * 40) - 20}px`,
           translateY: `${Math.floor(Math.random() * 40) - 20}px`,
@@ -97,7 +106,7 @@ export default {
     animationDen(dealer, player) {
       // 画面を揺らす
       this.el('View').classList.add('View--inverted')
-      anime({
+      this.animate({
         targets: '#View',
         translateY: [50, 0],
         translateX: [50, 0],
@@ -112,7 +121,7 @@ export default {
           continue
         }
         for (let idx in p.Hand.Cards) {
-          anime({
+          this.animate({
             targets: `#Card__ID${p.Hand.Cards[idx].ID}`,
             translateX: `${Math.floor(Math.random() * 60) - 30}px`,
             translateY: `${Math.floor(Math.random() * 60) - 30}px`,
@@ -127,7 +136,7 @@ export default {
     animateMaintenance(dealer) {
       for (let idx in dealer.Field.Cards) {
         if (parseInt(idx) === (dealer.Field.Cards.length - 1)) {
-          anime({
+          this.animate({
             targets: `#Card__ID${dealer.Field.Cards[idx].ID}`,
             translateX: '0px',
             translateY: '0px',
@@ -138,7 +147,7 @@ export default {
           continue
         }
         this.el(`Card__ID${dealer.Field.Cards[idx].ID}`).classList.add('Card--reversed')
-        anime({
+        this.animate({
           targets: `#Card__ID${dealer.Field.Cards[idx].ID}`,
           translateX: '0px',
           duration: 200,
@@ -171,6 +180,25 @@ export default {
 
     hide(elID) {
       this.el(elID).style.display = 'none'
+    },
+
+    animationResetAll() {
+      this.animate({
+        targets: '#View',
+        translateY: [0],
+        translateX: [0],
+        duration: 0,
+      })
+      this.animate({
+        targets: '.Card--horizontal',
+        rotate: '-90deg',
+        duration: 0,
+      })
+      for (let obj of this.AnimeObjects) {
+        obj.reset()
+        obj = null
+      }
+      this.AnimeObjects = []
     },
 
     translation(type, playerID, xORy) {

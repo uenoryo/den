@@ -97,7 +97,11 @@
               v-if='Config.IsDebug() || player.isHuman() || player.handIsReversed()'
               class='Card'
               :id='["Card__ID" + card.ID]'
-              :class='["CardDisplay__ID" + card.DisplayID, "Card__ID" + card.ID]'></div>
+              :class='[
+                "CardDisplay__ID" + card.DisplayID,
+                "Card__ID" + card.ID,
+                {"Card--horizontal":player.Data.ID % 2 === 0}
+              ]'></div>
             <div
               v-else
               class='Card Card--reversed'
@@ -305,11 +309,13 @@ export default {
     gameSet() {
       this.IsGameSet = true
 
-      this.Phase = GamePhase.Result
-
       this.computerStopPutTimer()
 
       this.computerStopDenTimer()
+
+      setTimeout(() => {
+        this.Phase = GamePhase.Result
+      }, 2000)
     },
 
     isGameSet() {

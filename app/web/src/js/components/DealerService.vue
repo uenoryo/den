@@ -99,6 +99,7 @@ export default {
     },
 
     dealerResotre() {
+      this.animationResetAll()
       this.Dealer.restore(this.Players)
     },
 
