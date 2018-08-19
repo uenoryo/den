@@ -49,15 +49,15 @@ export default {
           break
         case GameSetType.CounterDen:
           isCounter = true
-          this.ScoreKeeper.keep(GameSetType.Den, this.Referee.DenedPlayerID, this.denPlayerID, this.Players)
+          this.ScoreKeeper.keep(GameSetType.CounterDen, this.Referee.DenedPlayerID, this.denPlayerID, this.Players)
           break
         case GameSetType.CounterAnko:
           isCounter = true
-          this.ScoreKeeper.keep(GameSetType.Anko, this.Referee.DenedPlayerID, this.denPlayerID, this.Players)
+          this.ScoreKeeper.keep(GameSetType.CounterAnko, this.Referee.DenedPlayerID, this.denPlayerID, this.Players)
           break
         case GameSetType.CounterChitoi:
           isCounter = true
-          this.ScoreKeeper.keep(GameSetType.Chitoi, this.Referee.DenedPlayerID, this.denPlayerID, this.Players)
+          this.ScoreKeeper.keep(GameSetType.CounterChitoi, this.Referee.DenedPlayerID, this.denPlayerID, this.Players)
           break
       }
 

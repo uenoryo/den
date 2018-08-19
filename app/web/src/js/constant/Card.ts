@@ -43,6 +43,9 @@ export const ScoreRateBase = 10
 // CardCost からスコアに換算する際に掛けられる倍率
 export const ScoreRate = 1
 
+// Counterの場合にスコアにかけられる倍率
+export const ScoreCounterBonusRate = 2
+
 // Pank のスコア
 export const PankScore = 50
 

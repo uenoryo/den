@@ -22,8 +22,11 @@ describe('ScoreKeeper', () => {
       let sk = new ScoreKeeper(new MockStorage)
       let players = testPlayers()
       sk.keep(GameSetType.Den, 1, 4, players)
+      sk.save()
       sk.keep(GameSetType.Den, 1, 4, players)
+      sk.save()
       sk.keep(GameSetType.Den, 1, 4, players)
+      sk.save()
       assert.equal(sk.Data.length, 3)
     })
   })
@@ -59,10 +62,12 @@ describe('ScoreKeeper', () => {
       let sk = new ScoreKeeper(storage)
       let players = testPlayers()
       sk.keep(GameSetType.Den, 1, 4, players)
-      sk.keep(GameSetType.Den, 1, 4, players)
-      sk.keep(GameSetType.Den, 1, 4, players)
-
       sk.save()
+      sk.keep(GameSetType.Den, 1, 4, players)
+      sk.save()
+      sk.keep(GameSetType.Den, 1, 4, players)
+      sk.save()
+
 
       if (storage.ScoreData === null) {
         throw new Error('failed to fetch score data')
@@ -78,8 +83,11 @@ describe('ScoreKeeper', () => {
       let sk = new ScoreKeeper(storage)
       let players = testPlayers()
       sk.keep(GameSetType.Den, 1, 4, players)
+      sk.save()
       sk.keep(GameSetType.Den, 1, 4, players)
+      sk.save()
       sk.keep(GameSetType.Den, 1, 4, players)
+      sk.save()
 
       storage.ScoreData = sk.Data
 
@@ -130,6 +138,7 @@ describe('ScoreKeeper', () => {
 
       let sk = new ScoreKeeper(new MockStorage)
       sk.keep(GameSetType.PlainDone, 1, 0, players)
+      sk.save()
       let score = sk.Data[0]
 
       it('チェックしてもエラーが起きない', () => {
@@ -186,6 +195,7 @@ describe('ScoreKeeper', () => {
 
       let sk = new ScoreKeeper(new MockStorage)
       sk.keep(GameSetType.Den, 1, 4, players)
+      sk.save()
       let score = sk.Data[0]
 
       it('チェックしてもエラーが起きない', () => {
@@ -244,6 +254,7 @@ describe('ScoreKeeper', () => {
 
       let sk = new ScoreKeeper(new MockStorage)
       sk.keep(GameSetType.Anko, 1, 4, players)
+      sk.save()
       let score = sk.Data[0]
 
       it('チェックしてもエラーが起きない', () => {
@@ -308,6 +319,7 @@ describe('ScoreKeeper', () => {
 
       let sk = new ScoreKeeper(new MockStorage)
       sk.keep(GameSetType.Chitoi, 1, 4, players)
+      sk.save()
       let score = sk.Data[0]
 
       it('チェックしてもエラーが起きない', () => {
@@ -345,6 +357,7 @@ describe('ScoreKeeper', () => {
       let players = testPlayers()
       let sk = new ScoreKeeper(new MockStorage)
       sk.keep(GameSetType.Pank, 0, 1, players)
+      sk.save()
       let score = sk.Data[0]
 
       it('チェックしてもエラーが起きない', () => {
