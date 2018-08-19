@@ -313,9 +313,7 @@ export default {
 
       this.computerStopDenTimer()
 
-      setTimeout(() => {
-        this.Phase = GamePhase.Result
-      }, 2000)
+      this.Phase = GamePhase.Result
     },
 
     isGameSet() {

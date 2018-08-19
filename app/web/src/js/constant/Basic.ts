@@ -16,4 +16,7 @@ export namespace Constants {
 
   // コンピュータがDENをしようとする間隔 (ミリ秒)
   export const ComputerDenActionIntervalMs = 1000
+
+  // Den をした直後から DenCounter 可能な時間 (ミリ秒)
+  export const RefereeWaitCounterTimeMs = 3000
 }

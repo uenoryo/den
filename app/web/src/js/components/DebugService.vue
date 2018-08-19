@@ -38,6 +38,8 @@ export default {
     let d = CardMark.Diamond
     let h = CardMark.Heart
     let s = CardMark.Spade
+    let ja = CardMark.JokerA
+    let jb = CardMark.JokerB
     return {
       debugDeck: {
         1: [
@@ -350,6 +352,49 @@ export default {
 
         /* Field Card */
           [c, 3],
+        /* ---------- */
+
+          [h, 4],
+          [h, 5],
+          [h, 6],
+          [h, 7],
+          [h, 1],
+          [h, 9],
+          [h, 10],
+          [h, 11],
+          [h, 12],
+          [h, 13],
+          [h, 1],
+          [h, 2],
+          [h, 5],
+          [h, 4],
+          [h, 5],
+          [h, 6],
+          [h, 7],
+          [h, 1],
+          [h, 9],
+          [h, 10],
+          [h, 11],
+          [h, 12],
+          [h, 13],
+
+        ],
+
+        9: [
+
+        /* Debug Deck: 9 [Den返し できる] ------- */
+        /* [P1]     [P2]     [P3]     [P4] */
+          [c, 1],  [c, 2],  [h, 10],  [h, 11],
+          [d, 1],  [d, 2],  [d, 13],  [d, 11],
+          [h, 1],  [s, 2],  [c, 13],  [c, 10],
+          [s, 5],  [h, 3],  [s, 13],  [s, 10],
+          [h, 2],  [ja,0],  [s, 11], [h, 11],
+          [d, 3],  [jb,0],  [c, 12], [c, 9],
+          [h, 13], [s, 4],  [h, 4],  [s, 9],
+        /* -------------------------------- */
+
+        /* Field Card */
+          [h, 5],
         /* ---------- */
 
           [h, 4],

@@ -1,7 +1,15 @@
 <script>
 import { GameSetType } from '../type/Type'
+import { Constants } from '../constant/Basic'
 
 export default {
+  data() {
+    return {
+      denPlayerID: null,
+      isWaitingCounteTimer: null,
+      isJudgeEnd: false,
+    }
+  },
   methods: {
     refereeJudgePlainDone(player) {
       if (this.Referee.judgePlainDone(player)) {
@@ -13,10 +21,22 @@ export default {
     },
 
     refereeJudgeDen(player) {
-      let type = this.Referee.judgeDen(player, this.Dealer.Field)
+      if (this.isJudgeEnd) {
+        return null
+      }
+
+      let type = null
+      if (this.Referee.DenedPlayerID === null) {
+        type = this.Referee.judgeDen(player, this.Dealer.Field)
+      } else {
+        type = this.Referee.judgeCounterDen(player, this.Dealer.Field)
+      }
+
       if (type === null) {
         return
       }
+
+      let isCounter = false
       switch (type) {
         case GameSetType.Den:
           this.ScoreKeeper.keep(GameSetType.Den, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players)
@@ -27,12 +47,35 @@ export default {
         case GameSetType.Chitoi:
           this.ScoreKeeper.keep(GameSetType.Chitoi, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players)
           break
+        case GameSetType.CounterDen:
+          isCounter = true
+          this.ScoreKeeper.keep(GameSetType.Den, this.Referee.DenedPlayerID, this.denPlayerID, this.Players)
+          break
+        case GameSetType.CounterAnko:
+          isCounter = true
+          this.ScoreKeeper.keep(GameSetType.Anko, this.Referee.DenedPlayerID, this.denPlayerID, this.Players)
+          break
+        case GameSetType.CounterChitoi:
+          isCounter = true
+          this.ScoreKeeper.keep(GameSetType.Chitoi, this.Referee.DenedPlayerID, this.denPlayerID, this.Players)
+          break
       }
-      this.animationDen(this.Dealer, player)
-      player.openHand()
-      this.gameSet()
 
-      this.ScoreKeeper.save()
+      if (isCounter) {
+        clearInterval(this.isWaitingCounterTimer)
+        this.isJudgeEnd = true
+      }
+
+      player.openHand()
+      this.computerStopPutTimer()
+      this.animationDen(this.Dealer, player)
+      this.Referee.DenedPlayerID = this.Dealer.Field.PutPlayerID
+      this.denPlayerID = player.Data.ID
+
+      this.isWaitingCounterTimer = setTimeout(() => {
+        this.gameSet()
+        this.ScoreKeeper.save()
+      }, Constants.RefereeWaitCounterTimeMs)
     }
   },
 }
