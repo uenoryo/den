@@ -12,12 +12,15 @@ export default {
   },
   methods: {
     refereeJudgePlainDone(player) {
-      if (this.Referee.judgePlainDone(player)) {
-        alert(`[素上がり]Player ${player.Data.ID}の勝ち`)
-        this.ScoreKeeper.keep(GameSetType.PlainDone, player.Data.ID, 0, this.Players)
-        this.ScoreKeeper.save()
-        this.gameSet()
+      if (!this.Referee.judgePlainDone(player)) {
+        return
       }
+
+      this.ScoreKeeper.keep(GameSetType.PlainDone, player.Data.ID, 0, this.Players)
+      this.isWaitingCounterTimer = setTimeout(() => {
+        this.gameSet()
+        this.ScoreKeeper.save()
+      }, Constants.RefereeWaitCounterTimeMs)
     },
 
     refereeJudgeDen(player) {
