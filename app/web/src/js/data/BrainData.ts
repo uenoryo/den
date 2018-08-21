@@ -33,6 +33,18 @@ export default class BrainData {
     return actionID
   }
 
+  topPriorityCard(): CardData | null {
+    if (this.SelfHand === null) {
+      return null
+    }
+
+    let actionID = this.topPriorityActionID()
+    if (actionID === DrawActionID) {
+      return null
+    }
+    return this.SelfHand.Cards[actionID]
+  }
+
   getPriority(actionID: number): number | null {
     for (let idx in this.HandPriorities) {
       if (this.HandPriorities[idx][0] === actionID) {
