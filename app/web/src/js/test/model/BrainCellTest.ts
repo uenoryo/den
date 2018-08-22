@@ -7,12 +7,6 @@ import BrainData from '../../data/BrainData'
 import BrainCell from '../../model/BrainCell'
 
 describe('BrainCell', () => {
-  describe('.constructor()', () => {
-    it('正しく初期化できる', () => {
-      new BrainCell
-    })
-  })
-
   describe('.canDoneButDraw()', () => {
     context('素上がりできる場合におけるDrawの優先度を操作できる', () => {
       type test = {
@@ -63,8 +57,7 @@ describe('BrainCell', () => {
           let data = new BrainData
           data.SelfHand = new HandData(t.hand)
           data.HandPriorities = t.priorities
-          let bc = new BrainCell
-          bc.canDoneButDraw(data, 10, 100)
+          BrainCell.canDoneButDraw(data, 10, 100)
           assert.equal(data.getPriority(DrawActionID), t.drawPriority)
         })
       }
@@ -115,8 +108,7 @@ describe('BrainCell', () => {
           data.FieldCard = new CardData(0, 10)
           data.SelfHand = new HandData(t.hand)
           data.HandPriorities = t.priorities
-          let bc = new BrainCell
-          bc.waitAnko(data, 10, 100)
+          BrainCell.waitAnko(data, 10, 100)
           assert.equal(data.getPriority(0), t.drawPriority)
         })
       }
@@ -125,12 +117,11 @@ describe('BrainCell', () => {
 
   describe('.hit()', () => {
     context('確率で真偽を変えす', () => {
-      let b = new BrainCell
       it('100では必ずtrue', () => {
-        assert.equal(b.hit(100), true)
+        assert.equal(BrainCell.hit(100), true)
       })
       it('0では必ずfalse', () => {
-        assert.equal(b.hit(0), false)
+        assert.equal(BrainCell.hit(0), false)
       })
     })
   })
