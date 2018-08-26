@@ -1,6 +1,6 @@
 import Configer from './Configer'
 import { PlayerID } from '../type/Type'
-import Brain from '../model/Brain'
+import Brain from '../model/brains/Basic'
 
 export default class implements Configer {
   IsDebug(): boolean {

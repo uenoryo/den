@@ -57,6 +57,10 @@ export const CardSkillNums: { [index: string]: CardNum } = {
   Attach: 12,
 }
 
+export const CardMarks: CardMark[] = [0, 1, 2, 3, 4, 5]
+
+export const CardMarksWithoutJokerB: CardMark[] = [0, 1, 2, 3, 4]
+
 export const CardNums: CardNum[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 
 export const CardNumsWithoutJoker: CardNum[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]

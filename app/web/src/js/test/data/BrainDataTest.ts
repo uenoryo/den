@@ -1,4 +1,4 @@
-import * as mocha from "mocha";
+                      import * as mocha from "mocha";
 import * as assert from 'power-assert';
 import BrainData from '../../data/BrainData'
 
@@ -37,6 +37,15 @@ describe('BrainData', () => {
           [8 , 1],
         ]
         assert.equal(bd.topPriorityActionID(), 4)
+      })
+      it('優先度が同じ場合はindexが大きい方が帰る', () => {
+        let bd = new BrainData
+        bd.HandPriorities = [
+          [-1, 0],
+          [0 , 10],
+          [1 , 10],
+        ]
+        assert.equal(bd.topPriorityActionID(), 1)
       })
     })
   })
