@@ -3,6 +3,7 @@
   hosts: den-web
   vars:
     home_dir: /home/den
+    app_dir: /home/den/den/app/web
     github_deploy_key: den-prd
   tasks:
     - name: create base directory
@@ -28,3 +29,8 @@
     - name: download repository
       git: repo=git@github.com:uenoryo/den.git dest={{ home_dir }}/den version=master accept_hostkey=yes key_file={{ home_dir }}/keys/den-prd
       become: false
+
+    - name: build application
+      command: /usr/bin/yarn build
+      args:
+        chdir: "{{ app_dir }}"
