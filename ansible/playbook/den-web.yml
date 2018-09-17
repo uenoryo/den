@@ -28,6 +28,7 @@
   hosts: den-web
   vars:
     home_dir: /home/den
+    github_deploy_key: den-prd
   tasks:
     - name: create base directory
       file:
@@ -42,16 +43,9 @@
         owner: den
         mode: 0755
 
-    - name: add key file for EC2
-      copy:
-        src: ../keys/den-web.pem
-        dest: "{{ home_dir }}/keys/"
-        owner: den
-        mode: 0400
-
     - name: add key file for GitHub
       copy:
-        src: ../keys/den-prd
+        src: ../keys/{{ github_deploy_key }}
         dest: "{{ home_dir }}/keys/"
         owner: den
         mode: 0400
