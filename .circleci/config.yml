@@ -13,6 +13,9 @@ jobs:
             echo "Node $(node -v)"
             echo "Yarn v$(yarn --version)"
       - run:
+          name: Setting environment variables
+          command: cp app/web/src/js/env.example.ts app/web/src/js/env.ts
+      - run:
           name: Install dependencies
           command: yarn
           working_directory: app/web
