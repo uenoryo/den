@@ -1,0 +1,16 @@
+---
+- hosts: den-web
+  tasks:
+    - name: create directory
+      file:
+        path: /home/den/tmp
+        state: directory
+        owner: den
+        mode: 0755
+
+    - name: copy file
+      copy:
+        src: /Users/ryo/dev/src/github.com/uenoryo/den/ansible/test.txt
+        dest: /home/den/tmp/test.txt
+        owner: den
+        mode: 0644
