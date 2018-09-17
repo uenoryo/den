@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/workspace
+    docker:
+      - image: node:8.11.1
+
+    steps:
+      - checkout
+      - run:
+          name: System information
+          command: |
+            echo "Node $(node -v)"
+            echo "Yarn v$(yarn --version)"
+      - run:
+          name: Install dependencies
+          command: yarn
+          working_directory: app/web
+      - run:
+          name: Build
+          command: yarn run build
+          working_directory: app/web
+      - run:
+          name: Test
+          command: yarn test
+          working_directory: app/web
