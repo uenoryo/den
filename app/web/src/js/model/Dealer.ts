@@ -140,7 +140,7 @@ export default class Dealer {
   }
 
   playerIsTurnPlayer(id: PlayerID): boolean {
-    return id === this.TurnPlayerID
+    return id !== this.TurnPlayerID
   }
 
   reverseTurnTable(): void {
