@@ -97,10 +97,10 @@ export default {
           translateX: `${Math.floor(Math.random() * 40) - 20}px`,
           translateY: `${Math.floor(Math.random() * 40) - 20}px`,
           rotate: `${Math.floor(Math.random() * 180)}`,
-          duration: 120,
+          duration: 300,
           easing: 'easeOutQuad',
         })
-      }, 1)
+      }, 50)
     },
 
     animationDen(dealer, player) {
@@ -245,15 +245,15 @@ export default {
             y: '180px',
           },
           2: {
-            x: '-180px',
+            x: '-350px',
             y: '0px',
           },
           3: {
             x: '0px',
-            y: '-180px',
+            y: '-240px',
           },
           4: {
-            x: '180px',
+            x: '350px',
             y: '0px',
           }
         },
