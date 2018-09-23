@@ -79,6 +79,10 @@ html, body {
   border-radius: 4px;
   margin: 4px;
   z-index: 99;
+
+  // 非表示
+  display: none;
+  height: 12px;
   @include pc-layout {
     height: 12px;
     background-color: #fff0;
