@@ -21,6 +21,12 @@
     - name: copy index.html
       template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html mode=0644
 
+    - name: install certbot-auto
+      get_url:
+        url: https://dl.eff.org/certbot-auto
+        dest: /usr/bin/certbot-auto
+        mode: 0700
+
   handlers:
     - name: restart nginx
       service: name=nginx state=restarted
