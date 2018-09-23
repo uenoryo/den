@@ -7,6 +7,14 @@
     root_dir: /home/den/den/app/web/public
     conf_file: /etc/nginx/sites-available/default
   tasks:
+    - name: install certbot-auto
+      get_url:
+        url: https://dl.eff.org/certbot-auto
+        dest: /usr/bin/certbot-auto
+        mode: 0700
+    - name: get SSL certificate
+      shell: |
+        certbot-auto certonly --standalone -d den.uma-b.com -m p@uenoryo.com --agree-tos -n
     - name: install nginx
       apt: name=nginx update_cache=yes cache_valid_time=3600
 
@@ -20,12 +28,6 @@
 
     - name: copy index.html
       template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html mode=0644
-
-    - name: install certbot-auto
-      get_url:
-        url: https://dl.eff.org/certbot-auto
-        dest: /usr/bin/certbot-auto
-        mode: 0700
 
   handlers:
     - name: restart nginx
