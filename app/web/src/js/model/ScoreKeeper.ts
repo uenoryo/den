@@ -31,6 +31,24 @@ export default class ScoreKeeper {
     return this.rate
   }
 
+  get LatestScoreData(): ScoreData | null {
+    if (this.Data.length === 0) {
+      return null
+    }
+    return this.Data[this.Data.length - 1]
+  }
+
+  get LatestWinnerID(): PlayerID | null {
+    let latestScore = this.LatestScoreData
+    if (latestScore === null) {
+      return null
+    }
+    if (latestScore.WinnerID === 0) {
+      return null
+    }
+    return latestScore.WinnerID
+  }
+
   keep(type: GameSetType, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players): void {
     let score = new ScoreData
 
