@@ -93,15 +93,14 @@ export default class Dealer {
   }
 
   maintenance(): void {
-    // TODO: 変えたマークを元に戻す
-    // カードのIDの仕組みから変えないとだめそう
-
     // 1枚だけフィールドに残し、その他をデッキに加える
+    // WildCardによって変更されたマークを元に戻す
     while (this.Field.Cards.length > 1) {
       let card = this.Field.Cards.shift()
       if (card === undefined) {
         throw new Error('Empty card will push to deck.')
       }
+      card.changeMark(card.InitailMark)
       this.Deck.Cards.push(card)
     }
   }
