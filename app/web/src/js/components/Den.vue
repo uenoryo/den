@@ -246,6 +246,8 @@ export default {
     setup() {
       this.ScoreKeeper.fetch()
 
+      this.dealerChangeTurnPlayer()
+
       this.dealerShuffleDeck()
 
       this.dealerDealCardToPlayersAtFirst()
