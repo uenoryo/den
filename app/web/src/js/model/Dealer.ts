@@ -23,9 +23,7 @@ export default class Dealer {
     this.Field = new FieldData([])
     this.turnTable = Config.app().TurnTable()
     this.forceDrawAmount = 0
-
-    // [ハードコード] 順番を決められるようにする #3
-    this.turnPlayerID = 1
+    this.turnPlayerID = Constants.InitialStartTurnPlayerID
   }
 
   get ForceDrawAmount(): number {
