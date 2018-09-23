@@ -40,6 +40,14 @@ describe('Dealer', () => {
     })
   })
 
+  describe('.changeTurnPlayer()', () => {
+    it('TurnPlayerを変更できる', () => {
+      let d = new Dealer(new DeckData([]))
+      d.changeTurnPlayer(3)
+      assert.equal(d.TurnPlayerID, 3)
+    })
+  })
+
   describe('.shuffle()', () => {
     it('シャッフルしても枚数は変わらない', () => {
       let deck = new DeckData([

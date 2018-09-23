@@ -49,6 +49,10 @@ export default class Dealer {
     return this.Deck.turn()
   }
 
+  changeTurnPlayer(playerID: PlayerID): void {
+    this.turnPlayerID = playerID
+  }
+
   shuffle(): void {
     for (let i = this.Deck.CardAmount - 1; i > 0; i--) {
       let r:number = Math.floor(Math.random() * (i + 1))
