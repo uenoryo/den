@@ -2,6 +2,10 @@ server {
   listen 80 default_server;
   listen [::]:80 default_server ipv6only=on;
 
+  listen 443 ssl;
+  ssl_certificate     /etc/letsencrypt/live/den.uma-b.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/den.uma-b.com/privkey.pem;
+
   root {{ root_dir }};
   index index.html index.htm;
 
