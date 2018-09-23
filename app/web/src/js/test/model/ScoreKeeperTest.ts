@@ -17,6 +17,43 @@ describe('ScoreKeeper', () => {
     })
   })
 
+  describe('.LatestScoreData()', () => {
+    it('最新のスコアデータを取得できる', () => {
+      let sk = new ScoreKeeper(new MockStorage)
+      let players = testPlayers()
+      sk.keep(GameSetType.Den, 1, 4, players)
+      sk.save()
+      sk.keep(GameSetType.Den, 2, 4, players)
+      sk.save()
+      sk.keep(GameSetType.Den, 3, 4, players)
+      sk.save()
+      if (sk.LatestScoreData === null) {
+        throw new Error('latest score is null')
+      }
+      assert.equal(sk.LatestScoreData.WinnerID, 3)
+    })
+  })
+
+  describe('.LatestScoreData()', () => {
+    context('前回勝利したPlayerのIDを取得できる', () => {
+      it('データが存在する場合は取得できる', () => {
+        let sk = new ScoreKeeper(new MockStorage)
+        let players = testPlayers()
+        sk.keep(GameSetType.Den, 1, 4, players)
+        sk.save()
+        sk.keep(GameSetType.Den, 2, 4, players)
+        sk.save()
+        sk.keep(GameSetType.Den, 3, 4, players)
+        sk.save()
+        assert.equal(sk.LatestWinnerID, 3)
+      })
+      it('データが存在しなければnull', () => {
+        let sk = new ScoreKeeper(new MockStorage)
+        assert.equal(sk.LatestWinnerID, null)
+      })
+    })
+  })
+
   describe('.keep()', () => {
     it('スコアが(追加)記録される', () => {
       let sk = new ScoreKeeper(new MockStorage)
