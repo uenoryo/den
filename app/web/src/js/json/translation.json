@@ -1,0 +1,14 @@
+{
+    den: {
+        en: 'den',
+        ja: 'デン'
+    },
+    anko: {
+        en: 'anko',
+        ja: 'アンコ'
+    },
+    chitoi: {
+        en: 'chitoi',
+        ja: 'チートイ'
+    }
+}
