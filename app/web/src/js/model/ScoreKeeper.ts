@@ -131,6 +131,9 @@ export default class ScoreKeeper {
   }
 
   writeDen(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
+    if (winnerID === 0) {
+      throw new Error('den requires winnerID')
+    }
     data.Type = GameSetType.Den
     data.WinnerID = winnerID
     data.LoserID = loserID
@@ -138,15 +141,13 @@ export default class ScoreKeeper {
     let fieldCost = field === null ? 0 : field.Cost
 
     for (let player of players.all()) {
-      if (player.Data.ID !== winnerID && winnerID !== 0) {
-        if (player.Data.ID === loserID) {
-          let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost + fieldCost
-          data.subtractScore(loserID, loserCost * this.Rate)
-          data.addScore(winnerID, loserCost * this.Rate)
-        } else {
-          data.subtractScore(player.Data.ID, player.Hand.Cost * this.Rate)
-          data.addScore(winnerID, player.Hand.Cost * this.Rate)
-        }
+      if (player.Data.ID !== winnerID && player.Data.ID !== loserID) {
+        data.subtractScore(player.Data.ID, player.Hand.Cost * this.Rate)
+        data.addScore(winnerID, player.Hand.Cost * this.Rate)
+      } else if (player.Data.ID === loserID) {
+        let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost + fieldCost
+        data.subtractScore(loserID, loserCost * this.Rate)
+        data.addScore(winnerID, loserCost * this.Rate)
       }
     }
     return data
@@ -169,21 +170,23 @@ export default class ScoreKeeper {
     let bonus = players.get(winnerID).Hand.pairCount() + 1
 
     for (let player of players.all()) {
-      if (player.Data.ID !== winnerID) {
-        if (player.Data.ID === loserID) {
-          let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost + fieldCost + bonus
-          data.subtractScore(loserID, loserCost * this.Rate)
-          data.addScore(winnerID, loserCost * this.Rate)
-        } else {
-          data.subtractScore(player.Data.ID, (player.Hand.Cost + bonus) * this.Rate)
-          data.addScore(winnerID, (player.Hand.Cost + bonus) * this.Rate)
-        }
+      if (player.Data.ID !== winnerID && player.Data.ID !== loserID) {
+        data.subtractScore(player.Data.ID, (player.Hand.Cost + bonus) * this.Rate)
+        data.addScore(winnerID, (player.Hand.Cost + bonus) * this.Rate)
+      } else if (player.Data.ID === loserID) {
+        let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost + fieldCost + bonus
+        data.subtractScore(loserID, loserCost * this.Rate)
+        data.addScore(winnerID, loserCost * this.Rate)
       }
     }
     return data
   }
 
   writeCounterDen(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
+    if (winnerID === 0) {
+      throw new Error('den requires winnerID')
+    }
+
     data.Type = GameSetType.Den
     data.WinnerID = winnerID
     data.LoserID = loserID
@@ -191,15 +194,13 @@ export default class ScoreKeeper {
     let fieldCost = field === null ? 0 : field.Cost
 
     for (let player of players.all()) {
-      if (player.Data.ID !== winnerID && winnerID !== 0) {
-        if (player.Data.ID === loserID) {
-          let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost + fieldCost
-          data.subtractScore(loserID, loserCost * this.Rate * ScoreCounterBonusRate)
-          data.addScore(winnerID, loserCost * this.Rate * ScoreCounterBonusRate)
-        } else {
-          data.subtractScore(player.Data.ID, player.Hand.Cost * this.Rate * ScoreCounterBonusRate)
-          data.addScore(winnerID, player.Hand.Cost * this.Rate * ScoreCounterBonusRate)
-        }
+      if (player.Data.ID !== winnerID && player.Data.ID !== loserID) {
+        data.subtractScore(player.Data.ID, player.Hand.Cost * this.Rate * ScoreCounterBonusRate)
+        data.addScore(winnerID, player.Hand.Cost * this.Rate * ScoreCounterBonusRate)
+      } else if (player.Data.ID === loserID) {
+        let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost + fieldCost
+        data.subtractScore(loserID, loserCost * this.Rate * ScoreCounterBonusRate)
+        data.addScore(winnerID, loserCost * this.Rate * ScoreCounterBonusRate)
       }
     }
     return data
@@ -222,15 +223,13 @@ export default class ScoreKeeper {
     let bonus = players.get(winnerID).Hand.pairCount() + 1
 
     for (let player of players.all()) {
-      if (player.Data.ID !== winnerID) {
-        if (player.Data.ID === loserID) {
-          let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost + bonus + fieldCost
-          data.subtractScore(loserID, loserCost * this.Rate * ScoreCounterBonusRate)
-          data.addScore(winnerID, loserCost * this.Rate * ScoreCounterBonusRate)
-        } else {
-          data.subtractScore(player.Data.ID, (player.Hand.Cost + bonus) * this.Rate * ScoreCounterBonusRate)
-          data.addScore(winnerID, (player.Hand.Cost + bonus) * this.Rate * ScoreCounterBonusRate)
-        }
+      if (player.Data.ID !== loserID && player.Data.ID !== winnerID) {
+        data.subtractScore(player.Data.ID, (player.Hand.Cost + bonus) * this.Rate * ScoreCounterBonusRate)
+        data.addScore(winnerID, (player.Hand.Cost + bonus) * this.Rate * ScoreCounterBonusRate)
+      } else if (player.Data.ID === loserID) {
+        let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost + bonus + fieldCost
+        data.subtractScore(loserID, loserCost * this.Rate * ScoreCounterBonusRate)
+        data.addScore(winnerID, loserCost * this.Rate * ScoreCounterBonusRate)
       }
     }
     return data
