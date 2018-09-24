@@ -1,4 +1,4 @@
-import { PlayerID, PlayerType, CardMark } from '../type/Type'
+import { PlayerID, PlayerType, CardMark, Lang } from '../type/Type'
 import { CardMaxNum, CardJokerNum, CardNumsWithoutJoker } from '../constant/Card'
 import PlayerData from '../data/PlayerData'
 import CardData from '../data/CardData'
@@ -11,6 +11,9 @@ import Player from './Player'
 import ScoreKeeper from './ScoreKeeper'
 import Storager from '../storage/Storager'
 import LocalStorage from '../storage/LocalStorage'
+import Translator from '../i18n/Translator'
+import TranslatorJA from '../i18n/Ja'
+import TranslatorEN from '../i18n/En'
 import Referee from './Referee'
 
 export default class God {
@@ -62,5 +65,15 @@ export default class God {
 
   createScoreKeeper(storage: Storager): ScoreKeeper {
     return new ScoreKeeper(storage)
+  }
+
+  createTranslator(): Translator {
+    switch(this.config.Lang()) {
+      case Lang.JA:
+        return new TranslatorJA
+      case Lang.EN:
+        return new TranslatorEN
+    }
+    throw new Error(`Invalid lang: ${this.config.Lang()}`)
   }
 }

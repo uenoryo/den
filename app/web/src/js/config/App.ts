@@ -32,6 +32,6 @@ export default class implements Configer {
   }
 
   Lang(): Lang {
-    return Lang.JP
+    return Lang.JA
   }
 }

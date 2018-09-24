@@ -100,6 +100,6 @@ export enum GamePhase {
 
 // 言語
 export enum Lang {
-  JP,
+  JA,
   EN,
 }
