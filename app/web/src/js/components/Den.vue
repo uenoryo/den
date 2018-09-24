@@ -72,9 +72,9 @@
           <div class='modal modal--hard open'>
             <div class='modal__inner modal__inner--full'>
               <div class='modal__body'>
-                <div class='StartView'>
-                  <h3>Round</h3>
-                  <div class='StartView__BtnList'>
+                <div class='FinishView'>
+                  <h3>You {{ ScoreKeeper.LatestWinnerID === Config.MainPlayerID() ? 'WIN' : 'LOSE' }}</h3>
+                  <div class='FinishView__BtnList'>
                     <div @click='gameReload()' class='StartView__Btn btn'>次へ</div>
                   </div>
                 </div>
