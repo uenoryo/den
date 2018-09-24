@@ -40,27 +40,28 @@ export default {
       }
 
       let isCounter = false
+      let field = this.Dealer.Field.top()
       switch (type) {
         case GameSetType.Den:
-          this.ScoreKeeper.keep(GameSetType.Den, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players)
+          this.ScoreKeeper.keep(GameSetType.Den, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players, field)
           break
         case GameSetType.Anko:
-          this.ScoreKeeper.keep(GameSetType.Anko, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players)
+          this.ScoreKeeper.keep(GameSetType.Anko, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players, field)
           break
         case GameSetType.Chitoi:
-          this.ScoreKeeper.keep(GameSetType.Chitoi, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players)
+          this.ScoreKeeper.keep(GameSetType.Chitoi, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players, field)
           break
         case GameSetType.CounterDen:
           isCounter = true
-          this.ScoreKeeper.keep(GameSetType.CounterDen, this.Referee.DenedPlayerID, this.denPlayerID, this.Players)
+          this.ScoreKeeper.keep(GameSetType.CounterDen, this.Referee.DenedPlayerID, this.denPlayerID, this.Players, field)
           break
         case GameSetType.CounterAnko:
           isCounter = true
-          this.ScoreKeeper.keep(GameSetType.CounterAnko, this.Referee.DenedPlayerID, this.denPlayerID, this.Players)
+          this.ScoreKeeper.keep(GameSetType.CounterAnko, this.Referee.DenedPlayerID, this.denPlayerID, this.Players, field)
           break
         case GameSetType.CounterChitoi:
           isCounter = true
-          this.ScoreKeeper.keep(GameSetType.CounterChitoi, this.Referee.DenedPlayerID, this.denPlayerID, this.Players)
+          this.ScoreKeeper.keep(GameSetType.CounterChitoi, this.Referee.DenedPlayerID, this.denPlayerID, this.Players, field)
           break
       }
 
