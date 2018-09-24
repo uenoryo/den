@@ -8,7 +8,7 @@ export default class BrainCell {
   static mostHighPriorityCardMark(data: BrainData, rate: number): CardMark {
     let mark = this.randMark()
     let card = data.topPriorityCard()
-    if (card !== null && this.hit(rate)) {
+    if (card != null && this.hit(rate)) {
       mark = card.Mark
     }
     return mark
