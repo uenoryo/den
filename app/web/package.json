@@ -55,7 +55,6 @@
     "animejs": "^2.2.0",
     "asserts": "^4.0.2",
     "espower-typescript": "^9.0.0",
-    "json-loader": "^0.5.7",
     "mocha": "^5.2.0",
     "power-assert": "^1.6.0",
     "ts-loader": "^4.4.2",
