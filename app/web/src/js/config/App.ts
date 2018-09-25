@@ -1,5 +1,5 @@
 import Configer from './Configer'
-import { PlayerID } from '../type/Type'
+import { PlayerID, Lang } from '../type/Type'
 import Brain from '../model/brains/Basic'
 
 export default class implements Configer {
@@ -29,5 +29,9 @@ export default class implements Configer {
 
   MainPlayerID(): PlayerID {
     return 1
+  }
+
+  Lang(): Lang {
+    return Lang.JA
   }
 }

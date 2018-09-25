@@ -23,9 +23,7 @@ export default class Dealer {
     this.Field = new FieldData([])
     this.turnTable = Config.app().TurnTable()
     this.forceDrawAmount = 0
-
-    // [ハードコード] 順番を決められるようにする #3
-    this.turnPlayerID = 1
+    this.turnPlayerID = Constants.InitialStartTurnPlayerID
   }
 
   get ForceDrawAmount(): number {
@@ -49,6 +47,10 @@ export default class Dealer {
       return null
     }
     return this.Deck.turn()
+  }
+
+  changeTurnPlayer(playerID: PlayerID): void {
+    this.turnPlayerID = playerID
   }
 
   shuffle(): void {
@@ -93,15 +95,14 @@ export default class Dealer {
   }
 
   maintenance(): void {
-    // TODO: 変えたマークを元に戻す
-    // カードのIDの仕組みから変えないとだめそう
-
     // 1枚だけフィールドに残し、その他をデッキに加える
+    // WildCardによって変更されたマークを元に戻す
     while (this.Field.Cards.length > 1) {
       let card = this.Field.Cards.shift()
       if (card === undefined) {
         throw new Error('Empty card will push to deck.')
       }
+      card.changeMark(card.InitailMark)
       this.Deck.Cards.push(card)
     }
   }

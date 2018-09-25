@@ -1,6 +1,7 @@
 import * as mocha from "mocha";
 import * as assert from 'power-assert';
 import CardData from '../../data/CardData'
+import { CardMark } from '../../type/Type'
 
 describe('CardData', () => {
   describe('.constructor()', () => {
@@ -55,6 +56,23 @@ describe('CardData', () => {
       it('Jokerではない', () => {
         let cd = new CardData(2, 8)
         assert.equal(cd.isJoker(), false)
+      })
+    })
+  })
+
+  describe('.InitailMark()', () => {
+    describe ('カードのIDからマークの初期値を返すことができる', () => {
+      it('JokerA', () => {
+        let cd = new CardData(4, 0)
+        assert.equal(cd.InitailMark, CardMark.JokerA)
+      })
+      it('JokerB', () => {
+        let cd = new CardData(5, 0)
+        assert.equal(cd.InitailMark, CardMark.JokerB)
+      })
+      it('Heart', () => {
+        let cd = new CardData(2, 10)
+        assert.equal(cd.InitailMark, CardMark.Heart)
       })
     })
   })

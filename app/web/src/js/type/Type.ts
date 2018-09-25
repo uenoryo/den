@@ -97,3 +97,9 @@ export enum GamePhase {
   Main,
   Result,
 }
+
+// 言語
+export enum Lang {
+  JA,
+  EN,
+}

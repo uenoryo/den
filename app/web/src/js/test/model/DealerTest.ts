@@ -40,6 +40,14 @@ describe('Dealer', () => {
     })
   })
 
+  describe('.changeTurnPlayer()', () => {
+    it('TurnPlayerを変更できる', () => {
+      let d = new Dealer(new DeckData([]))
+      d.changeTurnPlayer(3)
+      assert.equal(d.TurnPlayerID, 3)
+    })
+  })
+
   describe('.shuffle()', () => {
     it('シャッフルしても枚数は変わらない', () => {
       let deck = new DeckData([
@@ -117,21 +125,44 @@ describe('Dealer', () => {
   })
 
   describe('.maintenance()', () => {
-    it('フィールドのカードを１枚残して他のカードを全てデッキに入れられる', () => {
+    context('フィールドのカードを１枚残して他のカードを全てデッキに入れられる', () => {
       let deck = new DeckData([
+        new CardData(0, 8), // WildCard
         new CardData(0, 1),
         new CardData(1, 2),
         new CardData(2, 3),
         new CardData(3, 4),
       ])
       let d = new Dealer(deck)
+
+      // 1枚目はテスト用にWildCardを出してMarkを変えてみる
+      d.put()
+      let wildcard = d.Field.top()
+      if (wildcard !== null) {
+        wildcard.changeMark(3)
+      }
+
       d.put()
       d.put()
       d.put()
 
       d.maintenance()
-      assert.equal(d.Deck.Cards.length, 3)
-      assert.equal(d.Deck.Cards[0].Num, 4)
+      it('カードの枚数が変わらない', () => {
+        assert.equal(d.Deck.Cards.length, 4)
+      })
+      it('フィールドカードが正しい', () => {
+        assert.equal(d.Deck.Cards[0].Num, 4)
+      })
+      it('WildCardによって変更されたマークが元に戻っている', () => {
+        let hasWildCardClub = false
+        for (let card of d.Deck.Cards) {
+          if (card.Mark === 0 && card.Num === 8) {
+            hasWildCardClub = true
+            break
+          }
+        }
+        assert.equal(hasWildCardClub, true)
+      })
     })
   })
 

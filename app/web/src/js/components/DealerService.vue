@@ -22,6 +22,14 @@ export default {
       }
     },
 
+    dealerChangeTurnPlayer() {
+      let id = this.ScoreKeeper.LatestWinnerID
+      if (id === null) {
+        id = Constants.InitialStartTurnPlayerID
+      }
+      this.Dealer.changeTurnPlayer(id)
+    },
+
     dealerPutCard() {
       this.Dealer.put()
       this.Dealer.Field.PutPlayerID = null

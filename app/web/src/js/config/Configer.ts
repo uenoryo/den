@@ -1,4 +1,4 @@
-import { PlayerID } from '../type/Type'
+import { PlayerID, Lang } from '../type/Type'
 import Brain from '../model/Brain'
 
 export default interface Configer {
@@ -9,4 +9,5 @@ export default interface Configer {
   Player3Brain(): Brain
   Player4Brain(): Brain
   MainPlayerID(): PlayerID
+  Lang(): Lang
 }

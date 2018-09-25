@@ -95,4 +95,25 @@ export default class CardData {
     }
     return CardCosts[this.Num]
   }
+
+  get InitailMark(): CardMark {
+    switch(this.ID) {
+      case 52:
+        return CardMark.JokerA
+      case 53:
+        return CardMark.JokerB
+    }
+
+    switch(this.id % 4) {
+      case 0:
+        return CardMark.Club
+      case 1:
+        return CardMark.Diamond
+      case 2:
+        return CardMark.Heart
+      case 3:
+        return CardMark.Spade
+    }
+    return 0
+  }
 }

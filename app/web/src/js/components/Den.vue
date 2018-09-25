@@ -4,6 +4,11 @@
       ads
     </div>
     <div class='game'>
+      <!-- image preloading space -->
+      <div id='ImagePreload'>
+        <div v-for="n in 54" :class='["CardDisplay__ID" + (n-1)]' />
+      </div>
+
       <div class='denActionArea' @click='den(Config.MainPlayerID())'></div>
 
       <div v-if='Phase === GamePhase.Start' id="GameStartView">
@@ -72,9 +77,9 @@
           <div class='modal modal--hard open'>
             <div class='modal__inner modal__inner--full'>
               <div class='modal__body'>
-                <div class='StartView'>
-                  <h3>Round</h3>
-                  <div class='StartView__BtnList'>
+                <div class='FinishView'>
+                  <h3>You {{ ScoreKeeper.LatestWinnerID === Config.MainPlayerID() ? 'WIN' : 'LOSE' }}</h3>
+                  <div class='FinishView__BtnList'>
                     <div @click='gameReload()' class='StartView__Btn btn'>次へ</div>
                   </div>
                 </div>
@@ -245,6 +250,8 @@ export default {
 
     setup() {
       this.ScoreKeeper.fetch()
+
+      this.dealerChangeTurnPlayer()
 
       this.dealerShuffleDeck()
 
