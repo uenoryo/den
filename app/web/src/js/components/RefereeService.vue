@@ -6,7 +6,7 @@ export default {
   data() {
     return {
       denPlayerID: null,
-      isWaitingCounteTimer: null,
+      isWaitingCounterTimer: null,
       isJudgeEnd: false,
     }
   },
@@ -80,6 +80,10 @@ export default {
         this.gameSet()
         this.ScoreKeeper.save()
       }, Constants.RefereeWaitCounterTimeMs)
+    },
+
+    refereeIsJudging() {
+      return this.isWaitingCounterTimer !== null
     }
   },
 }
