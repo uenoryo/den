@@ -103,3 +103,8 @@ export enum Lang {
   JA,
   EN,
 }
+
+// 設定のキー
+export enum PreferenceKey {
+  LangIsEnglish,
+}
