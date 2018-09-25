@@ -117,6 +117,10 @@ export default {
         return false
       }
 
+      if (this.refereeIsJudging()) {
+        return false
+      }
+
       if (! this.dealerCanPut(card)) {
         return false
       }
