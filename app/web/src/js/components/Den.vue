@@ -4,6 +4,11 @@
       ads
     </div>
     <div class='game'>
+      <!-- image preloading space -->
+      <div id='ImagePreload'>
+        <div v-for="n in 54" :class='["CardDisplay__ID" + (n-1)]' />
+      </div>
+
       <div class='denActionArea' @click='den(Config.MainPlayerID())'></div>
 
       <div v-if='Phase === GamePhase.Start' id="GameStartView">
