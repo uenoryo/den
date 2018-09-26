@@ -18,6 +18,8 @@ export default {
       this.computerStartPutTimer()
 
       this.computerStartDenTimer()
+
+      this.computerCloseHand()
     },
 
     computerResetPutTimer() {
@@ -110,6 +112,15 @@ export default {
           continue
         }
         this.den(player.Data.ID)
+      }
+    },
+
+    computerCloseHand() {
+      for (let player of this.Players.all()) {
+        if (player.isHuman() || !player.wantDen()) {
+          continue
+        }
+        player.closeHand()
       }
     },
   },

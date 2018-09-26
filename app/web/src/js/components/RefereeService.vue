@@ -20,6 +20,8 @@ export default {
       this.isWaitingCounterTimer = setTimeout(() => {
         this.gameSet()
         this.ScoreKeeper.save()
+        this.isJudgeEnd = false
+        this.isWaitingCounterTimer = null
       }, Constants.RefereeWaitCounterTimeMs)
     },
 
@@ -79,6 +81,8 @@ export default {
       this.isWaitingCounterTimer = setTimeout(() => {
         this.gameSet()
         this.ScoreKeeper.save()
+        this.isJudgeEnd = false
+        this.isWaitingCounterTimer = null
       }, Constants.RefereeWaitCounterTimeMs)
     },
 
