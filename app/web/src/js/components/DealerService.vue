@@ -108,6 +108,7 @@ export default {
 
     dealerResotre() {
       this.Dealer.restore(this.Players)
+      this.Dealer.initTurnTable()
       this.animationResetAll()
     },
 
