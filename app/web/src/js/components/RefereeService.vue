@@ -20,7 +20,7 @@ export default {
 
     refereeJudgeDen(player) {
       let type = null
-      if (this.Referee.DenedPlayerID === null) {
+      if (this.Referee.DenLaunchPlayerID === null) {
         type = this.Referee.judgeDen(player, this.Dealer.Field)
       } else {
         type = this.Referee.judgeCounterDen(player, this.Dealer.Field)
@@ -48,17 +48,17 @@ export default {
           this.refereeWaitFinish()
           break
         case GameSetType.CounterDen:
-          this.ScoreKeeper.keep(GameSetType.CounterDen, player.Data.ID, this.Referee.DenedPlayerID, this.Players, field)
+          this.ScoreKeeper.keep(GameSetType.CounterDen, player.Data.ID, this.Referee.DenLaunchPlayerID, this.Players, field)
           this.refereeDenAction(player)
           this.refereeWaitFinish()
           break
         case GameSetType.CounterAnko:
-          this.ScoreKeeper.keep(GameSetType.CounterAnko, player.Data.ID, this.Referee.DenedPlayerID, this.Players, field)
+          this.ScoreKeeper.keep(GameSetType.CounterAnko, player.Data.ID, this.Referee.DenLaunchPlayerID, this.Players, field)
           this.refereeDenAction(player)
           this.refereeWaitFinish()
           break
         case GameSetType.CounterChitoi:
-          this.ScoreKeeper.keep(GameSetType.CounterChitoi, player.Data.ID, this.Referee.DenedPlayerID, this.Players, field)
+          this.ScoreKeeper.keep(GameSetType.CounterChitoi, player.Data.ID, this.Referee.DenLaunchPlayerID, this.Players, field)
           this.refereeDenAction(player)
           this.refereeWaitFinish()
           break
@@ -73,7 +73,7 @@ export default {
       player.openHand()
       this.computerStopPutTimer()
       this.animationDen(this.Dealer, player)
-      this.Referee.DenedPlayerID = player.Data.ID
+      this.Referee.DenLaunchPlayerID = player.Data.ID
     },
 
     refereeWaitFinish() {
@@ -86,7 +86,7 @@ export default {
     refereeFinish() {
       this.ScoreKeeper.save()
       this.gameSet()
-      this.Referee.DenedPlayerID = null
+      this.Referee.DenLaunchPlayerID = null
       this.isWaitingCounterTimer = null
     },
   },

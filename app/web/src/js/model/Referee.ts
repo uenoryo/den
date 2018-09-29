@@ -4,7 +4,7 @@ import FieldData from '../data/FieldData'
 import CardData from '../data/CardData'
 
 export default class Referee {
-  public DenedPlayerID: PlayerID | null = null
+  public DenLaunchPlayerID: PlayerID | null = null
 
   judgePlainDone(player: Player): boolean {
     return player.hasNoCard()
@@ -36,7 +36,7 @@ export default class Referee {
       return null
     }
 
-    if (this.DenedPlayerID === null) {
+    if (this.DenLaunchPlayerID === null) {
       return null
     }
 
