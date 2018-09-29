@@ -36,7 +36,11 @@ export default class Referee {
       return null
     }
 
-    if (field.PutPlayerID !== player.Data.ID || this.DenedPlayerID !== player.Data.ID) {
+    if (this.DenedPlayerID === null) {
+      return null
+    }
+
+    if (field.PutPlayerID !== player.Data.ID) {
       return null
     }
 

@@ -310,6 +310,10 @@ export default {
     },
 
     den(id) {
+      if (this.isGameSet()) {
+        return
+      }
+
       this.refereeJudgeDen(this.Players.get(id))
     },
 
