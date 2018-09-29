@@ -252,6 +252,16 @@ describe('Dealer', () => {
     })
   })
 
+  describe('.initTurnTable()', () => {
+    it('ターンテーブルを元に戻すことができる', () => {
+      let deck = new DeckData([])
+      let d = new Dealer(deck)
+      d.reverseTurnTable()
+      d.initTurnTable()
+      assert.deepEqual(d.TurnTable, [1, 2, 3, 4])
+    })
+  })
+
   describe('.reverseTurnTable()', () => {
     it('ターンテーブルを逆順にできる', () => {
       let deck = new DeckData([])

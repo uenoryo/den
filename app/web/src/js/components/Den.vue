@@ -265,7 +265,7 @@ export default {
     },
 
     put(id, handIdx) {
-      if (this.isGameSet()) {
+      if (!this.isGameMain()) {
         return
       }
 
@@ -292,7 +292,7 @@ export default {
     },
 
     draw() {
-      if (this.isGameSet()) {
+      if (!this.isGameMain()) {
         return
       }
 
@@ -310,6 +310,10 @@ export default {
     },
 
     den(id) {
+      if (!this.isGameMain()) {
+        return
+      }
+
       this.refereeJudgeDen(this.Players.get(id))
     },
 
@@ -321,6 +325,10 @@ export default {
       this.computerStopDenTimer()
 
       this.Phase = GamePhase.Result
+    },
+
+    isGameMain() {
+      return !this.isGameSet() && this.Phase === GamePhase.Main
     },
 
     isGameSet() {
