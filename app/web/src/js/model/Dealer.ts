@@ -144,6 +144,10 @@ export default class Dealer {
     return id === this.TurnPlayerID
   }
 
+  initTurnTable(): void {
+    this.turnTable = Config.app().TurnTable()
+  }
+
   reverseTurnTable(): void {
     this.turnTable.reverse()
   }
