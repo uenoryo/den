@@ -93,11 +93,11 @@
                         <th>手札コスト</th>
                         <td>{{ ScoreKeeper.LatestScoreData.getHandCost(Config.MainPlayerID()) }}</td>
                       </tr>
-                      <tr v-if='ScoreKeeper.LatestScoreData.isJokerBuffGood'>
+                      <tr v-if='ScoreKeeper.LatestScoreData.IsJokerBuffGood'>
                         <th>Bonus</th>
                         <td>成金</td>
                       </tr>
-                      <tr v-if='ScoreKeeper.LatestScoreData.isJokerBuffAwesome'>
+                      <tr v-if='ScoreKeeper.LatestScoreData.IsJokerBuffAwesome'>
                         <th>Bonus</th>
                         <td>一攫千金</td>
                       </tr>
