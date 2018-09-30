@@ -79,6 +79,31 @@
               <div class='modal__body'>
                 <div class='FinishView'>
                   <h3>You {{ ScoreKeeper.LatestWinnerID === Config.MainPlayerID() ? 'WIN' : 'LOSE' }}</h3>
+                  <div class='FinishView__Body'>
+                    <div class='FinishView__Result__Head'>
+                      <h4>{{ ScoreKeeper.LatestScoreData.Type }}</h4>
+                    </div>
+                    <div class='FinishView__Result__Body'>
+                    <table>
+                      <tr>
+                        <th>レベル</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.Level }}</td>
+                      </tr>
+                      <tr>
+                        <th>手札コスト</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.getHandCost(Config.MainPlayerID()) }}</td>
+                      </tr>
+                      <tr v-if='ScoreKeeper.LatestScoreData.isJokerBuffGood'>
+                        <th>Bonus</th>
+                        <td>成金</td>
+                      </tr>
+                      <tr v-if='ScoreKeeper.LatestScoreData.isJokerBuffAwesome'>
+                        <th>Bonus</th>
+                        <td>一攫千金</td>
+                      </tr>
+                    </table>
+                    </div>
+                  </div>
                   <div class='FinishView__BtnList'>
                     <div @click='gameReload()' class='StartView__Btn btn'>次へ</div>
                   </div>

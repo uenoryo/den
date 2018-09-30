@@ -1,7 +1,7 @@
 import * as mocha from "mocha"
 import * as assert from 'power-assert'
 import ScoreData from '../../data/ScoreData'
-import { GameSetType } from '../../type/Type'
+import { GameSetType, JokerBuff } from '../../type/Type'
 
 describe('ScoreData', () => {
   describe('.constructor()', () => {
@@ -190,6 +190,31 @@ describe('ScoreData', () => {
       it ('CounterDenで敗北した場合', () => {
         sd.Type = GameSetType.CounterDen
         assert.equal(sd.getScore(2), -100)
+      })
+    })
+    context('Joker Bonus が計算できる', () => {
+      it('成金 Denで勝利した場合', () => {
+        sd.Type = GameSetType.Den
+        sd.JokerBuff = JokerBuff.Good
+        assert.equal(sd.getScore(1), 200 + 15)
+      })
+
+      it('成金 Denで敗北した場合', () => {
+        sd.Type = GameSetType.Den
+        sd.JokerBuff = JokerBuff.Good
+        assert.equal(sd.getScore(2), -50 - 5)
+      })
+
+      it('一攫千金 Denで勝利した場合', () => {
+        sd.Type = GameSetType.Den
+        sd.JokerBuff = JokerBuff.Awesome
+        assert.equal(sd.getScore(1), 200 + 30)
+      })
+
+      it('一攫千金 Denで敗北した場合', () => {
+        sd.Type = GameSetType.Den
+        sd.JokerBuff = JokerBuff.Awesome
+        assert.equal(sd.getScore(2), -50 - 10)
       })
     })
   })

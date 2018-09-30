@@ -21,7 +21,7 @@ export const CardMarkStrings: { [index: string]: string } = {
 export const DrawActionID = -1
 
 export const CardCosts: { [index: number]: number } = {
-  0: 5,
+  0: 3,
   1: 1,
   2: 2,
   3: 1,
@@ -37,9 +37,6 @@ export const CardCosts: { [index: number]: number } = {
   13: 1,
 }
 
-// CardCost からスコアに換算する際に掛けられるベースの倍率
-export const ScoreRateBase = 10
-
 // CardCost からスコアに換算する際に掛けられる倍率
 export const ScoreRate = 1
 
@@ -47,7 +44,13 @@ export const ScoreRate = 1
 export const ScoreCounterBonusRate = 2
 
 // Pank のスコア
-export const PankScore = 50
+export const PankScore = 10
+
+// JokerBuff.Good の際に加算されるスコア
+export const JokerBuffScoreGood = 5
+
+// JokerBuff.Awesome の際に加算されるスコア
+export const JokerBuffScoreAwesome = 10
 
 export const CardSkillNums: { [index: string]: CardNum } = {
   Skip: 1,
