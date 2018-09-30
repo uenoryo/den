@@ -37,9 +37,6 @@ export const CardCosts: { [index: number]: number } = {
   13: 1,
 }
 
-// CardCost からスコアに換算する際に掛けられる倍率
-export const ScoreRate = 1
-
 // Counterの場合にスコアにかけられる倍率
 export const ScoreCounterBonusRate = 2
 

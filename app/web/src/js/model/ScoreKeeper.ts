@@ -2,16 +2,13 @@ import Storager from '../storage/Storager'
 import ScoreData from '../data/ScoreData'
 import CardData from '../data/CardData'
 import { PlayerID, GameSetType } from '../type/Type'
-import { ScoreRateBase, ScoreRate } from '../constant/Card'
 import Players from '../model/Players'
 
 export default class ScoreKeeper {
   private data: ScoreData[]
   private tmpData: ScoreData | null = null
-  private rate: number
 
   constructor(private storage: Storager) {
-    this.rate = ScoreRateBase * ScoreRate
     this.data = []
   }
 
@@ -26,10 +23,6 @@ export default class ScoreKeeper {
   get DataReversed(): ScoreData[] {
     let data = this.data.slice()
     return data.reverse()
-  }
-
-  get Rate(): number {
-    return this.rate
   }
 
   get LatestScoreData(): ScoreData | null {
