@@ -57,10 +57,10 @@
                     <div v-for='(s, idx) in ScoreKeeper.DataReversed'>
                       <h4>Round {{ ScoreKeeper.Data.length - idx }}</h4>
                       <div class='ScoreList__list blue'>
-                        <div class='ScoreList__item' :class='{"red": s.p1Score < 0 }'>{{ s.p1Score }}</div>
-                        <div class='ScoreList__item' :class='{"red": s.p2Score < 0 }'>{{ s.p2Score }}</div>
-                        <div class='ScoreList__item' :class='{"red": s.p3Score < 0 }'>{{ s.p3Score }}</div>
-                        <div class='ScoreList__item' :class='{"red": s.p4Score < 0 }'>{{ s.p4Score }}</div>
+                        <div class='ScoreList__item' :class='{"red": s.p1ScoreCache < 0 }'>{{ s.p1ScoreCache }}</div>
+                        <div class='ScoreList__item' :class='{"red": s.p2ScoreCache < 0 }'>{{ s.p2ScoreCache }}</div>
+                        <div class='ScoreList__item' :class='{"red": s.p3ScoreCache < 0 }'>{{ s.p3ScoreCache }}</div>
+                        <div class='ScoreList__item' :class='{"red": s.p4ScoreCache < 0 }'>{{ s.p4ScoreCache }}</div>
                       </div>
                     </div>
                   </div>
