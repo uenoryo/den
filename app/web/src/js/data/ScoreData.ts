@@ -1,10 +1,12 @@
 import { PlayerID, GameSetType, JokerBuff } from '../type/Type'
+import { PankScore, ScoreCounterBonusRate } from '../constant/Card'
 
 export default class ScoreData {
   public Type: GameSetType
   public JokerBuff: JokerBuff
   public WinnerID: PlayerID | 0
   public LoserID: PlayerID | 0
+  public ChitoiPower: number
   public Level: number
 
   public p1HandCost: number
@@ -17,6 +19,7 @@ export default class ScoreData {
     this.WinnerID = 0
     this.LoserID = 0
     this.JokerBuff = JokerBuff.None
+    this.ChitoiPower = 0
     this.Level = 1
 
     this.p1HandCost = 0
@@ -25,9 +28,8 @@ export default class ScoreData {
     this.p4HandCost = 0
   }
 
-  get Width(): number {
-    let absSum = Math.abs(this.p1HandCost) + Math.abs(this.p2HandCost) + Math.abs(this.p3HandCost) + Math.abs(this.p4HandCost)
-    return absSum / 2
+  get TotalHandCost(): number {
+    return this.p1HandCost + this.p2HandCost + this.p3HandCost + this.p4HandCost
   }
 
   getHandCost(id: PlayerID | 0): number {
@@ -80,13 +82,68 @@ export default class ScoreData {
     throw new Error(`Invalid Player id:${id}`)
   }
 
-  // validateScore は Winnerのスコアが 0以上で、 Loserのスコアが 0 以下であることと、
-  // Winner と Loserそれぞれのスコアがスコアが Width と一致しているかどうかを返します
   isValidScore(): boolean {
     return true
   }
 
   isValidPlayerID(): boolean {
     return this.WinnerID !== this.LoserID
+  }
+
+  getScore(id: PlayerID | 0): number {
+    switch(this.Type) {
+      case GameSetType.PlainDone:
+        return this.calcScorePlainDone(id)
+      case GameSetType.Pank:
+        return this.calcScorePank(id)
+      case GameSetType.Den:
+        return this.calcScoreDen(id)
+      case GameSetType.Anko:
+        return this.calcScoreAnko(id)
+      case GameSetType.Chitoi:
+        return this.calcScoreChitoi(id)
+      case GameSetType.CounterDen:
+        return this.calcScoreDen(id) * ScoreCounterBonusRate
+      case GameSetType.CounterAnko:
+        return this.calcScoreAnko(id) * ScoreCounterBonusRate
+      case GameSetType.CounterChitoi:
+        return this.calcScoreChitoi(id) * ScoreCounterBonusRate
+    }
+    return 0
+  }
+
+  calcScorePlainDone(id: PlayerID | 0): number {
+    if (id === this.WinnerID) {
+      return this.TotalHandCost
+    }
+    return this.getHandCost(id) * -1
+  }
+
+  calcScorePank(id: PlayerID | 0): number {
+    if (id === this.LoserID) {
+      return PankScore * 3 * -1
+    }
+    return PankScore
+  }
+
+  calcScoreDen(id: PlayerID | 0): number {
+    if (id === this.WinnerID) {
+      return this.TotalHandCost
+    }
+    return this.getHandCost(id) * -1
+  }
+
+  calcScoreAnko(id: PlayerID | 0): number {
+    if (id === this.WinnerID) {
+      return this.TotalHandCost
+    }
+    return this.getHandCost(id) * -1
+  }
+
+  calcScoreChitoi(id: PlayerID | 0): number {
+    if (id === this.WinnerID) {
+      return this.TotalHandCost + this.ChitoiPower
+    }
+    return (this.getHandCost(id) + this.ChitoiPower) * -1
   }
 }

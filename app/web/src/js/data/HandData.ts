@@ -45,6 +45,10 @@ export default class HandData {
     return JokerBuff.None
   }
 
+  get ChitoiPower(): number {
+    return this.pairCount() + 1
+  }
+
   numAmount(num: CardNum): number {
     let amount = 0
     for (let card of this.Cards) {

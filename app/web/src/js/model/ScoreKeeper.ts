@@ -2,7 +2,7 @@ import Storager from '../storage/Storager'
 import ScoreData from '../data/ScoreData'
 import CardData from '../data/CardData'
 import { PlayerID, GameSetType } from '../type/Type'
-import { ScoreRateBase, ScoreRate, ScoreCounterBonusRate, PankScore } from '../constant/Card'
+import { ScoreRateBase, ScoreRate } from '../constant/Card'
 import Players from '../model/Players'
 
 export default class ScoreKeeper {
@@ -72,6 +72,7 @@ export default class ScoreKeeper {
         if (winnerID !== 0 && loserID !== 0) {
           score.addHandCost(loserID, fieldCost)
           score.JokerBuff = players.get(winnerID).Hand.JokerBuff
+          score.ChitoiPower = players.get(winnerID).Hand.ChitoiPower
         }
     }
 
