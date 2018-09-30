@@ -254,16 +254,16 @@ export default class ScoreKeeper {
     for (let score of this.Data) {
       switch(id) {
         case 1:
-          result += score.p1Score
+          result += score.p1HandCost
           break
         case 2:
-          result += score.p2Score
+          result += score.p2HandCost
           break
         case 3:
-          result += score.p3Score
+          result += score.p3HandCost
           break
         case 4:
-          result += score.p4Score
+          result += score.p4HandCost
           break
         default:
           throw new Error(`Invalid Player id:${id}`)

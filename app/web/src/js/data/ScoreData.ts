@@ -1,40 +1,45 @@
-import { PlayerID, GameSetType } from '../type/Type'
+import { PlayerID, GameSetType, JokerBuff } from '../type/Type'
 
 export default class ScoreData {
   public Type: GameSetType
+  public JokerBuff: JokerBuff
   public WinnerID: PlayerID | 0
   public LoserID: PlayerID | 0
+  public Level: number
 
-  public p1Score: number
-  public p2Score: number
-  public p3Score: number
-  public p4Score: number
+  public p1HandCost: number
+  public p2HandCost: number
+  public p3HandCost: number
+  public p4HandCost: number
 
   constructor() {
     this.Type = GameSetType.PlainDone
     this.WinnerID = 0
     this.LoserID = 0
-    this.p1Score = 0
-    this.p2Score = 0
-    this.p3Score = 0
-    this.p4Score = 0
+    this.JokerBuff = JokerBuff.None
+    this.Level = 1
+
+    this.p1HandCost = 0
+    this.p2HandCost = 0
+    this.p3HandCost = 0
+    this.p4HandCost = 0
   }
 
   get Width(): number {
-    let absSum = Math.abs(this.p1Score) + Math.abs(this.p2Score) + Math.abs(this.p3Score) + Math.abs(this.p4Score)
+    let absSum = Math.abs(this.p1HandCost) + Math.abs(this.p2HandCost) + Math.abs(this.p3HandCost) + Math.abs(this.p4HandCost)
     return absSum / 2
   }
 
   getScore(id: PlayerID | 0): number {
     switch(id) {
       case 1:
-        return this.p1Score
+        return this.p1HandCost
       case 2:
-        return this.p2Score
+        return this.p2HandCost
       case 3:
-        return this.p3Score
+        return this.p3HandCost
       case 4:
-        return this.p4Score
+        return this.p4HandCost
     }
     throw new Error(`Invalid Player id:${id}`)
   }
@@ -42,16 +47,16 @@ export default class ScoreData {
   setScore(id: PlayerID | 0, value: number): void {
     switch(id) {
       case 1:
-        this.p1Score = value
+        this.p1HandCost = value
         return
       case 2:
-        this.p2Score = value
+        this.p2HandCost = value
         return
       case 3:
-        this.p3Score = value
+        this.p3HandCost = value
         return
       case 4:
-        this.p4Score = value
+        this.p4HandCost = value
         return
     }
     throw new Error(`Invalid Player id:${id}`)
@@ -60,16 +65,16 @@ export default class ScoreData {
   addScore(id: PlayerID | 0, value: number): void {
     switch(id) {
       case 1:
-        this.p1Score += value
+        this.p1HandCost += value
         return
       case 2:
-        this.p2Score += value
+        this.p2HandCost += value
         return
       case 3:
-        this.p3Score += value
+        this.p3HandCost += value
         return
       case 4:
-        this.p4Score += value
+        this.p4HandCost += value
         return
     }
     throw new Error(`Invalid Player id:${id}`)
@@ -78,16 +83,16 @@ export default class ScoreData {
   subtractScore(id: PlayerID | 0, value: number): void {
     switch(id) {
       case 1:
-        this.p1Score -= value
+        this.p1HandCost -= value
         return
       case 2:
-        this.p2Score -= value
+        this.p2HandCost -= value
         return
       case 3:
-        this.p3Score -= value
+        this.p3HandCost -= value
         return
       case 4:
-        this.p4Score -= value
+        this.p4HandCost -= value
         return
     }
     throw new Error(`Invalid Player id:${id}`)
