@@ -122,18 +122,16 @@ export default class ScoreKeeper {
     data.WinnerID = winnerID
 
     for (let player of players.all()) {
-      if (player.Data.ID !== winnerID) {
-        data.subtractScore(player.Data.ID, player.Hand.Cost * this.Rate)
-        data.addScore(winnerID, player.Hand.Cost * this.Rate)
-      }
+      data.setHandCost(player.Data.ID, player.Hand.Cost)
     }
     return data
   }
 
   writeDen(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
-    if (winnerID === 0) {
-      throw new Error('den requires winnerID')
+    if (winnerID === 0 || loserID === 0) {
+      throw new Error('den requires winnerID and loserID')
     }
+
     data.Type = GameSetType.Den
     data.WinnerID = winnerID
     data.LoserID = loserID
@@ -141,95 +139,115 @@ export default class ScoreKeeper {
     let fieldCost = field === null ? 0 : field.Cost
 
     for (let player of players.all()) {
-      if (player.Data.ID !== winnerID && player.Data.ID !== loserID) {
-        data.subtractScore(player.Data.ID, player.Hand.Cost * this.Rate)
-        data.addScore(winnerID, player.Hand.Cost * this.Rate)
-      } else if (player.Data.ID === loserID) {
-        let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost + fieldCost
-        data.subtractScore(loserID, loserCost * this.Rate)
-        data.addScore(winnerID, loserCost * this.Rate)
+      if (player.Data.ID === loserID) {
+        data.setHandCost(player.Data.ID, player.Hand.Cost + fieldCost)
+      } else {
+        data.setHandCost(player.Data.ID, player.Hand.Cost)
       }
     }
     return data
   }
 
   writeAnko(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
-    return this.writeDen(data, winnerID, loserID, players, field)
-  }
-
-  writeChitoi(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
-    if (winnerID === 0) {
-      throw new Error('chitoi requires winnerID')
+    if (winnerID === 0 || loserID === 0) {
+      throw new Error('chitoi requires winnerID and loserID')
     }
 
-    data.Type = GameSetType.Den
+    data.Type = GameSetType.Anko
     data.WinnerID = winnerID
     data.LoserID = loserID
 
     let fieldCost = field === null ? 0 : field.Cost
-    let bonus = players.get(winnerID).Hand.pairCount() + 1
 
     for (let player of players.all()) {
-      if (player.Data.ID !== winnerID && player.Data.ID !== loserID) {
-        data.subtractScore(player.Data.ID, (player.Hand.Cost + bonus) * this.Rate)
-        data.addScore(winnerID, (player.Hand.Cost + bonus) * this.Rate)
-      } else if (player.Data.ID === loserID) {
-        let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost + fieldCost + bonus
-        data.subtractScore(loserID, loserCost * this.Rate)
-        data.addScore(winnerID, loserCost * this.Rate)
+      if (player.Data.ID === loserID) {
+        data.setHandCost(player.Data.ID, player.Hand.Cost + fieldCost)
+      } else {
+        data.setHandCost(player.Data.ID, player.Hand.Cost)
+      }
+    }
+    return data
+  }
+
+  writeChitoi(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
+    if (winnerID === 0 || loserID === 0) {
+      throw new Error('chitoi requires winnerID and loserID')
+    }
+
+    data.Type = GameSetType.Chitoi
+    data.WinnerID = winnerID
+    data.LoserID = loserID
+
+    let fieldCost = field === null ? 0 : field.Cost
+
+    for (let player of players.all()) {
+      if (player.Data.ID === loserID) {
+        data.setHandCost(player.Data.ID, player.Hand.Cost + fieldCost)
+      } else {
+        data.setHandCost(player.Data.ID, player.Hand.Cost)
       }
     }
     return data
   }
 
   writeCounterDen(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
-    if (winnerID === 0) {
-      throw new Error('den requires winnerID')
+    if (winnerID === 0 || loserID === 0) {
+      throw new Error('den requires winnerID and loserID')
     }
 
-    data.Type = GameSetType.Den
+    data.Type = GameSetType.CounterDen
     data.WinnerID = winnerID
     data.LoserID = loserID
 
     let fieldCost = field === null ? 0 : field.Cost
 
     for (let player of players.all()) {
-      if (player.Data.ID !== winnerID && player.Data.ID !== loserID) {
-        data.subtractScore(player.Data.ID, player.Hand.Cost * this.Rate * ScoreCounterBonusRate)
-        data.addScore(winnerID, player.Hand.Cost * this.Rate * ScoreCounterBonusRate)
-      } else if (player.Data.ID === loserID) {
-        let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost + fieldCost
-        data.subtractScore(loserID, loserCost * this.Rate * ScoreCounterBonusRate)
-        data.addScore(winnerID, loserCost * this.Rate * ScoreCounterBonusRate)
+      if (player.Data.ID === loserID) {
+        data.setHandCost(player.Data.ID, player.Hand.Cost + fieldCost)
+      } else {
+        data.setHandCost(player.Data.ID, player.Hand.Cost)
       }
     }
     return data
   }
 
   writeCounterAnko(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
-    return this.writeCounterDen(data, winnerID, loserID, players, field)
-  }
-
-  writeCounterChitoi(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
-    if (winnerID === 0) {
-      throw new Error('chitoi requires winnerID')
+    if (winnerID === 0 || loserID === 0) {
+      throw new Error('chitoi requires winnerID and loserID')
     }
 
-    data.Type = GameSetType.Den
+    data.Type = GameSetType.CounterAnko
     data.WinnerID = winnerID
     data.LoserID = loserID
 
     let fieldCost = field === null ? 0 : field.Cost
-    let bonus = players.get(winnerID).Hand.pairCount() + 1
 
     for (let player of players.all()) {
-      if (player.Data.ID !== loserID && player.Data.ID !== winnerID) {
-        data.subtractScore(player.Data.ID, (player.Hand.Cost + bonus) * this.Rate * ScoreCounterBonusRate)
-        data.addScore(winnerID, (player.Hand.Cost + bonus) * this.Rate * ScoreCounterBonusRate)
-      } else if (player.Data.ID === loserID) {
-        let loserCost = players.get(winnerID).Hand.Cost + player.Hand.Cost + bonus + fieldCost
-        data.subtractScore(loserID, loserCost * this.Rate * ScoreCounterBonusRate)
-        data.addScore(winnerID, loserCost * this.Rate * ScoreCounterBonusRate)
+      if (player.Data.ID === loserID) {
+        data.setHandCost(player.Data.ID, player.Hand.Cost + fieldCost)
+      } else {
+        data.setHandCost(player.Data.ID, player.Hand.Cost)
+      }
+    }
+    return data
+  }
+
+  writeCounterChitoi(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
+    if (winnerID === 0 || loserID === 0) {
+      throw new Error('den requires winnerID and loserID')
+    }
+
+    data.Type = GameSetType.CounterChitoi
+    data.WinnerID = winnerID
+    data.LoserID = loserID
+
+    let fieldCost = field === null ? 0 : field.Cost
+
+    for (let player of players.all()) {
+      if (player.Data.ID === loserID) {
+        data.setHandCost(player.Data.ID, player.Hand.Cost + fieldCost)
+      } else {
+        data.setHandCost(player.Data.ID, player.Hand.Cost)
       }
     }
     return data
@@ -238,13 +256,6 @@ export default class ScoreKeeper {
   writePank(data: ScoreData, loserID: PlayerID | 0, players: Players): ScoreData {
     data.Type = GameSetType.Pank
     data.LoserID = loserID
-
-    for (let player of players.all()) {
-      if (player.Data.ID !== loserID) {
-        data.addScore(player.Data.ID, PankScore * this.Rate)
-        data.subtractScore(loserID, PankScore * this.Rate)
-      }
-    }
     return data
   }
 

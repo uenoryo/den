@@ -71,25 +71,9 @@ describe('ScoreKeeper', () => {
   describe('.check()', () => {
     context('scoreが正しく設定されているかをチェックできる', () => {
       let sk = new ScoreKeeper(new MockStorage)
-      it('正しいパターンは何も返らない', () => {
-        let sd = new ScoreData
-        sd.LoserID = 1
-        sd.setScore(1, -30)
-        sd.setScore(2, 10)
-        sd.setScore(3, 10)
-        sd.setScore(4, 10)
-        sk.check(sd)
-      })
+      it('正しいパターンは何も返らない')
 
-      it('データが正しくなければエラーを投げる', () => {
-        let sd = new ScoreData
-        sd.LoserID = 1
-        sd.setScore(1, -40)
-        sd.setScore(2, 10)
-        sd.setScore(3, 10)
-        sd.setScore(4, 10)
-        assert.throws(() => { sk.check(sd) })
-      })
+      it('データが正しくなければエラーを投げる')
     })
   })
 
@@ -191,19 +175,19 @@ describe('ScoreKeeper', () => {
       })
 
       it('Player1のID が正しく記録されている', () => {
-        assert.equal(score.getScore(1), 6 * sk.Rate)
+        assert.equal(score.getHandCost(1), players.get(1).Hand.Cost)
       })
 
       it('Player2のID が正しく記録されている', () => {
-        assert.equal(score.getScore(2), 1 * sk.Rate * -1)
+        assert.equal(score.getHandCost(2), players.get(2).Hand.Cost)
       })
 
       it('Player3のID が正しく記録されている', () => {
-        assert.equal(score.getScore(3), 2 * sk.Rate * -1)
+        assert.equal(score.getHandCost(3), players.get(3).Hand.Cost)
       })
 
       it('Player4のID が正しく記録されている', () => {
-        assert.equal(score.getScore(4), 3 * sk.Rate * -1)
+        assert.equal(score.getHandCost(4), players.get(4).Hand.Cost)
       })
     })
   })
@@ -248,20 +232,20 @@ describe('ScoreKeeper', () => {
         assert.equal(score.LoserID, 4)
       })
 
-      it('Player1のID が正しく記録されている', () => {
-        assert.equal(score.getScore(1), 8 * sk.Rate)
+      it('Player1の HandCost が正しく記録されている', () => {
+        assert.equal(score.getHandCost(1), players.get(1).Hand.Cost)
       })
 
-      it('Player2のID が正しく記録されている', () => {
-        assert.equal(score.getScore(2), 1 * sk.Rate * -1)
+      it('Player2の HandCost が正しく記録されている', () => {
+        assert.equal(score.getHandCost(2), players.get(2).Hand.Cost)
       })
 
-      it('Player3のID が正しく記録されている', () => {
-        assert.equal(score.getScore(3), 2 * sk.Rate * -1)
+      it('Player3の HandCost が正しく記録されている', () => {
+        assert.equal(score.getHandCost(3), players.get(3).Hand.Cost)
       })
 
-      it('Player4のID が正しく記録されている', () => {
-        assert.equal(score.getScore(4), 5 * sk.Rate * -1)
+      it('Player4の HandCost が正しく記録されている', () => {
+        assert.equal(score.getHandCost(4), players.get(4).Hand.Cost + fieldCard.Cost)
       })
     })
   })
@@ -308,20 +292,20 @@ describe('ScoreKeeper', () => {
         assert.equal(score.LoserID, 4)
       })
 
-      it('Player1のID が正しく記録されている', () => {
-        assert.equal(score.getScore(1), 10 * sk.Rate)
+      it('Player1の HandCost が正しく記録されている', () => {
+        assert.equal(score.getHandCost(1), players.get(1).Hand.Cost)
       })
 
-      it('Player2のID が正しく記録されている', () => {
-        assert.equal(score.getScore(2), 1 * sk.Rate * -1)
+      it('Player2の HandCost が正しく記録されている', () => {
+        assert.equal(score.getHandCost(2), players.get(2).Hand.Cost)
       })
 
-      it('Player3のID が正しく記録されている', () => {
-        assert.equal(score.getScore(3), 2 * sk.Rate * -1)
+      it('Player3の HandCost が正しく記録されている', () => {
+        assert.equal(score.getHandCost(3), players.get(3).Hand.Cost)
       })
 
-      it('Player4のID が正しく記録されている', () => {
-        assert.equal(score.getScore(4), 7 * sk.Rate * -1)
+      it('Player4の HandCost が正しく記録されている', () => {
+        assert.equal(score.getHandCost(4), players.get(4).Hand.Cost + fieldCard.Cost)
       })
     })
   })
@@ -374,20 +358,20 @@ describe('ScoreKeeper', () => {
         assert.equal(score.LoserID, 4)
       })
 
-      it('Player1のID が正しく記録されている', () => {
-        assert.equal(score.getScore(1), (15 + 5 + 5 + 5 + 1) * sk.Rate)
+      it('Player1の HandCost が正しく記録されている', () => {
+        assert.equal(score.getHandCost(1), players.get(1).Hand.Cost)
       })
 
-      it('Player2のID が正しく記録されている', () => {
-        assert.equal(score.getScore(2), (1 + 5) * sk.Rate * -1)
+      it('Player2の HandCost が正しく記録されている', () => {
+        assert.equal(score.getHandCost(2), players.get(2).Hand.Cost)
       })
 
-      it('Player3のID が正しく記録されている', () => {
-        assert.equal(score.getScore(3), (2 + 5) * sk.Rate * -1)
+      it('Player3の HandCost が正しく記録されている', () => {
+        assert.equal(score.getHandCost(3), players.get(3).Hand.Cost)
       })
 
-      it('Player4のID が正しく記録されている', () => {
-        assert.equal(score.getScore(4), (12 + 5 + 1) * sk.Rate * -1)
+      it('Player4の HandCost が正しく記録されている', () => {
+        assert.equal(score.getHandCost(4), players.get(4).Hand.Cost + fieldCard.Cost)
       })
     })
   })
@@ -413,19 +397,19 @@ describe('ScoreKeeper', () => {
       })
 
       it('Player1のID が正しく記録されている', () => {
-        assert.equal(score.getScore(1), 150 * sk.Rate * -1)
+        assert.equal(score.getHandCost(1), 0)
       })
 
       it('Player2のID が正しく記録されている', () => {
-        assert.equal(score.getScore(2), 50 * sk.Rate)
+        assert.equal(score.getHandCost(2), 0)
       })
 
       it('Player3のID が正しく記録されている', () => {
-        assert.equal(score.getScore(3), 50 * sk.Rate)
+        assert.equal(score.getHandCost(3), 0)
       })
 
       it('Player4のID が正しく記録されている', () => {
-        assert.equal(score.getScore(4), 50 * sk.Rate)
+        assert.equal(score.getHandCost(4), 0)
       })
     })
   })

@@ -30,7 +30,7 @@ export default class ScoreData {
     return absSum / 2
   }
 
-  getScore(id: PlayerID | 0): number {
+  getHandCost(id: PlayerID | 0): number {
     switch(id) {
       case 1:
         return this.p1HandCost
@@ -44,7 +44,7 @@ export default class ScoreData {
     throw new Error(`Invalid Player id:${id}`)
   }
 
-  setScore(id: PlayerID | 0, value: number): void {
+  setHandCost(id: PlayerID | 0, value: number): void {
     switch(id) {
       case 1:
         this.p1HandCost = value
@@ -62,64 +62,9 @@ export default class ScoreData {
     throw new Error(`Invalid Player id:${id}`)
   }
 
-  addScore(id: PlayerID | 0, value: number): void {
-    switch(id) {
-      case 1:
-        this.p1HandCost += value
-        return
-      case 2:
-        this.p2HandCost += value
-        return
-      case 3:
-        this.p3HandCost += value
-        return
-      case 4:
-        this.p4HandCost += value
-        return
-    }
-    throw new Error(`Invalid Player id:${id}`)
-  }
-
-  subtractScore(id: PlayerID | 0, value: number): void {
-    switch(id) {
-      case 1:
-        this.p1HandCost -= value
-        return
-      case 2:
-        this.p2HandCost -= value
-        return
-      case 3:
-        this.p3HandCost -= value
-        return
-      case 4:
-        this.p4HandCost -= value
-        return
-    }
-    throw new Error(`Invalid Player id:${id}`)
-  }
-
   // validateScore は Winnerのスコアが 0以上で、 Loserのスコアが 0 以下であることと、
   // Winner と Loserそれぞれのスコアがスコアが Width と一致しているかどうかを返します
   isValidScore(): boolean {
-    if (this.WinnerID !== 0 && this.getScore(this.WinnerID) < 0) {
-      return false
-    }
-    if (this.LoserID !== 0 && this.getScore(this.LoserID) > 0) {
-      return false
-    }
-
-    if (this.WinnerID === 0 && this.LoserID !== 0) {
-      if (Math.abs(this.getScore(this.LoserID)) !== this.Width) {
-        return false
-      }
-    }
-
-    if (this.LoserID === 0 && this.WinnerID !== 0) {
-      if (this.getScore(this.WinnerID) !== this.Width) {
-        return false
-      }
-    }
-
     return true
   }
 
