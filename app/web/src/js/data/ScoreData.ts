@@ -42,6 +42,10 @@ export default class ScoreData {
     return this.p1HandCost + this.p2HandCost + this.p3HandCost + this.p4HandCost
   }
 
+  get TotalChitoiPower(): number {
+    return this.ChitoiPower * 3
+  }
+
   getHandCost(id: PlayerID | 0): number {
     switch(id) {
       case 1:
@@ -148,6 +152,9 @@ export default class ScoreData {
     if (id === this.WinnerID) {
       return this.TotalHandCost
     }
+    if (id === this.LoserID) {
+      return (this.getHandCost(id) + this.getHandCost(this.WinnerID)) * -1
+    }
     return this.getHandCost(id) * -1
   }
 
@@ -155,12 +162,18 @@ export default class ScoreData {
     if (id === this.WinnerID) {
       return this.TotalHandCost
     }
+    if (id === this.LoserID) {
+      return (this.getHandCost(id) + this.getHandCost(this.WinnerID)) * -1
+    }
     return this.getHandCost(id) * -1
   }
 
   calcScoreChitoi(id: PlayerID | 0): number {
     if (id === this.WinnerID) {
-      return this.TotalHandCost + this.ChitoiPower
+      return this.TotalHandCost + this.TotalChitoiPower
+    }
+    if (id === this.LoserID) {
+      return (this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.ChitoiPower) * -1
     }
     return (this.getHandCost(id) + this.ChitoiPower) * -1
   }
