@@ -1,7 +1,7 @@
 import * as mocha from "mocha"
 import * as assert from 'power-assert'
 import ScoreData from '../../data/ScoreData'
-import { GameSetType } from '../../type/Type'
+import { GameSetType, JokerBuff } from '../../type/Type'
 
 describe('ScoreData', () => {
   describe('.constructor()', () => {
@@ -19,95 +19,202 @@ describe('ScoreData', () => {
       it('LoserID が正しく設定される', () => {
         assert.equal(sd.LoserID, 0)
       })
-
-      it('幅は 0', () => {
-        assert.equal(sd.Width, 0)
-      })
     })
   })
 
-  describe('.addScore()', () => {
+  describe('.getHandCost()', () => {
     let sd = new ScoreData
-    sd.setScore(1, 20)
-    it('指定したプレイヤーのスコアに加算できる', () => {
-      sd.addScore(1, 30)
-      assert.equal(sd.getScore(1), 50)
+    it('手札のコストを返すことができる', () => {
+      sd.p1HandCost = 100
+      assert.equal(sd.getHandCost(1), 100)
     })
   })
 
-  describe('.subtractScore()', () => {
+  describe('.setHandCost()', () => {
     let sd = new ScoreData
-    sd.setScore(1, 20)
-    it('指定したプレイヤーのスコアを減算できる', () => {
-      sd.subtractScore(1, 30)
-      assert.equal(sd.getScore(1), -10)
+    it('手札のコストをセットすることができる', () => {
+      sd.setHandCost(1, 100)
+      assert.equal(sd.p1HandCost, 100)
     })
   })
 
-  describe('.isValidScore()', () => {
-    it('初期値は正常', () => {
-      let sd = new ScoreData
-      assert.equal(sd.isValidScore(), true)
+  describe('.addHandCost()', () => {
+    let sd = new ScoreData
+    it('手札のコストを加算することができる', () => {
+      sd.addHandCost(1, 10)
+      sd.addHandCost(1, 10)
+      sd.addHandCost(1, 10)
+      assert.equal(sd.p1HandCost, 30)
     })
+  })
 
-    it('スコアが正しく入力されていれば true を返す', () => {
-      let sd = new ScoreData
-      sd.WinnerID = 1
-      sd.setScore(1, 150)
-      sd.setScore(2, -50)
-      sd.setScore(3, -50)
-      sd.setScore(4, -50)
-      assert.equal(sd.isValidScore(), true)
-    })
-
-    it('スコアが正しく入力されていれば true を返す (pank)', () => {
-      let sd = new ScoreData
-      sd.LoserID = 1
-      sd.setScore(1, -150)
-      sd.setScore(2, 50)
-      sd.setScore(3, 50)
-      sd.setScore(4, 50)
-      assert.equal(sd.isValidScore(), true)
-    })
-
-    it('widthと一致しない場合は false を返す', () => {
-      let sd = new ScoreData
-      sd.WinnerID = 1
-      sd.setScore(1, 160)
-      sd.setScore(2, -50)
-      sd.setScore(3, -50)
-      sd.setScore(4, -50)
-      assert.equal(sd.isValidScore(), false)
-    })
-
-    it('widthと一致しない場合は false を返す (pank)', () => {
-      let sd = new ScoreData
-      sd.LoserID = 1
-      sd.setScore(1, -160)
-      sd.setScore(2, 50)
-      sd.setScore(3, 50)
-      sd.setScore(4, 50)
-      assert.equal(sd.isValidScore(), false)
-    })
-
-    describe('.isValidPlayerID()', () => {
-      it('初期値は false', () => {
-        let sd = new ScoreData
-        assert.equal(sd.isValidPlayerID(), false)
+  describe('.calcScorePlainDone()', () => {
+    let sd = new ScoreData
+    sd.WinnerID = 1
+    sd.p1HandCost = 0
+    sd.p2HandCost = 20
+    sd.p3HandCost = 20
+    sd.p4HandCost = 20
+    context('PlainDone のスコア計算ができる', () => {
+      it('勝利した場合', () => {
+        assert.equal(sd.calcScorePlainDone(1), 60)
       })
 
-      it('WinnerID と LoserID が違っていれば true を返す', () => {
-        let sd = new ScoreData
-        sd.WinnerID = 1
-        sd.LoserID = 2
-        assert.equal(sd.isValidPlayerID(), true)
+      it('敗北した場合', () => {
+        assert.equal(sd.calcScorePlainDone(2), -20)
       })
 
-      it('WinnerID と LoserID が同じであれば false を返す', () => {
-        let sd = new ScoreData
-        sd.WinnerID = 1
-        sd.LoserID = 1
-        assert.equal(sd.isValidPlayerID(), false)
+      it('勝者と敗者のスコアの合計は0になる', () => {
+        assert.equal(sd.calcScorePlainDone(1) + sd.calcScorePlainDone(2) + sd.calcScorePlainDone(3) + sd.calcScorePlainDone(4), 0)
+      })
+    })
+  })
+
+  describe('.calcScoreDen()', () => {
+    let sd = new ScoreData
+    sd.WinnerID = 1
+    sd.LoserID = 2
+    sd.p1HandCost = 20
+    sd.p2HandCost = 20
+    sd.p3HandCost = 20
+    sd.p4HandCost = 20
+    context('ScoreDen のスコア計算ができる', () => {
+      it('勝利した場合', () => {
+        assert.equal(sd.calcScoreDen(1), 80)
+      })
+
+      it ('敗北した場合 (かけられた)', () => {
+        assert.equal(sd.calcScoreDen(2), -40)
+      })
+
+      it ('敗北した場合 (その他1)', () => {
+        assert.equal(sd.calcScoreDen(3), -20)
+      })
+
+      it ('敗北した場合 (その他2)', () => {
+        assert.equal(sd.calcScoreDen(4), -20)
+      })
+
+      it('勝者と敗者のスコアの合計は0になる', () => {
+        assert.equal(sd.calcScoreDen(1) + sd.calcScoreDen(2) + sd.calcScoreDen(3) + sd.calcScoreDen(4), 0)
+      })
+    })
+  })
+
+  describe('.calcScoreAnko()', () => {
+    let sd = new ScoreData
+    sd.WinnerID = 1
+    sd.LoserID = 2
+    sd.p1HandCost = 30
+    sd.p2HandCost = 30
+    sd.p3HandCost = 30
+    sd.p4HandCost = 30
+    context('ScoreAnko のスコア計算ができる', () => {
+      it('勝利した場合', () => {
+        assert.equal(sd.calcScoreAnko(1), 120)
+      })
+
+      it ('敗北した場合 (かけられた)', () => {
+        assert.equal(sd.calcScoreAnko(2), -60)
+      })
+
+      it ('敗北した場合 (その他1)', () => {
+        assert.equal(sd.calcScoreAnko(3), -30)
+      })
+
+      it ('敗北した場合 (その他2)', () => {
+        assert.equal(sd.calcScoreAnko(4), -30)
+      })
+
+      it('勝者と敗者のスコアの合計は0になる', () => {
+        assert.equal(sd.calcScoreAnko(1) + sd.calcScoreAnko(2) + sd.calcScoreAnko(3) + sd.calcScoreAnko(4), 0)
+      })
+    })
+  })
+
+  describe('.calcScoreChitoi()', () => {
+    let sd = new ScoreData
+    sd.WinnerID = 1
+    sd.LoserID = 2
+    sd.ChitoiPower = 100
+    sd.p1HandCost = 50
+    sd.p2HandCost = 50
+    sd.p3HandCost = 50
+    sd.p4HandCost = 50
+    context('ScoreChitoi のスコア計算ができる', () => {
+      it('勝利した場合', () => {
+        assert.equal(sd.calcScoreChitoi(1), 200 + 300)
+      })
+
+      it ('敗北した場合 (かけられた)', () => {
+        assert.equal(sd.calcScoreChitoi(2), -100 - 100)
+      })
+
+      it ('敗北した場合 (その他1)', () => {
+        assert.equal(sd.calcScoreChitoi(3), -50 - 100)
+      })
+
+      it ('敗北した場合 (その他2)', () => {
+        assert.equal(sd.calcScoreChitoi(4), -50 - 100)
+      })
+
+      it('勝者と敗者のスコアの合計は0になる', () => {
+        assert.equal(sd.calcScoreChitoi(1) + sd.calcScoreChitoi(2) + sd.calcScoreChitoi(3) + sd.calcScoreChitoi(4), 0)
+      })
+    })
+  })
+
+  describe('.getScore()', () => {
+    let sd = new ScoreData
+    sd.WinnerID = 1
+    sd.p1HandCost = 50
+    sd.p2HandCost = 50
+    sd.p3HandCost = 50
+    sd.p4HandCost = 50
+    context('指定されているタイプに応じてスコア計算ができる', () => {
+      it('Denで勝利した場合', () => {
+        sd.Type = GameSetType.Den
+        assert.equal(sd.getScore(1), 200)
+      })
+
+      it('Denで敗北した場合', () => {
+        sd.Type = GameSetType.Den
+        assert.equal(sd.getScore(2), -50)
+      })
+
+      it ('CounterDenで勝利した場合', () => {
+        sd.Type = GameSetType.CounterDen
+        assert.equal(sd.getScore(1), 400)
+      })
+
+      it ('CounterDenで敗北した場合', () => {
+        sd.Type = GameSetType.CounterDen
+        assert.equal(sd.getScore(2), -100)
+      })
+    })
+    context('Joker Bonus が計算できる', () => {
+      it('成金 Denで勝利した場合', () => {
+        sd.Type = GameSetType.Den
+        sd.JokerBuff = JokerBuff.Good
+        assert.equal(sd.getScore(1), 200 + 15)
+      })
+
+      it('成金 Denで敗北した場合', () => {
+        sd.Type = GameSetType.Den
+        sd.JokerBuff = JokerBuff.Good
+        assert.equal(sd.getScore(2), -50 - 5)
+      })
+
+      it('一攫千金 Denで勝利した場合', () => {
+        sd.Type = GameSetType.Den
+        sd.JokerBuff = JokerBuff.Awesome
+        assert.equal(sd.getScore(1), 200 + 30)
+      })
+
+      it('一攫千金 Denで敗北した場合', () => {
+        sd.Type = GameSetType.Den
+        sd.JokerBuff = JokerBuff.Awesome
+        assert.equal(sd.getScore(2), -50 - 10)
       })
     })
   })

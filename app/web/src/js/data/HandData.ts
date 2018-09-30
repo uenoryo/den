@@ -1,4 +1,4 @@
-import { CardNum } from '../type/Type'
+import { CardNum, JokerBuff } from '../type/Type'
 import { CardNums } from '../constant/Card'
 import CardData from './CardData'
 
@@ -27,6 +27,26 @@ export default class HandData {
       cost += this.Cards[idx].Cost
     }
     return cost
+  }
+
+  get JokerBuff(): JokerBuff {
+    let jokerCount = 0
+    for (let card of this.Cards) {
+      if (card.isJoker()) {
+        jokerCount++
+      }
+    }
+    switch (jokerCount) {
+      case 1:
+        return JokerBuff.Good
+      case 2:
+        return JokerBuff.Awesome
+    }
+    return JokerBuff.None
+  }
+
+  get ChitoiPower(): number {
+    return this.pairCount() + 1
   }
 
   numAmount(num: CardNum): number {

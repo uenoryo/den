@@ -57,10 +57,10 @@
                     <div v-for='(s, idx) in ScoreKeeper.DataReversed'>
                       <h4>Round {{ ScoreKeeper.Data.length - idx }}</h4>
                       <div class='ScoreList__list blue'>
-                        <div class='ScoreList__item' :class='{"red": s.p1Score < 0 }'>{{ s.p1Score }}</div>
-                        <div class='ScoreList__item' :class='{"red": s.p2Score < 0 }'>{{ s.p2Score }}</div>
-                        <div class='ScoreList__item' :class='{"red": s.p3Score < 0 }'>{{ s.p3Score }}</div>
-                        <div class='ScoreList__item' :class='{"red": s.p4Score < 0 }'>{{ s.p4Score }}</div>
+                        <div class='ScoreList__item' :class='{"red": s.p1ScoreCache < 0 }'>{{ s.p1ScoreCache }}</div>
+                        <div class='ScoreList__item' :class='{"red": s.p2ScoreCache < 0 }'>{{ s.p2ScoreCache }}</div>
+                        <div class='ScoreList__item' :class='{"red": s.p3ScoreCache < 0 }'>{{ s.p3ScoreCache }}</div>
+                        <div class='ScoreList__item' :class='{"red": s.p4ScoreCache < 0 }'>{{ s.p4ScoreCache }}</div>
                       </div>
                     </div>
                   </div>
@@ -79,6 +79,31 @@
               <div class='modal__body'>
                 <div class='FinishView'>
                   <h3>You {{ ScoreKeeper.LatestWinnerID === Config.MainPlayerID() ? 'WIN' : 'LOSE' }}</h3>
+                  <div class='FinishView__Body'>
+                    <div class='FinishView__Result__Head'>
+                      <h4>{{ ScoreKeeper.LatestScoreData.Type }}</h4>
+                    </div>
+                    <div class='FinishView__Result__Body'>
+                    <table>
+                      <tr>
+                        <th>レベル</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.Level }}</td>
+                      </tr>
+                      <tr>
+                        <th>手札コスト</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.getHandCost(Config.MainPlayerID()) }}</td>
+                      </tr>
+                      <tr v-if='ScoreKeeper.LatestScoreData.IsJokerBuffGood'>
+                        <th>Bonus</th>
+                        <td>成金</td>
+                      </tr>
+                      <tr v-if='ScoreKeeper.LatestScoreData.IsJokerBuffAwesome'>
+                        <th>Bonus</th>
+                        <td>一攫千金</td>
+                      </tr>
+                    </table>
+                    </div>
+                  </div>
                   <div class='FinishView__BtnList'>
                     <div @click='gameReload()' class='StartView__Btn btn'>次へ</div>
                   </div>

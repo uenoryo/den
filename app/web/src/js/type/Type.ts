@@ -85,6 +85,12 @@ export enum GameSetType {
   CounterChitoi,
 }
 
+export enum JokerBuff {
+  None,
+  Good,
+  Awesome,
+}
+
 // スタイルオブジェクト
 export type Style = {
   display: string,

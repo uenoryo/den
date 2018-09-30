@@ -31,7 +31,7 @@ describe('HandData', () => {
 
       it('手札が多いケース', () => {
         let cards = [
-            new CardData(0, 0), // 5
+            new CardData(0, 0), // 3
             new CardData(0, 1), // 1
             new CardData(0, 2), // 2
             new CardData(0, 3), // 1
@@ -42,7 +42,7 @@ describe('HandData', () => {
             new CardData(0, 8), // 3
         ]
         let hd = new HandData(cards)
-        assert.equal(hd.Cost, 16)
+        assert.equal(hd.Cost, 14)
       })
     })
   })
