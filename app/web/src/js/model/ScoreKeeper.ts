@@ -52,32 +52,27 @@ export default class ScoreKeeper {
 
   keep(type: GameSetType, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): void {
     let score = new ScoreData
+    score.Type = type
+    score.WinnerID = winnerID
+    score.LoserID = loserID
+
+    for (let player of players.all()) {
+      score.setHandCost(player.Data.ID, player.Hand.Cost)
+    }
+
+    let fieldCost = field === null ? 0 : field.Cost
 
     switch (type) {
-      case GameSetType.PlainDone:
-        score = this.writePlainDone(score, winnerID, players)
-        break
       case GameSetType.Den:
-        score = this.writeDen(score, winnerID, loserID, players, field)
-        break
       case GameSetType.Anko:
-        score = this.writeAnko(score, winnerID, loserID, players, field)
-        break
       case GameSetType.Chitoi:
-        score = this.writeChitoi(score, winnerID, loserID, players, field)
-        break
       case GameSetType.CounterDen:
-        score = this.writeCounterDen(score, winnerID, loserID, players, field)
-        break
       case GameSetType.CounterAnko:
-        score = this.writeCounterAnko(score, winnerID, loserID, players, field)
-        break
       case GameSetType.CounterChitoi:
-        score = this.writeCounterChitoi(score, winnerID, loserID, players, field)
-        break
-      case GameSetType.Pank:
-        score = this.writePank(score, loserID, players)
-        break
+        if (winnerID !== 0 && loserID !== 0) {
+          score.addHandCost(loserID, fieldCost)
+          score.JokerBuff = players.get(winnerID).Hand.JokerBuff
+        }
     }
 
     this.check(score)
@@ -115,148 +110,6 @@ export default class ScoreKeeper {
   clear(): void {
     this.storage.clearScore()
     this.fetch()
-  }
-
-  writePlainDone(data: ScoreData, winnerID: PlayerID | 0, players: Players): ScoreData {
-    data.Type = GameSetType.PlainDone
-    data.WinnerID = winnerID
-
-    for (let player of players.all()) {
-      data.setHandCost(player.Data.ID, player.Hand.Cost)
-    }
-    return data
-  }
-
-  writeDen(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
-    if (winnerID === 0 || loserID === 0) {
-      throw new Error('den requires winnerID and loserID')
-    }
-
-    data.Type = GameSetType.Den
-    data.WinnerID = winnerID
-    data.LoserID = loserID
-
-    let fieldCost = field === null ? 0 : field.Cost
-
-    for (let player of players.all()) {
-      if (player.Data.ID === loserID) {
-        data.setHandCost(player.Data.ID, player.Hand.Cost + fieldCost)
-      } else {
-        data.setHandCost(player.Data.ID, player.Hand.Cost)
-      }
-    }
-    return data
-  }
-
-  writeAnko(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
-    if (winnerID === 0 || loserID === 0) {
-      throw new Error('chitoi requires winnerID and loserID')
-    }
-
-    data.Type = GameSetType.Anko
-    data.WinnerID = winnerID
-    data.LoserID = loserID
-
-    let fieldCost = field === null ? 0 : field.Cost
-
-    for (let player of players.all()) {
-      if (player.Data.ID === loserID) {
-        data.setHandCost(player.Data.ID, player.Hand.Cost + fieldCost)
-      } else {
-        data.setHandCost(player.Data.ID, player.Hand.Cost)
-      }
-    }
-    return data
-  }
-
-  writeChitoi(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
-    if (winnerID === 0 || loserID === 0) {
-      throw new Error('chitoi requires winnerID and loserID')
-    }
-
-    data.Type = GameSetType.Chitoi
-    data.WinnerID = winnerID
-    data.LoserID = loserID
-
-    let fieldCost = field === null ? 0 : field.Cost
-
-    for (let player of players.all()) {
-      if (player.Data.ID === loserID) {
-        data.setHandCost(player.Data.ID, player.Hand.Cost + fieldCost)
-      } else {
-        data.setHandCost(player.Data.ID, player.Hand.Cost)
-      }
-    }
-    return data
-  }
-
-  writeCounterDen(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
-    if (winnerID === 0 || loserID === 0) {
-      throw new Error('den requires winnerID and loserID')
-    }
-
-    data.Type = GameSetType.CounterDen
-    data.WinnerID = winnerID
-    data.LoserID = loserID
-
-    let fieldCost = field === null ? 0 : field.Cost
-
-    for (let player of players.all()) {
-      if (player.Data.ID === loserID) {
-        data.setHandCost(player.Data.ID, player.Hand.Cost + fieldCost)
-      } else {
-        data.setHandCost(player.Data.ID, player.Hand.Cost)
-      }
-    }
-    return data
-  }
-
-  writeCounterAnko(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
-    if (winnerID === 0 || loserID === 0) {
-      throw new Error('chitoi requires winnerID and loserID')
-    }
-
-    data.Type = GameSetType.CounterAnko
-    data.WinnerID = winnerID
-    data.LoserID = loserID
-
-    let fieldCost = field === null ? 0 : field.Cost
-
-    for (let player of players.all()) {
-      if (player.Data.ID === loserID) {
-        data.setHandCost(player.Data.ID, player.Hand.Cost + fieldCost)
-      } else {
-        data.setHandCost(player.Data.ID, player.Hand.Cost)
-      }
-    }
-    return data
-  }
-
-  writeCounterChitoi(data: ScoreData, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): ScoreData {
-    if (winnerID === 0 || loserID === 0) {
-      throw new Error('den requires winnerID and loserID')
-    }
-
-    data.Type = GameSetType.CounterChitoi
-    data.WinnerID = winnerID
-    data.LoserID = loserID
-
-    let fieldCost = field === null ? 0 : field.Cost
-
-    for (let player of players.all()) {
-      if (player.Data.ID === loserID) {
-        data.setHandCost(player.Data.ID, player.Hand.Cost + fieldCost)
-      } else {
-        data.setHandCost(player.Data.ID, player.Hand.Cost)
-      }
-    }
-    return data
-  }
-
-  writePank(data: ScoreData, loserID: PlayerID | 0, players: Players): ScoreData {
-    data.Type = GameSetType.Pank
-    data.LoserID = loserID
-    return data
   }
 
   // TODO: JSONにした時にメソッドが消えるのでなんとかする

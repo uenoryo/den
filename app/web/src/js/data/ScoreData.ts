@@ -62,6 +62,24 @@ export default class ScoreData {
     throw new Error(`Invalid Player id:${id}`)
   }
 
+  addHandCost(id: PlayerID | 0, value: number): void {
+    switch(id) {
+      case 1:
+        this.p1HandCost += value
+        return
+      case 2:
+        this.p2HandCost += value
+        return
+      case 3:
+        this.p3HandCost += value
+        return
+      case 4:
+        this.p4HandCost += value
+        return
+    }
+    throw new Error(`Invalid Player id:${id}`)
+  }
+
   // validateScore は Winnerのスコアが 0以上で、 Loserのスコアが 0 以下であることと、
   // Winner と Loserそれぞれのスコアがスコアが Width と一致しているかどうかを返します
   isValidScore(): boolean {
