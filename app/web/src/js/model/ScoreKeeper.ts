@@ -95,6 +95,7 @@ export default class ScoreKeeper {
     if (this.tmpData === null) {
       return
     }
+    this.tmpData.cache()
     this.Data.push(this.tmpData)
     this.storage.saveScore(this.Data)
   }
@@ -119,16 +120,16 @@ export default class ScoreKeeper {
     for (let score of this.Data) {
       switch(id) {
         case 1:
-          result += score.p1HandCost
+          result += score.p1ScoreCache
           break
         case 2:
-          result += score.p2HandCost
+          result += score.p2ScoreCache
           break
         case 3:
-          result += score.p3HandCost
+          result += score.p3ScoreCache
           break
         case 4:
-          result += score.p4HandCost
+          result += score.p4ScoreCache
           break
         default:
           throw new Error(`Invalid Player id:${id}`)

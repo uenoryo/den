@@ -14,6 +14,11 @@ export default class ScoreData {
   public p3HandCost: number
   public p4HandCost: number
 
+  public p1ScoreCache: number
+  public p2ScoreCache: number
+  public p3ScoreCache: number
+  public p4ScoreCache: number
+
   constructor() {
     this.Type = GameSetType.PlainDone
     this.WinnerID = 0
@@ -26,6 +31,11 @@ export default class ScoreData {
     this.p2HandCost = 0
     this.p3HandCost = 0
     this.p4HandCost = 0
+
+    this.p1ScoreCache = 0
+    this.p2ScoreCache = 0
+    this.p3ScoreCache = 0
+    this.p4ScoreCache = 0
   }
 
   get TotalHandCost(): number {
@@ -82,6 +92,14 @@ export default class ScoreData {
     throw new Error(`Invalid Player id:${id}`)
   }
 
+  // JSONにする前にメンバ変数に保存しておく必要がある
+  cache(): void {
+    this.p1ScoreCache = this.getScore(1)
+    this.p2ScoreCache = this.getScore(2)
+    this.p3ScoreCache = this.getScore(3)
+    this.p4ScoreCache = this.getScore(4)
+  }
+
   isValidScore(): boolean {
     return true
   }
@@ -93,21 +111,21 @@ export default class ScoreData {
   getScore(id: PlayerID | 0): number {
     switch(this.Type) {
       case GameSetType.PlainDone:
-        return this.calcScorePlainDone(id)
+        return this.calcScorePlainDone(id) * this.Level
       case GameSetType.Pank:
-        return this.calcScorePank(id)
+        return this.calcScorePank(id) * this.Level
       case GameSetType.Den:
-        return this.calcScoreDen(id)
+        return this.calcScoreDen(id) * this.Level
       case GameSetType.Anko:
-        return this.calcScoreAnko(id)
+        return this.calcScoreAnko(id) * this.Level
       case GameSetType.Chitoi:
-        return this.calcScoreChitoi(id)
+        return this.calcScoreChitoi(id) * this.Level
       case GameSetType.CounterDen:
-        return this.calcScoreDen(id) * ScoreCounterBonusRate
+        return this.calcScoreDen(id) * ScoreCounterBonusRate * this.Level
       case GameSetType.CounterAnko:
-        return this.calcScoreAnko(id) * ScoreCounterBonusRate
+        return this.calcScoreAnko(id) * ScoreCounterBonusRate * this.Level
       case GameSetType.CounterChitoi:
-        return this.calcScoreChitoi(id) * ScoreCounterBonusRate
+        return this.calcScoreChitoi(id) * ScoreCounterBonusRate * this.Level
     }
     return 0
   }
