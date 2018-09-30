@@ -60,7 +60,7 @@ export default class ScoreKeeper {
       score.setHandCost(player.Data.ID, player.Hand.Cost)
     }
 
-    let fieldCost = field === null ? 0 : field.Cost
+    let fieldCost = field == null ? 0 : field.Cost
 
     switch (type) {
       case GameSetType.Den:
