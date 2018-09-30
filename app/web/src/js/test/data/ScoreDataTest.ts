@@ -60,8 +60,12 @@ describe('ScoreData', () => {
         assert.equal(sd.calcScorePlainDone(1), 60)
       })
 
-      it ('敗北した場合', () => {
+      it('敗北した場合', () => {
         assert.equal(sd.calcScorePlainDone(2), -20)
+      })
+
+      it('勝者と敗者のスコアの合計は0になる', () => {
+        assert.equal(sd.calcScorePlainDone(1) + sd.calcScorePlainDone(2) + sd.calcScorePlainDone(3) + sd.calcScorePlainDone(4), 0)
       })
     })
   })
@@ -69,6 +73,7 @@ describe('ScoreData', () => {
   describe('.calcScoreDen()', () => {
     let sd = new ScoreData
     sd.WinnerID = 1
+    sd.LoserID = 2
     sd.p1HandCost = 20
     sd.p2HandCost = 20
     sd.p3HandCost = 20
@@ -78,8 +83,20 @@ describe('ScoreData', () => {
         assert.equal(sd.calcScoreDen(1), 80)
       })
 
-      it ('敗北した場合', () => {
-        assert.equal(sd.calcScoreDen(2), -20)
+      it ('敗北した場合 (かけられた)', () => {
+        assert.equal(sd.calcScoreDen(2), -40)
+      })
+
+      it ('敗北した場合 (その他1)', () => {
+        assert.equal(sd.calcScoreDen(3), -20)
+      })
+
+      it ('敗北した場合 (その他2)', () => {
+        assert.equal(sd.calcScoreDen(4), -20)
+      })
+
+      it('勝者と敗者のスコアの合計は0になる', () => {
+        assert.equal(sd.calcScoreDen(1) + sd.calcScoreDen(2) + sd.calcScoreDen(3) + sd.calcScoreDen(4), 0)
       })
     })
   })
@@ -87,6 +104,7 @@ describe('ScoreData', () => {
   describe('.calcScoreAnko()', () => {
     let sd = new ScoreData
     sd.WinnerID = 1
+    sd.LoserID = 2
     sd.p1HandCost = 30
     sd.p2HandCost = 30
     sd.p3HandCost = 30
@@ -96,8 +114,20 @@ describe('ScoreData', () => {
         assert.equal(sd.calcScoreAnko(1), 120)
       })
 
-      it ('敗北した場合', () => {
-        assert.equal(sd.calcScoreAnko(2), -30)
+      it ('敗北した場合 (かけられた)', () => {
+        assert.equal(sd.calcScoreAnko(2), -60)
+      })
+
+      it ('敗北した場合 (その他1)', () => {
+        assert.equal(sd.calcScoreAnko(3), -30)
+      })
+
+      it ('敗北した場合 (その他2)', () => {
+        assert.equal(sd.calcScoreAnko(4), -30)
+      })
+
+      it('勝者と敗者のスコアの合計は0になる', () => {
+        assert.equal(sd.calcScoreAnko(1) + sd.calcScoreAnko(2) + sd.calcScoreAnko(3) + sd.calcScoreAnko(4), 0)
       })
     })
   })
@@ -105,17 +135,31 @@ describe('ScoreData', () => {
   describe('.calcScoreChitoi()', () => {
     let sd = new ScoreData
     sd.WinnerID = 1
+    sd.LoserID = 2
+    sd.ChitoiPower = 100
     sd.p1HandCost = 50
     sd.p2HandCost = 50
     sd.p3HandCost = 50
     sd.p4HandCost = 50
     context('ScoreChitoi のスコア計算ができる', () => {
       it('勝利した場合', () => {
-        assert.equal(sd.calcScoreChitoi(1), 200)
+        assert.equal(sd.calcScoreChitoi(1), 200 + 300)
       })
 
-      it ('敗北した場合', () => {
-        assert.equal(sd.calcScoreChitoi(2), -50)
+      it ('敗北した場合 (かけられた)', () => {
+        assert.equal(sd.calcScoreChitoi(2), -100 - 100)
+      })
+
+      it ('敗北した場合 (その他1)', () => {
+        assert.equal(sd.calcScoreChitoi(3), -50 - 100)
+      })
+
+      it ('敗北した場合 (その他2)', () => {
+        assert.equal(sd.calcScoreChitoi(4), -50 - 100)
+      })
+
+      it('勝者と敗者のスコアの合計は0になる', () => {
+        assert.equal(sd.calcScoreChitoi(1) + sd.calcScoreChitoi(2) + sd.calcScoreChitoi(3) + sd.calcScoreChitoi(4), 0)
       })
     })
   })
