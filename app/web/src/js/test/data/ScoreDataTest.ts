@@ -71,28 +71,29 @@ describe('ScoreData', () => {
   })
 
   describe('.calcScoreDen()', () => {
+    let denScore = 3
     let sd = new ScoreData
     sd.WinnerID = 1
     sd.LoserID = 2
-    sd.p1HandCost = 20
-    sd.p2HandCost = 20
-    sd.p3HandCost = 20
-    sd.p4HandCost = 20
+    sd.p1HandCost = 2
+    sd.p2HandCost = 2
+    sd.p3HandCost = 2
+    sd.p4HandCost = 2
     context('ScoreDen のスコア計算ができる', () => {
       it('勝利した場合', () => {
-        assert.equal(sd.calcScoreDen(1), 80)
+        assert.equal(sd.calcScoreDen(1), 8 + denScore)
       })
 
       it ('敗北した場合 (かけられた)', () => {
-        assert.equal(sd.calcScoreDen(2), -40)
+        assert.equal(sd.calcScoreDen(2), -2 - 2 - denScore)
       })
 
       it ('敗北した場合 (その他1)', () => {
-        assert.equal(sd.calcScoreDen(3), -20)
+        assert.equal(sd.calcScoreDen(3), -2)
       })
 
       it ('敗北した場合 (その他2)', () => {
-        assert.equal(sd.calcScoreDen(4), -20)
+        assert.equal(sd.calcScoreDen(4), -2)
       })
 
       it('勝者と敗者のスコアの合計は0になる', () => {
@@ -102,28 +103,29 @@ describe('ScoreData', () => {
   })
 
   describe('.calcScoreAnko()', () => {
+    let ankoScore = 3
     let sd = new ScoreData
     sd.WinnerID = 1
     sd.LoserID = 2
-    sd.p1HandCost = 30
-    sd.p2HandCost = 30
-    sd.p3HandCost = 30
-    sd.p4HandCost = 30
+    sd.p1HandCost = 3
+    sd.p2HandCost = 3
+    sd.p3HandCost = 3
+    sd.p4HandCost = 3
     context('ScoreAnko のスコア計算ができる', () => {
       it('勝利した場合', () => {
-        assert.equal(sd.calcScoreAnko(1), 120)
+        assert.equal(sd.calcScoreAnko(1), 12 + ankoScore)
       })
 
       it ('敗北した場合 (かけられた)', () => {
-        assert.equal(sd.calcScoreAnko(2), -60)
+        assert.equal(sd.calcScoreAnko(2), -3 - 3 - ankoScore)
       })
 
       it ('敗北した場合 (その他1)', () => {
-        assert.equal(sd.calcScoreAnko(3), -30)
+        assert.equal(sd.calcScoreAnko(3), -3)
       })
 
       it ('敗北した場合 (その他2)', () => {
-        assert.equal(sd.calcScoreAnko(4), -30)
+        assert.equal(sd.calcScoreAnko(4), -3)
       })
 
       it('勝者と敗者のスコアの合計は0になる', () => {
@@ -133,29 +135,30 @@ describe('ScoreData', () => {
   })
 
   describe('.calcScoreChitoi()', () => {
+    let chitoiScore = 5
     let sd = new ScoreData
     sd.WinnerID = 1
     sd.LoserID = 2
-    sd.ChitoiPower = 100
-    sd.p1HandCost = 50
-    sd.p2HandCost = 50
-    sd.p3HandCost = 50
-    sd.p4HandCost = 50
+    sd.ChitoiPower = 10
+    sd.p1HandCost = 5
+    sd.p2HandCost = 5
+    sd.p3HandCost = 5
+    sd.p4HandCost = 5
     context('ScoreChitoi のスコア計算ができる', () => {
       it('勝利した場合', () => {
-        assert.equal(sd.calcScoreChitoi(1), 200 + 300)
+        assert.equal(sd.calcScoreChitoi(1), 5*4 + 10*3 + chitoiScore)
       })
 
       it ('敗北した場合 (かけられた)', () => {
-        assert.equal(sd.calcScoreChitoi(2), -100 - 100)
+        assert.equal(sd.calcScoreChitoi(2), -5 -5 -10 - chitoiScore)
       })
 
       it ('敗北した場合 (その他1)', () => {
-        assert.equal(sd.calcScoreChitoi(3), -50 - 100)
+        assert.equal(sd.calcScoreChitoi(3), -5 - 10)
       })
 
       it ('敗北した場合 (その他2)', () => {
-        assert.equal(sd.calcScoreChitoi(4), -50 - 100)
+        assert.equal(sd.calcScoreChitoi(4), -5 - 10)
       })
 
       it('勝者と敗者のスコアの合計は0になる', () => {
@@ -166,55 +169,57 @@ describe('ScoreData', () => {
 
   describe('.getScore()', () => {
     let sd = new ScoreData
+    let denScore = 3
     sd.WinnerID = 1
-    sd.p1HandCost = 50
-    sd.p2HandCost = 50
-    sd.p3HandCost = 50
-    sd.p4HandCost = 50
+    sd.LoserID = 2
+    sd.p1HandCost = 5
+    sd.p2HandCost = 5
+    sd.p3HandCost = 5
+    sd.p4HandCost = 5
     context('指定されているタイプに応じてスコア計算ができる', () => {
       it('Denで勝利した場合', () => {
         sd.Type = GameSetType.Den
-        assert.equal(sd.getScore(1), 200)
+        assert.equal(sd.getScore(1), 5*4 + denScore)
       })
 
       it('Denで敗北した場合', () => {
         sd.Type = GameSetType.Den
-        assert.equal(sd.getScore(2), -50)
+        assert.equal(sd.getScore(2), -5 -5 - denScore)
       })
 
       it ('CounterDenで勝利した場合', () => {
         sd.Type = GameSetType.CounterDen
-        assert.equal(sd.getScore(1), 400)
+        assert.equal(sd.getScore(1), (5*4 + denScore) * 2)
       })
 
       it ('CounterDenで敗北した場合', () => {
         sd.Type = GameSetType.CounterDen
-        assert.equal(sd.getScore(2), -100)
+        assert.equal(sd.getScore(2), (-5 -5 - denScore) * 2)
       })
     })
     context('Joker Bonus が計算できる', () => {
       it('成金 Denで勝利した場合', () => {
         sd.Type = GameSetType.Den
         sd.JokerBuff = JokerBuff.Good
-        assert.equal(sd.getScore(1), 200 + 9)
+        assert.equal(sd.getScore(1), 5*4 + 3*3 + denScore)
       })
 
       it('成金 Denで敗北した場合', () => {
         sd.Type = GameSetType.Den
         sd.JokerBuff = JokerBuff.Good
-        assert.equal(sd.getScore(2), -50 - 3)
+        assert.equal(sd.getScore(2), -5 -5 -3 - denScore)
       })
 
       it('一攫千金 Denで勝利した場合', () => {
         sd.Type = GameSetType.Den
         sd.JokerBuff = JokerBuff.Awesome
-        assert.equal(sd.getScore(1), 200 + 15)
+        assert.equal(sd.getScore(1), 5*4 + 5*3 + denScore)
       })
 
       it('一攫千金 Denで敗北した場合', () => {
         sd.Type = GameSetType.Den
         sd.JokerBuff = JokerBuff.Awesome
-        assert.equal(sd.getScore(2), -50 - 5)
+        assert.equal(sd.getScore(2), -5 -5 -5 - denScore)
       })
     })
   })

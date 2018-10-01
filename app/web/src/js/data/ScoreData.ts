@@ -1,5 +1,13 @@
 import { PlayerID, GameSetType, JokerBuff } from '../type/Type'
-import { PankScore, ScoreCounterBonusRate, JokerBuffScoreGood, JokerBuffScoreAwesome } from '../constant/Card'
+import {
+  ScoreCounterBonusRate,
+  JokerBuffScoreGood,
+  JokerBuffScoreAwesome,
+  ScoreDen,
+  ScoreAnko,
+  ScoreChitoi,
+  ScorePank,
+} from '../constant/Card'
 
 export default class ScoreData {
   public Type: GameSetType
@@ -165,37 +173,37 @@ export default class ScoreData {
 
   calcScorePank(id: PlayerID | 0): number {
     if (id === this.LoserID) {
-      return PankScore * 3 * -1
+      return ScorePank * 3 * -1
     }
-    return PankScore
+    return ScorePank
   }
 
   calcScoreDen(id: PlayerID | 0): number {
     if (id === this.WinnerID) {
-      return this.TotalHandCost + this.TotalJokerBuffBonus
+      return ScoreDen + this.TotalHandCost + this.TotalJokerBuffBonus
     }
     if (id === this.LoserID) {
-      return (this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus) * -1
+      return (ScoreDen + this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus) * -1
     }
     return (this.getHandCost(id) + this.JokerBuffBonus) * -1
   }
 
   calcScoreAnko(id: PlayerID | 0): number {
     if (id === this.WinnerID) {
-      return this.TotalHandCost + this.TotalJokerBuffBonus
+      return ScoreAnko + this.TotalHandCost + this.TotalJokerBuffBonus
     }
     if (id === this.LoserID) {
-      return (this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus) * -1
+      return (ScoreAnko + this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus) * -1
     }
     return (this.getHandCost(id) + this.JokerBuffBonus) * -1
   }
 
   calcScoreChitoi(id: PlayerID | 0): number {
     if (id === this.WinnerID) {
-      return this.TotalHandCost + this.TotalJokerBuffBonus + this.TotalChitoiPower
+      return ScoreChitoi + this.TotalHandCost + this.TotalJokerBuffBonus + this.TotalChitoiPower
     }
     if (id === this.LoserID) {
-      return (this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus + this.ChitoiPower) * -1
+      return (ScoreChitoi + this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus + this.ChitoiPower) * -1
     }
     return (this.getHandCost(id) + this.JokerBuffBonus + this.ChitoiPower) * -1
   }

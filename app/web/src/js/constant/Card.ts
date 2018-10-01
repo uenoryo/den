@@ -40,8 +40,13 @@ export const CardCosts: { [index: number]: number } = {
 // Counterの場合にスコアにかけられる倍率
 export const ScoreCounterBonusRate = 2
 
-// Pank のスコア
-export const PankScore = 10
+export const ScoreDen = 3
+
+export const ScoreAnko = 3
+
+export const ScoreChitoi = 5
+
+export const ScorePank = 5
 
 // JokerBuff.Good の際に加算されるスコア
 export const JokerBuffScoreGood = 3
