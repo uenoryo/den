@@ -81,7 +81,7 @@
                   <h3>You {{ ScoreKeeper.LatestWinnerID === Config.MainPlayerID() ? 'WIN' : 'LOSE' }}</h3>
                   <div class='FinishView__Body'>
                     <div class='FinishView__Result__Head'>
-                      <h4>{{ ScoreKeeper.LatestScoreData.Type }}</h4>
+                      <h4>{{ ScoreKeeper.LatestScoreData.JokerBuffString }} {{ ScoreKeeper.LatestScoreData.GameSetTypeString }}</h4>
                     </div>
                     <div class='FinishView__Result__Body'>
                     <table>
@@ -90,16 +90,56 @@
                         <td>{{ ScoreKeeper.LatestScoreData.Level }}</td>
                       </tr>
                       <tr>
+                        <th>{{ ScoreKeeper.LatestScoreData.GameSetTypeString }}</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.RoleScore }}</td>
+                      </tr>
+                    </table>
+                    <table v-if='ScoreKeeper.LatestWinnerID === Config.MainPlayerID()'>
+                      <tr>
+                        <th>あなたの手札コスト</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.getHandCost(1) }}</td>
+                      </tr>
+                      <tr>
+                        <th>COM1の手札コスト</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.getHandCost(2) }}</td>
+                      </tr>
+                      <tr>
+                        <th>COM2の手札コスト</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.getHandCost(3) }}</td>
+                      </tr>
+                      <tr>
+                        <th>COM3の手札コスト</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.getHandCost(4) }}</td>
+                      </tr>
+                      <tr v-if='ScoreKeeper.LatestScoreData.IsJokerBuffGood'>
+                        <th>成金</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.TotalJokerBuffBonus }}</td>
+                      </tr>
+                      <tr v-if='ScoreKeeper.LatestScoreData.IsJokerBuffAwesome'>
+                        <th>一攫千金</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.TotalJokerBuffBonus }}</td>
+                      </tr>
+                      <tr>
+                        <th>計</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.getScore(Config.MainPlayerID()) }}</td>
+                      </tr>
+                    </table>
+                    <table v-else>
+                      <tr>
                         <th>手札コスト</th>
                         <td>{{ ScoreKeeper.LatestScoreData.getHandCost(Config.MainPlayerID()) }}</td>
                       </tr>
                       <tr v-if='ScoreKeeper.LatestScoreData.IsJokerBuffGood'>
-                        <th>Bonus</th>
-                        <td>成金</td>
+                        <th>成金</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.TotalJokerBuffBonus }}</td>
                       </tr>
                       <tr v-if='ScoreKeeper.LatestScoreData.IsJokerBuffAwesome'>
-                        <th>Bonus</th>
-                        <td>一攫千金</td>
+                        <th>一攫千金</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.TotalJokerBuffBonus }}</td>
+                      </tr>
+                      <tr>
+                        <th>計</th>
+                        <td>{{ ScoreKeeper.LatestScoreData.getScore(Config.MainPlayerID()) }}</td>
                       </tr>
                     </table>
                     </div>

@@ -32,15 +32,20 @@ export default class ScoreKeeper {
     return this.Data[this.Data.length - 1]
   }
 
-  get LatestWinnerID(): PlayerID | null {
+  get LatestWinnerID(): PlayerID | 0 {
     let latestScore = this.LatestScoreData
     if (latestScore === null) {
-      return null
-    }
-    if (latestScore.WinnerID === 0) {
-      return null
+      return 0
     }
     return latestScore.WinnerID
+  }
+
+  get LatestLoserID(): PlayerID | 0 {
+    let latestScore = this.LatestScoreData
+    if (latestScore === null) {
+      return 0
+    }
+    return latestScore.LoserID
   }
 
   keep(type: GameSetType, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): void {

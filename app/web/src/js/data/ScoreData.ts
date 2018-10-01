@@ -1,5 +1,13 @@
 import { PlayerID, GameSetType, JokerBuff } from '../type/Type'
-import { PankScore, ScoreCounterBonusRate, JokerBuffScoreGood, JokerBuffScoreAwesome } from '../constant/Card'
+import {
+  ScoreCounterBonusRate,
+  JokerBuffScoreGood,
+  JokerBuffScoreAwesome,
+  ScoreDen,
+  ScoreAnko,
+  ScoreChitoi,
+  ScorePank,
+} from '../constant/Card'
 
 export default class ScoreData {
   public Type: GameSetType
@@ -56,8 +64,54 @@ export default class ScoreData {
     return 0
   }
 
+  get JokerBuffString() : string {
+    switch(this.JokerBuff) {
+      case JokerBuff.Good:
+        return '成金'
+      case JokerBuff.Awesome:
+        return '一攫千金'
+    }
+    return ''
+  }
+
+  get GameSetTypeString() : string {
+    switch(this.Type) {
+      case GameSetType.PlainDone:
+        return '素上がり'
+      case GameSetType.Pank:
+        return 'パンク'
+      case GameSetType.Den:
+        return 'デン'
+      case GameSetType.Anko:
+        return '暗刻'
+      case GameSetType.Chitoi:
+        return 'チートイ'
+      case GameSetType.CounterDen:
+        return 'デン返し'
+      case GameSetType.CounterAnko:
+        return '暗刻返し'
+      case GameSetType.CounterChitoi:
+        return 'チートイ返し'
+    }
+    return ''
+  }
+
   get TotalJokerBuffBonus(): number {
     return this.JokerBuffBonus * 3
+  }
+
+  get RoleScore(): number {
+    switch(this.Type) {
+      case GameSetType.Den:
+        return ScoreDen
+      case GameSetType.Anko:
+        return ScoreAnko
+      case GameSetType.Chitoi:
+        return ScoreChitoi
+      case GameSetType.Pank:
+        return ScorePank
+    }
+    return 0
   }
 
   get IsJokerBuffGood(): boolean {
@@ -165,37 +219,37 @@ export default class ScoreData {
 
   calcScorePank(id: PlayerID | 0): number {
     if (id === this.LoserID) {
-      return PankScore * 3 * -1
+      return this.RoleScore * 3 * -1
     }
-    return PankScore
+    return this.RoleScore
   }
 
   calcScoreDen(id: PlayerID | 0): number {
     if (id === this.WinnerID) {
-      return this.TotalHandCost + this.TotalJokerBuffBonus
+      return this.RoleScore + this.TotalHandCost + this.TotalJokerBuffBonus
     }
     if (id === this.LoserID) {
-      return (this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus) * -1
+      return (this.RoleScore + this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus) * -1
     }
     return (this.getHandCost(id) + this.JokerBuffBonus) * -1
   }
 
   calcScoreAnko(id: PlayerID | 0): number {
     if (id === this.WinnerID) {
-      return this.TotalHandCost + this.TotalJokerBuffBonus
+      return this.RoleScore + this.TotalHandCost + this.TotalJokerBuffBonus
     }
     if (id === this.LoserID) {
-      return (this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus) * -1
+      return (this.RoleScore + this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus) * -1
     }
     return (this.getHandCost(id) + this.JokerBuffBonus) * -1
   }
 
   calcScoreChitoi(id: PlayerID | 0): number {
     if (id === this.WinnerID) {
-      return this.TotalHandCost + this.TotalJokerBuffBonus + this.TotalChitoiPower
+      return this.RoleScore + this.TotalHandCost + this.TotalJokerBuffBonus + this.TotalChitoiPower
     }
     if (id === this.LoserID) {
-      return (this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus + this.ChitoiPower) * -1
+      return (this.RoleScore + this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus + this.ChitoiPower) * -1
     }
     return (this.getHandCost(id) + this.JokerBuffBonus + this.ChitoiPower) * -1
   }

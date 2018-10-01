@@ -167,40 +167,52 @@ describe('Dealer', () => {
   })
 
   describe('.restore()', () => {
-    it('フィールドと全プレイヤーの手札を全てデッキに入れられる', () => {
+    describe('フィールドと全プレイヤーの手札を全てデッキに入れられる', () => {
       let deck = new DeckData([
         new CardData(0, 1),
-        new CardData(1, 2),
-        new CardData(2, 3),
-        new CardData(3, 4),
+        new CardData(0, 2),
+        new CardData(0, 3),
+        new CardData(0, 4),
       ])
       let dealer = new Dealer(deck)
       dealer.put()
       dealer.put()
       dealer.put()
+      deck.Cards[0].changeMark(1)
 
       let players = testPlayers()
 
       players.get(1).Hand = new HandData([
-        new CardData(1, 9),
+        new CardData(0, 5),
       ])
       players.get(2).Hand = new HandData([
-        new CardData(0, 1),
+        new CardData(0, 6),
       ])
 
       players.get(3).Hand = new HandData([
-        new CardData(1, 3),
-        new CardData(1, 4),
+        new CardData(0, 7),
+        new CardData(0, 8),
       ])
 
       players.get(4).Hand = new HandData([
-        new CardData(1, 5),
-        new CardData(1, 6),
+        new CardData(0, 9),
+        new CardData(0, 10),
       ])
 
-      dealer.restore(players)
+      it('デッキの長さが全てのカードの合計になっている', () => {
+        dealer.restore(players)
+        assert.equal(deck.Cards.length, 10)
+      })
 
-      assert.equal(deck.Cards.length, 10)
+      it('マークは元に戻っているのでdiamondのカードは存在しない', () => {
+        let existsDiamond = false
+        for (let card of dealer.Deck.Cards) {
+          if (card.Mark === 1) {
+            existsDiamond = true
+          }
+          assert.equal(existsDiamond, false)
+        }
+      })
     })
   })
 

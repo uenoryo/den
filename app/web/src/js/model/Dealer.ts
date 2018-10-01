@@ -124,6 +124,9 @@ export default class Dealer {
         this.Deck.Cards.push(card)
       }
     }
+    for (let card of this.Deck.Cards) {
+      card.changeMark(card.InitailMark)
+    }
   }
 
   shouldMaintenance(): boolean {
