@@ -49,6 +49,22 @@ html, body {
   }
 }
 
+.FinishView {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__Body {
+    height: 100%;
+    table {
+      width: 100%;
+      text-align: left;
+      td {
+        width: 15%;
+      }
+    }
+  }
+}
+
 .ScoreList {
   overflow: scroll;
   padding: 16px;

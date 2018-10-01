@@ -68,6 +68,20 @@ export default class ScoreData {
     return this.JokerBuffBonus * 3
   }
 
+  get RoleScore(): number {
+    switch(this.Type) {
+      case GameSetType.Den:
+        return ScoreDen
+      case GameSetType.Anko:
+        return ScoreAnko
+      case GameSetType.Chitoi:
+        return ScoreChitoi
+      case GameSetType.Pank:
+        return ScorePank
+    }
+    return 0
+  }
+
   get IsJokerBuffGood(): boolean {
     return this.JokerBuff === JokerBuff.Good
   }
@@ -173,37 +187,37 @@ export default class ScoreData {
 
   calcScorePank(id: PlayerID | 0): number {
     if (id === this.LoserID) {
-      return ScorePank * 3 * -1
+      return this.RoleScore * 3 * -1
     }
-    return ScorePank
+    return this.RoleScore
   }
 
   calcScoreDen(id: PlayerID | 0): number {
     if (id === this.WinnerID) {
-      return ScoreDen + this.TotalHandCost + this.TotalJokerBuffBonus
+      return this.RoleScore + this.TotalHandCost + this.TotalJokerBuffBonus
     }
     if (id === this.LoserID) {
-      return (ScoreDen + this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus) * -1
+      return (this.RoleScore + this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus) * -1
     }
     return (this.getHandCost(id) + this.JokerBuffBonus) * -1
   }
 
   calcScoreAnko(id: PlayerID | 0): number {
     if (id === this.WinnerID) {
-      return ScoreAnko + this.TotalHandCost + this.TotalJokerBuffBonus
+      return this.RoleScore + this.TotalHandCost + this.TotalJokerBuffBonus
     }
     if (id === this.LoserID) {
-      return (ScoreAnko + this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus) * -1
+      return (this.RoleScore + this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus) * -1
     }
     return (this.getHandCost(id) + this.JokerBuffBonus) * -1
   }
 
   calcScoreChitoi(id: PlayerID | 0): number {
     if (id === this.WinnerID) {
-      return ScoreChitoi + this.TotalHandCost + this.TotalJokerBuffBonus + this.TotalChitoiPower
+      return this.RoleScore + this.TotalHandCost + this.TotalJokerBuffBonus + this.TotalChitoiPower
     }
     if (id === this.LoserID) {
-      return (ScoreChitoi + this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus + this.ChitoiPower) * -1
+      return (this.RoleScore + this.getHandCost(id) + this.getHandCost(this.WinnerID) + this.JokerBuffBonus + this.ChitoiPower) * -1
     }
     return (this.getHandCost(id) + this.JokerBuffBonus + this.ChitoiPower) * -1
   }
