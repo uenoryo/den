@@ -64,6 +64,38 @@ export default class ScoreData {
     return 0
   }
 
+  get JokerBuffString() : string {
+    switch(this.JokerBuff) {
+      case JokerBuff.Good:
+        return '成金'
+      case JokerBuff.Awesome:
+        return '一攫千金'
+    }
+    return ''
+  }
+
+  get GameSetTypeString() : string {
+    switch(this.Type) {
+      case GameSetType.PlainDone:
+        return '素上がり'
+      case GameSetType.Pank:
+        return 'パンク'
+      case GameSetType.Den:
+        return 'デン'
+      case GameSetType.Anko:
+        return '暗刻'
+      case GameSetType.Chitoi:
+        return 'チートイ'
+      case GameSetType.CounterDen:
+        return 'デン返し'
+      case GameSetType.CounterAnko:
+        return '暗刻返し'
+      case GameSetType.CounterChitoi:
+        return 'チートイ返し'
+    }
+    return ''
+  }
+
   get TotalJokerBuffBonus(): number {
     return this.JokerBuffBonus * 3
   }

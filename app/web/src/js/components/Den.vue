@@ -81,7 +81,7 @@
                   <h3>You {{ ScoreKeeper.LatestWinnerID === Config.MainPlayerID() ? 'WIN' : 'LOSE' }}</h3>
                   <div class='FinishView__Body'>
                     <div class='FinishView__Result__Head'>
-                      <h4>{{ ScoreKeeper.LatestScoreData.JokerBuff }} {{ ScoreKeeper.LatestScoreData.Type }}</h4>
+                      <h4>{{ ScoreKeeper.LatestScoreData.JokerBuffString }} {{ ScoreKeeper.LatestScoreData.GameSetTypeString }}</h4>
                     </div>
                     <div class='FinishView__Result__Body'>
                     <table>
@@ -90,7 +90,7 @@
                         <td>{{ ScoreKeeper.LatestScoreData.Level }}</td>
                       </tr>
                       <tr>
-                        <th>{{ ScoreKeeper.LatestScoreData.Type }}</th>
+                        <th>{{ ScoreKeeper.LatestScoreData.GameSetTypeString }}</th>
                         <td>{{ ScoreKeeper.LatestScoreData.RoleScore }}</td>
                       </tr>
                     </table>
