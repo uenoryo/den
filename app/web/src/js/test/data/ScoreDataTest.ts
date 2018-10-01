@@ -196,25 +196,25 @@ describe('ScoreData', () => {
       it('成金 Denで勝利した場合', () => {
         sd.Type = GameSetType.Den
         sd.JokerBuff = JokerBuff.Good
-        assert.equal(sd.getScore(1), 200 + 15)
+        assert.equal(sd.getScore(1), 200 + 9)
       })
 
       it('成金 Denで敗北した場合', () => {
         sd.Type = GameSetType.Den
         sd.JokerBuff = JokerBuff.Good
-        assert.equal(sd.getScore(2), -50 - 5)
+        assert.equal(sd.getScore(2), -50 - 3)
       })
 
       it('一攫千金 Denで勝利した場合', () => {
         sd.Type = GameSetType.Den
         sd.JokerBuff = JokerBuff.Awesome
-        assert.equal(sd.getScore(1), 200 + 30)
+        assert.equal(sd.getScore(1), 200 + 15)
       })
 
       it('一攫千金 Denで敗北した場合', () => {
         sd.Type = GameSetType.Den
         sd.JokerBuff = JokerBuff.Awesome
-        assert.equal(sd.getScore(2), -50 - 10)
+        assert.equal(sd.getScore(2), -50 - 5)
       })
     })
   })

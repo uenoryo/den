@@ -44,10 +44,10 @@ export const ScoreCounterBonusRate = 2
 export const PankScore = 10
 
 // JokerBuff.Good の際に加算されるスコア
-export const JokerBuffScoreGood = 5
+export const JokerBuffScoreGood = 3
 
 // JokerBuff.Awesome の際に加算されるスコア
-export const JokerBuffScoreAwesome = 10
+export const JokerBuffScoreAwesome = 5
 
 export const CardSkillNums: { [index: string]: CardNum } = {
   Skip: 1,
