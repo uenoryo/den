@@ -39,6 +39,7 @@ html, body {
   &__Body {
     table {
       width: 100%;
+      font-size: 14px;
     }
   }
   hr {
@@ -50,6 +51,50 @@ html, body {
 }
 
 .FinishView {
+  h3 {
+    padding: 16px;
+    font-size: 26px;
+    letter-spacing: 2px;
+  }
+  &__Result {
+    &__Head {
+      h4 {
+        font-size: 20px;
+        letter-spacing: 2px;
+        border-bottom: 1px solid #fff;
+        padding-bottom: 4px;
+        margin-bottom: 16px;
+      }
+    }
+    &__LevelText {
+      font-size: 14px;
+      padding-left: 4px;
+      letter-spacing: 2px;
+    }
+    &__Main, &__Sub {
+      table {
+        font-size: 14px;
+      }
+      tr {
+        border-bottom: 1px solid #fbec3566;
+      }
+      th {
+        padding: 12px 8px 4px;
+      }
+      td {
+        text-align: right;
+        padding-right: 12px;
+      }
+    }
+    &__Sub {
+      table {
+        font-size: 20px;
+      }
+      tr {
+        border-bottom: 1px solid #fff;
+      }
+    }
+  }
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -72,13 +117,14 @@ html, body {
   border-radius: 4px;
   margin-top: 8px;
   h4 {
-    font-size: 12px;
+    font-size: 16px;
   }
   &__list {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #fff;
     margin-bottom: 24px;
+    font-size: 14px;
   }
   &__item {
     padding: 4px;
@@ -365,6 +411,7 @@ html, body {
   color: #121612;
   font-weight: bold;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .open {
