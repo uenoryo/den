@@ -47,9 +47,9 @@ describe('ScoreKeeper', () => {
         sk.save()
         assert.equal(sk.LatestWinnerID, 3)
       })
-      it('データが存在しなければnull', () => {
+      it('データが存在しなければ 0', () => {
         let sk = new ScoreKeeper(new MockStorage)
-        assert.equal(sk.LatestWinnerID, null)
+        assert.equal(sk.LatestWinnerID, 0)
       })
     })
   })

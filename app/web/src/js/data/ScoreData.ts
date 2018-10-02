@@ -103,10 +103,13 @@ export default class ScoreData {
   get RoleScore(): number {
     switch(this.Type) {
       case GameSetType.Den:
+      case GameSetType.CounterDen:
         return ScoreDen
       case GameSetType.Anko:
+      case GameSetType.CounterAnko:
         return ScoreAnko
       case GameSetType.Chitoi:
+      case GameSetType.CounterChitoi:
         return ScoreChitoi
       case GameSetType.Pank:
         return ScorePank
