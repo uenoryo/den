@@ -67,7 +67,7 @@ export default {
     },
 
     computerPutAction() {
-      if (!this.turnPlayer().isComputer()) {
+      if (!this.isGameMain() || !this.turnPlayer().isComputer()) {
         return
       }
 

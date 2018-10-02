@@ -24,7 +24,7 @@ export default {
 
     dealerChangeTurnPlayer() {
       let id = this.ScoreKeeper.LatestWinnerID
-      if (id === null) {
+      if (id === null || id === 0) {
         id = Constants.InitialStartTurnPlayerID
       }
       this.Dealer.changeTurnPlayer(id)

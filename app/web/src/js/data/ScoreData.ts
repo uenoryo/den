@@ -103,10 +103,13 @@ export default class ScoreData {
   get RoleScore(): number {
     switch(this.Type) {
       case GameSetType.Den:
+      case GameSetType.CounterDen:
         return ScoreDen
       case GameSetType.Anko:
+      case GameSetType.CounterAnko:
         return ScoreAnko
       case GameSetType.Chitoi:
+      case GameSetType.CounterChitoi:
         return ScoreChitoi
       case GameSetType.Pank:
         return ScorePank
@@ -134,6 +137,13 @@ export default class ScoreData {
         return this.p4HandCost
     }
     throw new Error(`Invalid Player id:${id}`)
+  }
+
+  getMergedHandCost(id: PlayerID | 0): number {
+    if (id === this.LoserID && this.WinnerID !== 0) {
+      return this.getHandCost(id) + this.getHandCost(this.WinnerID)
+    }
+    return this.getHandCost(id)
   }
 
   setHandCost(id: PlayerID | 0, value: number): void {
