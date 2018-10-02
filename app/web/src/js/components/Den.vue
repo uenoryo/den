@@ -127,7 +127,7 @@
                     <table v-else>
                       <tr>
                         <th>手札コスト</th>
-                        <td>{{ ScoreKeeper.LatestScoreData.getHandCost(Config.MainPlayerID()) }}</td>
+                        <td>{{ ScoreKeeper.LatestScoreData.getMergedHandCost(Config.MainPlayerID()) }}</td>
                       </tr>
                       <tr v-if='ScoreKeeper.LatestScoreData.IsJokerBuffGood'>
                         <th>成金</th>

@@ -136,6 +136,13 @@ export default class ScoreData {
     throw new Error(`Invalid Player id:${id}`)
   }
 
+  getMergedHandCost(id: PlayerID | 0): number {
+    if (id === this.LoserID && this.WinnerID !== 0) {
+      return this.getHandCost(id) + this.getHandCost(this.WinnerID)
+    }
+    return this.getHandCost(id)
+  }
+
   setHandCost(id: PlayerID | 0, value: number): void {
     switch(id) {
       case 1:
