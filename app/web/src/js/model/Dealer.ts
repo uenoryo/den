@@ -166,4 +166,8 @@ export default class Dealer {
   changePhase(phase: Phase): void {
     this.phase.Value = phase
   }
+
+  initPhase(): void {
+    this.phase.Value = Phase.Normal
+  }
 }
