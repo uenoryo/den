@@ -10,26 +10,7 @@
       </div>
 
       <div class='denActionArea' @click='den(Config.MainPlayerID())'></div>
-
-      <div v-if='Phase === GamePhase.Start' id="GameStartView">
-        <div class='modal open'>
-          <div class='modal__inner modal__inner--full'>
-            <div class='modal__body'>
-              <div class='StartView'>
-                <h3>DEN</h3>
-                <div class='StartView__BtnList'>
-                  <div @click='gamePrepare(true)' class='StartView__Btn btn'>はじめから</div>
-                  <div @click='gamePrepare(false)' class='StartView__Btn btn'>つづきから</div>
-                  <div @click='howTo()' class='StartView__Btn btn'>あそびかた</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div v-else id="GameMainView">
-
+      <div id="GameMainView">
         <div v-if='Phase === GamePhase.Prepare' id="GameStartView">
           <div class='modal modal--hard open'>
             <div class='modal__inner modal__inner--full'>
@@ -302,7 +283,7 @@ export default {
 
       this.GamePhase = GamePhase
 
-      this.Phase = GamePhase.Start
+      this.Phase = GamePhase.Prepare
 
       this.God = this.godBirth()
 
@@ -430,10 +411,6 @@ export default {
       this.dealerResotre()
       this.setup()
       this.Phase = GamePhase.Prepare
-    },
-
-    howTo() {
-      alert('手札がなくなるかDENしたら勝ち')
     },
   }
 }
