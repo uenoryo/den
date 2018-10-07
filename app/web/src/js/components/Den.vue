@@ -246,12 +246,12 @@
 </template>
 
 <script>
-import GodService from './GodService'
-import DealerService from './DealerService'
-import RefereeService from './RefereeService'
-import ComputerService from './ComputerService'
-import AnimationService from './AnimationService'
-import DebugService from './DebugService'
+import GodService from '../service/GodService'
+import DealerService from '../service/DealerService'
+import RefereeService from '../service/RefereeService'
+import ComputerService from '../service/ComputerService'
+import AnimationService from '../service/AnimationService'
+import DebugService from '../service/DebugService'
 import { Constants } from '../constant/Basic'
 import { ReplyAction, GamePhase } from '../type/Type'
 import Config from '../config/Config'
