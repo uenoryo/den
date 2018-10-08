@@ -10,7 +10,7 @@
                 <router-link :to="{ name: 'den' }">
                   <div @click='gamePrepare(false)' class='StartView__Btn btn'>あそぶ</div>
                 </router-link>
-                <div @click='howTo()' class='StartView__Btn btn'>あそびかた</div>
+                <div @click='howTo()' class='StartView__Btn btn'>{{ status ? status.Current : 'NONE' }}</div>
               </div>
             </div>
           </div>
@@ -30,11 +30,13 @@ export default {
   ],
 
   data () {
-    return {}
+    return {
+      status: null
+    }
   },
 
   beforeMount() {
-    this.apiClientPostSignup({'platform': 1})
+    this.status = this.apiClientPostSignup({'platform': 1})
   },
 
   methods: {
