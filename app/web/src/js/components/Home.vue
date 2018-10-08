@@ -1,8 +1,5 @@
 <template>
   <div class='gameContainer' id='View'>
-    <div class='ads'>
-      ads
-    </div>
     <div class='game'>
       <div class='modal open'>
         <div class='modal__inner modal__inner--full'>
@@ -24,11 +21,20 @@
 </template>
 
 <script>
+import APIClientService from '../service/APIClientService'
+
 export default {
   name: 'Home',
+  mixins: [
+    APIClientService,
+  ],
 
   data () {
     return {}
+  },
+
+  beforeMount() {
+    this.apiClientPostSignup({'platform': 1})
   },
 
   methods: {
