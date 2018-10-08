@@ -114,3 +114,12 @@ export enum Lang {
 export enum PreferenceKey {
   LangIsEnglish,
 }
+
+// リクエストのステータス
+export enum RequestStatusType {
+  Initial,
+  Waiting,
+  Success,
+  Fail,
+  Timeout,
+}
