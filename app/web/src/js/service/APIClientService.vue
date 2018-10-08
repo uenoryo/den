@@ -19,6 +19,19 @@ export default {
         },
         method: method,
         body: JSON.stringify(data)
+
+      }).then((res) => {
+        if (!res.ok) {
+          console.error(res)
+          return
+        }
+        res.json().then((json) => {
+          console.log(json)
+        })
+
+      }).catch((err) => {
+        console.log("ERR")
+        console.error(err)
       })
     },
   },
