@@ -20,10 +20,12 @@ export default {
     },
 
     apiClientPostSignup(data) {
-      return this.apiClientRequest('POST', 'user/signup', data)
+      return this.apiClientRequest('POST', 'user/signup', data, (res) => {
+        console.log(res)
+      })
     },
 
-    apiClientRequest(method, path, data) {
+    apiClientRequest(method, path, data, callable) {
       const url = `${Env.API_SERVER_HOST}:${Env.API_SERVER_PORT}/${path}`
       let status = this.apiClientRequestStatus(this._signupKey)
       status.change(RequestStatusType.Waiting)
@@ -43,7 +45,7 @@ export default {
         }
         res.json().then((json) => {
           status.change(RequestStatusType.Success)
-          console.log(json)
+          callable(json)
         })
 
       }).catch((err) => {
