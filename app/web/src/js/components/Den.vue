@@ -140,18 +140,20 @@
                 <div class='EndView'>
                   <h3>結果</h3>
                   <div class='EndView__Body'>
-                    <div v-for='(s, idx) in ScoreKeeper.getScore(Constants.RoundNumPerGame)'>
-                      <div class='ScoreRecordList__list'>
-                        <div class='ScoreRecordList__item'>
-                          <div class='ScoreRecord__item'>Round {{ idx + 1 }}</div>
-                          <div class='ScoreRecord__item'>{{ s.JokerBuffStringCache }} {{ s.GameSetTypeStringCache }}</div>
-                          <div class='ScoreRecord__item'>{{ s.p1ScoreCache }}</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
+                    <table>
+                      <tr v-for='(s, idx) in ScoreKeeper.getScore(Constants.RoundNumPerGame)'>
+                        <td class='ScoreRecord__item'>Round {{ idx + 1 }}</td>
+                        <td class='ScoreRecord__item'>{{ s.JokerBuffStringCache }} {{ s.GameSetTypeStringCache }}</td>
+                        <td class='ScoreRecord__item'>{{ s.p1ScoreCache }}</td>
+                      </tr>
+                    </table>
+                    <div class='EndView__Sum'>
                       <div>合計</div>
                       <div>{{ ScoreKeeper.sumScore(ScoreKeeper.getScore(Constants.RoundNumPerGame), 1) }}</div>
+                    </div>
+                    <div class='EndView__Score'>
+                      <div>所持金</div>
+                      <div>1億2000万円</div>
                     </div>
                   </div>
                   <div class='EndView__BtnList'>
