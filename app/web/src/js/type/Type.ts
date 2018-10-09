@@ -102,6 +102,7 @@ export enum GamePhase {
   Prepare,
   Main,
   Result,
+  End,
 }
 
 // 言語
