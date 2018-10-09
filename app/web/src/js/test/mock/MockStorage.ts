@@ -4,9 +4,11 @@ import { PreferenceKey } from '../../type/Type'
 
 export default class MockStorage implements Storager {
   public ScoreData: ScoreData[] | null
+  public Token: string | null
 
   constructor() {
     this.ScoreData = null
+    this.Token = null
   }
 
   saveScore(score: ScoreData[]): void {
@@ -27,5 +29,13 @@ export default class MockStorage implements Storager {
 
   getPreference(key: PreferenceKey): number {
     return 0
+  }
+
+  saveToken(token: string): void {
+    this.Token = token
+  }
+
+  getToken(): string | null {
+    return this.Token
   }
 }
