@@ -1,8 +1,5 @@
 <template>
   <div class='gameContainer' id='View'>
-    <div class='ads'>
-      ads
-    </div>
     <div class='game'>
       <!-- image preloading space -->
       <div id='ImagePreload'>
@@ -129,6 +126,36 @@
                   </div>
                   <div class='FinishView__BtnList'>
                     <div @click='gameReload()' class='StartView__Btn btn'>次へ</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div v-else-if='Phase === GamePhase.End' id="GameEndView">
+          <div class='modal modal--hard open'>
+            <div class='modal__inner modal__inner--full'>
+              <div class='modal__body'>
+                <div class='EndView'>
+                  <h3>結果</h3>
+                  <div class='EndView__Body'>
+                    <div v-for='(s, idx) in ScoreKeeper.getScore(Constants.RoundNumPerGame)'>
+                      <div class='ScoreRecordList__list'>
+                        <div class='ScoreRecordList__item'>
+                          <div class='ScoreRecord__item'>Round {{ idx + 1 }}</div>
+                          <div class='ScoreRecord__item'>{{ s.JokerBuffStringCache }} {{ s.GameSetTypeStringCache }}</div>
+                          <div class='ScoreRecord__item'>{{ s.p1ScoreCache }}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div>合計</div>
+                      <div>{{ ScoreKeeper.sumScore(ScoreKeeper.getScore(Constants.RoundNumPerGame), 1) }}</div>
+                    </div>
+                  </div>
+                  <div class='EndView__BtnList'>
+                    <div @click='gameReload()' class='EndView__Btn btn'>次へ</div>
                   </div>
                 </div>
               </div>
@@ -410,7 +437,12 @@ export default {
     gameReload() {
       this.dealerResotre()
       this.setup()
-      this.Phase = GamePhase.Prepare
+
+      if (true) {
+        this.Phase = GamePhase.End
+      } else {
+        this.Phase = GamePhase.Prepare
+      }
     },
   }
 }

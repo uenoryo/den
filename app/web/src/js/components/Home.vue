@@ -8,7 +8,7 @@
               <h3>DEN</h3>
               <div class='StartView__BtnList'>
                 <router-link :to="{ name: 'den' }">
-                  <div @click='gamePrepare(false)' class='StartView__Btn btn'>あそぶ</div>
+                  <div class='StartView__Btn btn'>あそぶ</div>
                 </router-link>
                 <div @click='howTo()' class='StartView__Btn btn'>{{ status ? status.Current : 'NONE' }}</div>
               </div>
