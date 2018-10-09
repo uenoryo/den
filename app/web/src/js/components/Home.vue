@@ -22,6 +22,7 @@
 
 <script>
 import APIClientService from '../service/APIClientService'
+import LocalStorage from '../storage/LocalStorage'
 
 export default {
   name: 'Home',
@@ -31,15 +32,27 @@ export default {
 
   data () {
     return {
-      status: null
+      Storage: null,
+      Token: null,
+      status: null,
     }
   },
 
   beforeMount() {
-    this.status = this.apiClientPostSignup({'platform': 1})
+    this.Storage = new LocalStorage
+
+    this.loginOrSignup()
   },
 
   methods: {
+    loginOrSignup() {
+      this.Token = this.Storage.getToken()
+      if (this.Token === null) {
+        this.status = this.apiClientPostSignup({'platform': 1})
+      }
+      console.log(this.Token)
+    },
+
     howTo() {
       alert('手札がなくなるかDENしたら勝ち')
     },

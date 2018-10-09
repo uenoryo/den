@@ -22,6 +22,8 @@ export default {
     apiClientPostSignup(data) {
       return this.apiClientRequest('POST', 'user/signup', data, (res) => {
         console.log(res)
+        this.Token = res.data.token
+        this.Storage.saveToken(res.data.token)
       })
     },
 
