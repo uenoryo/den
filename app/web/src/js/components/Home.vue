@@ -47,7 +47,7 @@ export default {
   methods: {
     loginOrSignup() {
       this.Token = this.Storage.getToken()
-      if (this.Token === null) {
+      if (!this.Token) {
         this.status = this.apiClientPostSignup({'platform': 1})
       }
       console.log(this.Token)
