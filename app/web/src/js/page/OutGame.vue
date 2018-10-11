@@ -23,6 +23,7 @@
 <script>
 import APIClientService from '../service/APIClientService'
 import LocalStorage from '../storage/LocalStorage'
+import User from '../data/UserData'
 
 export default {
   name: 'Home',
@@ -34,12 +35,15 @@ export default {
     return {
       Storage: null,
       Token: null,
+      User: null,
       status: null,
     }
   },
 
   beforeMount() {
     this.Storage = new LocalStorage
+
+    this.User = new User
 
     this.loginOrSignup()
   },
@@ -48,9 +52,10 @@ export default {
     loginOrSignup() {
       this.Token = this.Storage.getToken()
       if (!this.Token) {
-        this.status = this.apiClientPostSignup({'platform': 1})
+        this.status = this.apiClientPostSignup({'platform': 1}, this.User)
       }
       console.log(this.Token)
+      console.log(this.User)
     },
 
     howTo() {

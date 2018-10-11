@@ -19,15 +19,19 @@ export default {
       return new RequestStatus
     },
 
-    apiClientPostSignup(data) {
-      return this.apiClientRequest('POST', 'user/signup', data, (res) => {
+    apiClientPostSignup(req, user) {
+      return this.apiClientRequest('POST', 'user/signup', req, (res) => {
         console.log(res)
         this.Token = res.data.user.token
+        user.Name = res.data.user.name
+        user.Token = res.data.user.token
+        user.Money = res.data.user.money
+        user.Stamina = res.data.user.stamina
         this.Storage.saveToken(this.Token)
       })
     },
 
-    apiClientRequest(method, path, data, callable) {
+    apiClientRequest(method, path, req, callable) {
       const url = `${Env.API_SERVER_HOST}:${Env.API_SERVER_PORT}/${path}`
       let status = this.apiClientRequestStatus(this._signupKey)
       status.change(RequestStatusType.Waiting)
@@ -37,7 +41,7 @@ export default {
           'Content-Type': 'application/json'
         },
         method: method,
-        body: JSON.stringify(data)
+        body: JSON.stringify(req)
 
       }).then((res) => {
         if (!res.ok) {

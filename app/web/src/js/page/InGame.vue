@@ -256,12 +256,12 @@
 </template>
 
 <script>
-import GodService from '../service/GodService'
-import DealerService from '../service/DealerService'
-import RefereeService from '../service/RefereeService'
-import ComputerService from '../service/ComputerService'
-import AnimationService from '../service/AnimationService'
-import DebugService from '../service/DebugService'
+import GodService from '../in_service/GodService'
+import DealerService from '../in_service/DealerService'
+import RefereeService from '../in_service/RefereeService'
+import ComputerService from '../in_service/ComputerService'
+import AnimationService from '../in_service/AnimationService'
+import DebugService from '../in_service/DebugService'
 import { Constants } from '../constant/Basic'
 import { ReplyAction, GamePhase } from '../type/Type'
 import Config from '../config/Config'
