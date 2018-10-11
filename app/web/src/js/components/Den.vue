@@ -13,7 +13,7 @@
             <div class='modal__inner modal__inner--full'>
               <div class='modal__body'>
                 <div class='StartView'>
-                  <h3>Round {{ ScoreKeeper.Data.length + 1 }}</h3>
+                  <h3>Round {{ ScoreKeeper.NextRound }}</h3>
                   <div class='StartView__Body'>
                     <table>
                       <tr>
@@ -440,7 +440,7 @@ export default {
       this.dealerResotre()
       this.setup()
 
-      if (true) {
+      if (this.ScoreKeeper.ScoreNum >= Constants.RoundNumPerGame) {
         this.Phase = GamePhase.End
       } else {
         this.Phase = GamePhase.Prepare
