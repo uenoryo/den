@@ -48,6 +48,14 @@ export default class ScoreKeeper {
     return latestScore.LoserID
   }
 
+  get ScoreNum(): number {
+    return this.Data.length
+  }
+
+  get NextRound(): number {
+    return this.ScoreNum + 1
+  }
+
   getScore(limit: number): ScoreData[] {
       // 後ろから limit 件取得
       return this.Data.slice(limit * -1)
