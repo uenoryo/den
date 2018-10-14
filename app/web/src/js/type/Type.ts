@@ -96,13 +96,19 @@ export type Style = {
   display: string,
 }
 
-// ゲームフェイズ
+// ゲームフェイズ (インゲーム)
 export enum GamePhase {
   Start,
   Prepare,
   Main,
   Result,
   End,
+}
+
+// ゲームフェイズ (アウトゲーム)
+export enum OutGamePhase {
+  Main,
+  Business,
 }
 
 // 言語

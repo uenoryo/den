@@ -17,9 +17,10 @@
               </div>
               <div class='StartView__BtnList'>
                 <router-link :to="{ name: 'den' }">
-                  <div class='StartView__Btn btn'>あそぶ</div>
+                  <div class='StartView__Btn btn'>遊ぶ</div>
                 </router-link>
-                <div @click='howTo()' class='StartView__Btn btn'>{{ status ? status.Current : 'NONE' }}</div>
+                <div @click='toBusiness()' class='StartView__Btn btn'>ビジネス</div>
+                <div @click='howTo()' class='StartView__Btn btn'>遊び方</div>
               </div>
             </div>
           </div>
@@ -32,6 +33,7 @@
 <script>
 import APIClientService from '../service/APIClientService'
 import LocalStorage from '../storage/LocalStorage'
+import { OutGamePhase } from '../type/Type'
 import User from '../data/UserData'
 
 export default {
@@ -46,6 +48,7 @@ export default {
       Token: null,
       SessionID: null,
       User: null,
+      Phase: null,
       status: null,
     }
   },
@@ -54,6 +57,8 @@ export default {
     this.Storage = new LocalStorage
 
     this.User = new User
+
+    this.Phase = OutGamePhase.Main
 
     this.loginOrSignup()
   },
@@ -70,6 +75,10 @@ export default {
       console.log(this.Token)
       console.log(this.SessionID)
       console.log(this.User)
+    },
+
+    toBusiness() {
+      this.Phase = OutGamePhase.Business
     },
 
     howTo() {
