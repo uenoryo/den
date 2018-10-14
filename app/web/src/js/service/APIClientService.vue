@@ -62,6 +62,13 @@ export default {
       })
     },
 
+    apiClientGetBusinessList(vu) {
+      return this.apiClientRequest('GET', 'business/list', {}, (res) => {
+        console.log(res)
+        vu.Businesses = res.data.businesses
+      })
+    },
+
     apiClientRequest(method, path, req, callable) {
       const url = `${Env.API_SERVER_HOST}:${Env.API_SERVER_PORT}/${path}`
       let status = this.apiClientRequestStatus(this._signupKey)
@@ -72,7 +79,7 @@ export default {
           'Content-Type': 'application/json'
         },
         method: method,
-        body: JSON.stringify(req)
+        body: method === 'GET' ? null : JSON.stringify(req)
 
       }).then((res) => {
         if (!res.ok) {
