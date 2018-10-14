@@ -6,6 +6,15 @@
           <div class='modal__body'>
             <div class='StartView'>
               <h3>DEN</h3>
+              <div>
+                プレイヤーコード: {{ User.Code }}
+              </div>
+              <div>
+                所持金: {{ User.Money }}円
+              </div>
+              <div>
+                スタミナ: {{ User.Stamina }}
+              </div>
               <div class='StartView__BtnList'>
                 <router-link :to="{ name: 'den' }">
                   <div class='StartView__Btn btn'>あそぶ</div>
@@ -35,6 +44,7 @@ export default {
     return {
       Storage: null,
       Token: null,
+      SessionID: null,
       User: null,
       status: null,
     }
@@ -51,10 +61,14 @@ export default {
   methods: {
     loginOrSignup() {
       this.Token = this.Storage.getToken()
-      if (!this.Token) {
+      if (this.Token) {
+        this.status = this.apiClientPostLogin({'token': this.Token}, this.User)
+      } else {
         this.status = this.apiClientPostSignup({'platform': 1}, this.User)
       }
+
       console.log(this.Token)
+      console.log(this.SessionID)
       console.log(this.User)
     },
 
