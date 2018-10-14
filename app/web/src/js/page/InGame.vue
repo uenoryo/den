@@ -153,11 +153,11 @@
                     </div>
                     <div class='EndView__Score'>
                       <div>所持金</div>
-                      <div>1億2000万円</div>
+                      <div>{{ User.MoneyString }}</div>
                     </div>
                   </div>
                   <div class='EndView__BtnList'>
-                    <div @click='gameReload()' class='EndView__Btn btn'>次へ</div>
+                    <div @click='gamePrepare(true)' class='EndView__Btn btn'>次へ</div>
                   </div>
                 </div>
               </div>
@@ -262,10 +262,12 @@ import RefereeService from '../in_service/RefereeService'
 import ComputerService from '../in_service/ComputerService'
 import AnimationService from '../in_service/AnimationService'
 import DebugService from '../in_service/DebugService'
+import APIClientService from '../service/APIClientService'
 import { Constants } from '../constant/Basic'
 import { ReplyAction, GamePhase } from '../type/Type'
 import Config from '../config/Config'
-import LocalStorage from '../storage/LocalStorage'
+import Storage from '../storage/LocalStorage'
+import User from '../data/UserData'
 
 export default {
   name: 'Den',
@@ -276,6 +278,7 @@ export default {
     ComputerService,
     AnimationService,
     DebugService,
+    APIClientService,
   ],
   data() {
     return {
@@ -289,6 +292,7 @@ export default {
       ReplyAction: null,
       IsGameSet: false,
       Phase: null,
+      SessionID: null,
     }
   },
 
@@ -308,6 +312,8 @@ export default {
 
       this.Config = Config.app()
 
+      this.Storage = new Storage
+
       this.ReplyAction = ReplyAction
 
       this.GamePhase = GamePhase
@@ -323,6 +329,12 @@ export default {
       this.Referee = this.godCreateReferee()
 
       this.ScoreKeeper = this.godCreateScoreKeeper()
+
+      this.User = new User
+
+      this.Token = this.Storage.getToken()
+
+      this.apiClientPostLogin({'token': this.Token}, this.User)
     },
 
     setup() {
@@ -442,6 +454,9 @@ export default {
 
       if (this.ScoreKeeper.ScoreNum >= Constants.RoundNumPerGame) {
         this.Phase = GamePhase.End
+        let money = this.ScoreKeeper.sumScore(this.ScoreKeeper.getScore(Constants.RoundNumPerGame), 1)
+        this.User.Money += money
+        this.apiClientPostGameFinish({'session_id': this.SessionID, 'money': String(money)}, this.User)
       } else {
         this.Phase = GamePhase.Prepare
       }

@@ -45,6 +45,23 @@ export default {
       })
     },
 
+    apiClientPostInfo(req, user) {
+      return this.apiClientRequest('POST', 'user/info', req, (res) => {
+        console.log(res.data)
+        user.Code = parseInt(res.data.user.id) + 10000000 // 仮
+        user.Name = res.data.user.name
+        user.Token = res.data.user.token
+        user.Money = res.data.user.money
+        user.Stamina = res.data.user.stamina
+      })
+    },
+
+    apiClientPostGameFinish(req, user) {
+      return this.apiClientRequest('POST', 'game/finish', req, (res) => {
+        user.Stamina--
+      })
+    },
+
     apiClientRequest(method, path, req, callable) {
       const url = `${Env.API_SERVER_HOST}:${Env.API_SERVER_PORT}/${path}`
       let status = this.apiClientRequestStatus(this._signupKey)

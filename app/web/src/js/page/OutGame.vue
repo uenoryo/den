@@ -10,7 +10,7 @@
                 プレイヤーコード: {{ User.Code }}
               </div>
               <div>
-                所持金: {{ User.Money }}円
+                所持金: {{ User.MoneyString }}
               </div>
               <div>
                 スタミナ: {{ User.Stamina }}
