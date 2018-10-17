@@ -7,6 +7,9 @@ export default {
   data() {
     return {
       ApiClientRequestStatus: null,
+      ApiClientRetryFunction: () => {
+        console.log("nothing retry function.")
+      },
     }
   },
 
