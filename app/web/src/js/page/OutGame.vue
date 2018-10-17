@@ -39,6 +39,9 @@
                 <div class='BusinessView'>
                   <h3>本日のビジネス</h3>
                   <div class='BusinessView__Body'>
+                    <div>
+                      所持金: {{ User.MoneyString }}
+                    </div>
                     <table>
                       <tr v-for='b in Businesses'>
                         <td>{{ b.name }}</td>
@@ -113,6 +116,9 @@ export default {
       SessionID: null,
       User: null,
       Phase: null,
+      UserBusinesses: null,
+
+      // 以下マスターデータ
       Businesses: null,
     }
   },
@@ -133,7 +139,7 @@ export default {
     loginOrSignup() {
       this.Token = this.Storage.getToken()
       if (this.Token) {
-        this.apiClientPostLogin({'token': this.Token}, this.User)
+        this.apiClientPostLogin(this, {'token': this.Token}, this.User)
       } else {
         this.apiClientPostSignup({'platform': 1}, this.User)
       }
@@ -141,6 +147,7 @@ export default {
 
     toBusiness() {
       this.Phase = this.GamePhase.Business
+      console.log(this.UserBusinesses)
       if (this.Business == null) {
         this.apiClientGetBusinessList(this)
       }

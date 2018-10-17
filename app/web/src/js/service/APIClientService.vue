@@ -32,10 +32,11 @@ export default {
       })
     },
 
-    apiClientPostLogin(req, user) {
+    apiClientPostLogin(vu, req, user) {
       return this.apiClientRequest('POST', 'user/login', req, (res) => {
         console.log(res.data)
-        this.SessionID = res.data.session_id
+        vu.SessionID = res.data.session_id
+        vu.UserBusinesses = res.data.user_businesses
         user.Code = parseInt(res.data.user.id) + 10000000 // 仮
         user.Name = res.data.user.name
         user.Token = res.data.user.token
