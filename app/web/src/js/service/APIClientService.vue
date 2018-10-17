@@ -56,6 +56,12 @@ export default {
       })
     },
 
+    apiClientPostBusinessBuy(vu, req) {
+      return this.apiClientRequest('POST', 'business/buy', req, (res) => {
+        console.log(res.data)
+      })
+    },
+
     apiClientPostGameFinish(req, user) {
       return this.apiClientRequest('POST', 'game/finish', req, (res) => {
         user.Stamina--

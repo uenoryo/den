@@ -46,6 +46,7 @@
                       <tr v-for='b in Businesses'>
                         <td>{{ b.name }}</td>
                         <td>{{ b.price_base }}</td>
+                        <td><div @click='buyBusiness(b.id)'>購入</div></td>
                       </tr>
                     </table>
                   </div>
@@ -151,6 +152,10 @@ export default {
       if (this.Business == null) {
         this.apiClientGetBusinessList(this)
       }
+    },
+
+    buyBusiness(id) {
+      this.apiClientPostBusinessBuy(this, {'session_id': this.SessionID, 'business_id': id})
     },
 
     howTo() {
