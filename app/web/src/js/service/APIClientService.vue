@@ -69,31 +69,43 @@ export default {
     },
 
     apiClientRequest(method, path, req, callable) {
-      const url = `${Env.API_SERVER_HOST}:${Env.API_SERVER_PORT}/${path}`
-      this.ApiClientRequestStatus.change(RequestStatusType.Waiting)
+      let requestFunc = () => {
+        const url = `${Env.API_SERVER_HOST}:${Env.API_SERVER_PORT}/${path}`
+        this.ApiClientRequestStatus.change(RequestStatusType.Waiting)
+        fetch(url, {
+          header: {
+            'Content-Type': 'application/json'
+          },
+          method: method,
+          body: method === 'GET' ? null : JSON.stringify(req)
 
-      fetch(url, {
-        header: {
-          'Content-Type': 'application/json'
-        },
-        method: method,
-        body: method === 'GET' ? null : JSON.stringify(req)
+        }).then((res) => {
+          if (!res.ok) {
+            console.error(res)
+            this.ApiClientRequestStatus.change(RequestStatusType.Fail)
+            return
+          }
+          res.json().then((json) => {
+            this.ApiClientRequestStatus.change(RequestStatusType.Success)
+            callable(json)
+          })
 
-      }).then((res) => {
-        if (!res.ok) {
-          console.error(res)
+        }).catch((err) => {
+          console.error(err)
           this.ApiClientRequestStatus.change(RequestStatusType.Fail)
-          return
-        }
-        res.json().then((json) => {
-          this.ApiClientRequestStatus.change(RequestStatusType.Success)
-          callable(json)
         })
+      }
 
-      }).catch((err) => {
-        console.error(err)
-        this.ApiClientRequestStatus.change(RequestStatusType.Fail)
-      })
+      // リクエストする前にリトライ用に関数をセットしておく
+      this.ApiClientRetryFunction = () => {
+        this.ApiClientRequestStatus.change(RequestStatusType.Waiting)
+        setTimeout(() => {
+          requestFunc()
+        }, 1000)
+      }
+
+      // リクエスト
+      requestFunc()
     },
   },
 }

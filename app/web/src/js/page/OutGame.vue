@@ -55,7 +55,19 @@
 
       <!-- Waiting -->
       <div v-else-if='ApiClientRequestStatus.IsWaiting'>
-        Loading...
+        <div class='modal open'>
+          <div class='modal__inner modal__inner--full'>
+            <div class='modal__body'>
+              <div class='StartView'>
+                <h3></h3>
+                <div>
+                  Loading...
+                </div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Fail -->
