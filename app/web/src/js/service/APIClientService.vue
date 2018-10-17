@@ -6,19 +6,15 @@ import { RequestStatusType } from '../type/Type'
 export default {
   data() {
     return {
-      _responseStatuses: [],
-      _signupKey: 'user.signup',
+      ApiClientRequestStatus: null,
     }
   },
 
-  methods: {
-    apiClientRequestStatus(key) {
-      if (this._responseStatuses && this._responseStatuses[key]) {
-        return this._responseStatuses[key]
-      }
-      return new RequestStatus
-    },
+  beforeMount() {
+    this.ApiClientRequestStatus = new RequestStatus
+  },
 
+  methods: {
     apiClientPostSignup(req, user) {
       return this.apiClientRequest('POST', 'user/signup', req, (res) => {
         console.log(res)
@@ -71,8 +67,7 @@ export default {
 
     apiClientRequest(method, path, req, callable) {
       const url = `${Env.API_SERVER_HOST}:${Env.API_SERVER_PORT}/${path}`
-      let status = this.apiClientRequestStatus(this._signupKey)
-      status.change(RequestStatusType.Waiting)
+      this.ApiClientRequestStatus.change(RequestStatusType.Waiting)
 
       fetch(url, {
         header: {
@@ -84,19 +79,18 @@ export default {
       }).then((res) => {
         if (!res.ok) {
           console.error(res)
-          status.change(RequestStatusType.Fail)
+          this.ApiClientRequestStatus.change(RequestStatusType.Fail)
           return
         }
         res.json().then((json) => {
-          status.change(RequestStatusType.Success)
+          this.ApiClientRequestStatus.change(RequestStatusType.Success)
           callable(json)
         })
 
       }).catch((err) => {
         console.error(err)
-        status.change(RequestStatusType.Fail)
+        this.ApiClientRequestStatus.change(RequestStatusType.Fail)
       })
-      return status
     },
   },
 }

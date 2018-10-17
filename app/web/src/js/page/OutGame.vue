@@ -72,7 +72,6 @@ export default {
       User: null,
       Phase: null,
       Businesses: null,
-      status: null,
     }
   },
 
@@ -92,20 +91,16 @@ export default {
     loginOrSignup() {
       this.Token = this.Storage.getToken()
       if (this.Token) {
-        this.status = this.apiClientPostLogin({'token': this.Token}, this.User)
+        this.apiClientPostLogin({'token': this.Token}, this.User)
       } else {
-        this.status = this.apiClientPostSignup({'platform': 1}, this.User)
+        this.apiClientPostSignup({'platform': 1}, this.User)
       }
-
-      console.log(this.Token)
-      console.log(this.SessionID)
-      console.log(this.User)
     },
 
     toBusiness() {
       this.Phase = this.GamePhase.Business
       if (this.Business == null) {
-        this.status = this.apiClientGetBusinessList(this)
+        this.apiClientGetBusinessList(this)
       }
     },
 
