@@ -23,6 +23,7 @@
                     <router-link :to="{ name: 'den' }">
                       <div class='StartView__Btn btn'>遊ぶ</div>
                     </router-link>
+                    <div @click='toProfile()' class='StartView__Btn btn'>資産</div>
                     <div @click='toBusiness()' class='StartView__Btn btn'>ビジネス</div>
                     <div @click='howTo()' class='StartView__Btn btn'>遊び方</div>
                   </div>
@@ -58,6 +59,34 @@
             </div>
           </div>
         </div>
+
+        <div v-else-if='Phase === GamePhase.Profile' id="OutGameBusinessView">
+          <div class='modal open'>
+            <div class='modal__inner modal__inner--full'>
+              <div class='modal__body'>
+                <div class='BusinessView'>
+                  <h3>資産</h3>
+                  <div class='BusinessView__Body'>
+                    <div>
+                      所持金: {{ User.MoneyString }}
+                    </div>
+                    <table>
+                      <tr v-for='b in Businesses'>
+                        <td>{{ b.name }}</td>
+                        <td>{{ b.price_base }}</td>
+                        <td><div @click='buyBusiness(b.id)'>購入</div></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div>
+                    <div @click='toHome()' class='btn'>ホーム</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- Waiting -->
@@ -159,6 +188,10 @@ export default {
       if (this.Business == null) {
         this.apiClientGetBusinessList(this)
       }
+    },
+
+    toProfile() {
+      this.Phase = this.GamePhase.Profile
     },
 
     buyBusiness(id) {

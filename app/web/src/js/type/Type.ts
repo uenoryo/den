@@ -108,6 +108,7 @@ export enum GamePhase {
 // ゲームフェイズ (アウトゲーム)
 export enum OutGamePhase {
   Home,
+  Profile,
   Business,
 }
 
