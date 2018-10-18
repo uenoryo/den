@@ -74,7 +74,7 @@ export default {
     apiClientGetBusinessList(vu) {
       return this.apiClientRequest('GET', 'business/list', {}, (res) => {
         console.log(res)
-        vu.Businesses = res.data.businesses
+        vu.TodaysBusinesses = res.data.businesses
       })
     },
 

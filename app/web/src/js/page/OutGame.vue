@@ -44,7 +44,7 @@
                       所持金: {{ User.MoneyString }}
                     </div>
                     <table>
-                      <tr v-for='b in Businesses'>
+                      <tr v-for='b in TodaysBusinesses'>
                         <td>{{ b.name }}</td>
                         <td>{{ b.price_base }}</td>
                         <td><div @click='buyBusiness(b.id)'>購入</div></td>
@@ -151,6 +151,7 @@ export default {
       SessionID: null,
       User: null,
       Phase: null,
+      TodaysBusinesses :null,
       UserBusinesses: null,
 
       // 以下マスターデータ
@@ -187,7 +188,7 @@ export default {
     toBusiness() {
       this.Phase = this.GamePhase.Business
       console.log(this.UserBusinesses)
-      if (this.Businesses == null) {
+      if (this.TodaysBusinesses == null) {
         this.apiClientGetBusinessList(this)
       }
     },
