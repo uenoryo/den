@@ -50,6 +50,9 @@
                       </tr>
                     </table>
                   </div>
+                  <div>
+                    <div @click='toHome()' class='btn'>ホーム</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -144,6 +147,10 @@ export default {
       } else {
         this.apiClientPostSignup({'platform': 1}, this.User)
       }
+    },
+
+    toHome() {
+      this.Phase = this.GamePhase.Home
     },
 
     toBusiness() {
