@@ -71,10 +71,9 @@
                       所持金: {{ User.MoneyString }}
                     </div>
                     <table>
-                      <tr v-for='b in Businesses'>
-                        <td>{{ b.name }}</td>
-                        <td>{{ b.price_base }}</td>
-                        <td><div @click='buyBusiness(b.id)'>購入</div></td>
+                      <tr v-for='b in UserBusinesses'>
+                        <td>{{ MSBusinessByID[b.business_id].name }} Lv{{ b.level }}・・・</td>
+                        <td>{{ MSBusinessByID[b.business_id].price_base }}万円</td>
                       </tr>
                     </table>
                   </div>
