@@ -4,7 +4,7 @@
 
       <!-- Success -->
       <div v-if='ApiClientRequestStatus.IsSuccess'>
-        <div v-if='Phase === GamePhase.Main' id="OutGameMainView">
+        <div v-if='Phase === GamePhase.Home' id="OutGameHomeView">
           <div class='modal open'>
             <div class='modal__inner modal__inner--full'>
               <div class='modal__body'>
@@ -131,7 +131,7 @@ export default {
 
     this.GamePhase = OutGamePhase
 
-    this.Phase = OutGamePhase.Main
+    this.Phase = OutGamePhase.Home
 
     this.loginOrSignup()
   },
