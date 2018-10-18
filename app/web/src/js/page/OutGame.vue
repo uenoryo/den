@@ -132,6 +132,7 @@
 
 <script>
 import APIClientService from '../service/APIClientService'
+import MasterdataService from '../out_service/MasterdataService'
 import LocalStorage from '../storage/LocalStorage'
 import { OutGamePhase } from '../type/Type'
 import User from '../data/UserData'
@@ -140,6 +141,7 @@ export default {
   name: 'Home',
   mixins: [
     APIClientService,
+    MasterdataService,
   ],
 
   data () {
@@ -185,7 +187,7 @@ export default {
     toBusiness() {
       this.Phase = this.GamePhase.Business
       console.log(this.UserBusinesses)
-      if (this.Business == null) {
+      if (this.Businesses == null) {
         this.apiClientGetBusinessList(this)
       }
     },
