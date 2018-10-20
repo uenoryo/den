@@ -72,8 +72,8 @@
                     </div>
                     <table>
                       <tr v-for='b in UserBusinesses'>
-                        <td>{{ MSBusinessByID[b.business_id].name }} Lv{{ b.level }}・・・</td>
-                        <td>{{ MSBusinessByID[b.business_id].price_base }}万円</td>
+                        <td>{{ b.MSname }} Lv{{ b.level }}・・・</td>
+                        <td>{{ b.MSprice_base }}万円</td>
                       </tr>
                     </table>
                   </div>

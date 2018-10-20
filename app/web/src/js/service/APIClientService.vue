@@ -45,6 +45,13 @@ export default {
         user.Money = res.data.user.money
         user.Stamina = res.data.user.stamina
         this.masterdataClean()
+
+        // とりあえずここでマスターデータの付与を行う
+        // 増えてきたら構成を考える
+        for (let b of vu.UserBusinesses) {
+          b.MSname = this.MSBusinessByID[b.business_id].name
+          b.MSprice_base = this.MSBusinessByID[b.business_id].price_base
+        }
       })
     },
 
