@@ -186,7 +186,6 @@ export default {
 
     toBusiness() {
       this.Phase = this.GamePhase.Business
-      console.log(this.UserBusinesses)
       if (this.TodaysBusinesses == null) {
         this.apiClientGetBusinessList(this)
       }
