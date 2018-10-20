@@ -41,6 +41,7 @@ export default {
         vu.UserBusinesses = res.data.user_businesses
         user.Code = parseInt(res.data.user.id) + 10000000 // 仮
         user.Name = res.data.user.name
+        user.Rank = res.data.user.rank
         user.Token = res.data.user.token
         user.Money = res.data.user.money
         user.Stamina = res.data.user.stamina

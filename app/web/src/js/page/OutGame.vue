@@ -14,6 +14,9 @@
                     プレイヤーコード: {{ User.Code }}
                   </div>
                   <div>
+                    ランク: {{ User.Rank }}
+                  </div>
+                  <div>
                     所持金: {{ User.MoneyString }}
                   </div>
                   <div>
