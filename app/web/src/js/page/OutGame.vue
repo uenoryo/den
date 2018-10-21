@@ -138,7 +138,6 @@ import APIClientService from '../service/APIClientService'
 import MasterdataService from '../out_service/MasterdataService'
 import LocalStorage from '../storage/LocalStorage'
 import { OutGamePhase } from '../type/Type'
-import User from '../data/UserData'
 
 export default {
   name: 'Home',
@@ -164,8 +163,6 @@ export default {
 
   beforeMount() {
     this.Storage = new LocalStorage
-
-    this.User = new User
 
     this.UserBusinesses = []
 

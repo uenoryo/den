@@ -2,6 +2,7 @@
 import Env from '../env'
 import RequestStatus from '../model/RequestStatus'
 import { RequestStatusType } from '../type/Type'
+import UserData from '../data/UserData'
 import UserBusinessData from '../data/UserBusinessData'
 
 export default {
@@ -44,25 +45,15 @@ export default {
         vu.Businesses = res.data.businesses
         this.masterdataClean()
 
-        user.Code = parseInt(res.data.user.id) + 10000000 // 仮
-        user.Name = res.data.user.name
-        user.Rank = res.data.user.rank
-        user.Token = res.data.user.token
-        user.Money = res.data.user.money
-        user.Stamina = res.data.user.stamina
-
+        this.apiClientSetUserData(vu, res.data.user)
         this.apiClientSetUserBusinessData(vu, res.data.user_businesses)
       })
     },
 
-    apiClientPostInfo(req, user) {
+    apiClientPostInfo(vu, req, user) {
       return this.apiClientRequest('POST', 'user/info', req, (res) => {
         console.log(res.data)
-        user.Code = parseInt(res.data.user.id) + 10000000 // 仮
-        user.Name = res.data.user.name
-        user.Token = res.data.user.token
-        user.Money = res.data.user.money
-        user.Stamina = res.data.user.stamina
+        this.apiClientSetUserData(vu, res.data.user)
       })
     },
 
@@ -123,6 +114,17 @@ export default {
 
       // リクエスト
       requestFunc()
+    },
+
+    apiClientSetUserData(vu, user) {
+      let row = new UserData
+      row.Code = parseInt(user.id) + 10000000 // 仮
+      row.Name = user.name
+      row.Rank = user.rank
+      row.Token = user.token
+      row.Money = user.money
+      row.Stamina = user.stamina
+      vu.User = row
     },
 
     apiClientSetUserBusinessData(vu, userBusinesses) {
