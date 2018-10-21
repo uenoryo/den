@@ -1,4 +1,5 @@
 <script>
+import Moment from 'moment'
 import Env from '../env'
 import RequestStatus from '../model/RequestStatus'
 import { RequestStatusType } from '../type/Type'
@@ -136,6 +137,7 @@ export default {
         row.BusinessID = business.id
         row.BusinessName = business.name
         row.Level = ub.level
+        row.LastBuyDate = ub.last_buy_at.split('T')[0] // 日付のみ取得
 
         if (row.Level === 2) {
           row.CurrentPrice = business.price_level2
@@ -167,21 +169,32 @@ export default {
         row.Name = b.name
 
         let ub = userBusinessByID(b.id)
-        console.log(ub)
         if (ub === null) {
           row.Price = b.price_base
           row.Level = 1
-        } else if (ub.Level === 1) {
-          row.Price = b.price_level2
-          row.Level = 2
-        } else if (ub.Level === 2 || ub.Level === 3) {
-          row.Price = b.price_level3
-          row.Level = 3
+        } else {
+          // LastBuyDateが今日の日付と同じだったら売り切れ
+          if (ub.LastBuyDate === Moment().format('Y-M-D')) {
+            row.IsSoldOut = true
+          }
+
+          if (ub.Level === 1) {
+            row.Price = b.price_level2
+            row.Level = 2
+          } else if (ub.Level === 2) {
+            row.Price = b.price_level3
+            row.Level = 3
+          } else if (ub.Level === 3) {
+            row.Price = b.price_level3
+            row.Level = 3
+            row.IsMaxLevel = true
+          }
+          console.log(row)
         }
+
 
         rows.push(row)
       }
-      console.log(rows)
 
       vu.TodaysBusinesses = rows
     }
