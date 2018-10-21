@@ -2,6 +2,7 @@
 import Env from '../env'
 import RequestStatus from '../model/RequestStatus'
 import { RequestStatusType } from '../type/Type'
+import UserBusinessData from '../data/UserBusinessData'
 
 export default {
   data() {
@@ -38,23 +39,19 @@ export default {
       return this.apiClientRequest('POST', 'user/login', req, (res) => {
         console.log(res.data)
         vu.SessionID = res.data.session_id
+        this.Storage.saveSessionID(vu.SessionID)
+
         vu.Businesses = res.data.businesses
-        vu.UserBusinesses = res.data.user_businesses
+        this.masterdataClean()
+
         user.Code = parseInt(res.data.user.id) + 10000000 // 仮
         user.Name = res.data.user.name
         user.Rank = res.data.user.rank
         user.Token = res.data.user.token
         user.Money = res.data.user.money
         user.Stamina = res.data.user.stamina
-        this.Storage.saveSessionID(vu.SessionID)
-        this.masterdataClean()
 
-        // とりあえずここでマスターデータの付与を行う
-        // 増えてきたら構成を考える
-        for (let b of vu.UserBusinesses) {
-          b.MSname = this.MSBusinessByID[b.business_id].name
-          b.MSprice_base = this.MSBusinessByID[b.business_id].price_base
-        }
+        this.apiClientSetUserBusinessData(vu, res.data.user_businesses)
       })
     },
 
@@ -126,6 +123,27 @@ export default {
 
       // リクエスト
       requestFunc()
+    },
+
+    apiClientSetUserBusinessData(vu, userBusinesses) {
+      let rows = []
+      for (let ub of userBusinesses) {
+        let business = this.MSBusinessByID[ub.business_id]
+        let row = new UserBusinessData
+        row.BusinessName = business.name
+        row.Level = ub.level
+
+        if (row.Level === 2) {
+          row.CurrentPrice = business.price_level2
+        } else if (row.Level === 3) {
+          row.CurrentPrice = business.price_level3
+        } else {
+          row.CurrentPrice = business.price_base
+        }
+
+        rows.push(row)
+      }
+      vu.UserBusinesses = rows
     },
   },
 }

@@ -76,8 +76,8 @@
                     </div>
                     <table>
                       <tr v-for='b in UserBusinesses'>
-                        <td>{{ b.MSname }} Lv{{ b.level }}・・・</td>
-                        <td>{{ b.MSprice_base }}万円</td>
+                        <td>{{ b.BusinessName }} Lv{{ b.Level }}・・・</td>
+                        <td>{{ b.CurrentPrice }}万円</td>
                       </tr>
                     </table>
                   </div>
@@ -166,6 +166,8 @@ export default {
     this.Storage = new LocalStorage
 
     this.User = new User
+
+    this.UserBusinesses = []
 
     this.GamePhase = OutGamePhase
 
