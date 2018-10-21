@@ -157,7 +157,9 @@
                     </div>
                   </div>
                   <div class='EndView__BtnList'>
-                    <div @click='gamePrepare(true)' class='EndView__Btn btn'>次へ</div>
+                    <router-link :to="{ name: 'home' }">
+                      <div class='EndView__Btn btn'>ホーム</div>
+                    </router-link>
                   </div>
                 </div>
               </div>
