@@ -50,7 +50,7 @@
                     <table>
                       <tr v-for='b in TodaysBusinesses'>
                         <td>{{ b.Name }}</td>
-                        <td>{{ b.PriceBaseString }}</td>
+                        <td>{{ b.PriceString }}</td>
                         <td><div @click='buyBusiness(b.id)'>購入</div></td>
                       </tr>
                     </table>

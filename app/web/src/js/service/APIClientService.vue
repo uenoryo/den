@@ -150,14 +150,32 @@ export default {
     },
 
     apiClientSetTodaysBusinessData(vu, businesses) {
+      let userBusinessByID = (id) => {
+        for (let ub of vu.UserBusinesses) {
+          if (ub.BusinessID === id) {
+            return ub
+          }
+        }
+        return null
+      }
+
       let rows = []
       for (let b of businesses) {
         let row = new TodaysBusinessData
         row.ID = b.id
         row.Name = b.name
-        row.PriceBase = b.price_base
-        row.PriceLevel2 = b.price_level2
-        row.PriceLevel3 = b.price_level3
+
+        let ub = userBusinessByID(b.id)
+        if (ub === null) {
+          row.Price = b.price_base
+          row.Level = 1
+        } else if (ub.level === 1) {
+          row.Price = b.price_level2
+          row.Level = 2
+        } else if (ub.level === 2 || row.level === 3) {
+          row.Price = b.price_level3
+          row.Level = 3
+        }
 
         rows.push(row)
       }
