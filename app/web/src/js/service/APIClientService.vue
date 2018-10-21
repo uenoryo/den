@@ -133,6 +133,7 @@ export default {
       for (let ub of userBusinesses) {
         let business = this.MSBusinessByID[ub.business_id]
         let row = new UserBusinessData
+        row.BusinessID = business.id
         row.BusinessName = business.name
         row.Level = ub.level
 
@@ -166,19 +167,21 @@ export default {
         row.Name = b.name
 
         let ub = userBusinessByID(b.id)
+        console.log(ub)
         if (ub === null) {
           row.Price = b.price_base
           row.Level = 1
-        } else if (ub.level === 1) {
+        } else if (ub.Level === 1) {
           row.Price = b.price_level2
           row.Level = 2
-        } else if (ub.level === 2 || row.level === 3) {
+        } else if (ub.Level === 2 || ub.Level === 3) {
           row.Price = b.price_level3
           row.Level = 3
         }
 
         rows.push(row)
       }
+      console.log(rows)
 
       vu.TodaysBusinesses = rows
     }

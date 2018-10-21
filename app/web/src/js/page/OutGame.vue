@@ -51,7 +51,8 @@
                       <tr v-for='b in TodaysBusinesses'>
                         <td>{{ b.Name }}</td>
                         <td>{{ b.PriceString }}</td>
-                        <td><div @click='buyBusiness(b.id)'>購入</div></td>
+                        <td v-if='b.Level === 3'>レベル最大</td>
+                        <td v-else><div @click='buyBusiness(b.id)'>購入</div></td>
                       </tr>
                     </table>
                   </div>
