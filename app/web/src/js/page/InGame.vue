@@ -157,9 +157,7 @@
                     </div>
                   </div>
                   <div class='EndView__BtnList'>
-                    <router-link :to="{ name: 'home' }">
-                      <div class='EndView__Btn btn'>ホーム</div>
-                    </router-link>
+                    <div @click='gameClose()' class='EndView__Btn btn'>ホーム</div>
                   </div>
                 </div>
               </div>
@@ -462,10 +460,16 @@ export default {
         let money = this.ScoreKeeper.sumScore(this.ScoreKeeper.getScore(Constants.RoundNumPerGame), 1)
         this.User.Money += money
         this.apiClientPostGameFinish({'session_id': this.SessionID, 'money': String(money)}, this.User)
-        this.ScoreKeeper.clear()
       } else {
         this.Phase = GamePhase.Prepare
       }
+    },
+
+    gameClose() {
+      if (this.ScoreKeeper.ScoreNum >= Constants.RoundNumPerGame) {
+        this.ScoreKeeper.clear()
+      }
+      this.$router.push({ name: 'home' })
     },
   }
 }
