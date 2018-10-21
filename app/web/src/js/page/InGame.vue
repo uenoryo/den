@@ -338,6 +338,8 @@ export default {
       this.SessionID = this.Storage.getSessionID()
 
       this.Level = this.$route.params.level
+
+      this.apiClientPostUserInfo(this, {'session_id': this.SessionID})
     },
 
     setup() {

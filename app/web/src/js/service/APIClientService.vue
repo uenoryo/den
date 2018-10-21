@@ -52,7 +52,7 @@ export default {
       })
     },
 
-    apiClientPostInfo(vu, req, user) {
+    apiClientPostUserInfo(vu, req) {
       return this.apiClientRequest('POST', 'user/info', req, (res) => {
         console.log(res.data)
         this.apiClientSetUserData(vu, res.data.user)
