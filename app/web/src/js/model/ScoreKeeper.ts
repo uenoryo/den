@@ -61,7 +61,7 @@ export default class ScoreKeeper {
       return this.Data.slice(limit * -1)
   }
 
-  keep(type: GameSetType, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): void {
+  keep(type: GameSetType, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null, level: number): void {
     let score = new ScoreData
     score.Type = type
     score.WinnerID = winnerID
@@ -82,6 +82,7 @@ export default class ScoreKeeper {
       case GameSetType.CounterChitoi:
         if (winnerID !== 0 && loserID !== 0) {
           score.addHandCost(loserID, fieldCost)
+          score.Level = level
           score.JokerBuff = players.get(winnerID).Hand.JokerBuff
           score.ChitoiPower = players.get(winnerID).Hand.ChitoiPower
         }
