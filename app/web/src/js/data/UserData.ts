@@ -1,3 +1,5 @@
+import { toMoneyString } from '../lib/Lib'
+
 export default class UserData {
   public Code: string
   public Token: string
@@ -14,25 +16,6 @@ export default class UserData {
   }
 
   get MoneyString(): string {
-    const unitJP = ["万", "億", "兆", "京", "垓", "秭"]
-    let str = String(this.Money)
-
-    let index = 0
-    let res = ""
-    while (0 < str.length) {
-      let num = parseInt(str.slice(-1*4)) // 一度数字にすることで 021 => 21 のように0を切る
-      if (num !== 0) {
-        let tmp = String(num) + unitJP[index]
-        res = tmp + res
-      }
-      str = str.slice(0, -1*4) // 下4桁削除
-      index++
-    }
-
-    if (res === "") {
-      res = "0"
-    }
-
-    return res + "円"
+    return toMoneyString(this.Money)
   }
 }
