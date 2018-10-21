@@ -1,6 +1,6 @@
 import { toMoneyString } from '../lib/Lib'
 
-export default class BusinessData {
+export default class TodaysBusinessData {
   public ID: number
   public Name: string
   public PriceBase: number

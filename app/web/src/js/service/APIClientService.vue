@@ -3,7 +3,7 @@ import Env from '../env'
 import RequestStatus from '../model/RequestStatus'
 import { RequestStatusType } from '../type/Type'
 import UserData from '../data/UserData'
-import BusinessData from '../data/BusinessData'
+import TodaysBusinessData from '../data/TodaysBusinessData'
 import UserBusinessData from '../data/UserBusinessData'
 
 export default {
@@ -152,7 +152,7 @@ export default {
     apiClientSetTodaysBusinessData(vu, businesses) {
       let rows = []
       for (let b of businesses) {
-        let row = new BusinessData
+        let row = new TodaysBusinessData
         row.ID = b.id
         row.Name = b.name
         row.PriceBase = b.price_base
