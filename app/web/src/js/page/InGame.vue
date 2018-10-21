@@ -460,6 +460,7 @@ export default {
         let money = this.ScoreKeeper.sumScore(this.ScoreKeeper.getScore(Constants.RoundNumPerGame), 1)
         this.User.Money += money
         this.apiClientPostGameFinish({'session_id': this.SessionID, 'money': String(money)}, this.User)
+        this.ScoreKeeper.clear()
       } else {
         this.Phase = GamePhase.Prepare
       }
