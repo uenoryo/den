@@ -23,9 +23,10 @@
                     スタミナ: {{ User.Stamina }}
                   </div>
                   <div class='StartView__BtnList'>
-                    <router-link :to="{ name: 'den' }">
+                    <router-link :to="{ name: 'den', params: { level: User.Rank } }">
                       <div class='StartView__Btn btn'>遊ぶ</div>
                     </router-link>
+
                     <div @click='toProfile()' class='StartView__Btn btn'>資産</div>
                     <div @click='toBusiness()' class='StartView__Btn btn'>ビジネス</div>
                     <div @click='howTo()' class='StartView__Btn btn'>遊び方</div>

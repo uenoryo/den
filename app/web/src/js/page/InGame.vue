@@ -333,6 +333,8 @@ export default {
       this.User = new User
 
       this.SessionID = this.Storage.getSessionID()
+
+      this.Level = this.$route.params.level
     },
 
     setup() {
