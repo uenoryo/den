@@ -53,7 +53,7 @@
                         <td>{{ b.PriceString }}</td>
                         <td v-if='b.Level.IsMaxLevel'>レベル最大</td>
                         <td v-else-if='b.IsSoldOut'>購入済</td>
-                        <td v-else><div @click='buyBusiness(b.id)'>購入</div></td>
+                        <td v-else><div @click='buyBusiness(b.ID)'>購入</div></td>
                       </tr>
                     </table>
                   </div>
