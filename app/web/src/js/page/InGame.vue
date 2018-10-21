@@ -293,6 +293,7 @@ export default {
       IsGameSet: false,
       Phase: null,
       SessionID: null,
+      Level: null,
     }
   },
 
