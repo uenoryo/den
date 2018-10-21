@@ -5,6 +5,7 @@ import { PreferenceKey } from '../type/Type'
 export default class LocalStorage implements Storager {
   private scoreKey: string = 'den.Score'
   private tokenKey: string = 'den.Token'
+  private sessionIDKey: string = 'den.SessionID'
   private preferenceKeyPrefix: string = 'den.Preference.'
 
   saveScore(score: ScoreData[]): void {
@@ -41,6 +42,18 @@ export default class LocalStorage implements Storager {
 
   getToken(): string | null {
     let item = localStorage.getItem(this.tokenKey)
+    if (item === null) {
+      return null
+    }
+    return item
+  }
+
+  saveSessionID(sessionID: string): void {
+    localStorage.setItem(this.sessionIDKey, sessionID)
+  }
+
+  getSessionID(): string | null {
+    let item = localStorage.getItem(this.sessionIDKey)
     if (item === null) {
       return null
     }

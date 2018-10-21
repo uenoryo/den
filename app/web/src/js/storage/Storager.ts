@@ -9,4 +9,6 @@ export default interface Storager {
   getPreference(key: PreferenceKey): number
   saveToken(token: string): void
   getToken(): string | null
+  saveSessionID(sessionID: string): void
+  getSessionID(): string | null
 }

@@ -4,10 +4,12 @@ import { PreferenceKey } from '../../type/Type'
 
 export default class MockStorage implements Storager {
   public ScoreData: ScoreData[] | null
+  public SessionID: string | null
   public Token: string | null
 
   constructor() {
     this.ScoreData = null
+    this.SessionID = null
     this.Token = null
   }
 
@@ -37,5 +39,13 @@ export default class MockStorage implements Storager {
 
   getToken(): string | null {
     return this.Token
+  }
+
+  saveSessionID(sessionID: string): void {
+    this.SessionID = sessionID
+  }
+
+  getSessionID(): string | null {
+    return this.SessionID
   }
 }
