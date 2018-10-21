@@ -77,7 +77,7 @@
                     <table>
                       <tr v-for='b in UserBusinesses'>
                         <td>{{ b.BusinessName }} Lv{{ b.Level }}・・・</td>
-                        <td>{{ b.CurrentPrice }}万円</td>
+                        <td>{{ b.CurrentPriceString }}</td>
                       </tr>
                     </table>
                   </div>

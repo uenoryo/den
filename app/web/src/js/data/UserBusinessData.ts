@@ -12,4 +12,8 @@ export default class UserData {
     this.Level = 0
     this.CurrentPrice = 0
   }
+
+  get CurrentPriceString(): string {
+    return toMoneyString(this.CurrentPrice)
+  }
 }
