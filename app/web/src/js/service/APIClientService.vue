@@ -29,6 +29,7 @@ export default {
         user.Money = res.data.user.money
         user.Stamina = res.data.user.stamina
         this.Storage.saveToken(this.Token)
+        this.Storage.saveSessionID(this.SessionID)
         this.masterdataClean()
       })
     },
@@ -45,6 +46,7 @@ export default {
         user.Token = res.data.user.token
         user.Money = res.data.user.money
         user.Stamina = res.data.user.stamina
+        this.Storage.saveSessionID(vu.SessionID)
         this.masterdataClean()
 
         // とりあえずここでマスターデータの付与を行う

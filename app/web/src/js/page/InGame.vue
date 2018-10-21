@@ -332,9 +332,7 @@ export default {
 
       this.User = new User
 
-      this.Token = this.Storage.getToken()
-
-      this.apiClientPostLogin({'token': this.Token}, this.User)
+      this.SessionID = this.Storage.getSessionID()
     },
 
     setup() {
