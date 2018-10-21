@@ -201,6 +201,16 @@ export default {
     },
 
     buyBusiness(id) {
+      for (let b of this.TodaysBusinesses) {
+        if (b.ID === id) {
+          if (this.User.Money < b.Price) {
+            alert("所持金不足のため購入できません")
+            return
+          }
+          b.IsSoldOut = true
+          this.User.Money -= b.Price
+        }
+      }
       this.apiClientPostBusinessBuy(this, {'session_id': this.SessionID, 'business_id': id})
     },
 
