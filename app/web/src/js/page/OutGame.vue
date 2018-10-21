@@ -49,8 +49,8 @@
                     </div>
                     <table>
                       <tr v-for='b in TodaysBusinesses'>
-                        <td>{{ b.name }}</td>
-                        <td>{{ b.price_base }}</td>
+                        <td>{{ b.Name }}</td>
+                        <td>{{ b.PriceBaseString }}</td>
                         <td><div @click='buyBusiness(b.id)'>購入</div></td>
                       </tr>
                     </table>

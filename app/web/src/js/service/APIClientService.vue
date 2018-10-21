@@ -3,6 +3,7 @@ import Env from '../env'
 import RequestStatus from '../model/RequestStatus'
 import { RequestStatusType } from '../type/Type'
 import UserData from '../data/UserData'
+import BusinessData from '../data/BusinessData'
 import UserBusinessData from '../data/UserBusinessData'
 
 export default {
@@ -72,7 +73,7 @@ export default {
     apiClientGetBusinessList(vu) {
       return this.apiClientRequest('GET', 'business/list', {}, (res) => {
         console.log(res)
-        vu.TodaysBusinesses = res.data.businesses
+        this.apiClientSetTodaysBusinessData(vu, res.data.businesses)
       })
     },
 
@@ -147,6 +148,22 @@ export default {
       }
       vu.UserBusinesses = rows
     },
+
+    apiClientSetTodaysBusinessData(vu, businesses) {
+      let rows = []
+      for (let b of businesses) {
+        let row = new BusinessData
+        row.ID = b.id
+        row.Name = b.name
+        row.PriceBase = b.price_base
+        row.PriceLevel2 = b.price_level2
+        row.PriceLevel3 = b.price_level3
+
+        rows.push(row)
+      }
+
+      vu.TodaysBusinesses = rows
+    }
   },
 }
 </script>
