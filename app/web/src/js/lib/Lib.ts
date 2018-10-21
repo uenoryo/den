@@ -6,7 +6,7 @@ export function toMoneyString(money :number): string {
     let res = ""
     while (0 < str.length) {
       let num = parseInt(str.slice(-1*4)) // 一度数字にすることで 021 => 21 のように0を切る
-      if (num !== 0) {
+      if (num !== 0 && !isNaN(num)) {
         let tmp = String(num) + unitJP[index]
         res = tmp + res
       }
