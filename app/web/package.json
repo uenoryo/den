@@ -56,6 +56,7 @@
     "asserts": "^4.0.2",
     "espower-typescript": "^9.0.0",
     "mocha": "^5.2.0",
+    "moment": "^2.22.2",
     "power-assert": "^1.6.0",
     "ts-loader": "^4.4.2",
     "tsd": "^0.6.5",
