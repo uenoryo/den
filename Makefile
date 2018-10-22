@@ -6,3 +6,6 @@ deploy-api:
 
 update-nginx:
 	ansible-playbook -i ./ansible/inventory/app.ini ./ansible/playbook/den-web-nginx.yml --private-key=~/.ssh/den-web.pem --ask-become-pass
+
+update-database:
+	ansible-playbook -i ./ansible/inventory/app.ini ./ansible/playbook/database.yml --private-key=~/.ssh/den-web.pem --ask-become-pass
