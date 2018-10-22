@@ -4,11 +4,12 @@
   vars_files:
     - ../env.yml
   tasks:
-    - name: install MySQL
+    - name: install MySQL and Redis
       apt: name={{ item }} state=installed
       with_items:
         - mysql-server
         - python-mysqldb
+        - redis-server
 
     - name: create mysql user
       mysql_user: name={{ mysql_username }} host={{ item }} password={{ mysql_password }} priv={{ mysql_database }}.*:ALL,GRANT state=present
@@ -22,3 +23,6 @@
 
     - name: start mysql
       service: name=mysql state=restarted enabled=yes
+
+    - name: start redis
+      service: name=redis state=restarted enabled=yes
