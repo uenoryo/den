@@ -1,0 +1,24 @@
+---
+- hosts: den-api
+  become: True
+  vars_files:
+    - ../env.yml
+  tasks:
+    - name: install MySQL
+      apt: name={{ item }} state=installed
+      with_items:
+        - mysql-server
+        - python-mysqldb
+
+    - name: create mysql user
+      mysql_user: name={{ mysql_username }} host={{ item }} password={{ mysql_password }} priv={{ mysql_database }}.*:ALL,GRANT state=present
+      with_items:
+        - localhost
+        - 192.168.10.%
+
+    - name: create database
+      mysql_db: name={{ mysql_database }} state=present encoding=utf8mb4
+      encoding: utf8mb4
+
+    - name: start mysql
+      service: name=mysql state=restarted enabled=yes
