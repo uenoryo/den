@@ -41,5 +41,17 @@
       command: go get -u github.com/golang/dep
       become: True
 
+    - name: set environment variables
+      become: True
+      copy:
+        src: ../api-env
+        dest: "{{ home_dir }}/go/src/github.com/uenoryo/chitoi/.env.production"
+        owner: den
+        mode: 0644
+
     - name: run application
-      command: go run {{ home_dir }}/go/src/github.com/uenoryo/chitoi/main.go
+      environment:
+        CHITOI_ENV: production
+      command: go run ./main.go & chdir={{ home_dir }}/go/src/github.com/uenoryo/chitoi
+      async: 5
+      poll: 0

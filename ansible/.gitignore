@@ -1,4 +1,5 @@
 env.yml
+api-env
 *.retry
 /keys/den-prd
 /keys/den-web.pem
