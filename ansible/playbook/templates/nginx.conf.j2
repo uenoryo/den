@@ -1,3 +1,20 @@
+upstream api {
+    server 127.0.0.1:8080;
+}
+
+server {
+  server_name api.den.uma-b.com;
+  listen 80;
+
+  listen 443 ssl;
+  ssl_certificate     /etc/letsencrypt/live/den.uma-b.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/den.uma-b.com/privkey.pem;
+
+  location / {
+    proxy_pass http://api; # api-server が別になったら削除する
+  }
+}
+
 server {
   listen 80 default_server;
   listen [::]:80 default_server ipv6only=on;
@@ -7,7 +24,7 @@ server {
   ssl_certificate_key /etc/letsencrypt/live/den.uma-b.com/privkey.pem;
 
   root {{ root_dir }};
-  index index.html index.htm;
+  index index.html;
 
   server_name {{ server_name }};
 
