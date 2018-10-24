@@ -179,9 +179,9 @@ export default {
     loginOrSignup() {
       this.Token = this.Storage.getToken()
       if (this.Token) {
-        this.apiClientPostLogin(this, {'token': this.Token}, this.User)
+        this.apiClientPostLogin(this, {'token': this.Token})
       } else {
-        this.apiClientPostSignup({'platform': 1}, this.User)
+        this.apiClientPostSignup({'platform': 1})
       }
     },
 

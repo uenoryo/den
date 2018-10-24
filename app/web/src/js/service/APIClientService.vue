@@ -22,23 +22,21 @@ export default {
   },
 
   methods: {
-    apiClientPostSignup(req, user) {
+    apiClientPostSignup(vu, req) {
       return this.apiClientRequest('POST', 'user/signup', req, (res) => {
         console.log(res)
         this.Token = res.data.user.token
         this.SessionID = res.data.session_id
-        user.Code = parseInt(res.data.user.id) + 10000000 // 仮
-        user.Name = res.data.user.name
-        user.Token = res.data.user.token
-        user.Money = res.data.user.money
-        user.Stamina = res.data.user.stamina
+
+        this.masterdataClean()
+
+        this.apiClientSetUserData(vu, res.data.user)
         this.Storage.saveToken(this.Token)
         this.Storage.saveSessionID(this.SessionID)
-        this.masterdataClean()
       })
     },
 
-    apiClientPostLogin(vu, req, user) {
+    apiClientPostLogin(vu, req) {
       return this.apiClientRequest('POST', 'user/login', req, (res) => {
         console.log(res.data)
         vu.SessionID = res.data.session_id
