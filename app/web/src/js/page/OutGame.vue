@@ -181,7 +181,7 @@ export default {
       if (this.Token) {
         this.apiClientPostLogin(this, {'token': this.Token})
       } else {
-        this.apiClientPostSignup({'platform': 1})
+        this.apiClientPostSignup(this, {'platform': 1})
       }
     },
 
