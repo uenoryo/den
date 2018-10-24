@@ -27,6 +27,7 @@ export default {
         console.log(res)
         this.Token = res.data.user.token
         this.SessionID = res.data.session_id
+        vu.Businesses = res.data.businesses
 
         this.masterdataClean()
 
