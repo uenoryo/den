@@ -96,12 +96,20 @@ export type Style = {
   display: string,
 }
 
-// ゲームフェイズ
+// ゲームフェイズ (インゲーム)
 export enum GamePhase {
   Start,
   Prepare,
   Main,
   Result,
+  End,
+}
+
+// ゲームフェイズ (アウトゲーム)
+export enum OutGamePhase {
+  Home,
+  Profile,
+  Business,
 }
 
 // 言語
@@ -113,4 +121,13 @@ export enum Lang {
 // 設定のキー
 export enum PreferenceKey {
   LangIsEnglish,
+}
+
+// リクエストのステータス
+export enum RequestStatusType {
+  Initial,
+  Waiting,
+  Success,
+  Fail,
+  Timeout,
 }

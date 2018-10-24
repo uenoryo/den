@@ -48,7 +48,20 @@ export default class ScoreKeeper {
     return latestScore.LoserID
   }
 
-  keep(type: GameSetType, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null): void {
+  get ScoreNum(): number {
+    return this.Data.length
+  }
+
+  get NextRound(): number {
+    return this.ScoreNum + 1
+  }
+
+  getScore(limit: number): ScoreData[] {
+      // 後ろから limit 件取得
+      return this.Data.slice(limit * -1)
+  }
+
+  keep(type: GameSetType, winnerID: PlayerID | 0, loserID: PlayerID | 0, players: Players, field: CardData | null, level: number): void {
     let score = new ScoreData
     score.Type = type
     score.WinnerID = winnerID
@@ -69,6 +82,7 @@ export default class ScoreKeeper {
       case GameSetType.CounterChitoi:
         if (winnerID !== 0 && loserID !== 0) {
           score.addHandCost(loserID, fieldCost)
+          score.Level = level
           score.JokerBuff = players.get(winnerID).Hand.JokerBuff
           score.ChitoiPower = players.get(winnerID).Hand.ChitoiPower
         }
@@ -110,6 +124,29 @@ export default class ScoreKeeper {
   clear(): void {
     this.storage.clearScore()
     this.fetch()
+  }
+
+  sumScore(data: ScoreData[], playerID: PlayerID): number {
+    let result = 0
+    for (let score of data) {
+      switch(playerID) {
+        case 1:
+          result += score.p1ScoreCache
+          break
+        case 2:
+          result += score.p2ScoreCache
+          break
+        case 3:
+          result += score.p3ScoreCache
+          break
+        case 4:
+          result += score.p4ScoreCache
+          break
+        default:
+          throw new Error(`Invalid Player id:${playerID}`)
+      }
+    }
+    return result
   }
 
   // TODO: JSONにした時にメソッドが消えるのでなんとかする

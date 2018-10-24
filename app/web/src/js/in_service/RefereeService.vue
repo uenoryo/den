@@ -14,7 +14,7 @@ export default {
         return
       }
 
-      this.ScoreKeeper.keep(GameSetType.PlainDone, player.Data.ID, 0, this.Players)
+      this.ScoreKeeper.keep(GameSetType.PlainDone, player.Data.ID, 0, this.Players, this.Level)
       this.refereeWaitFinish()
     },
 
@@ -33,32 +33,32 @@ export default {
       let field = this.Dealer.Field.top()
       switch (type) {
         case GameSetType.Den:
-          this.ScoreKeeper.keep(GameSetType.Den, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players, field)
+          this.ScoreKeeper.keep(GameSetType.Den, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players, field, this.Level)
           this.refereeDenAction(player)
           this.refereeWaitFinish()
           break
         case GameSetType.Anko:
-          this.ScoreKeeper.keep(GameSetType.Anko, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players, field)
+          this.ScoreKeeper.keep(GameSetType.Anko, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players, field, this.Level)
           this.refereeDenAction(player)
           this.refereeWaitFinish()
           break
         case GameSetType.Chitoi:
-          this.ScoreKeeper.keep(GameSetType.Chitoi, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players, field)
+          this.ScoreKeeper.keep(GameSetType.Chitoi, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players, field, this.Level)
           this.refereeDenAction(player)
           this.refereeWaitFinish()
           break
         case GameSetType.CounterDen:
-          this.ScoreKeeper.keep(GameSetType.CounterDen, player.Data.ID, this.Referee.DenLaunchPlayerID, this.Players, field)
+          this.ScoreKeeper.keep(GameSetType.CounterDen, player.Data.ID, this.Referee.DenLaunchPlayerID, this.Players, field, this.Level)
           this.refereeDenAction(player)
           this.refereeWaitFinish()
           break
         case GameSetType.CounterAnko:
-          this.ScoreKeeper.keep(GameSetType.CounterAnko, player.Data.ID, this.Referee.DenLaunchPlayerID, this.Players, field)
+          this.ScoreKeeper.keep(GameSetType.CounterAnko, player.Data.ID, this.Referee.DenLaunchPlayerID, this.Players, field, this.Level)
           this.refereeDenAction(player)
           this.refereeWaitFinish()
           break
         case GameSetType.CounterChitoi:
-          this.ScoreKeeper.keep(GameSetType.CounterChitoi, player.Data.ID, this.Referee.DenLaunchPlayerID, this.Players, field)
+          this.ScoreKeeper.keep(GameSetType.CounterChitoi, player.Data.ID, this.Referee.DenLaunchPlayerID, this.Players, field, this.Level)
           this.refereeDenAction(player)
           this.refereeWaitFinish()
           break

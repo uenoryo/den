@@ -21,11 +21,11 @@ describe('ScoreKeeper', () => {
     it('最新のスコアデータを取得できる', () => {
       let sk = new ScoreKeeper(new MockStorage)
       let players = testPlayers()
-      sk.keep(GameSetType.Den, 1, 4, players, null)
+      sk.keep(GameSetType.Den, 1, 4, players, null, 1)
       sk.save()
-      sk.keep(GameSetType.Den, 2, 4, players, null)
+      sk.keep(GameSetType.Den, 2, 4, players, null, 1)
       sk.save()
-      sk.keep(GameSetType.Den, 3, 4, players, null)
+      sk.keep(GameSetType.Den, 3, 4, players, null, 1)
       sk.save()
       if (sk.LatestScoreData === null) {
         throw new Error('latest score is null')
@@ -39,11 +39,11 @@ describe('ScoreKeeper', () => {
       it('データが存在する場合は取得できる', () => {
         let sk = new ScoreKeeper(new MockStorage)
         let players = testPlayers()
-        sk.keep(GameSetType.Den, 1, 4, players, null)
+        sk.keep(GameSetType.Den, 1, 4, players, null, 1)
         sk.save()
-        sk.keep(GameSetType.Den, 2, 4, players, null)
+        sk.keep(GameSetType.Den, 2, 4, players, null, 1)
         sk.save()
-        sk.keep(GameSetType.Den, 3, 4, players, null)
+        sk.keep(GameSetType.Den, 3, 4, players, null, 1)
         sk.save()
         assert.equal(sk.LatestWinnerID, 3)
       })
@@ -58,13 +58,21 @@ describe('ScoreKeeper', () => {
     it('スコアが(追加)記録される', () => {
       let sk = new ScoreKeeper(new MockStorage)
       let players = testPlayers()
-      sk.keep(GameSetType.Den, 1, 4, players, null)
+      sk.keep(GameSetType.Den, 1, 4, players, null, 1)
       sk.save()
-      sk.keep(GameSetType.Den, 1, 4, players, null)
+      sk.keep(GameSetType.Den, 1, 4, players, null, 1)
       sk.save()
-      sk.keep(GameSetType.Den, 1, 4, players, null)
+      sk.keep(GameSetType.Den, 1, 4, players, null, 1)
       sk.save()
       assert.equal(sk.Data.length, 3)
+    })
+
+    it('レベルが記録される', () => {
+      let sk = new ScoreKeeper(new MockStorage)
+      let players = testPlayers()
+      sk.keep(GameSetType.Den, 1, 4, players, null, 3)
+      sk.save()
+      assert.equal(sk.Data[0].Level, 3)
     })
   })
 
@@ -82,11 +90,11 @@ describe('ScoreKeeper', () => {
       let storage = new MockStorage
       let sk = new ScoreKeeper(storage)
       let players = testPlayers()
-      sk.keep(GameSetType.Den, 1, 4, players, null)
+      sk.keep(GameSetType.Den, 1, 4, players, null, 1)
       sk.save()
-      sk.keep(GameSetType.Den, 1, 4, players, null)
+      sk.keep(GameSetType.Den, 1, 4, players, null, 1)
       sk.save()
-      sk.keep(GameSetType.Den, 1, 4, players, null)
+      sk.keep(GameSetType.Den, 1, 4, players, null, 1)
       sk.save()
 
 
@@ -103,11 +111,11 @@ describe('ScoreKeeper', () => {
       let storage = new MockStorage
       let sk = new ScoreKeeper(storage)
       let players = testPlayers()
-      sk.keep(GameSetType.Den, 1, 4, players, null)
+      sk.keep(GameSetType.Den, 1, 4, players, null, 1)
       sk.save()
-      sk.keep(GameSetType.Den, 1, 4, players, null)
+      sk.keep(GameSetType.Den, 1, 4, players, null, 1)
       sk.save()
-      sk.keep(GameSetType.Den, 1, 4, players, null)
+      sk.keep(GameSetType.Den, 1, 4, players, null, 1)
       sk.save()
 
       storage.ScoreData = sk.Data
@@ -127,9 +135,9 @@ describe('ScoreKeeper', () => {
       let storage = new MockStorage
       let sk = new ScoreKeeper(storage)
       let players = testPlayers()
-      sk.keep(GameSetType.Den, 1, 4, players, null)
-      sk.keep(GameSetType.Den, 1, 4, players, null)
-      sk.keep(GameSetType.Den, 1, 4, players, null)
+      sk.keep(GameSetType.Den, 1, 4, players, null, 1)
+      sk.keep(GameSetType.Den, 1, 4, players, null, 1)
+      sk.keep(GameSetType.Den, 1, 4, players, null, 1)
 
       sk.save()
       sk.clear()

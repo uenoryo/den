@@ -26,6 +26,8 @@ export default class ScoreData {
   public p2ScoreCache: number
   public p3ScoreCache: number
   public p4ScoreCache: number
+  public JokerBuffStringCache: string
+  public GameSetTypeStringCache: string
 
   constructor() {
     this.Type = GameSetType.PlainDone
@@ -44,6 +46,8 @@ export default class ScoreData {
     this.p2ScoreCache = 0
     this.p3ScoreCache = 0
     this.p4ScoreCache = 0
+    this.JokerBuffStringCache = ''
+    this.GameSetTypeStringCache = ''
   }
 
   get TotalHandCost(): number {
@@ -188,6 +192,8 @@ export default class ScoreData {
     this.p2ScoreCache = this.getScore(2)
     this.p3ScoreCache = this.getScore(3)
     this.p4ScoreCache = this.getScore(4)
+    this.JokerBuffStringCache = this.JokerBuffString
+    this.GameSetTypeStringCache = this.GameSetTypeString
   }
 
   isValidScore(): boolean {

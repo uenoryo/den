@@ -14,7 +14,8 @@
         mode: 0700
     - name: get SSL certificate
       shell: |
-        certbot-auto certonly --standalone -d den.uma-b.com -m p@uenoryo.com --agree-tos -n
+        certbot-auto certonly --expand --standalone -d den.uma-b.com -d api.den.uma-b.com -m p@uenoryo.com --agree-tos -n
+
     - name: install nginx
       apt: name=nginx update_cache=yes cache_valid_time=3600
 

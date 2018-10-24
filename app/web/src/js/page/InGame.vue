@@ -1,8 +1,5 @@
 <template>
   <div class='gameContainer' id='View'>
-    <div class='ads'>
-      ads
-    </div>
     <div class='game'>
       <!-- image preloading space -->
       <div id='ImagePreload'>
@@ -10,32 +7,13 @@
       </div>
 
       <div class='denActionArea' @click='den(Config.MainPlayerID())'></div>
-
-      <div v-if='Phase === GamePhase.Start' id="GameStartView">
-        <div class='modal open'>
-          <div class='modal__inner modal__inner--full'>
-            <div class='modal__body'>
-              <div class='StartView'>
-                <h3>DEN</h3>
-                <div class='StartView__BtnList'>
-                  <div @click='gamePrepare(true)' class='StartView__Btn btn'>はじめから</div>
-                  <div @click='gamePrepare(false)' class='StartView__Btn btn'>つづきから</div>
-                  <div @click='howTo()' class='StartView__Btn btn'>あそびかた</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div v-else id="GameMainView">
-
+      <div id="GameMainView">
         <div v-if='Phase === GamePhase.Prepare' id="GameStartView">
           <div class='modal modal--hard open'>
             <div class='modal__inner modal__inner--full'>
               <div class='modal__body'>
                 <div class='StartView'>
-                  <h3>Round {{ ScoreKeeper.Data.length + 1 }}</h3>
+                  <h3>Round {{ ScoreKeeper.NextRound }}</h3>
                   <div class='StartView__Body'>
                     <table>
                       <tr>
@@ -155,6 +133,38 @@
           </div>
         </div>
 
+        <div v-else-if='Phase === GamePhase.End' id="GameEndView">
+          <div class='modal modal--hard open'>
+            <div class='modal__inner modal__inner--full'>
+              <div class='modal__body'>
+                <div class='EndView'>
+                  <h3>結果</h3>
+                  <div class='EndView__Body'>
+                    <table>
+                      <tr v-for='(s, idx) in ScoreKeeper.getScore(Constants.RoundNumPerGame)'>
+                        <td class='ScoreRecord__item'>Round {{ idx + 1 }}</td>
+                        <td class='ScoreRecord__item'>{{ s.JokerBuffStringCache }} {{ s.GameSetTypeStringCache }}</td>
+                        <td class='ScoreRecord__item'>{{ s.p1ScoreCache }}</td>
+                      </tr>
+                    </table>
+                    <div class='EndView__Sum'>
+                      <div>合計</div>
+                      <div>{{ ScoreKeeper.sumScore(ScoreKeeper.getScore(Constants.RoundNumPerGame), 1) }}</div>
+                    </div>
+                    <div class='EndView__Score'>
+                      <div>所持金</div>
+                      <div>{{ User.MoneyString }}</div>
+                    </div>
+                  </div>
+                  <div class='EndView__BtnList'>
+                    <div @click='gameClose()' class='EndView__Btn btn'>ホーム</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div
           v-for='player of Players.all()'
           class='PlayerCardArea'
@@ -246,16 +256,18 @@
 </template>
 
 <script>
-import GodService from './GodService'
-import DealerService from './DealerService'
-import RefereeService from './RefereeService'
-import ComputerService from './ComputerService'
-import AnimationService from './AnimationService'
-import DebugService from './DebugService'
+import GodService from '../in_service/GodService'
+import DealerService from '../in_service/DealerService'
+import RefereeService from '../in_service/RefereeService'
+import ComputerService from '../in_service/ComputerService'
+import AnimationService from '../in_service/AnimationService'
+import DebugService from '../in_service/DebugService'
+import APIClientService from '../service/APIClientService'
 import { Constants } from '../constant/Basic'
 import { ReplyAction, GamePhase } from '../type/Type'
 import Config from '../config/Config'
-import LocalStorage from '../storage/LocalStorage'
+import Storage from '../storage/LocalStorage'
+import User from '../data/UserData'
 
 export default {
   name: 'Den',
@@ -266,6 +278,7 @@ export default {
     ComputerService,
     AnimationService,
     DebugService,
+    APIClientService,
   ],
   data() {
     return {
@@ -279,6 +292,8 @@ export default {
       ReplyAction: null,
       IsGameSet: false,
       Phase: null,
+      SessionID: null,
+      Level: null,
     }
   },
 
@@ -298,11 +313,13 @@ export default {
 
       this.Config = Config.app()
 
+      this.Storage = new Storage
+
       this.ReplyAction = ReplyAction
 
       this.GamePhase = GamePhase
 
-      this.Phase = GamePhase.Start
+      this.Phase = GamePhase.Prepare
 
       this.God = this.godBirth()
 
@@ -313,6 +330,14 @@ export default {
       this.Referee = this.godCreateReferee()
 
       this.ScoreKeeper = this.godCreateScoreKeeper()
+
+      this.User = new User
+
+      this.SessionID = this.Storage.getSessionID()
+
+      this.Level = this.$route.params.level
+
+      this.apiClientPostUserInfo(this, {'session_id': this.SessionID})
     },
 
     setup() {
@@ -429,11 +454,22 @@ export default {
     gameReload() {
       this.dealerResotre()
       this.setup()
-      this.Phase = GamePhase.Prepare
+
+      if (this.ScoreKeeper.ScoreNum >= Constants.RoundNumPerGame) {
+        this.Phase = GamePhase.End
+        let money = this.ScoreKeeper.sumScore(this.ScoreKeeper.getScore(Constants.RoundNumPerGame), 1)
+        this.User.Money += money
+        this.apiClientPostGameFinish({'session_id': this.SessionID, 'money': String(money)}, this.User)
+      } else {
+        this.Phase = GamePhase.Prepare
+      }
     },
 
-    howTo() {
-      alert('手札がなくなるかDENしたら勝ち')
+    gameClose() {
+      if (this.ScoreKeeper.ScoreNum >= Constants.RoundNumPerGame) {
+        this.ScoreKeeper.clear()
+      }
+      this.$router.push({ name: 'home' })
     },
   }
 }

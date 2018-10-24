@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '../components/Home.vue'
-import Den from '../components/Den.vue'
-import NotFound from '../components/NotFound.vue'
+import Home from '../page/OutGame.vue'
+import Den from '../page/InGame.vue'
+import NotFound from '../page/NotFound.vue'
 
 Vue.use(Router)
 
@@ -13,6 +13,11 @@ export default new Router({
     {
       path: '/',
       name: 'home',
+      component: Home
+    },
+    {
+      path: '/den/:level',
+      name: 'den',
       component: Den
     },
     {

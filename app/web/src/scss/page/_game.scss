@@ -110,6 +110,30 @@ html, body {
   }
 }
 
+.EndView {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  h3 {
+    padding: 16px;
+    font-size: 26px;
+    letter-spacing: 2px;
+  }
+  table {
+    width: 100%;
+    text-align: left;
+  }
+  tr {
+    border-bottom: 1px solid;
+  }
+  td {
+    padding: 16px 0 4px;
+    font-size: 14px;
+  }
+}
+
 .ScoreList {
   overflow: scroll;
   padding: 16px;

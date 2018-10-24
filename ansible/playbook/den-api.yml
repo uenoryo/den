@@ -1,0 +1,57 @@
+---
+- name: download repository
+  hosts: den-api
+  vars:
+    home_dir: /home/den
+    github_deploy_key: den-prd
+  environment:
+    GOPATH: /home/den/go
+    GOROOT: /usr/lib/go-1.9
+    GOBIN: /home/den/go/bin
+  tasks:
+    - name: create base directory
+      file:
+        path: "{{ home_dir }}"
+        state: directory
+        owner: den
+        mode: 0755
+    - name: create directory for saving ssh keys
+      file:
+        path: "{{ home_dir }}/keys"
+        state: directory
+        owner: den
+        mode: 0755
+
+    - name: add key file for GitHub
+      copy:
+        src: ../keys/{{ github_deploy_key }}
+        dest: "{{ home_dir }}/keys/"
+        owner: den
+        mode: 0400
+
+    - name: download repository
+      git: repo=git@github.com:uenoryo/chitoi.git dest={{ home_dir }}/chitoi version=master accept_hostkey=yes key_file={{ home_dir }}/keys/den-prd
+      become: False
+
+    - name: update repositories cache and install golang
+      apt: name=golang-1.9 update_cache=yes
+      become: True
+
+    - name: install go modules
+      command: go get -u github.com/golang/dep
+      become: True
+
+    - name: set environment variables
+      become: True
+      copy:
+        src: ../api-env
+        dest: "{{ home_dir }}/go/src/github.com/uenoryo/chitoi/.env.production"
+        owner: den
+        mode: 0644
+
+    - name: run application
+      environment:
+        CHITOI_ENV: production
+      command: go run ./main.go & chdir={{ home_dir }}/go/src/github.com/uenoryo/chitoi
+      async: 5
+      poll: 0

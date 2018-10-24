@@ -7,4 +7,8 @@ export default interface Storager {
   clearScore(): void
   savePreference(key: PreferenceKey, value: number): void
   getPreference(key: PreferenceKey): number
+  saveToken(token: string): void
+  getToken(): string | null
+  saveSessionID(sessionID: string): void
+  getSessionID(): string | null
 }

@@ -22,4 +22,7 @@ export namespace Constants {
 
   // Den をした直後から DenCounter 可能な時間 (ミリ秒)
   export const RefereeWaitCounterTimeMs = 3000
+
+  // 1ゲーム内のラウンド数
+  export const RoundNumPerGame = 7
 }
