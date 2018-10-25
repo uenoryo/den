@@ -29,6 +29,7 @@ export enum Phase {
   ForceDraw,
   Attach,
   ChangeMark,
+  Maintenance,
 }
 
 // Player の行動タイプ
