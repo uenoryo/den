@@ -343,6 +343,8 @@ export default {
     setup() {
       this.ScoreKeeper.fetch()
 
+      this.dealerSetup()
+
       this.dealerChangeTurnPlayer()
 
       this.dealerShuffleDeck()

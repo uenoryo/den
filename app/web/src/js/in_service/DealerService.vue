@@ -6,6 +6,10 @@ import Rule from '../model/Rule'
 
 export default {
   methods: {
+    dealerSetup() {
+      this.Dealer.setup()
+    },
+
     dealerShuffleDeck() {
       this.Dealer.shuffle()
     },
