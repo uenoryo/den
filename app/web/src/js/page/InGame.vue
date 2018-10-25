@@ -221,6 +221,13 @@
             </div>
           </div>
         </div>
+        <div
+          class='modal modal--hard'
+          :class='{open:Dealer.Phase.IsMaintenance}'>
+          <div class='modal__inner'>
+            <div class='modal__body'>デッキのカードがなくなったので<br>シャッフルします</div>
+          </div>
+        </div>
         <div class='field' @click='den(config.MainPlayerID)'>
           <div class='Sleeve'>
             <div v-if='Dealer.Field.top() !== null'>
@@ -367,6 +374,10 @@ export default {
         return
       }
 
+      if (this.Dealer.Phase.IsMaintenance) {
+        return
+      }
+
       if (!this.dealerCanReceiveCard(this.Players.get(id).show(handIdx))) {
         this.dealerRejectReceivingCard()
         return
@@ -387,6 +398,10 @@ export default {
 
     draw() {
       if (!this.isGameMain()) {
+        return
+      }
+
+      if (this.Dealer.Phase.IsMaintenance) {
         return
       }
 

@@ -106,6 +106,7 @@ export default {
         }
       }, 1000)
       if (this.Dealer.shouldMaintenance()) {
+        this.Dealer.changePhase(Phase.Maintenance)
         this.animateMaintenance(this.Dealer)
       }
     },
