@@ -247,6 +247,7 @@ export default {
     dealerCanDeal(player) {
       return this.Dealer.playerIsTurnPlayer(player.Data.ID)
         && this.Dealer.Phase.IsNormal
+        && !this.refereeIsJudging()
     },
 
     dealerListenReply(player, reply, param) {
