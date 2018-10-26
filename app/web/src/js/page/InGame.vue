@@ -221,6 +221,13 @@
             </div>
           </div>
         </div>
+        <div
+          class='modal modal--hard'
+          :class='{open:Dealer.Phase.IsMaintenance}'>
+          <div class='modal__inner'>
+            <div class='modal__body'>デッキのカードがなくなったので<br>シャッフルします</div>
+          </div>
+        </div>
         <div class='field' @click='den(config.MainPlayerID)'>
           <div class='Sleeve'>
             <div v-if='Dealer.Field.top() !== null'>
@@ -343,6 +350,8 @@ export default {
     setup() {
       this.ScoreKeeper.fetch()
 
+      this.dealerSetup()
+
       this.dealerChangeTurnPlayer()
 
       this.dealerShuffleDeck()
@@ -362,6 +371,10 @@ export default {
       }
 
       if (!this.isTurnPlayer(id)) {
+        return
+      }
+
+      if (this.Dealer.Phase.IsMaintenance) {
         return
       }
 
@@ -385,6 +398,10 @@ export default {
 
     draw() {
       if (!this.isGameMain()) {
+        return
+      }
+
+      if (this.Dealer.Phase.IsMaintenance) {
         return
       }
 

@@ -133,7 +133,7 @@ export default {
       }
     },
 
-    animateMaintenance(dealer) {
+    animateMaintenance(dealer, dealFunc) {
       for (let idx in dealer.Field.Cards) {
         if (parseInt(idx) === (dealer.Field.Cards.length - 1)) {
           this.animate({
@@ -162,6 +162,7 @@ export default {
           for (let idx in dealer.Field.Cards) {
             this.show(`Card__ID${dealer.Field.Cards[idx].ID}`)
           }
+          dealFunc()
         }, 100)
       }, dealer.Field.Cards.length * 100 + 200)
     },

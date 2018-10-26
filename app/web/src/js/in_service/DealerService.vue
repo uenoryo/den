@@ -6,6 +6,10 @@ import Rule from '../model/Rule'
 
 export default {
   methods: {
+    dealerSetup() {
+      this.Dealer.setup()
+    },
+
     dealerShuffleDeck() {
       this.Dealer.shuffle()
     },
@@ -92,17 +96,25 @@ export default {
       if (!this.dealerCanDeal(player)) {
         return
       }
-      this.animationDeal(this.Dealer, player)
 
-      setTimeout(() => {
-        if (Rule.isPank(player.Hand)) {
-          alert(`[パンク] プレイヤー${player.Data.ID}の負け`)
-          this.gameSet()
-          return
-        }
-      }, 1000)
+      let dealFunc = () => {
+        this.Dealer.changePhase(Phase.Normal)
+        this.animationDeal(this.Dealer, player)
+        setTimeout(() => {
+          if (Rule.isPank(player.Hand)) {
+            alert(`[パンク] プレイヤー${player.Data.ID}の負け`)
+            this.gameSet()
+            return
+          }
+        }, 1000)
+      }
+
+      // メンテナンスが必要な場合はdealを遅延して行う
       if (this.Dealer.shouldMaintenance()) {
-        this.animateMaintenance(this.Dealer)
+        this.Dealer.changePhase(Phase.Maintenance)
+        this.animateMaintenance(this.Dealer, dealFunc)
+      } else {
+        dealFunc()
       }
     },
 
@@ -288,12 +300,22 @@ export default {
     dealerListenReplyForceDraw (player, reply) {
       switch (reply) {
         case ReplyAction.ForceDraw.Draw:
-          this.Dealer.changePhase(Phase.Normal)
-          for (let i = 0; i < this.Dealer.ForceDrawAmount; i++) {
-            this.dealerDeal(player)
+          let forceDrawFunc = () => {
+            this.Dealer.changePhase(Phase.Normal)
+            for (let i = 0; i < this.Dealer.ForceDrawAmount; i++) {
+              this.dealerDeal(player)
+            }
+            this.Dealer.resetForceDrawAmount()
+            this.dealerGoNextTurn()
           }
-          this.Dealer.resetForceDrawAmount()
-          this.dealerGoNextTurn()
+
+          // 枚数が足りない場合は先にメンテナンスを行って遅延実行
+          if (this.Dealer.Deck.CardAmount < this.Dealer.ForceDrawAmount + Constants.DeckMaintenanceRemainingAmount) {
+            this.Dealer.changePhase(Phase.Maintenance)
+            this.animateMaintenance(this.Dealer, forceDrawFunc)
+          } else {
+            forceDrawFunc()
+          }
           break
       }
     },

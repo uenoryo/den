@@ -22,4 +22,8 @@ export default class PhaseData {
   get IsChangeMark(): boolean {
     return this.Value === Phase.ChangeMark
   }
+
+  get IsMaintenance(): boolean {
+    return this.Value === Phase.Maintenance
+  }
 }
