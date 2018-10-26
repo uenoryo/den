@@ -96,18 +96,25 @@ export default {
       if (!this.dealerCanDeal(player)) {
         return
       }
-      this.animationDeal(this.Dealer, player)
 
-      setTimeout(() => {
-        if (Rule.isPank(player.Hand)) {
-          alert(`[パンク] プレイヤー${player.Data.ID}の負け`)
-          this.gameSet()
-          return
-        }
-      }, 1000)
+      let dealFunc = () => {
+        this.Dealer.changePhase(Phase.Normal)
+        this.animationDeal(this.Dealer, player)
+        setTimeout(() => {
+          if (Rule.isPank(player.Hand)) {
+            alert(`[パンク] プレイヤー${player.Data.ID}の負け`)
+            this.gameSet()
+            return
+          }
+        }, 1000)
+      }
+
+      // メンテナンスが必要な場合はdealを遅延して行う
       if (this.Dealer.shouldMaintenance()) {
         this.Dealer.changePhase(Phase.Maintenance)
-        this.animateMaintenance(this.Dealer)
+        this.animateMaintenance(this.Dealer, dealFunc)
+      } else {
+        dealFunc()
       }
     },
 
