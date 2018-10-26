@@ -300,12 +300,22 @@ export default {
     dealerListenReplyForceDraw (player, reply) {
       switch (reply) {
         case ReplyAction.ForceDraw.Draw:
-          this.Dealer.changePhase(Phase.Normal)
-          for (let i = 0; i < this.Dealer.ForceDrawAmount; i++) {
-            this.dealerDeal(player)
+          let forceDrawFunc = () => {
+            this.Dealer.changePhase(Phase.Normal)
+            for (let i = 0; i < this.Dealer.ForceDrawAmount; i++) {
+              this.dealerDeal(player)
+            }
+            this.Dealer.resetForceDrawAmount()
+            this.dealerGoNextTurn()
           }
-          this.Dealer.resetForceDrawAmount()
-          this.dealerGoNextTurn()
+
+          // 枚数が足りない場合は先にメンテナンスを行って遅延実行
+          if (this.Dealer.Deck.CardAmount < this.Dealer.ForceDrawAmount + Constants.DeckMaintenanceRemainingAmount) {
+            this.Dealer.changePhase(Phase.Maintenance)
+            this.animateMaintenance(this.Dealer, forceDrawFunc)
+          } else {
+            forceDrawFunc()
+          }
           break
       }
     },
