@@ -141,7 +141,7 @@ export default {
             translateX: '0px',
             translateY: '0px',
             rotate: 0,
-            duration: 300,
+            duration: 150,
             easing: 'easeOutQuad',
           })
           continue
@@ -150,9 +150,9 @@ export default {
         this.animate({
           targets: `#Card__ID${dealer.Field.Cards[idx].ID}`,
           translateX: '0px',
-          duration: 200,
+          duration: 100,
           rotate: 0,
-          delay: parseInt(idx) * 100,
+          delay: parseInt(idx) * 50,
           easing: 'easeOutQuad',
         })
       }
@@ -164,7 +164,7 @@ export default {
           }
           dealFunc()
         }, 100)
-      }, dealer.Field.Cards.length * 100 + 200)
+      }, dealer.Field.Cards.length * 50 + 100)
     },
 
     el(elID) {
