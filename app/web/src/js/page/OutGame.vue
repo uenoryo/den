@@ -74,6 +74,9 @@
                   <h3>資産</h3>
                   <div class='BusinessView__Body'>
                     <div>
+                      総資産: {{ userTotalAssetAmount() }}
+                    </div>
+                    <div>
                       所持金: {{ User.MoneyString }}
                     </div>
                     <table>
@@ -139,6 +142,7 @@
 import APIClientService from '../service/APIClientService'
 import MasterdataService from '../out_service/MasterdataService'
 import LocalStorage from '../storage/LocalStorage'
+import { toMoneyString } from '../lib/Lib'
 import { OutGamePhase } from '../type/Type'
 
 export default {
@@ -220,6 +224,15 @@ export default {
 
     retry() {
       this.ApiClientRetryFunction()
+    },
+
+    // TODO: UserServiceに移植する
+    userTotalAssetAmount() {
+      let total = 0
+      for (let ub of this.UserBusinesses) {
+        total += ub.CurrentPrice
+      }
+      return toMoneyString(total)
     },
   },
 }
