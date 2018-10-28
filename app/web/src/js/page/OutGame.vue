@@ -80,7 +80,7 @@
                       総資産: {{ userTotalAssetAmountString() }}
                     </div>
                     <div>
-                      次の資産まであと: {{ userNeedAssetToNextRankString() }}
+                      次のランクまであと: {{ userNeedAssetToNextRankString() }}
                     </div>
                     <table>
                       <tr v-for='b in UserBusinesses'>
