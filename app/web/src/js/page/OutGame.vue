@@ -74,10 +74,13 @@
                   <h3>資産</h3>
                   <div class='BusinessView__Body'>
                     <div>
-                      総資産: {{ userTotalAssetAmount() }}
+                      所持金: {{ User.MoneyString }}
                     </div>
                     <div>
-                      所持金: {{ User.MoneyString }}
+                      総資産: {{ userTotalAssetAmountString() }}
+                    </div>
+                    <div>
+                      次の資産まであと: {{ userNeedAssetToNextRankString() }}
                     </div>
                     <table>
                       <tr v-for='b in UserBusinesses'>
@@ -232,7 +235,19 @@ export default {
       for (let ub of this.UserBusinesses) {
         total += ub.CurrentPrice
       }
-      return toMoneyString(total)
+      return total
+    },
+
+    userTotalAssetAmountString() {
+      return toMoneyString(this.userTotalAssetAmount())
+    },
+
+    // TODO: UserServiceに移植する
+    userNeedAssetToNextRankString() {
+      let nextRank = this.User.Rank + 1
+      let need = (nextRank * nextRank * 100) - this.userTotalAssetAmount()
+      console.log((nextRank * nextRank * 100) - this.userTotalAssetAmount())
+      return toMoneyString(need < 0 ? 0 : need)
     },
   },
 }
