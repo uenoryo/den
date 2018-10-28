@@ -76,6 +76,12 @@
                     <div>
                       所持金: {{ User.MoneyString }}
                     </div>
+                    <div>
+                      総資産: {{ userTotalAssetAmountString() }}
+                    </div>
+                    <div>
+                      次の資産まであと: {{ userNeedAssetToNextRankString() }}
+                    </div>
                     <table>
                       <tr v-for='b in UserBusinesses'>
                         <td>{{ b.BusinessName }} Lv{{ b.Level }}・・・</td>
@@ -139,6 +145,7 @@
 import APIClientService from '../service/APIClientService'
 import MasterdataService from '../out_service/MasterdataService'
 import LocalStorage from '../storage/LocalStorage'
+import { toMoneyString } from '../lib/Lib'
 import { OutGamePhase } from '../type/Type'
 
 export default {
@@ -220,6 +227,27 @@ export default {
 
     retry() {
       this.ApiClientRetryFunction()
+    },
+
+    // TODO: UserServiceに移植する
+    userTotalAssetAmount() {
+      let total = 0
+      for (let ub of this.UserBusinesses) {
+        total += ub.CurrentPrice
+      }
+      return total
+    },
+
+    userTotalAssetAmountString() {
+      return toMoneyString(this.userTotalAssetAmount())
+    },
+
+    // TODO: UserServiceに移植する
+    userNeedAssetToNextRankString() {
+      let nextRank = this.User.Rank + 1
+      let need = (nextRank * nextRank * 100) - this.userTotalAssetAmount()
+      console.log((nextRank * nextRank * 100) - this.userTotalAssetAmount())
+      return toMoneyString(need < 0 ? 0 : need)
     },
   },
 }
