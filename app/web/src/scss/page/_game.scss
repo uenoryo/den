@@ -52,18 +52,18 @@ html, body {
 
 .FinishView {
   h3 {
-    padding: 16px;
-    font-size: 26px;
+    padding: 8px;
+    font-size: 20px;
     letter-spacing: 2px;
   }
   &__Result {
     &__Head {
       h4 {
-        font-size: 20px;
+        font-size: 16px;
         letter-spacing: 2px;
         border-bottom: 1px solid #fff;
         padding-bottom: 4px;
-        margin-bottom: 16px;
+        margin-bottom: 8px;
       }
     }
     &__LevelText {
