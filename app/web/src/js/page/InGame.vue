@@ -141,13 +141,15 @@
                 <div class='EndView'>
                   <h3>結果</h3>
                   <div class='EndView__Body'>
-                    <table>
-                      <tr v-for='(s, idx) in ScoreKeeper.getScore(Constants.RoundNumPerGame)'>
-                        <td class='ScoreRecord__item'>Round {{ idx + 1 }}</td>
-                        <td class='ScoreRecord__item'>{{ s.JokerBuffStringCache }} {{ s.GameSetTypeStringCache }}</td>
-                        <td class='ScoreRecord__item'>{{ s.p1ScoreCache }}</td>
-                      </tr>
-                    </table>
+                    <div class='EndView__BodyInner'>
+                      <table>
+                        <tr v-for='(s, idx) in ScoreKeeper.getScore(Constants.RoundNumPerGame)'>
+                          <td class='ScoreRecord__item'>Round {{ idx + 1 }}</td>
+                          <td class='ScoreRecord__item'>{{ s.JokerBuffStringCache }} {{ s.GameSetTypeStringCache }}</td>
+                          <td class='ScoreRecord__item'>{{ s.p1ScoreCache }}</td>
+                        </tr>
+                      </table>
+                    </div>
                     <div class='EndView__Sum'>
                       <div>合計</div>
                       <div>{{ ScoreKeeper.sumScore(ScoreKeeper.getScore(Constants.RoundNumPerGame), 1) }}</div>
