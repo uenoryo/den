@@ -434,6 +434,8 @@ export default {
 
       this.computerStopDenTimer()
 
+      this.userSendScore()
+
       this.Phase = GamePhase.Result
     },
 
@@ -478,6 +480,18 @@ export default {
         let money = this.ScoreKeeper.sumScore(this.ScoreKeeper.getScore(Constants.RoundNumPerGame), 1)
         this.User.Money += money
         this.apiClientPostGameFinish({'session_id': this.SessionID, 'money': String(money)}, this.User)
+        if (money > 0 && money > this.User.BestTotalScore) {
+          console.log(this.SessionID)
+          // 少し遅延させる (同時にリクエストするとエラーになる...)
+          setTimeout(() => {
+            this.apiClientPostRecord(this, {
+              'session_id': this.SessionID,
+              'best_score': '0',
+              'best_total_score': String(money)
+            })
+          }, 1000)
+          this.User.BestTotalScore = money
+        }
       } else {
         this.Phase = GamePhase.Prepare
       }
@@ -488,6 +502,20 @@ export default {
         this.ScoreKeeper.clear()
       }
       this.$router.push({ name: 'home' })
+    },
+
+    // userServiceに移す
+    userSendScore() {
+      if (this.ScoreKeeper.LatestScoreData.WinnerID === 1) {
+        if (this.ScoreKeeper.LatestScoreData.p1ScoreCache > this.User.BestScore) {
+          this.apiClientPostRecord(this, {
+            'session_id': this.SessionID,
+            'best_score': String(this.ScoreKeeper.LatestScoreData.p1ScoreCache),
+            'best_total_score': '0'
+          })
+          this.User.BestScore = this.ScoreKeeper.LatestScoreData.p1ScoreCache
+        }
+      }
     },
   }
 }

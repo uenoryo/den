@@ -63,6 +63,12 @@ export default {
       })
     },
 
+    apiClientPostRecord(vu, req) {
+      return this.apiClientRequest('POST', 'user/record', req, (res) => {
+        //
+      })
+    },
+
     apiClientPostBusinessBuy(vu, req) {
       return this.apiClientRequest('POST', 'business/buy', req, (res) => {
         console.log(res.data)
@@ -131,6 +137,8 @@ export default {
       row.Token = user.token
       row.Money = user.money
       row.Stamina = user.stamina
+      row.BestScore = parseInt(user.best_score)
+      row.BestTotalScore = parseInt(user.best_total_score)
       vu.User = row
     },
 

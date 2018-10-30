@@ -22,6 +22,12 @@
                   <div>
                     スタミナ: {{ User.Stamina }}
                   </div>
+                  <div>
+                    ベストスコア: {{ User.BestScoreString }}
+                  </div>
+                  <div>
+                    通算ベストスコア: {{ User.BestTotalScoreString }}
+                  </div>
                   <div class='StartView__BtnList'>
                     <router-link :to="{ name: 'den', params: { level: User.Rank } }">
                       <div class='StartView__Btn btn'>遊ぶ</div>
