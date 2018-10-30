@@ -44,7 +44,7 @@ export const ScoreDen = 3
 
 export const ScoreAnko = 3
 
-export const ScoreChitoi = 5
+export const ScoreChitoi = 10
 
 export const ScorePank = 5
 
