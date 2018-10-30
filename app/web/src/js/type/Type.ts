@@ -111,6 +111,7 @@ export enum OutGamePhase {
   Home,
   Profile,
   Business,
+  Bonus,
 }
 
 // 言語
