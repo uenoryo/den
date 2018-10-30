@@ -126,6 +126,7 @@
                   </div>
                   <div class='FinishView__BtnList'>
                     <div @click='gameReload()' class='StartView__Btn btn'>次へ</div>
+                    <div @click='gameClose()' class='StartView__Btn btn'>ホーム</div>
                   </div>
                 </div>
               </div>
