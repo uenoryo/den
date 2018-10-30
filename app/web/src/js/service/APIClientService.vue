@@ -48,6 +48,11 @@ export default {
 
         this.apiClientSetUserData(vu, res.data.user)
         this.apiClientSetUserBusinessData(vu, res.data.user_businesses)
+
+        // 初回ログインの場合は収益画面へ
+        if (res.data.is_today_first_login) {
+          vu.toBonus()
+        }
       })
     },
 
@@ -141,10 +146,13 @@ export default {
 
         if (row.Level === 2) {
           row.CurrentPrice = business.price_level2
+          row.BonusMoney = row.CurrentPrice * business.return_rate_level2 / 1000
         } else if (row.Level === 3) {
           row.CurrentPrice = business.price_level3
+          row.BonusMoney = row.CurrentPrice * business.return_rate_level3 / 1000
         } else {
           row.CurrentPrice = business.price_base
+          row.BonusMoney = row.CurrentPrice * business.return_rate_base / 1000
         }
 
         rows.push(row)

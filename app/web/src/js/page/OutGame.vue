@@ -98,6 +98,35 @@
           </div>
         </div>
 
+        <div v-else-if='Phase === GamePhase.Bonus' id="OutGameBusinessView">
+          <div class='modal open'>
+            <div class='modal__inner modal__inner--full'>
+              <div class='modal__body'>
+                <div class='BusinessView'>
+                  <h3>本日の収益</h3>
+                  <div class='BusinessView__Body'>
+                    <table>
+                      <tr v-for='b in UserBusinesses'>
+                        <td>{{ b.BusinessName }} Lv{{ b.Level }}:</td>
+                        <td>{{ b.BonusMoneyString }}</td>
+                      </tr>
+                    </table>
+                    <div>
+                      合計: {{ userTotalBonusMoneyString() }}
+                    </div>
+                    <div>
+                      所持金: {{ User.MoneyString }}
+                    </div>
+                  </div>
+                  <div>
+                    <div @click='toHome()' class='btn'>ホーム</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- Waiting -->
@@ -207,6 +236,10 @@ export default {
       this.Phase = this.GamePhase.Profile
     },
 
+    toBonus() {
+      this.Phase = this.GamePhase.Bonus
+    },
+
     buyBusiness(id) {
       for (let b of this.TodaysBusinesses) {
         if (b.ID === id) {
@@ -238,6 +271,18 @@ export default {
       return total
     },
 
+    userTotalBonusMoney() {
+      let total = 0
+      for (let ub of this.UserBusinesses) {
+        total += ub.BonusMoney
+      }
+      return total
+    },
+
+    userTotalBonusMoneyString() {
+      return toMoneyString(this.userTotalBonusMoney())
+    },
+
     userTotalAssetAmountString() {
       return toMoneyString(this.userTotalAssetAmount())
     },
@@ -246,7 +291,6 @@ export default {
     userNeedAssetToNextRankString() {
       let nextRank = this.User.Rank + 1
       let need = (nextRank * nextRank * 100) - this.userTotalAssetAmount()
-      console.log((nextRank * nextRank * 100) - this.userTotalAssetAmount())
       return toMoneyString(need < 0 ? 0 : need)
     },
   },
