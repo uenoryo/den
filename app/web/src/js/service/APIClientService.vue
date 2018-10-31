@@ -150,6 +150,7 @@ export default {
         let row = new UserBusinessData
         row.BusinessID = business.id
         row.BusinessName = business.name
+        row.Prefecture = business.prefecture
         row.Level = ub.level
         row.LastBuyDate = ub.last_buy_at.split('T')[0] // 日付のみ取得
 
@@ -184,6 +185,7 @@ export default {
         let row = new TodaysBusinessData
         row.ID = b.id
         row.Name = b.name
+        row.Prefecture = vu.MSBusinessByID[b.id].prefecture
 
         let ub = userBusinessByID(b.id)
         if (ub === null) {

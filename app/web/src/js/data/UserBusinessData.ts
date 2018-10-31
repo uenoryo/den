@@ -7,6 +7,7 @@ export default class UserData {
   public CurrentPrice: number
   public LastBuyDate: string
   public BonusMoney: number
+  public Prefecture: string
 
   constructor() {
     this.BusinessID = 0
@@ -15,6 +16,7 @@ export default class UserData {
     this.CurrentPrice = 0
     this.LastBuyDate = ""
     this.BonusMoney = 0
+    this.Prefecture = ""
   }
 
   get CurrentPriceString(): string {

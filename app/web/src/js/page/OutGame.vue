@@ -55,6 +55,7 @@
                     </div>
                     <table>
                       <tr v-for='b in TodaysBusinesses'>
+                        <td>{{ b.Prefecture }}</td>
                         <td>{{ b.Name }}</td>
                         <td>{{ b.PriceString }}</td>
                         <td v-if='b.Level.IsMaxLevel'>レベル最大</td>
@@ -88,12 +89,15 @@
                     <div>
                       次のランクまであと: {{ userNeedAssetToNextRankString() }}
                     </div>
-                    <table>
-                      <tr v-for='b in UserBusinesses'>
-                        <td>{{ b.BusinessName }} Lv{{ b.Level }}・・・</td>
-                        <td>{{ b.CurrentPriceString }}</td>
-                      </tr>
-                    </table>
+                    <div class='BusinessView__BodyInner'>
+                      <table>
+                        <tr v-for='b in UserBusinesses'>
+                          <td>{{ b.Prefecture }}</td>
+                          <td>{{ b.BusinessName }} Lv{{ b.Level }}・・・</td>
+                          <td>{{ b.CurrentPriceString }}</td>
+                        </tr>
+                      </table>
+                    </div>
                   </div>
                   <div>
                     <div @click='toHome()' class='btn'>ホーム</div>
