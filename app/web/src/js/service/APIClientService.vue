@@ -72,6 +72,7 @@ export default {
     apiClientPostBusinessBuy(vu, req) {
       return this.apiClientRequest('POST', 'business/buy', req, (res) => {
         console.log(res.data)
+        vu.User.Rank = res.data.after_rank
         this.apiClientSetUserBusinessData(vu, res.data.user_businesses)
       })
     },
