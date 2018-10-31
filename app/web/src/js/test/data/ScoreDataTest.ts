@@ -137,7 +137,7 @@ describe('ScoreData', () => {
   })
 
   describe('.calcScoreChitoi()', () => {
-    let chitoiScore = 5
+    let chitoiScore = 10
     let sd = new ScoreData
     sd.Type = GameSetType.Chitoi
     sd.WinnerID = 1
