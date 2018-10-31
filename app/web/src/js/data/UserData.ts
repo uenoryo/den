@@ -5,6 +5,7 @@ export default class UserData {
   public Token: string
   public Name: string
   public Money: number
+  public Rank: number
   public Stamina: number
   public BestScore: number
   public BestTotalScore: number
@@ -14,6 +15,7 @@ export default class UserData {
     this.Token = ""
     this.Name = ""
     this.Money = 0
+    this.Rank = 0
     this.Stamina = 0
     this.BestScore = 0
     this.BestTotalScore = 0
