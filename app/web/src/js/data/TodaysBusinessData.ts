@@ -7,6 +7,7 @@ export default class TodaysBusinessData {
   public Level: number
   public IsMaxLevel: boolean
   public IsSoldOut: boolean
+  public Prefecture: string
 
   constructor() {
     this.ID = 0
@@ -15,6 +16,7 @@ export default class TodaysBusinessData {
     this.Level = 1
     this.IsMaxLevel = false
     this.IsSoldOut = false
+    this.Prefecture = ""
   }
 
   get PriceString(): string {
