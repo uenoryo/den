@@ -100,13 +100,6 @@ export default {
       let dealFunc = () => {
         this.Dealer.changePhase(Phase.Normal)
         this.animationDeal(this.Dealer, player)
-        setTimeout(() => {
-          if (Rule.isPank(player.Hand)) {
-            alert(`[パンク] プレイヤー${player.Data.ID}の負け`)
-            this.gameSet()
-            return
-          }
-        }, 1000)
       }
 
       // メンテナンスが必要な場合はdealを遅延して行う

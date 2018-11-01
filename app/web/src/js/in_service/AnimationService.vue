@@ -27,6 +27,7 @@ export default {
         this.resetAnimationCardReversed()
 
         let card = dealer.deal(player)
+        this.refereeJudgePank(player)
         // 時差をつけないとvueのエレメント更新が追いつかなくて反応しない...
         setTimeout(() => {
           if (player.Data.ID % 2 === 0) {
@@ -130,6 +131,31 @@ export default {
             easing: 'easeOutQuad',
           })
         }
+      }
+    },
+
+    animationPank(player) {
+      // 画面を揺らす
+      this.el('View').classList.add('View--inverted')
+      this.animate({
+        targets: '#View',
+        translateY: [50, 0],
+        translateX: [50, 0],
+        duration: 400,
+      })
+      setTimeout(() => {
+        this.el('View').classList.remove('View--inverted')
+      }, 40)
+
+      for (let idx in player.Hand.Cards) {
+        this.animate({
+          targets: `#Card__ID${player.Hand.Cards[idx].ID}`,
+          translateX: `${Math.floor(Math.random() * 100) - 50}px`,
+          translateY: `${Math.floor(Math.random() * 100) - 50}px`,
+          rotate: `${Math.floor(Math.random() * 560)}`,
+          duration: 300,
+          easing: 'easeOutQuad',
+        })
       }
     },
 

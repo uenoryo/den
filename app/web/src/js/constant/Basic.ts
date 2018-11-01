@@ -20,8 +20,8 @@ export namespace Constants {
   // コンピュータがDENをしようとする間隔 (ミリ秒)
   export const ComputerDenActionIntervalMs = 1000
 
-  // Den をした直後から DenCounter 可能な時間 (ミリ秒)
-  export const RefereeWaitCounterTimeMs = 3000
+  // Den/Pank をした直後からゲーム終了までに時間 (DenCounter 可能な時間, ミリ秒)
+  export const RefereeWaitFinishTimeMs = 3000
 
   // 1ゲーム内のラウンド数
   export const RoundNumPerGame = 7

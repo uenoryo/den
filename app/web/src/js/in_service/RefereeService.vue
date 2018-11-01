@@ -5,7 +5,7 @@ import { Constants } from '../constant/Basic'
 export default {
   data() {
     return {
-      isWaitingCounterTimer: null,
+      isWaitingFinishTimer: null,
     }
   },
   methods: {
@@ -15,6 +15,17 @@ export default {
       }
 
       this.ScoreKeeper.keep(GameSetType.PlainDone, player.Data.ID, 0, this.Players, this.Level)
+      this.refereeWaitFinish()
+    },
+
+    refereeJudgePank(player) {
+      console.log(player.Hand.Cards.length)
+      if (!this.Referee.judgePank(player)) {
+        return
+      }
+
+      this.ScoreKeeper.keep(GameSetType.Pank, 0, player.Data.ID, this.Players, this.Level)
+      this.animationPank(player)
       this.refereeWaitFinish()
     },
 
@@ -28,7 +39,6 @@ export default {
       if (type === null) {
         return
       }
-
 
       let field = this.Dealer.Field.top()
       switch (type) {
@@ -66,7 +76,7 @@ export default {
     },
 
     refereeIsJudging() {
-      return this.isWaitingCounterTimer !== null
+      return this.isWaitingFinishTimer !== null
     },
 
     refereeDenAction(player) {
@@ -77,17 +87,17 @@ export default {
     },
 
     refereeWaitFinish() {
-      clearInterval(this.isWaitingCounterTimer)
-      this.isWaitingCounterTimer = setTimeout(() => {
+      clearInterval(this.isWaitingFinishTimer)
+      this.isWaitingFinishTimer = setTimeout(() => {
         this.refereeFinish()
-      }, Constants.RefereeWaitCounterTimeMs)
+      }, Constants.RefereeWaitFinishTimeMs)
     },
 
     refereeFinish() {
       this.ScoreKeeper.save()
       this.gameSet()
       this.Referee.DenLaunchPlayerID = null
-      this.isWaitingCounterTimer = null
+      this.isWaitingFinishTimer = null
     },
   },
 }
