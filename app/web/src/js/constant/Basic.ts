@@ -24,5 +24,5 @@ export namespace Constants {
   export const RefereeWaitCounterTimeMs = 3000
 
   // 1ゲーム内のラウンド数
-  export const RoundNumPerGame = 2
+  export const RoundNumPerGame = 7
 }
