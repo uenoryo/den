@@ -193,7 +193,7 @@ export default {
           row.Level = 1
         } else {
           // LastBuyDateが今日の日付と同じだったら売り切れ
-          if (ub.LastBuyDate === Moment().format('Y-M-D')) {
+          if (ub.LastBuyDate === Moment().format('Y-MM-DD')) {
             row.IsSoldOut = true
           }
 

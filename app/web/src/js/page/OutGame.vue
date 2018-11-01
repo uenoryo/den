@@ -115,12 +115,14 @@
                 <div class='BusinessView'>
                   <h3>本日の収益</h3>
                   <div class='BusinessView__Body'>
-                    <table>
-                      <tr v-for='b in UserBusinesses'>
-                        <td>{{ b.BusinessName }} Lv{{ b.Level }}:</td>
-                        <td>{{ b.BonusMoneyString }}</td>
-                      </tr>
-                    </table>
+                    <div class='BusinessView__BodyInner'>
+                      <table>
+                        <tr v-for='b in UserBusinesses'>
+                          <td>{{ b.BusinessName }} Lv{{ b.Level }}:</td>
+                          <td>{{ b.BonusMoneyString }}</td>
+                        </tr>
+                      </table>
+                    </div>
                     <div>
                       合計: {{ userTotalBonusMoneyString() }}
                     </div>
@@ -169,6 +171,7 @@
                 </div>
                 <div class='StartView__BtnList'>
                   <div @click='retry()' class='StartView__Btn btn'>リトライ</div>
+                  <div @click='reset()' class='StartView__Btn btn'>ホーム</div>
                 </div>
               </div>
             </div>
@@ -270,6 +273,10 @@ export default {
 
     retry() {
       this.ApiClientRetryFunction()
+    },
+
+    reset() {
+      location.reload()
     },
 
     // TODO: UserServiceに移植する
