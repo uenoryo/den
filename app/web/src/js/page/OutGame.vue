@@ -169,6 +169,7 @@
                 </div>
                 <div class='StartView__BtnList'>
                   <div @click='retry()' class='StartView__Btn btn'>リトライ</div>
+                  <div @click='reset()' class='StartView__Btn btn'>ホーム</div>
                 </div>
               </div>
             </div>
@@ -270,6 +271,10 @@ export default {
 
     retry() {
       this.ApiClientRetryFunction()
+    },
+
+    reset() {
+      location.reload()
     },
 
     // TODO: UserServiceに移植する
