@@ -2,12 +2,17 @@ import { PlayerID, GameSetType } from '../type/Type'
 import Player from './Player'
 import FieldData from '../data/FieldData'
 import CardData from '../data/CardData'
+import Rule from './Rule'
 
 export default class Referee {
   public DenLaunchPlayerID: PlayerID | null = null
 
   judgePlainDone(player: Player): boolean {
     return player.hasNoCard()
+  }
+
+  judgePank(player: Player): boolean {
+    return Rule.isPank(player.Hand)
   }
 
   judgeDen(player: Player, field: FieldData): GameSetType | null {

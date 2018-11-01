@@ -74,6 +74,9 @@ export default class ScoreKeeper {
     let fieldCost = field == null ? 0 : field.Cost
 
     switch (type) {
+      case GameSetType.Pank:
+        score.Level = level
+        break
       case GameSetType.Den:
       case GameSetType.Anko:
       case GameSetType.Chitoi:
