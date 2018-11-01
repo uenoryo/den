@@ -14,7 +14,7 @@ export default {
         return
       }
 
-      this.ScoreKeeper.keep(GameSetType.PlainDone, player.Data.ID, 0, this.Players, this.Level)
+      this.ScoreKeeper.keep(GameSetType.PlainDone, player.Data.ID, 0, this.Players, null, this.Level)
       this.refereeWaitFinish()
     },
 
@@ -24,7 +24,9 @@ export default {
         return
       }
 
-      this.ScoreKeeper.keep(GameSetType.Pank, 0, player.Data.ID, this.Players, this.Level)
+
+      console.log(this.Level)
+      this.ScoreKeeper.keep(GameSetType.Pank, 0, player.Data.ID, this.Players, null, this.Level)
       this.animationPank(player)
       this.refereeWaitFinish()
     },

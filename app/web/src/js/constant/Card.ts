@@ -46,7 +46,7 @@ export const ScoreAnko = 3
 
 export const ScoreChitoi = 10
 
-export const ScorePank = 5
+export const ScorePank = 10
 
 // JokerBuff.Good の際に加算されるスコア
 export const JokerBuffScoreGood = 3
