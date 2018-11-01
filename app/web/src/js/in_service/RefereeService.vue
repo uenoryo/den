@@ -19,13 +19,10 @@ export default {
     },
 
     refereeJudgePank(player) {
-      console.log(player.Hand.Cards.length)
       if (!this.Referee.judgePank(player)) {
         return
       }
 
-
-      console.log(this.Level)
       this.ScoreKeeper.keep(GameSetType.Pank, 0, player.Data.ID, this.Players, null, this.Level)
       this.animationPank(player)
       this.refereeWaitFinish()
