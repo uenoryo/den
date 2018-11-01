@@ -1,5 +1,6 @@
 export function toMoneyString(money :number): string {
     const unitJP = ["万", "億", "兆", "京", "垓", "秭"]
+    let isPuls = money > 0
     let str = String(money)
 
     let index = 0
@@ -18,5 +19,5 @@ export function toMoneyString(money :number): string {
       res = "0"
     }
 
-    return res + "円"
+    return (isPuls ? '' : '-') + res + "円"
 }

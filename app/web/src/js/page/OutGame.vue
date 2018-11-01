@@ -17,7 +17,7 @@
                     ランク: {{ User.Rank }}
                   </div>
                   <div>
-                    所持金: {{ User.MoneyString }}
+                    所持金: <span :class='{"red": User.Money < 0 }'>{{ User.MoneyString }}</span>
                   </div>
                   <div>
                     スタミナ: {{ User.Stamina }}
