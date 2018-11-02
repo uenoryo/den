@@ -152,6 +152,10 @@ export default {
         return
       }
 
+      if (this.refereeIsJudging()) {
+        return
+      }
+
       // Phase をリセット
       this.Dealer.changePhase(Phase.Normal)
 
