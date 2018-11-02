@@ -98,7 +98,7 @@ export default {
       }
 
       let dealFunc = () => {
-        this.Dealer.changePhase(Phase.Normal)
+        this.dealerChangePhaseToNormal()
         this.animationDeal(this.Dealer, player)
       }
 
@@ -157,7 +157,7 @@ export default {
       }
 
       // Phase をリセット
-      this.Dealer.changePhase(Phase.Normal)
+      this.dealerChangePhaseToNormal()
 
       switch (this.Dealer.Field.top().Num) {
         case CardSkillNums.Reverse:
@@ -267,7 +267,7 @@ export default {
     dealerListenReplyAttach(reply) {
       switch (reply) {
         case ReplyAction.Attach.Pass:
-          this.Dealer.changePhase(Phase.Normal)
+          this.dealerChangePhaseToNormal()
           this.dealerGoNextTurn()
           break
       }
@@ -291,7 +291,7 @@ export default {
           this.Dealer.Field.top().changeMark(CardMark.JokerA)
           break
       }
-      this.Dealer.changePhase(Phase.Normal)
+      this.dealerChangePhaseToNormal()
       this.dealerGoNextTurn()
     },
 
@@ -299,7 +299,7 @@ export default {
       switch (reply) {
         case ReplyAction.ForceDraw.Draw:
           let forceDrawFunc = () => {
-            this.Dealer.changePhase(Phase.Normal)
+            this.dealerChangePhaseToNormal()
             for (let i = 0; i < this.Dealer.ForceDrawAmount; i++) {
               this.dealerDeal(player)
             }
@@ -316,6 +316,10 @@ export default {
           }
           break
       }
+    },
+
+    dealerChangePhaseToNormal() {
+      this.Dealer.changePhase(Phase.Normal)
     },
   }
 }

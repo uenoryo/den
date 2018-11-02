@@ -80,6 +80,7 @@ export default {
 
     refereeDenAction(player) {
       player.openHand()
+      this.dealerChangePhaseToNormal()
       this.computerStopPutTimer()
       this.animationDen(this.Dealer, player)
       this.Referee.DenLaunchPlayerID = player.Data.ID
