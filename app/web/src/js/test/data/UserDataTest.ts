@@ -2,7 +2,7 @@ import * as mocha from "mocha";
 import * as assert from 'power-assert';
 import UserData from '../../data/UserData'
 
-describe('CardData', () => {
+describe('UserData', () => {
   describe('.constructor()', () => {
     let user = new UserData
     it('所持金が正しく表示される(0)', () => {
