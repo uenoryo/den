@@ -121,13 +121,13 @@ describe('Referee', () => {
       let referee = new Referee
       it ('CounterDenできる', () => {
         field.PutPlayerID = player.Data.ID
-        referee.DenLaunchPlayerID = player.Data.ID
+        referee.ActionLaunchPlayerID = player.Data.ID
         assert.equal(referee.judgeCounterDen(player, field) !== null, true)
       })
 
       it ('CounterDenできない (出したプレイヤーが違う)', () => {
         field.PutPlayerID = 2
-        referee.DenLaunchPlayerID = player.Data.ID
+        referee.ActionLaunchPlayerID = player.Data.ID
         assert.equal(referee.judgeCounterDen(player, field) === null, true)
       })
 
@@ -191,7 +191,7 @@ describe('Referee', () => {
       ])
       let referee = new Referee
       let player = TestPlayer()
-      referee.DenLaunchPlayerID = player.Data.ID
+      referee.ActionLaunchPlayerID = player.Data.ID
       field.PutPlayerID = player.Data.ID
       for (let test of tests) {
         it(test.title, () => {

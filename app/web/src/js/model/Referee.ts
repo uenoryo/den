@@ -5,7 +5,8 @@ import CardData from '../data/CardData'
 import Rule from './Rule'
 
 export default class Referee {
-  public DenLaunchPlayerID: PlayerID | null = null
+  public ActionIsPlanDone: boolean = false
+  public ActionLaunchPlayerID: PlayerID | null = null
 
   judgePlainDone(player: Player): boolean {
     return player.hasNoCard()
@@ -41,11 +42,12 @@ export default class Referee {
       return null
     }
 
-    if (this.DenLaunchPlayerID === null) {
+    if (this.ActionLaunchPlayerID === null) {
       return null
     }
 
-    if (field.PutPlayerID !== player.Data.ID) {
+    // PlainDoneへの返しではない限り、自身が出したカード以外には返せない
+    if (this.ActionIsPlanDone === false && field.PutPlayerID !== player.Data.ID) {
       return null
     }
 

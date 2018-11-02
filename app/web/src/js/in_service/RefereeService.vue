@@ -6,6 +6,7 @@ export default {
   data() {
     return {
       isWaitingFinishTimer: null,
+      isJudgeEnd: false,
     }
   },
   methods: {
@@ -14,6 +15,8 @@ export default {
         return
       }
 
+      this.Referee.ActionLaunchPlayerID = player.Data.ID
+      this.Referee.ActionIsPlanDone = true
       this.ScoreKeeper.keep(GameSetType.PlainDone, player.Data.ID, 0, this.Players, null, this.Level)
       this.refereeWaitFinish()
     },
@@ -29,8 +32,12 @@ export default {
     },
 
     refereeJudgeDen(player) {
+      if (this.isJudgeEnd) {
+        return
+      }
+
       let type = null
-      if (this.Referee.DenLaunchPlayerID === null) {
+      if (this.Referee.ActionLaunchPlayerID === null) {
         type = this.Referee.judgeDen(player, this.Dealer.Field)
       } else {
         type = this.Referee.judgeCounterDen(player, this.Dealer.Field)
@@ -40,6 +47,7 @@ export default {
       }
 
       let field = this.Dealer.Field.top()
+          console.log(this.Referee.ActionLaunchPlayerID)
       switch (type) {
         case GameSetType.Den:
           this.ScoreKeeper.keep(GameSetType.Den, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players, field, this.Level)
@@ -57,18 +65,18 @@ export default {
           this.refereeWaitFinish()
           break
         case GameSetType.CounterDen:
-          this.ScoreKeeper.keep(GameSetType.CounterDen, player.Data.ID, this.Referee.DenLaunchPlayerID, this.Players, field, this.Level)
-          this.refereeDenAction(player)
+          this.ScoreKeeper.keep(GameSetType.CounterDen, player.Data.ID, this.Referee.ActionLaunchPlayerID, this.Players, field, this.Level)
+          this.refereeCounterDenAction(player)
           this.refereeWaitFinish()
           break
         case GameSetType.CounterAnko:
-          this.ScoreKeeper.keep(GameSetType.CounterAnko, player.Data.ID, this.Referee.DenLaunchPlayerID, this.Players, field, this.Level)
-          this.refereeDenAction(player)
+          this.ScoreKeeper.keep(GameSetType.CounterAnko, player.Data.ID, this.Referee.ActionLaunchPlayerID, this.Players, field, this.Level)
+          this.refereeCounterDenAction(player)
           this.refereeWaitFinish()
           break
         case GameSetType.CounterChitoi:
-          this.ScoreKeeper.keep(GameSetType.CounterChitoi, player.Data.ID, this.Referee.DenLaunchPlayerID, this.Players, field, this.Level)
-          this.refereeDenAction(player)
+          this.ScoreKeeper.keep(GameSetType.CounterChitoi, player.Data.ID, this.Referee.ActionLaunchPlayerID, this.Players, field, this.Level)
+          this.refereeCounterDenAction(player)
           this.refereeWaitFinish()
           break
       }
@@ -83,7 +91,14 @@ export default {
       this.dealerChangePhaseToNormal()
       this.computerStopPutTimer()
       this.animationDen(this.Dealer, player)
-      this.Referee.DenLaunchPlayerID = player.Data.ID
+      this.Referee.ActionLaunchPlayerID = player.Data.ID
+    },
+
+    refereeCounterDenAction(player) {
+      this.dealerChangePhaseToNormal()
+      this.computerStopPutTimer()
+      this.animationDen(this.Dealer, player)
+      this.isJudgeEnd = true
     },
 
     refereeWaitFinish() {
@@ -96,8 +111,9 @@ export default {
     refereeFinish() {
       this.ScoreKeeper.save()
       this.gameSet()
-      this.Referee.DenLaunchPlayerID = null
+      this.Referee.ActionLaunchPlayerID = null
       this.isWaitingFinishTimer = null
+      this.isJudgeEnd = false
     },
   },
 }
