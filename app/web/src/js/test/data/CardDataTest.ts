@@ -19,7 +19,7 @@ describe('CardData', () => {
       assert.equal(cd.DisplayID, 49)
     })
     it('正しくスコアを返せる', () => {
-      assert.equal(cd.Score, 49)
+      assert.equal(cd.Score, 50)
     })
     it('正しくコストを返せる', () => {
       assert.equal(cd.Cost, 1)
