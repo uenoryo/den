@@ -42,10 +42,6 @@ export default class Dealer {
     return this.phase
   }
 
-  setup(): void {
-    //
-  }
-
   draw(): CardData | null {
     if (this.Deck.CardAmount === 0) {
       return null

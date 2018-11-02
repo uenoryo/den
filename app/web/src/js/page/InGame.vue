@@ -474,7 +474,6 @@ export default {
     },
 
     gameReload() {
-      this.dealerResotre()
       this.setup()
 
       if (this.ScoreKeeper.ScoreNum >= Constants.RoundNumPerGame) {

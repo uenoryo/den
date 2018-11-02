@@ -7,7 +7,12 @@ import Rule from '../model/Rule'
 export default {
   methods: {
     dealerSetup() {
-      this.Dealer.setup()
+      this.Dealer.restore(this.Players)
+      this.Dealer.initTurnTable()
+      this.Dealer.initPhase()
+      this.isBusy = false
+      this.Dealer.forceDrawAmount = 0
+      this.animationResetAll()
     },
 
     dealerShuffleDeck() {
@@ -109,13 +114,6 @@ export default {
       } else {
         dealFunc()
       }
-    },
-
-    dealerResotre() {
-      this.Dealer.restore(this.Players)
-      this.Dealer.initTurnTable()
-      this.Dealer.initPhase()
-      this.animationResetAll()
     },
 
     // Todo: dealer.isBusyをモデルで管理する
