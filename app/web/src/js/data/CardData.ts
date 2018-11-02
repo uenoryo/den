@@ -78,15 +78,16 @@ export default class CardData {
     } else if (this.Mark === CardMarkIntegers.JokerB) {
       return 53
     } else {
-      return this.Score
+      return this.Score - 1
     }
   }
 
+  // カードを並べる際の優先順位として使用
   get Score(): number {
     if (this.isJoker()) {
       return 0
     }
-    return this.Mark + (this.Num * 4) - 4
+    return (this.Mark + (this.Num * 4) - 4) + 1
   }
 
   get Cost(): number {
