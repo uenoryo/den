@@ -20,6 +20,8 @@
       background-size: 60%;
       background-position: center;
       background-repeat: no-repeat;
+
+      // TODO: inlind svg を使って冗長なsvgファイルを削除
       &--home {
         background-image: url(/svg/home-w.svg);
         &--selected {
