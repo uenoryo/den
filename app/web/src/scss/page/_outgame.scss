@@ -13,9 +13,9 @@
     &__Btn {
       width: 48px;
       height: 100%;
-      border-right: 1px solid $color_black;
+      border-right: 1px solid $color_border;
       &:first-child {
-        border-left: 1px solid $color_black;
+        border-left: 1px solid $color_border;
       }
       background-size: 60%;
       background-position: center;

@@ -12,33 +12,7 @@
 
         <!-- Business -->
         <div v-else-if='Phase === GamePhase.Business' id="OutGameBusinessView">
-          <div class='modal open'>
-            <div class='modal__inner modal__inner--full'>
-              <div class='modal__body'>
-                <div class='BusinessView'>
-                  <h3>本日のビジネス</h3>
-                  <div class='BusinessView__Body'>
-                    <div>
-                      所持金: {{ User.MoneyString }}
-                    </div>
-                    <table>
-                      <tr v-for='b in TodaysBusinesses'>
-                        <td>{{ b.Prefecture }}</td>
-                        <td>{{ b.Name }}</td>
-                        <td>{{ b.PriceString }}</td>
-                        <td v-if='b.IsMaxLevel'>レベル最大</td>
-                        <td v-else-if='b.IsSoldOut'>購入済</td>
-                        <td v-else><div @click='buyBusiness(b.ID)'>購入</div></td>
-                      </tr>
-                    </table>
-                  </div>
-                  <div>
-                    <div @click='toHome()' class='btn'>ホーム</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
 
         <div v-else-if='Phase === GamePhase.Profile' id="OutGameBusinessView">
