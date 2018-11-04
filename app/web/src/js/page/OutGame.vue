@@ -108,10 +108,17 @@
         </div>
 
         <div class='outgameFooter'>
-          <div @click='toHome()' class='outgameFooter__Btn outgameFooter__Btn--home'></div>
-          <div @click='toProfile()' class='outgameFooter__Btn outgameFooter__Btn--user'></div>
-          <div @click='toBusiness()' class='outgameFooter__Btn outgameFooter__Btn--business'></div>
-          <div @click='howTo()' class='outgameFooter__Btn outgameFooter__Btn--setting'></div>
+          <div @click='toHome()' class='outgameFooter__Btn outgameFooter__Btn--home'
+            :class='{"outgameFooter__Btn--home--selected": Phase === GamePhase.Home }'></div>
+
+          <div @click='toProfile()' class='outgameFooter__Btn outgameFooter__Btn--user'
+            :class='{"outgameFooter__Btn--user--selected": Phase === GamePhase.Profile }'></div>
+
+          <div @click='toBusiness()' class='outgameFooter__Btn outgameFooter__Btn--business'
+            :class='{"outgameFooter__Btn--business--selected": Phase === GamePhase.Business }'></div>
+
+          <div @click='howTo()' class='outgameFooter__Btn outgameFooter__Btn--setting'
+            :class='{"outgameFooter__Btn--setting--selected": Phase === GamePhase.Setting }'></div>
         </div>
 
       </div>

@@ -20,20 +20,29 @@
       background-size: 60%;
       background-position: center;
       background-repeat: no-repeat;
-      svg {
-        fill: #f00;
-      }
       &--home {
-        background-image: url(/svg/home.svg);
+        background-image: url(/svg/home-w.svg);
+        &--selected {
+          background-image: url(/svg/home-y.svg);
+        }
       }
       &--user {
-        background-image: url(/svg/user.svg);
+        background-image: url(/svg/user-w.svg);
+        &--selected {
+          background-image: url(/svg/user-y.svg);
+        }
       }
       &--business {
-        background-image: url(/svg/business.svg);
+        background-image: url(/svg/business-w.svg);
+        &--selected {
+          background-image: url(/svg/business-y.svg);
+        }
       }
       &--setting {
-        background-image: url(/svg/setting.svg);
+        background-image: url(/svg/setting-w.svg);
+        &--selected {
+          background-image: url(/svg/setting-y.svg);
+        }
       }
     }
   }
