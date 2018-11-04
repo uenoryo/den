@@ -20,30 +20,39 @@
       background-size: 60%;
       background-position: center;
       background-repeat: no-repeat;
+      transition-duration: .2s;
 
       // TODO: inlind svg を使って冗長なsvgファイルを削除
       &--home {
         background-image: url(/svg/home-w.svg);
         &--selected {
           background-image: url(/svg/home-y.svg);
+          width: 48px * 2;
+          background-size: 30%;
         }
       }
       &--user {
         background-image: url(/svg/user-w.svg);
         &--selected {
           background-image: url(/svg/user-y.svg);
+          width: 48px * 2;
+          background-size: 30%;
         }
       }
       &--business {
         background-image: url(/svg/business-w.svg);
         &--selected {
           background-image: url(/svg/business-y.svg);
+          width: 48px * 2;
+          background-size: 30%;
         }
       }
       &--setting {
         background-image: url(/svg/setting-w.svg);
         &--selected {
           background-image: url(/svg/setting-y.svg);
+          width: 48px * 2;
+          background-size: 30%;
         }
       }
     }

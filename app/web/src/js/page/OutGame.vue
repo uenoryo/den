@@ -42,38 +42,7 @@
         </div>
 
         <div v-else-if='Phase === GamePhase.Profile' id="OutGameBusinessView">
-          <div class='modal open'>
-            <div class='modal__inner modal__inner--full'>
-              <div class='modal__body'>
-                <div class='BusinessView'>
-                  <h3>資産</h3>
-                  <div class='BusinessView__Body'>
-                    <div>
-                      所持金: {{ User.MoneyString }}
-                    </div>
-                    <div>
-                      総資産: {{ userTotalAssetAmountString() }}
-                    </div>
-                    <div>
-                      次のランクまであと: {{ userNeedAssetToNextRankString() }}
-                    </div>
-                    <div class='BusinessView__BodyInner'>
-                      <table>
-                        <tr v-for='b in UserBusinesses'>
-                          <td>{{ b.Prefecture }}</td>
-                          <td>{{ b.BusinessName }} Lv{{ b.Level }}・・・</td>
-                          <td>{{ b.CurrentPriceString }}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <div>
-                    <div @click='toHome()' class='btn'>ホーム</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
 
         <div v-else-if='Phase === GamePhase.Bonus' id="OutGameBusinessView">
