@@ -1,0 +1,11 @@
+.gameContainer {
+  background-image: url(/img/bg/bg_blue.png);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  max-width: 1000px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}

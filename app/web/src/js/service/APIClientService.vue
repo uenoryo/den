@@ -108,8 +108,10 @@ export default {
             return
           }
           res.json().then((json) => {
-            this.ApiClientRequestStatus.change(RequestStatusType.Success)
-            callable(json)
+            setTimeout(() => {
+              this.ApiClientRequestStatus.change(RequestStatusType.Success)
+              callable(json)
+            }, 800)
           })
 
         }).catch((err) => {

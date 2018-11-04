@@ -4,45 +4,13 @@
 
       <!-- Success -->
       <div v-if='ApiClientRequestStatus.IsSuccess'>
-        <div v-if='Phase === GamePhase.Home' id="OutGameHomeView">
-          <div class='modal open'>
-            <div class='modal__inner modal__inner--full'>
-              <div class='modal__body'>
-                <div class='StartView'>
-                  <h3>DEN</h3>
-                  <div>
-                    プレイヤーコード: {{ User.Code }}
-                  </div>
-                  <div>
-                    ランク: {{ User.Rank }}
-                  </div>
-                  <div>
-                    所持金: <span :class='{"red": User.Money < 0 }'>{{ User.MoneyString }}</span>
-                  </div>
-                  <div>
-                    スタミナ: {{ User.Stamina }}
-                  </div>
-                  <div>
-                    ベストスコア: {{ User.BestScoreString }}
-                  </div>
-                  <div>
-                    通算ベストスコア: {{ User.BestTotalScoreString }}
-                  </div>
-                  <div class='StartView__BtnList'>
-                    <router-link :to="{ name: 'den', params: { level: User.Rank } }">
-                      <div class='StartView__Btn btn'>遊ぶ</div>
-                    </router-link>
 
-                    <div @click='toProfile()' class='StartView__Btn btn'>資産</div>
-                    <div @click='toBusiness()' class='StartView__Btn btn'>ビジネス</div>
-                    <div @click='howTo()' class='StartView__Btn btn'>遊び方</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <!-- Home -->
+        <div v-if='Phase === GamePhase.Home' id="OutGameHomeView">
+
         </div>
 
+        <!-- Business -->
         <div v-else-if='Phase === GamePhase.Business' id="OutGameBusinessView">
           <div class='modal open'>
             <div class='modal__inner modal__inner--full'>
@@ -143,17 +111,9 @@
 
       <!-- Waiting -->
       <div v-else-if='ApiClientRequestStatus.IsWaiting'>
-        <div class='modal open'>
-          <div class='modal__inner modal__inner--full'>
-            <div class='modal__body'>
-              <div class='StartView'>
-                <h3></h3>
-                <div>
-                  Loading...
-                </div>
-                <div></div>
-              </div>
-            </div>
+        <div class='p-Loading'>
+          <div class='p-Loading__icon'>
+            <img src='img/icon/loading-s.gif'>
           </div>
         </div>
       </div>
