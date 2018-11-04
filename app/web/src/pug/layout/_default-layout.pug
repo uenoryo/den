@@ -54,9 +54,6 @@ html(lang="ja")
       meta(property="twitter:creator", content=meta.twitter_card_owner)
 
     if meta.url
-      // canonical url
-      //- このページをはてぶ・シェアする際、使われるべきURLを明示する指定
-      //- wwwやhttps、getパラメータなど、微妙に違うURLでアクセスされても、使われるURLをひとつに絞れる
       link(rel="canonical" href=meta.url)
 
     // stylesheet
