@@ -1,0 +1,27 @@
+.Card {
+  width: $sp_card_width;
+  height: $sp_card_height;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  border-radius: 4px;
+  left: -1 * $sp_card_width / 2;
+  top: -1 * $sp_card_height / 2;
+  z-index: 15;
+  @for $i from 0 through 54 {
+    &Display__ID#{$i} {
+      background-image: url(/img/cards/card#{$i}.png)
+    }
+  }
+  &--reversed {
+    z-index: 9;
+    background-image: url(/img/cards/card_red.png)
+  }
+  @include pc-layout {
+    width: $pc_card_width;
+    height: $pc_card_height;
+    left: -1 * $pc_card_width / 2;
+    top: -1 * $pc_card_height / 2;
+  }
+}

@@ -6,6 +6,14 @@
 
 @import "base";
 
-@import "page/game";
+@import "components/card";
+@import "components/modal";
+@import "components/score-list";
+
+@import "page/start";
+@import "page/business";
+@import "page/end";
+@import "page/finish";
+@import "page/ingame";
 
 @import "helpers";

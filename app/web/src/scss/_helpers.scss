@@ -1,0 +1,35 @@
+.hide {
+  display: none!important;
+}
+
+.blue {
+  color: #bcf;
+}
+
+.red {
+  color: #f50;
+}
+
+.full {
+  height: 100%;
+}
+
+.ads {
+  height: 80px;
+  background-color: #fffa;
+  border-radius: 4px;
+  margin: 4px;
+  z-index: 99;
+
+  // 非表示
+  display: none;
+  height: 12px;
+  @include pc-layout {
+    height: 12px;
+    background-color: #fff0;
+  }
+}
+
+.open {
+  display: block;
+}
