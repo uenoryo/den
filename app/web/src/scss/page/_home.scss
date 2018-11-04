@@ -1,3 +1,12 @@
 .p-Home {
-  //
+  &__pointer {
+    position: fixed;
+    width: 48px;
+    height: 48px;
+    margin: auto;
+    top: 60%;
+    left: 0;
+    right: 0;
+    animation: wobble-vertical .6s ease 0s infinite;
+  }
 }
