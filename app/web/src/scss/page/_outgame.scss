@@ -1,0 +1,40 @@
+.outgame {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  &Footer {
+    background-color: $color_strong;
+    height: 48px;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    &__Btn {
+      width: 48px;
+      height: 100%;
+      border-right: 1px solid $color_black;
+      &:first-child {
+        border-left: 1px solid $color_black;
+      }
+      background-size: 60%;
+      background-position: center;
+      background-repeat: no-repeat;
+      svg {
+        fill: #f00;
+      }
+      &--home {
+        background-image: url(/svg/home.svg);
+      }
+      &--user {
+        background-image: url(/svg/user.svg);
+      }
+      &--business {
+        background-image: url(/svg/business.svg);
+      }
+      &--setting {
+        background-image: url(/svg/setting.svg);
+      }
+    }
+  }
+}

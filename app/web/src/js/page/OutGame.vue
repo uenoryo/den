@@ -3,7 +3,7 @@
     <div class='game'>
 
       <!-- Success -->
-      <div v-if='ApiClientRequestStatus.IsSuccess'>
+      <div class='outgame' v-if='ApiClientRequestStatus.IsSuccess'>
 
         <!-- Home -->
         <div v-if='Phase === GamePhase.Home' id="OutGameHomeView">
@@ -105,6 +105,13 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class='outgameFooter'>
+          <div @click='toHome()' class='outgameFooter__Btn outgameFooter__Btn--home'></div>
+          <div @click='toProfile()' class='outgameFooter__Btn outgameFooter__Btn--user'></div>
+          <div @click='toBusiness()' class='outgameFooter__Btn outgameFooter__Btn--business'></div>
+          <div @click='howTo()' class='outgameFooter__Btn outgameFooter__Btn--setting'></div>
         </div>
 
       </div>
