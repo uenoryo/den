@@ -1,5 +1,7 @@
 <template>
   <div class='gameContainer' id='View'>
+    <div class='outgameBackgroundFront'></div>
+    <div class='outgameBackgroundBack'></div>
     <div class='game'>
 
       <!-- Success -->
