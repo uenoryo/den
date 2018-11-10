@@ -95,9 +95,9 @@ export default {
         this.show(`Card__ID${card.ID}`)
         this.animate({
           targets: `#Card__ID${card.ID}`,
-          translateX: `${Math.floor(Math.random() * 40) - 20}px`,
-          translateY: `${Math.floor(Math.random() * 40) - 20}px`,
-          rotate: `${Math.floor(Math.random() * 180)}`,
+          translateX: `${Math.floor(Math.random())}px`,
+          translateY: `${Math.floor(Math.random())}px`,
+          rotate: 180,
           duration: 300,
           easing: 'easeOutQuad',
         })

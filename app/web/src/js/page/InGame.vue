@@ -176,7 +176,7 @@
           <div
             v-for='card, handIdx in player.Hand.Cards'
             @click='put(player.Data.ID, handIdx)'
-            :class='{"Sleeve--disabled":isTurnPlayer(player.Data.ID) && turnPlayer().isHuman() && !dealerCanPut(card)}'
+            :class='{"Sleeve":isTurnPlayer(player.Data.ID) && turnPlayer().isHuman() && !dealerCanPut(card)}'
             class='Sleeve'>
             <div
               v-if='Config.IsDebug() || player.isHuman() || player.handIsReversed()'
@@ -184,6 +184,7 @@
               :id='["Card__ID" + card.ID]'
               :class='[
                 "CardDisplay__ID" + card.DisplayID,
+                "Card--reversed",
                 "Card__ID" + card.ID,
                 {"Card--horizontal":player.Data.ID % 2 === 0}
               ]'></div>
@@ -383,6 +384,7 @@ export default {
 
       if (!this.dealerCanReceiveCard(this.Players.get(id).show(handIdx))) {
         this.dealerRejectReceivingCard()
+        this.draw()
         return
       }
 
