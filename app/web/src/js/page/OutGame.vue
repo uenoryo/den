@@ -31,11 +31,7 @@
           </div>
         </div>
 
-        <!-- Business -->
-        <div v-else-if='Phase === GamePhase.Business' id="OutGameBusinessView" class='window'>
-
-        </div>
-
+        <!-- Profile -->
         <div v-else-if='Phase === GamePhase.Profile' class='window'>
           <h1 class='window__Title'>資産</h1>
           <div class='window__Body p-Profile'>
@@ -55,6 +51,30 @@
               <div class='p-Profile__item flex-space-between' v-for='b in UserBusinesses'>
                 <div>{{ b.Prefecture }} {{ b.BusinessName }} Lv{{ b.Level }}</div>
                 <div>{{ b.CurrentPriceString }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business -->
+        <div v-else-if='Phase === GamePhase.Business' id="OutGameBusinessView" class='window'>
+          <h1 class='window__Title'>本日のビジネス</h1>
+          <div class='window__Body p-Business'>
+            <div class='p-Business__List'>
+              <div class='p-Business__Item' v-for='b in TodaysBusinesses'>
+                <div class='p-Business__Item__Head'>
+                  <img src='svg/business/category1.svg'>
+                </div>
+                <div class='p-Business__Item__Body'>
+                  <div class='p-Business__Item__Body__head'>{{ b.Prefecture }}</div>
+                  <div class='p-Business__Item__Body__body'>{{ b.Name }}</div>
+                  <div class='p-Business__Item__Body__foot'>{{ b.PriceString }}</div>
+                </div>
+                <div class='p-Business__Item__Foot'>
+                  <div v-if='b.IsMaxLevel'>レベル最大</div>
+                  <div v-else-if='b.IsSoldOut'>購入済</div>
+                  <div v-else @click='buyBusiness(b.ID)'>購入</div>
+                </div>
               </div>
             </div>
           </div>
