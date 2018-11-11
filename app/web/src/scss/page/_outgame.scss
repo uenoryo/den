@@ -10,7 +10,7 @@
     width: 100%;
     position: fixed;
     margin: 0 auto;
-    opacity: 0.95;
+    opacity: 0.7;
     z-index: 1;
   }
 
@@ -22,6 +22,25 @@
     position: fixed;
     z-index: 0;
     background-size: contain;
+    filter: grayscale(100%);
+  }
+
+  &Header {
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    line-height: 32px;
+    height: 32px;
+    &__Left {
+
+    }
+
+    &__Right {
+      display: flex;
+      img {
+        width: 32px;
+      }
+    }
   }
 
   width: 100%;

@@ -6,17 +6,24 @@
 
       <!-- Success -->
       <div class='outgame' v-if='ApiClientRequestStatus.IsSuccess'>
+        <div class='outgameHeader'>
+          <div class='outgameHeader__Left'>{{ User.Rank }}</div>
+          <div class='outgameHeader__Right'>
+            <img src='/svg/money.svg'>
+            {{ User.MoneyString }}
+          </div>
+        </div>
 
         <!-- Home -->
         <div v-if='Phase === GamePhase.Home' id="OutGameHomeView">
           <div class='p-Home__title'>
             DEN
           </div>
-          <div class='p-Home__mainIcon'>
-            <img src='/img/icon/card-top.png'>
-          </div>
           <div class='p-Home__pointer'>
             <img src='/svg/pointer.svg'>
+          </div>
+          <div class='p-Home__startText'>
+            Tap to Start
           </div>
         </div>
 
