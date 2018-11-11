@@ -9,6 +9,12 @@
 
         <!-- Home -->
         <div v-if='Phase === GamePhase.Home' id="OutGameHomeView">
+          <div class='p-Home__title'>
+            DEN
+          </div>
+          <div class='p-Home__mainIcon'>
+            <img src='/img/icon/card-top.png'>
+          </div>
           <div class='p-Home__pointer'>
             <img src='/svg/pointer.svg'>
           </div>
