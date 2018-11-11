@@ -18,14 +18,15 @@
 
       <!-- Success -->
       <div class='outgame__Inner' v-if='ApiClientRequestStatus.IsSuccess'>
-
         <!-- Home -->
         <div v-if='Phase === GamePhase.Home'>
           <div class='p-Home__title'>
             DEN
           </div>
           <div class='p-Home__pointer'>
-            <img src='/svg/pointer.svg'>
+            <router-link :to="{ name: 'den', params: { level: User.Rank } }">
+              <img src='/svg/pointer.svg'>
+            </router-link>
           </div>
           <div class='p-Home__startText'>
             Tap to Start
