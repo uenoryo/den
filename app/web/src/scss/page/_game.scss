@@ -244,12 +244,12 @@ html, body {
   z-index: 15;
   @for $i from 0 through 54 {
     &Display__ID#{$i} {
-      background-image: url(/img/t1.png)
+      background-image: url(/img/t6.png)
     }
   }
   &--reversed {
     z-index: 9;
-    background-image: url(/img/t2.png)
+    background-image: url(/img/t5.png)
   }
   @include pc-layout {
     width: $pc_card_width;
