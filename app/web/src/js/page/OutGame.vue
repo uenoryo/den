@@ -37,7 +37,7 @@
         </div>
 
         <div v-else-if='Phase === GamePhase.Profile' id="OutGameBusinessView" class='window'>
-          <h1>実績</h1>
+          <h1 class='window__Title'>資産</h1>
         </div>
 
         <div v-else-if='Phase === GamePhase.Bonus' id="OutGameBusinessView">

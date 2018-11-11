@@ -12,6 +12,12 @@
   box-shadow: 2px 2px #88888844;
   padding: 8px;
   color: #fff;
+
+  &__Title {
+    text-align: center;
+    font-size: 24px;
+    letter-spacing: 4px;
+  }
 }
 
 img {
