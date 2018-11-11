@@ -32,12 +32,12 @@
         </div>
 
         <!-- Business -->
-        <div v-else-if='Phase === GamePhase.Business' id="OutGameBusinessView">
+        <div v-else-if='Phase === GamePhase.Business' id="OutGameBusinessView" class='window'>
 
         </div>
 
-        <div v-else-if='Phase === GamePhase.Profile' id="OutGameBusinessView">
-
+        <div v-else-if='Phase === GamePhase.Profile' id="OutGameBusinessView" class='window'>
+          <h1>実績</h1>
         </div>
 
         <div v-else-if='Phase === GamePhase.Bonus' id="OutGameBusinessView">
