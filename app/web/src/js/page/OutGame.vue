@@ -36,8 +36,28 @@
 
         </div>
 
-        <div v-else-if='Phase === GamePhase.Profile' id="OutGameBusinessView" class='window'>
+        <div v-else-if='Phase === GamePhase.Profile' class='window'>
           <h1 class='window__Title'>資産</h1>
+          <div class='window__Body p-Profile'>
+            <div class='p-Profile__head'>
+              <div class='p-Profile__item flex-space-between'>
+                <div>所持金</div><div>{{ User.MoneyString }}</div>
+              </div>
+              <div class='p-Profile__item flex-space-between'>
+                <div>総資産</div><div>{{ userTotalAssetAmountString() }}</div>
+              </div>
+              <div class='p-Profile__item flex-space-between'>
+                <div>ランクアップに必要な資産額</div><div>{{ userNeedAssetToNextRankString() }}</div>
+              </div>
+            </div>
+            <h2>購入したビジネス</h2>
+            <div class='p-Profile__list'>
+              <div class='p-Profile__item flex-space-between' v-for='b in UserBusinesses'>
+                <div>{{ b.Prefecture }} {{ b.BusinessName }} Lv{{ b.Level }}</div>
+                <div>{{ b.CurrentPriceString }}</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div v-else-if='Phase === GamePhase.Bonus' id="OutGameBusinessView">
