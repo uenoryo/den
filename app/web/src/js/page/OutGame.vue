@@ -7,7 +7,11 @@
       <!-- Success -->
       <div class='outgame' v-if='ApiClientRequestStatus.IsSuccess'>
         <div class='outgameHeader'>
-          <div class='outgameHeader__Left'>{{ User.Rank }}</div>
+          <div class='outgameHeader__Left'>
+            <div class='outgameHeader__Left__Budge'>
+              {{ User.Rank }}
+            </div>
+          </div>
           <div class='outgameHeader__Right'>
             <img src='/svg/money.svg'>
             {{ User.MoneyString }}
