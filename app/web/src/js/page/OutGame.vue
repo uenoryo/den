@@ -2,24 +2,25 @@
   <div class='gameContainer' id='View'>
     <div class='outgameBackgroundFront'></div>
     <div class='outgameBackgroundBack'></div>
-    <div class='game'>
+    <div class='outgame'>
 
-      <!-- Success -->
-      <div class='outgame' v-if='ApiClientRequestStatus.IsSuccess'>
-        <div class='outgameHeader'>
-          <div class='outgameHeader__Left'>
-            <div class='outgameHeader__Left__Budge'>
-              {{ User.Rank }}
-            </div>
-          </div>
-          <div class='outgameHeader__Right'>
-            <img src='/svg/money.svg'>
-            {{ User.MoneyString }}
+      <div class='outgameHeader'>
+        <div class='outgameHeader__Left'>
+          <div class='outgameHeader__Left__Budge'>
+            {{ User.Rank }}
           </div>
         </div>
+        <div class='outgameHeader__Right'>
+          <img src='/svg/money.svg'>
+          {{ User.MoneyString }}
+        </div>
+      </div>
+
+      <!-- Success -->
+      <div class='outgame__Inner' v-if='ApiClientRequestStatus.IsSuccess'>
 
         <!-- Home -->
-        <div v-if='Phase === GamePhase.Home' id="OutGameHomeView">
+        <div v-if='Phase === GamePhase.Home'>
           <div class='p-Home__title'>
             DEN
           </div>
@@ -57,7 +58,7 @@
         </div>
 
         <!-- Business -->
-        <div v-else-if='Phase === GamePhase.Business' id="OutGameBusinessView" class='window'>
+        <div v-else-if='Phase === GamePhase.Business' class='window'>
           <h1 class='window__Title'>本日のビジネス</h1>
           <div class='window__Body p-Business'>
             <div class='p-Business__List'>
@@ -80,7 +81,8 @@
           </div>
         </div>
 
-        <div v-else-if='Phase === GamePhase.Bonus' id="OutGameBusinessView">
+        <!-- Bonus -->
+        <div v-else-if='Phase === GamePhase.Bonus'>
           <div class='modal open'>
             <div class='modal__inner modal__inner--full'>
               <div class='modal__body'>
@@ -111,24 +113,10 @@
           </div>
         </div>
 
-        <div class='outgameFooter'>
-          <div @click='toHome()' class='outgameFooter__Btn outgameFooter__Btn--home'
-            :class='{"outgameFooter__Btn--home--selected": Phase === GamePhase.Home }'></div>
-
-          <div @click='toProfile()' class='outgameFooter__Btn outgameFooter__Btn--user'
-            :class='{"outgameFooter__Btn--user--selected": Phase === GamePhase.Profile }'></div>
-
-          <div @click='toBusiness()' class='outgameFooter__Btn outgameFooter__Btn--business'
-            :class='{"outgameFooter__Btn--business--selected": Phase === GamePhase.Business }'></div>
-
-          <div @click='howTo()' class='outgameFooter__Btn outgameFooter__Btn--setting'
-            :class='{"outgameFooter__Btn--setting--selected": Phase === GamePhase.Setting }'></div>
-        </div>
-
       </div>
 
       <!-- Waiting -->
-      <div v-else-if='ApiClientRequestStatus.IsWaiting'>
+      <div class='outgame__Inner' v-else-if='ApiClientRequestStatus.IsWaiting'>
         <div class='p-Loading'>
           <div class='p-Loading__icon'>
             <img src='img/icon/loading-s.gif'>
@@ -137,7 +125,7 @@
       </div>
 
       <!-- Fail -->
-      <div v-else-if='ApiClientRequestStatus.IsFail'>
+      <div class='outgame__Inner' v-else-if='ApiClientRequestStatus.IsFail'>
         <div class='modal open'>
           <div class='modal__inner modal__inner--full'>
             <div class='modal__body'>
@@ -157,6 +145,19 @@
         </div>
       </div>
 
+      <div class='outgameFooter'>
+        <div @click='toHome()' class='outgameFooter__Btn outgameFooter__Btn--home'
+          :class='{"outgameFooter__Btn--home--selected": Phase === GamePhase.Home }'></div>
+
+        <div @click='toProfile()' class='outgameFooter__Btn outgameFooter__Btn--user'
+          :class='{"outgameFooter__Btn--user--selected": Phase === GamePhase.Profile }'></div>
+
+        <div @click='toBusiness()' class='outgameFooter__Btn outgameFooter__Btn--business'
+          :class='{"outgameFooter__Btn--business--selected": Phase === GamePhase.Business }'></div>
+
+        <div @click='howTo()' class='outgameFooter__Btn outgameFooter__Btn--setting'
+          :class='{"outgameFooter__Btn--setting--selected": Phase === GamePhase.Setting }'></div>
+      </div>
     </div>
   </div>
 </template>
