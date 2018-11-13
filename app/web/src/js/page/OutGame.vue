@@ -19,14 +19,12 @@
       <!-- Success -->
       <div class='outgame__Inner' v-if='ApiClientRequestStatus.IsSuccess'>
         <!-- Home -->
-        <div v-if='Phase === GamePhase.Home'>
+        <div v-if='Phase === GamePhase.Home' class='outgame__Body' @click='toInGame()'>
           <div class='p-Home__title'>
             DEN
           </div>
-          <div class='p-Home__pointer'>
-            <router-link :to="{ name: 'den', params: { level: User.Rank } }">
-              <img src='/svg/pointer.svg'>
-            </router-link>
+          <div class='p-Home__pointer' @onclick='toInGame()'>
+            <img src='/svg/pointer.svg'>
           </div>
           <div class='p-Home__startText'>
             Tap to Start
@@ -257,6 +255,10 @@ export default {
 
     reset() {
       location.reload()
+    },
+
+    toInGame() {
+      this.$router.push({ name: 'den', params: { level: this.User.Rank } })
     },
 
     // TODO: UserServiceに移植する
