@@ -4,7 +4,7 @@
     <div class='outgameBackgroundBack'></div>
     <div class='outgame'>
 
-      <div class='outgameHeader'>
+      <div class='outgameHeader' v-if='User'>
         <div class='outgameHeader__Left'>
           <div class='outgameHeader__Left__Budge'>
             {{ User.Rank }}
@@ -114,8 +114,17 @@
 
       </div>
 
-      <!-- Waiting -->
-      <div class='outgame__Inner window' v-else-if='ApiClientRequestStatus.IsWaiting'>
+      <!-- Waiting Userがすでにいる場合 -->
+      <div class='outgame__Inner window' v-else-if='User && ApiClientRequestStatus.IsWaiting'>
+        <div class='p-Loading'>
+          <div class='p-Loading__icon'>
+            <img src='img/icon/loading-s.gif'>
+          </div>
+        </div>
+      </div>
+
+      <!-- Waiting Userがいない場合 -->
+      <div class='outgame__Inner' v-else-if='User && ApiClientRequestStatus.IsWaiting'>
         <div class='p-Loading'>
           <div class='p-Loading__icon'>
             <img src='img/icon/loading-s.gif'>
@@ -144,7 +153,7 @@
         </div>
       </div>
 
-      <div class='outgameFooter'>
+      <div class='outgameFooter' v-if='User'>
         <div @click='toHome()' class='outgameFooter__Btn outgameFooter__Btn--home'
           :class='{"outgameFooter__Btn--home--selected": Phase === GamePhase.Home }'></div>
 
