@@ -1,7 +1,17 @@
 <template>
   <div class='gameContainer' id='View'>
-    <div class='outgameBackgroundFront'></div>
-    <div class='outgameBackgroundBack'></div>
+    <div class='outgameBackgroundFront' v-if='User'></div>
+    <div class='outgameBackgroundBack' v-if='User'></div>
+    <!-- Waiting Userがいない場合 -->
+    <div class='outgame__Inner' v-else>
+      <div class='p-Loading--Large'>
+        <div class='p-Loading--Large__icon'>
+          <img src='img/icon/loading-s.gif'>
+          <h3 class='p-Loading--Large__loadingText'>Now Loading...</h3>
+        </div>
+      </div>
+    </div>
+
     <div class='outgame'>
 
       <div class='outgameHeader' v-if='User'>
@@ -115,16 +125,7 @@
       </div>
 
       <!-- Waiting Userがすでにいる場合 -->
-      <div class='outgame__Inner window' v-else-if='User && ApiClientRequestStatus.IsWaiting'>
-        <div class='p-Loading'>
-          <div class='p-Loading__icon'>
-            <img src='img/icon/loading-s.gif'>
-          </div>
-        </div>
-      </div>
-
-      <!-- Waiting Userがいない場合 -->
-      <div class='outgame__Inner' v-else-if='User && ApiClientRequestStatus.IsWaiting'>
+      <div class='outgame__Inner window' v-else-if='ApiClientRequestStatus.IsWaiting'>
         <div class='p-Loading'>
           <div class='p-Loading__icon'>
             <img src='img/icon/loading-s.gif'>
