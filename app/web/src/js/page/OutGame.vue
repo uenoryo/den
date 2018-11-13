@@ -115,7 +115,7 @@
       </div>
 
       <!-- Waiting -->
-      <div class='outgame__Inner' v-else-if='ApiClientRequestStatus.IsWaiting'>
+      <div class='outgame__Inner window' v-else-if='ApiClientRequestStatus.IsWaiting'>
         <div class='p-Loading'>
           <div class='p-Loading__icon'>
             <img src='img/icon/loading-s.gif'>
