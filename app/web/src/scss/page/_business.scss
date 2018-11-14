@@ -38,6 +38,13 @@
       margin-right: 8px;
       min-width: 48px;
       justify-content: center;
+      text-align: center;
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    &__BuyBtn {
+      font-size: 14px;
     }
   }
 }

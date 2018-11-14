@@ -81,9 +81,9 @@
                   <div class='p-Business__Item__Body__foot'>{{ b.PriceString }}</div>
                 </div>
                 <div class='p-Business__Item__Foot'>
-                  <div v-if='b.IsMaxLevel'>レベル最大</div>
-                  <div v-else-if='b.IsSoldOut'>購入済</div>
-                  <div v-else @click='buyBusiness(b.ID)'>購入</div>
+                  <div v-if='b.IsMaxLevel' class='color-main'>レベル<br>最大</div>
+                  <div v-else-if='b.IsSoldOut' class='color-main'>購入済</div>
+                  <div v-else @click='buyBusiness(b.ID)' class='p-Business__Item__BuyBtn'>購入</div>
                 </div>
               </div>
             </div>
