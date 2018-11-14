@@ -46,3 +46,15 @@
   display: flex;
   justify-content: space-between;
 }
+
+.btn {
+  padding: 8px 16px;
+  min-width: 80px;
+  text-align: center;
+  border-radius: 2px;
+  background: linear-gradient(#e2ee5b, $color_accent);
+  color: #121612;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 12px;
+}

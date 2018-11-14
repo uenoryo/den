@@ -91,33 +91,25 @@
         </div>
 
         <!-- Bonus -->
-        <div v-else-if='Phase === GamePhase.Bonus'>
-          <div class='modal open'>
-            <div class='modal__inner modal__inner--full'>
-              <div class='modal__body'>
-                <div class='BusinessView'>
-                  <h3>本日の収益</h3>
-                  <div class='BusinessView__Body'>
-                    <div class='BusinessView__BodyInner'>
-                      <table>
-                        <tr v-for='b in UserBusinesses'>
-                          <td>{{ b.BusinessName }} Lv{{ b.Level }}:</td>
-                          <td>{{ b.BonusMoneyString }}</td>
-                        </tr>
-                      </table>
-                    </div>
-                    <div>
-                      合計: {{ userTotalBonusMoneyString() }}
-                    </div>
-                    <div>
-                      所持金: {{ User.MoneyString }}
-                    </div>
-                  </div>
-                  <div>
-                    <div @click='toHome()' class='btn'>ホーム</div>
-                  </div>
-                </div>
+        <div v-else-if='Phase === GamePhase.Bonus' class='window'>
+          <h1 class='window__Title'>本日の収益</h1>
+          <div class='window__Body p-Bonus'>
+            <div class='p-Bonus__Body'>
+              <div class='p-Bonus__Sub flex-space-between'>
+                <div>合計</div><div>{{ userTotalBonusMoneyString() }}</div>
               </div>
+              <div class='p-Bonus__Sub flex-space-between'>
+                <div>所持金</div><div>{{ User.MoneyString }}</div>
+              </div>
+            </div>
+            <div class='p-Bonus__List'>
+              <div class='p-Bonus__Item flex-space-between' v-for='b in UserBusinesses'>
+                <div>{{ b.BusinessName }} Lv{{ b.Level }}</div>
+                <div>{{ b.BonusMoneyString }}</div>
+              </div>
+            </div>
+            <div class='ButtonList'>
+              <div @click='toHome()' class='btn'>閉じる</div>
             </div>
           </div>
         </div>
@@ -207,7 +199,7 @@ export default {
 
     this.GamePhase = OutGamePhase
 
-    this.Phase = OutGamePhase.Home
+    this.Phase = this.GamePhase.Home
 
     this.loginOrSignup()
   },
