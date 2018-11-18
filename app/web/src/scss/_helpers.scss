@@ -58,3 +58,9 @@
   cursor: pointer;
   font-size: 12px;
 }
+
+.btnList {
+  > .btn {
+    margin-top: 8px;
+  }
+}

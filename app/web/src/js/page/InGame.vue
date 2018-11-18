@@ -40,85 +40,72 @@
         </div>
 
         <!-- Result -->
-        <div v-else-if='Phase === GamePhase.Result' id="GameStartView">
-          <div class='modal modal--hard open'>
-            <div class='modal__inner modal__inner--full'>
-              <div class='modal__body'>
-                <div class='FinishView'>
-                  <h3>You {{ ScoreKeeper.LatestWinnerID === Config.MainPlayerID() ? 'WIN' : 'LOSE' }}</h3>
-                  <div class='FinishView__Body'>
-                    <div class='FinishView__Result__Head'>
-                      <h4>
-                        {{ ScoreKeeper.LatestScoreData.JokerBuffString }} {{ ScoreKeeper.LatestScoreData.GameSetTypeString }}
-                        <span class='FinishView__Result__LevelText'>Lv{{ ScoreKeeper.LatestScoreData.Level }}</span>
-                      </h4>
-                    </div>
-                    <div class='FinishView__Result__Body'>
-                      <div class='FinishView__Result__Main'>
-                        <table>
-                          <tr>
-                            <th>{{ ScoreKeeper.LatestScoreData.GameSetTypeString }}</th>
-                            <td>{{ ScoreKeeper.LatestScoreData.RoleScore }}</td>
-                          </tr>
-                          <tr></tr>
-                        </table>
-                        <table v-if='ScoreKeeper.LatestWinnerID === Config.MainPlayerID()'>
-                          <tr>
-                            <th>あなたの手札コスト</th>
-                            <td>{{ ScoreKeeper.LatestScoreData.getHandCost(1) }}</td>
-                          </tr>
-                          <tr>
-                            <th>COM1の手札コスト</th>
-                            <td>{{ ScoreKeeper.LatestScoreData.getHandCost(2) }}</td>
-                          </tr>
-                          <tr>
-                            <th>COM2の手札コスト</th>
-                            <td>{{ ScoreKeeper.LatestScoreData.getHandCost(3) }}</td>
-                          </tr>
-                          <tr>
-                            <th>COM3の手札コスト</th>
-                            <td>{{ ScoreKeeper.LatestScoreData.getHandCost(4) }}</td>
-                          </tr>
-                          <tr v-if='ScoreKeeper.LatestScoreData.IsJokerBuffGood'>
-                            <th>成金</th>
-                            <td>{{ ScoreKeeper.LatestScoreData.TotalJokerBuffBonus }}</td>
-                          </tr>
-                          <tr v-if='ScoreKeeper.LatestScoreData.IsJokerBuffAwesome'>
-                            <th>一攫千金</th>
-                            <td>{{ ScoreKeeper.LatestScoreData.TotalJokerBuffBonus }}</td>
-                          </tr>
-                        </table>
-                        <table v-else>
-                          <tr>
-                            <th>手札コスト</th>
-                            <td>{{ ScoreKeeper.LatestScoreData.getMergedHandCost(Config.MainPlayerID()) }}</td>
-                          </tr>
-                          <tr v-if='ScoreKeeper.LatestScoreData.IsJokerBuffGood'>
-                            <th>成金</th>
-                            <td>{{ ScoreKeeper.LatestScoreData.TotalJokerBuffBonus }}</td>
-                          </tr>
-                          <tr v-if='ScoreKeeper.LatestScoreData.IsJokerBuffAwesome'>
-                            <th>一攫千金</th>
-                            <td>{{ ScoreKeeper.LatestScoreData.TotalJokerBuffBonus }}</td>
-                          </tr>
-                        </table>
-                      </div>
-                      <div class='FinishView__Result__Sub'>
-                        <table>
-                          <tr>
-                            <th>合計</th>
-                            <td>{{ ScoreKeeper.LatestScoreData.getScore(Config.MainPlayerID()) }}</td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                  <div class='FinishView__BtnList'>
-                    <div @click='gameReload()' class='StartView__Btn btn'>次へ</div>
-                    <div @click='gameClose()' class='StartView__Btn btn'>ホーム</div>
-                  </div>
+        <div v-else-if='Phase === GamePhase.Result' class='window window--fixed'>
+          <h3 class='window__Title'>
+            You {{ ScoreKeeper.LatestWinnerID === Config.MainPlayerID() ? 'WIN' : 'LOSE' }}
+          </h3>
+          <div class='window__Body p-ResultView'>
+            <div class='p-ResultView__Head'>
+              {{ ScoreKeeper.LatestScoreData.JokerBuffString }} {{ ScoreKeeper.LatestScoreData.GameSetTypeString }}
+              <span class='p-ResultView__Head__Leve'>Lv{{ ScoreKeeper.LatestScoreData.Level }}</span>
+            </div>
+            <div class='p-ResultView__Body'>
+              <!-- 勝利時のスコア -->
+              <div v-if='ScoreKeeper.LatestWinnerID === Config.MainPlayerID()'>
+                <div class='p-ResultView__Item'>
+                  <div class='p-ResultView__Left'>{{ ScoreKeeper.LatestScoreData.GameSetTypeString }}</div>
+                  <div class='p-ResultView__Right blue'>{{ ScoreKeeper.LatestScoreData.RoleScore }}</div>
+                </div>
+                <div class='p-ResultView__Item'>
+                  <div class='p-ResultView__Left'>あなたの手札コスト</div>
+                  <div class='p-ResultView__Right blue'>{{ ScoreKeeper.LatestScoreData.getHandCost(1) }}</div>
+                </div>
+                <div class='p-ResultView__Item' v-for='n in 3'>
+                  <div class='p-ResultView__Left'>COM{{ n+1 }}の手札コスト</div>
+                  <div class='p-ResultView__Right blue'>{{ ScoreKeeper.LatestScoreData.getHandCost(n+1) }}</div>
+                </div>
+                <div class='p-ResultView__Item' v-if='ScoreKeeper.LatestScoreData.IsJokerBuffGood'>
+                  <div class='p-ResultView__Left'>成金</div>
+                  <div class='p-ResultView__Right blue'>{{ ScoreKeeper.LatestScoreData.TotalJokerBuffBonus }}</div>
+                </div>
+                <div class='p-ResultView__Item' v-if='ScoreKeeper.LatestScoreData.IsJokerBuffAwesome'>
+                  <div class='p-ResultView__Left'>一攫千金</div>
+                  <div class='p-ResultView__Right blue'>{{ ScoreKeeper.LatestScoreData.TotalJokerBuffBonus }}</div>
                 </div>
               </div>
+
+              <!-- 敗北時のスコア -->
+              <div v-else>
+                <div class='p-ResultView__Item'>
+                  <div class='p-ResultView__Left'>{{ ScoreKeeper.LatestScoreData.GameSetTypeString }}</div>
+                  <div class='p-ResultView__Right red'>-{{ ScoreKeeper.LatestScoreData.RoleScore }}</div>
+                </div>
+                <div class='p-ResultView__Item'>
+                  <div class='p-ResultView__Left'>手札コスト</div>
+                  <div class='p-ResultView__Right red'>
+                    -{{ ScoreKeeper.LatestScoreData.getMergedHandCost(Config.MainPlayerID()) }}
+                  </div>
+                </div>
+                <div class='p-ResultView__Item' v-if='ScoreKeeper.LatestScoreData.IsJokerBuffGood'>
+                  <div class='p-ResultView__Left'>成金</div>
+                  <div class='p-ResultView__Right red'>-{{ ScoreKeeper.LatestScoreData.TotalJokerBuffBonus }}</div>
+                </div>
+                <div class='p-ResultView__Item' v-if='ScoreKeeper.LatestScoreData.IsJokerBuffAwesome'>
+                  <div class='p-ResultView__Left'>一攫千金</div>
+                  <div class='p-ResultView__Right red'>-{{ ScoreKeeper.LatestScoreData.TotalJokerBuffBonus }}</div>
+                </div>
+              </div>
+
+            </div>
+            <div class='p-ResultView__Item p-ResultView__Item--large'>
+              <div>合計</div>
+              <div class='blue' :class='{"red": ScoreKeeper.LatestScoreData.getScore(Config.MainPlayerID()) < 0 }'>
+                {{ ScoreKeeper.LatestScoreData.getScore(Config.MainPlayerID()) }}
+              </div>
+            </div>
+            <div class='btnList'>
+              <div @click='gameReload()' class='btn'>次へ</div>
+              <div @click='gameClose()' class='btn'>ホーム</div>
             </div>
           </div>
         </div>
@@ -134,9 +121,9 @@
                     <div class='EndView__BodyInner'>
                       <table>
                         <tr v-for='(s, idx) in ScoreKeeper.getScore(Constants.RoundNumPerGame)'>
-                          <td class='ScoreRecord__item'>Round {{ idx + 1 }}</td>
-                          <td class='ScoreRecord__item'>{{ s.JokerBuffStringCache }} {{ s.GameSetTypeStringCache }}</td>
-                          <td class='ScoreRecord__item'>{{ s.p1ScoreCache }}</td>
+                          <div class='ScoreRecord__item'>Round {{ idx + 1 }}</div>
+                          <div class='ScoreRecord__item'>{{ s.JokerBuffStringCache }} {{ s.GameSetTypeStringCache }}</div>
+                          <div class='ScoreRecord__item'>{{ s.p1ScoreCache }}</div>
                         </tr>
                       </table>
                     </div>
