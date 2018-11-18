@@ -1,26 +1,27 @@
-.StartView {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  h3 {
-    padding: 16px;
-    font-size: 26px;
-    letter-spacing: 2px;
-  }
-  &__Btn {
-    margin-top: 16px;
-  }
-  &__Body {
-    table {
-      width: 100%;
-      font-size: 14px;
+.p-StartView {
+  &__Head {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0 8px;
+    border-bottom: 1px solid $color_white;
+
+    &__Item {
+      text-align: center;
+      color: $color_positive;
+      font-size: 11px;
+
+      h4 {
+        color: $color_white;
+      }
+      p {
+        padding: 4px 0;
+        font-size: 16px;
+        font-weight: bold;
+      }
     }
   }
-  hr {
-    width: 100%;
-    border: 0;
-    border-bottom: 1px solid;
-    margin-top: 8px;
+
+  &__Body {
+    flex: 1;
   }
 }

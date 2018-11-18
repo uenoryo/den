@@ -7,50 +7,31 @@
       </div>
 
       <div class='denActionArea' @click='den(Config.MainPlayerID())'></div>
+
       <div id="GameMainView">
-        <div v-if='Phase === GamePhase.Prepare' id="GameStartView">
-          <div class='modal modal--hard open'>
-            <div class='modal__inner modal__inner--full'>
-              <div class='modal__body'>
-                <div class='StartView'>
-                  <h3>Round {{ ScoreKeeper.NextRound }}</h3>
-                  <div class='StartView__Body'>
-                    <table>
-                      <tr>
-                        <td>YOU</td>
-                        <td>COM1</td>
-                        <td>COM2</td>
-                        <td>COM3</td>
-                      </tr>
-                      <tr class='blue'>
-                        <td :class='{"red": ScoreKeeper.aggregate(1) < 0 }'>{{ ScoreKeeper.aggregate(1) }}</td>
-                        <td :class='{"red": ScoreKeeper.aggregate(2) < 0 }'>{{ ScoreKeeper.aggregate(2) }}</td>
-                        <td :class='{"red": ScoreKeeper.aggregate(3) < 0 }'>{{ ScoreKeeper.aggregate(3) }}</td>
-                        <td :class='{"red": ScoreKeeper.aggregate(4) < 0 }'>{{ ScoreKeeper.aggregate(4) }}</td>
-                      </tr>
-                    </table>
-                  </div>
-                  <hr>
-                  <div class='ScoreList'>
-                    <div v-for='(s, idx) in ScoreKeeper.DataReversed'>
-                      <h4>Round {{ ScoreKeeper.Data.length - idx }}</h4>
-                      <div class='ScoreList__list blue'>
-                        <div class='ScoreList__item' :class='{"red": s.p1ScoreCache < 0 }'>{{ s.p1ScoreCache }}</div>
-                        <div class='ScoreList__item' :class='{"red": s.p2ScoreCache < 0 }'>{{ s.p2ScoreCache }}</div>
-                        <div class='ScoreList__item' :class='{"red": s.p3ScoreCache < 0 }'>{{ s.p3ScoreCache }}</div>
-                        <div class='ScoreList__item' :class='{"red": s.p4ScoreCache < 0 }'>{{ s.p4ScoreCache }}</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class='StartView__BtnList'>
-                    <div @click='gameStart()' class='StartView__Btn btn'>スタート</div>
-                  </div>
-                </div>
+
+        <!-- Prepare -->
+        <div v-if='Phase === GamePhase.Prepare' class='window window--fixed'>
+          <h3 class='window__Title'>Round {{ ScoreKeeper.NextRound }}</h3>
+          <div class='window__Body p-StartView'>
+            <div class='p-StartView__Head'>
+              <div class='p-StartView__Head__Item'>
+                <h4>YOU</h4>
+                <p :class='{"red": ScoreKeeper.aggregate(1) < 0 }'>{{ ScoreKeeper.aggregate(1) }}</p>
+              </div>
+              <div class='p-StartView__Head__Item' v-for='n in 3'>
+                <h4>COM{{ n }}</h4>
+                <p :class='{"red": ScoreKeeper.aggregate(n+1) < 0 }'>{{ ScoreKeeper.aggregate(n+1) }}</p>
               </div>
             </div>
+            <div class='p-StartView__Body'>
+
+            </div>
+            <div @click='gameStart()' class='btn btn--strong'>スタート</div>
           </div>
         </div>
 
+        <!-- Result -->
         <div v-else-if='Phase === GamePhase.Result' id="GameStartView">
           <div class='modal modal--hard open'>
             <div class='modal__inner modal__inner--full'>
@@ -134,6 +115,7 @@
           </div>
         </div>
 
+        <!-- End -->
         <div v-else-if='Phase === GamePhase.End' id="GameEndView">
           <div class='modal modal--hard open'>
             <div class='modal__inner modal__inner--full'>
