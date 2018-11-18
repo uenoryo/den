@@ -137,12 +137,11 @@ html, body {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
 }
 
 .markItem {
-  width: 36px;
-  height: 54px;
+  width: 40px;
+  height: 60px;
   background-position: center;
   background-size: cover;
   @include pc-layout {
