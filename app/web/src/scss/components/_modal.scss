@@ -31,8 +31,8 @@
     align-items: center;
     border-radius: 8px;
     padding: 8px;
-    border: solid 2px #fbec35;
-    background-color: #040c;
+    border: solid 2px $color_accent;
+    background-color: rgba($color_strong, 1);
     font-size: 11px;
     @include pc-layout {
       width: 320px;
