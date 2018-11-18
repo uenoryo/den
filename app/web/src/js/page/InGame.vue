@@ -111,38 +111,26 @@
         </div>
 
         <!-- End -->
-        <div v-else-if='Phase === GamePhase.End' id="GameEndView">
-          <div class='modal modal--hard open'>
-            <div class='modal__inner modal__inner--full'>
-              <div class='modal__body'>
-                <div class='EndView'>
-                  <h3>結果</h3>
-                  <div class='EndView__Body'>
-                    <div class='EndView__BodyInner'>
-                      <table>
-                        <tr v-for='(s, idx) in ScoreKeeper.getScore(Constants.RoundNumPerGame)'>
-                          <div class='ScoreRecord__item'>Round {{ idx + 1 }}</div>
-                          <div class='ScoreRecord__item'>{{ s.JokerBuffStringCache }} {{ s.GameSetTypeStringCache }}</div>
-                          <div class='ScoreRecord__item'>{{ s.p1ScoreCache }}</div>
-                        </tr>
-                      </table>
-                    </div>
-                    <div class='EndView__Sum'>
-                      <div>合計</div>
-                      <div>{{ ScoreKeeper.sumScore(ScoreKeeper.getScore(Constants.RoundNumPerGame), 1) }}</div>
-                    </div>
-                    <div class='EndView__Score'>
-                      <div>所持金</div>
-                      <div>{{ User.MoneyString }}</div>
-                    </div>
-                  </div>
-                  <div class='EndView__BtnList'>
-                    <div @click='gameClose()' class='EndView__Btn btn'>ホーム</div>
-                  </div>
-                </div>
+        <div v-else-if='Phase === GamePhase.End' class='window window--fixed'>
+          <h3 class='window__Title'>結果</h3>
+          <div class='window__Body p-EndView'>
+            <div class='p-EndView__List'>
+              <div class='p-EndView__Row' v-for='(s, idx) in ScoreKeeper.getScore(Constants.RoundNumPerGame)'>
+                <div class='p-EndView__Cell'>Round {{ idx + 1 }}</div>
+                <div class='p-EndView__Cell--flex'>{{ s.JokerBuffStringCache }} {{ s.GameSetTypeStringCache }}</div>
+                <div class='p-EndView__Cell'>{{ s.p1ScoreCache }}</div>
               </div>
             </div>
+            <div class='p-EndView__Row p-EndView__Row--large'>
+              <div>合計</div>
+              <div>{{ ScoreKeeper.sumScore(ScoreKeeper.getScore(Constants.RoundNumPerGame), 1) }}</div>
+            </div>
+            <div class='p-EndView__Row p-EndView__Row--large'>
+              <div>所持金</div>
+              <div>{{ User.MoneyString }}</div>
+            </div>
           </div>
+          <div @click='gameClose()' class='btn'>ホーム</div>
         </div>
 
         <div

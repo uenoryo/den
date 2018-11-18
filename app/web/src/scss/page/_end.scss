@@ -1,27 +1,33 @@
-.EndView {
+.p-EndView {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  margin: 8px 0;
 
-  h3 {
-    padding: 16px;
-    font-size: 26px;
-    letter-spacing: 2px;
+  &__List {
+    flex: 1;
+    overflow-y: scroll;
   }
-  table {
-    width: 100%;
-    text-align: left;
-  }
-  tr {
+
+  &__Row {
+    display: flex;
+    justify-content: space-between;
     border-bottom: 1px solid;
+    padding: 16px 4px 4px;
+    font-size: 16px;
+    &--large {
+      font-weight: bold;
+      font-size: 16px;
+    }
   }
-  td {
-    padding: 16px 0 4px;
-    font-size: 14px;
+
+  &__Item {
+    margin: 8px 0;
   }
-  &__BodyInner {
-    height: 280px;
-    overflow: scroll;
+
+  &__Cell {
+    &--flex {
+      flex: 1;
+      padding-left: 16px;
+    }
   }
 }
