@@ -118,16 +118,18 @@
               <div class='p-EndView__Row' v-for='(s, idx) in ScoreKeeper.getScore(Constants.RoundNumPerGame)'>
                 <div class='p-EndView__Cell'>Round {{ idx + 1 }}</div>
                 <div class='p-EndView__Cell--flex'>{{ s.JokerBuffStringCache }} {{ s.GameSetTypeStringCache }}</div>
-                <div class='p-EndView__Cell'>{{ s.p1ScoreCache }}</div>
+                <div class='p-EndView__Cell blue' :class='{"red": s.p1ScoreCache < 0 }'>{{ s.p1ScoreCache }}</div>
               </div>
             </div>
             <div class='p-EndView__Row p-EndView__Row--large'>
               <div>合計</div>
-              <div>{{ ScoreKeeper.sumScore(ScoreKeeper.getScore(Constants.RoundNumPerGame), 1) }}</div>
+              <div class='blue' :class='{"red": ScoreKeeper.sumScore(ScoreKeeper.getScore(Constants.RoundNumPerGame), 1) < 0 }'>
+                {{ ScoreKeeper.sumScore(ScoreKeeper.getScore(Constants.RoundNumPerGame), 1) }}
+              </div>
             </div>
             <div class='p-EndView__Row p-EndView__Row--large'>
               <div>所持金</div>
-              <div>{{ User.MoneyString }}</div>
+              <div class='blue' :class='{"red": User.Money < 0 }'>{{ User.MoneyString }}</div>
             </div>
           </div>
           <div @click='gameClose()' class='btn'>ホーム</div>
