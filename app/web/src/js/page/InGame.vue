@@ -25,7 +25,15 @@
               </div>
             </div>
             <div class='p-StartView__Body'>
-
+              <div v-for='(s, idx) in ScoreKeeper.DataReversed' class='p-StartView__Body__Item'>
+                <h4>Round {{ ScoreKeeper.Data.length - idx }}</h4>
+                <div class='p-StartView__Body__Row blue'>
+                  <div class='p-StartView__Body__Cell' :class='{"red": s.p1ScoreCache < 0 }'>{{ s.p1ScoreCache }}</div>
+                  <div class='p-StartView__Body__Cell' :class='{"red": s.p2ScoreCache < 0 }'>{{ s.p2ScoreCache }}</div>
+                  <div class='p-StartView__Body__Cell' :class='{"red": s.p3ScoreCache < 0 }'>{{ s.p3ScoreCache }}</div>
+                  <div class='p-StartView__Body__Cell' :class='{"red": s.p4ScoreCache < 0 }'>{{ s.p4ScoreCache }}</div>
+                </div>
+              </div>
             </div>
             <div @click='gameStart()' class='btn btn--strong'>スタート</div>
           </div>
