@@ -37,6 +37,7 @@ export default {
         id = Constants.InitialStartTurnPlayerID
       }
       this.Dealer.changeTurnPlayer(id)
+      this.animationChangeTurnPlayer(id)
     },
 
     dealerPutCard() {
@@ -45,7 +46,8 @@ export default {
     },
 
     dealerGoNextTurn() {
-      this.Dealer.goNextTurn()
+      let id = this.Dealer.goNextTurn()
+      this.animationChangeTurnPlayer(id)
     },
 
     dealerTriggerCardSkillAtFirst() {

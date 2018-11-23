@@ -5,6 +5,46 @@ html, body {
   font-family: 'Arvo', serif;
 }
 
+.ingame {
+  &__BackgroundFront {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    margin: 0 auto;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    transition-duration: .3s;
+    background: radial-gradient(circle at 50% 44%, #00000000 60px, #00000020 100px);
+    background-size:220%;
+    background-position: center;
+    &--large {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      margin: 0 auto;
+      z-index: 1;
+      left: 0;
+      right: 0;
+      transition-duration: .6s;
+      background: radial-gradient(circle at center, #00000000 180px, #00000006 200px);
+      background-size: 200% 200%;
+      background-position: center;
+    }
+  }
+
+  &__BackgroundBack {
+    background-position: center;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url(/img/bg/bg_green.png);
+  }
+}
+
 .View {
   &--inverted {
     filter: invert(100%);
@@ -12,9 +52,6 @@ html, body {
 }
 
 .gameContainer {
-  background-image: url(/img/bg/bg_green.png);
-  background-position: center;
-  background-size: cover;
   position: relative;
   max-width: 1000px;
   height: 100%;

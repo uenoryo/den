@@ -133,7 +133,7 @@ export default class Dealer {
     return this.Deck.CardAmount <= Constants.DeckMaintenanceRemainingAmount
   }
 
-  goNextTurn(): void {
+  goNextTurn(): PlayerID {
     let turnIdx = this.TurnTable.indexOf(this.TurnPlayerID)
     if (turnIdx >= this.TurnTable.length-1) {
       turnIdx = 0
@@ -141,6 +141,7 @@ export default class Dealer {
       turnIdx++
     }
     this.turnPlayerID = this.TurnTable[turnIdx]
+    return this.turnPlayerID
   }
 
   playerIsTurnPlayer(id: PlayerID): boolean {

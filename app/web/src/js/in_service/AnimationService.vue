@@ -193,6 +193,27 @@ export default {
       }, dealer.Field.Cards.length * 50 + 100)
     },
 
+    animationChangeTurnPlayer(id) {
+      if (this.el('spotlight')) {
+        let position = ''
+        switch (id) {
+          case 1:
+            position = 'top center'
+            break
+          case 2:
+            position = 'right center'
+            break
+          case 3:
+            position = 'center bottom'
+            break
+          case 4:
+            position = 'left center'
+            break
+        }
+        this.el('spotlight').style.backgroundPosition = position;
+      }
+    },
+
     el(elID) {
       return document.getElementById(elID)
     },

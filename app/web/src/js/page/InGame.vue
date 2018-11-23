@@ -6,6 +6,11 @@
         <div v-for="n in 54" :class='["CardDisplay__ID" + (n-1)]' />
       </div>
 
+      <!-- Background Image -->
+      <div class='ingame__BackgroundFront ingame__BackgroundFront--large' id='spotlight'></div>
+      <div class='ingame__BackgroundFront'></div>
+      <div class='ingame__BackgroundBack'></div>
+
       <div class='denActionArea' @click='den(Config.MainPlayerID())'></div>
 
       <div id="GameMainView">
