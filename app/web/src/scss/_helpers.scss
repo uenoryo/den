@@ -1,0 +1,66 @@
+.hide {
+  display: none!important;
+}
+
+.blue {
+  color: $color_positive;
+}
+
+.red {
+  color: $color_negative;
+}
+
+.full {
+  height: 100%;
+}
+
+.color-strong {
+  color: $color_strong;
+}
+
+.color-main {
+  color: $color_main;
+}
+
+.ads {
+  height: 80px;
+  background-color: #fffa;
+  border-radius: 4px;
+  margin: 4px;
+  z-index: 99;
+
+  // 非表示
+  display: none;
+  height: 12px;
+  @include pc-layout {
+    height: 12px;
+    background-color: #fff0;
+  }
+}
+
+.open {
+  display: block;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 8px 16px;
+  min-width: 80px;
+  text-align: center;
+  border-radius: 2px;
+  background: linear-gradient(#e2ee5b, $color_accent);
+  color: #121612;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btnList {
+  > .btn {
+    margin-top: 8px;
+  }
+}

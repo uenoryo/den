@@ -1,0 +1,79 @@
+.modal {
+  &:before {
+    content: '';
+    position: fixed;
+    background-color: $color_blinder;
+    z-index: 10;
+    @include full-size;
+  }
+  &--hard {
+    &:before {
+      background-color: $color_blinder;
+      z-index: 20;
+    }
+    .modal__inner {
+      background-color: rgba($color_strong, 1);
+    }
+  }
+  &__inner {
+    display: block;
+    position: fixed;
+    top: 62%;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    width: 72%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    padding: 8px;
+    border: solid 2px $color_accent;
+    background-color: rgba($color_strong, 1);
+    font-size: 11px;
+    @include pc-layout {
+      width: 320px;
+      padding: 16px;
+      font-size: 16px;
+    }
+    &--full {
+      top: 10%;
+      width: 90%;
+      height: 80%;
+      @include pc-layout {
+        height: 70%;
+      }
+    }
+  }
+  &__body {
+    margin: 8px 0;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
+  &__foot {
+    margin: 8px 0;
+  }
+  &--hard {
+    &:before {
+      content: '';
+      position: fixed;
+      background-color: $color_blinder;
+      z-index: 20;
+      @include full-size;
+    }
+    .Card {
+      &:before {
+        content: '';
+        background-color: $color_blinder_hard;
+        position: absolute;
+        border-radius: 4px;
+        @include full-size;
+      }
+    }
+  }
+  display: none;
+}

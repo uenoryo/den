@@ -1,0 +1,36 @@
+.p-Home {
+  &__pointer {
+    position: fixed;
+    width: 48px;
+    height: 48px;
+    margin: auto;
+    top: 56%;
+    left: 0;
+    right: 0;
+    animation: wobble-vertical .6s ease 0s infinite;
+  }
+
+  &__startText {
+    position: fixed;
+    margin: auto;
+    text-align: center;
+    color: $color_main;
+    top: 74%;
+    left: 0;
+    right: 0;
+    font-size: 16px;
+    animation:blink 1.4s ease-in-out infinite alternate;
+  }
+
+  &__title {
+    position: fixed;
+    margin: auto;
+    top: 20%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 42px;
+    color:  $color_main;
+    font-weight: bold;
+  }
+}

@@ -1,7 +1,7 @@
 export function toMoneyString(money :number): string {
     const unitJP = ["万", "億", "兆", "京", "垓", "秭"]
     let isPuls = money >= 0
-    let str = String(money)
+    let str = String(money * (isPuls ? 1 : -1)) // absを使わずに絶対値にする
 
     let index = 0
     let res = ""

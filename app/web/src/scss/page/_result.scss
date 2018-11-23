@@ -1,0 +1,29 @@
+.p-ResultView {
+  &__Head {
+    text-align: center;
+    margin: 16px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid $color_white;
+    font-size: 16px;
+  }
+
+  &__Body {
+    flex: 1;
+    overflow-y: scroll;
+  }
+
+  &__Item {
+    display: flex;
+    padding: 4px;
+    justify-content: space-between;
+    border-bottom: 1px solid $color_main;
+    margin-bottom: 8px;
+    font-size: 12px;
+
+    &--large {
+      font-size: 16px;
+      font-weight: bold;
+      border-bottom: 1px solid $color_white;
+    }
+  }
+}

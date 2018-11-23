@@ -1,0 +1,50 @@
+.p-Business {
+  &__List {
+    overflow: scroll;
+  }
+  &__Item {
+    display: flex;
+    margin: 8px 0;
+    border: 1px solid $color_accent;
+    border-radius: 2px;
+    &__Head {
+      width: 32px;
+      margin: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    &__Body {
+      flex: 1;
+      margin: 8px 8px 8px 0;
+      padding-right: 8px;
+      border-right: 1px solid $color_accent;
+      &__head {
+        font-size: 11px;
+        color: $color_main;
+      }
+      &__body {
+        padding: 8px 0;
+      }
+      &__foot {
+        text-align: right;
+      }
+    }
+
+    &__Foot {
+      display: flex;
+      align-items: center;
+      color: $color_accent;
+      margin-right: 8px;
+      min-width: 48px;
+      justify-content: center;
+      text-align: center;
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    &__BuyBtn {
+      font-size: 14px;
+    }
+  }
+}

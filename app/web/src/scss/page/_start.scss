@@ -1,0 +1,51 @@
+.p-StartView {
+  &__Head {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0 8px;
+    border-bottom: 1px solid $color_white;
+
+    &__Item {
+      text-align: center;
+      color: $color_positive;
+      font-size: 11px;
+
+      h4 {
+        color: $color_white;
+      }
+      p {
+        padding: 4px 0;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__Body {
+    flex: 1;
+    overflow: scroll;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 8px;
+
+    &__Item {
+      h4 {
+        font-size: 14px;
+        text-align: center;
+      }
+    }
+
+    &__Row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #fff;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    &__Cell {
+      padding: 4px;
+    }
+  }
+}

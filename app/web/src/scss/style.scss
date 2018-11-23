@@ -1,19 +1,28 @@
-// reset css
 @import "../../node_modules/reset.css/reset.css";
 
-// SASS
 @import "variable";
-@import "function";
+
 @import "mixin";
 
-// @keyframes
-@import "keyframes";
-
-// base style
 @import "base";
 
-// modules
-@import "module/wrapper";
+@import "keyframes";
 
-// pages
-@import "page/game";
+@import "components/card";
+@import "components/modal";
+@import "components/window";
+
+@import "page/share";
+@import "page/home";
+@import "page/start";
+@import "page/business";
+@import "page/end";
+@import "page/finish";
+@import "page/result";
+@import "page/outgame";
+@import "page/ingame";
+@import "page/loading";
+@import "page/profile";
+@import "page/bonus";
+
+@import "helpers";

@@ -1,0 +1,33 @@
+.p-EndView {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+
+  &__List {
+    flex: 1;
+    overflow-y: scroll;
+  }
+
+  &__Row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid;
+    padding: 16px 4px 4px;
+    font-size: 16px;
+    &--large {
+      font-weight: bold;
+      font-size: 16px;
+    }
+  }
+
+  &__Item {
+    margin: 8px 0;
+  }
+
+  &__Cell {
+    &--flex {
+      flex: 1;
+      padding-left: 16px;
+    }
+  }
+}

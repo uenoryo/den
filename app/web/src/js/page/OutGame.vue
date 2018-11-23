@@ -1,165 +1,132 @@
 <template>
   <div class='gameContainer' id='View'>
-    <div class='game'>
+    <div class='outgameBackgroundFront' v-if='User'></div>
+    <div class='outgameBackgroundBack' v-if='User'></div>
+    <!-- Waiting Userがいない場合 -->
+    <div class='outgame__Inner' v-else>
+      <div class='p-Loading--Large'>
+        <div class='p-Loading--Large__icon'>
+          <img src='img/icon/loading-s.gif'>
+          <h3 class='p-Loading--Large__loadingText'>Now Loading...</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class='outgame'>
+
+      <div class='outgameHeader' v-if='User'>
+        <div class='outgameHeader__Left'>
+          <div class='outgameHeader__Left__Budge'>
+            {{ User.Rank }}
+          </div>
+        </div>
+        <div class='outgameHeader__Right'>
+          <img src='/svg/money.svg'>
+          {{ User.MoneyString }}
+        </div>
+      </div>
 
       <!-- Success -->
-      <div v-if='ApiClientRequestStatus.IsSuccess'>
-        <div v-if='Phase === GamePhase.Home' id="OutGameHomeView">
-          <div class='modal open'>
-            <div class='modal__inner modal__inner--full'>
-              <div class='modal__body'>
-                <div class='StartView'>
-                  <h3>DEN</h3>
-                  <div>
-                    プレイヤーコード: {{ User.Code }}
-                  </div>
-                  <div>
-                    ランク: {{ User.Rank }}
-                  </div>
-                  <div>
-                    所持金: <span :class='{"red": User.Money < 0 }'>{{ User.MoneyString }}</span>
-                  </div>
-                  <div>
-                    スタミナ: {{ User.Stamina }}
-                  </div>
-                  <div>
-                    ベストスコア: {{ User.BestScoreString }}
-                  </div>
-                  <div>
-                    通算ベストスコア: {{ User.BestTotalScoreString }}
-                  </div>
-                  <div class='StartView__BtnList'>
-                    <router-link :to="{ name: 'den', params: { level: User.Rank } }">
-                      <div class='StartView__Btn btn'>遊ぶ</div>
-                    </router-link>
+      <div class='outgame__Inner' v-if='ApiClientRequestStatus.IsSuccess'>
+        <!-- Home -->
+        <div v-if='Phase === GamePhase.Home' class='outgame__Body' @click='toInGame()'>
+          <div class='p-Home__title'>
+            DEN
+          </div>
+          <div class='p-Home__pointer' @onclick='toInGame()'>
+            <img src='/svg/pointer.svg'>
+          </div>
+          <div class='p-Home__startText'>
+            Tap to Start
+          </div>
+        </div>
 
-                    <div @click='toProfile()' class='StartView__Btn btn'>資産</div>
-                    <div @click='toBusiness()' class='StartView__Btn btn'>ビジネス</div>
-                    <div @click='howTo()' class='StartView__Btn btn'>遊び方</div>
-                  </div>
+        <!-- Profile -->
+        <div v-else-if='Phase === GamePhase.Profile' class='window'>
+          <h1 class='window__Title'>資産</h1>
+          <div class='window__Body p-Profile'>
+            <div class='p-Profile__head'>
+              <div class='p-Profile__item flex-space-between'>
+                <div>所持金</div><div>{{ User.MoneyString }}</div>
+              </div>
+              <div class='p-Profile__item flex-space-between'>
+                <div>総資産</div><div>{{ userTotalAssetAmountString() }}</div>
+              </div>
+              <div class='p-Profile__item flex-space-between'>
+                <div>ランクアップに必要な資産額</div><div>{{ userNeedAssetToNextRankString() }}</div>
+              </div>
+            </div>
+            <h2>購入したビジネス</h2>
+            <div class='p-Profile__list'>
+              <div class='p-Profile__item flex-space-between' v-for='b in UserBusinesses'>
+                <div>{{ b.Prefecture }} {{ b.BusinessName }} Lv{{ b.Level }}</div>
+                <div>{{ b.CurrentPriceString }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business -->
+        <div v-else-if='Phase === GamePhase.Business' class='window'>
+          <h1 class='window__Title'>本日のビジネス</h1>
+          <div class='window__Body p-Business'>
+            <div class='p-Business__List'>
+              <div class='p-Business__Item' v-for='b in TodaysBusinesses'>
+                <div class='p-Business__Item__Head'>
+                  <img src='svg/business/category1.svg'>
+                </div>
+                <div class='p-Business__Item__Body'>
+                  <div class='p-Business__Item__Body__head'>{{ b.Prefecture }}</div>
+                  <div class='p-Business__Item__Body__body'>{{ b.Name }}</div>
+                  <div class='p-Business__Item__Body__foot'>{{ b.PriceString }}</div>
+                </div>
+                <div class='p-Business__Item__Foot'>
+                  <div v-if='b.IsMaxLevel' class='color-main'>レベル<br>最大</div>
+                  <div v-else-if='b.IsSoldOut' class='color-main'>購入済</div>
+                  <div v-else @click='buyBusiness(b.ID)' class='p-Business__Item__BuyBtn'>購入</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div v-else-if='Phase === GamePhase.Business' id="OutGameBusinessView">
-          <div class='modal open'>
-            <div class='modal__inner modal__inner--full'>
-              <div class='modal__body'>
-                <div class='BusinessView'>
-                  <h3>本日のビジネス</h3>
-                  <div class='BusinessView__Body'>
-                    <div>
-                      所持金: {{ User.MoneyString }}
-                    </div>
-                    <table>
-                      <tr v-for='b in TodaysBusinesses'>
-                        <td>{{ b.Prefecture }}</td>
-                        <td>{{ b.Name }}</td>
-                        <td>{{ b.PriceString }}</td>
-                        <td v-if='b.IsMaxLevel'>レベル最大</td>
-                        <td v-else-if='b.IsSoldOut'>購入済</td>
-                        <td v-else><div @click='buyBusiness(b.ID)'>購入</div></td>
-                      </tr>
-                    </table>
-                  </div>
-                  <div>
-                    <div @click='toHome()' class='btn'>ホーム</div>
-                  </div>
-                </div>
+        <!-- Bonus -->
+        <div v-else-if='Phase === GamePhase.Bonus' class='window'>
+          <h1 class='window__Title'>本日の収益</h1>
+          <div class='window__Body p-Bonus'>
+            <div class='p-Bonus__Body'>
+              <div class='p-Bonus__Sub flex-space-between'>
+                <div>合計</div><div>{{ userTotalBonusMoneyString() }}</div>
+              </div>
+              <div class='p-Bonus__Sub flex-space-between'>
+                <div>所持金</div><div>{{ User.MoneyString }}</div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div v-else-if='Phase === GamePhase.Profile' id="OutGameBusinessView">
-          <div class='modal open'>
-            <div class='modal__inner modal__inner--full'>
-              <div class='modal__body'>
-                <div class='BusinessView'>
-                  <h3>資産</h3>
-                  <div class='BusinessView__Body'>
-                    <div>
-                      所持金: {{ User.MoneyString }}
-                    </div>
-                    <div>
-                      総資産: {{ userTotalAssetAmountString() }}
-                    </div>
-                    <div>
-                      次のランクまであと: {{ userNeedAssetToNextRankString() }}
-                    </div>
-                    <div class='BusinessView__BodyInner'>
-                      <table>
-                        <tr v-for='b in UserBusinesses'>
-                          <td>{{ b.Prefecture }}</td>
-                          <td>{{ b.BusinessName }} Lv{{ b.Level }}・・・</td>
-                          <td>{{ b.CurrentPriceString }}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <div>
-                    <div @click='toHome()' class='btn'>ホーム</div>
-                  </div>
-                </div>
+            <div class='p-Bonus__List'>
+              <div class='p-Bonus__Item flex-space-between' v-for='b in UserBusinesses'>
+                <div>{{ b.BusinessName }} Lv{{ b.Level }}</div>
+                <div>{{ b.BonusMoneyString }}</div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div v-else-if='Phase === GamePhase.Bonus' id="OutGameBusinessView">
-          <div class='modal open'>
-            <div class='modal__inner modal__inner--full'>
-              <div class='modal__body'>
-                <div class='BusinessView'>
-                  <h3>本日の収益</h3>
-                  <div class='BusinessView__Body'>
-                    <div class='BusinessView__BodyInner'>
-                      <table>
-                        <tr v-for='b in UserBusinesses'>
-                          <td>{{ b.BusinessName }} Lv{{ b.Level }}:</td>
-                          <td>{{ b.BonusMoneyString }}</td>
-                        </tr>
-                      </table>
-                    </div>
-                    <div>
-                      合計: {{ userTotalBonusMoneyString() }}
-                    </div>
-                    <div>
-                      所持金: {{ User.MoneyString }}
-                    </div>
-                  </div>
-                  <div>
-                    <div @click='toHome()' class='btn'>ホーム</div>
-                  </div>
-                </div>
-              </div>
+            <div class='ButtonList'>
+              <div @click='toHome()' class='btn'>閉じる</div>
             </div>
           </div>
         </div>
 
       </div>
 
-      <!-- Waiting -->
-      <div v-else-if='ApiClientRequestStatus.IsWaiting'>
-        <div class='modal open'>
-          <div class='modal__inner modal__inner--full'>
-            <div class='modal__body'>
-              <div class='StartView'>
-                <h3></h3>
-                <div>
-                  Loading...
-                </div>
-                <div></div>
-              </div>
-            </div>
+      <!-- Waiting Userがすでにいる場合 -->
+      <div class='outgame__Inner window' v-else-if='ApiClientRequestStatus.IsWaiting'>
+        <div class='p-Loading'>
+          <div class='p-Loading__icon'>
+            <img src='img/icon/loading-s.gif'>
           </div>
         </div>
       </div>
 
       <!-- Fail -->
-      <div v-else-if='ApiClientRequestStatus.IsFail'>
+      <div class='outgame__Inner' v-else-if='ApiClientRequestStatus.IsFail'>
         <div class='modal open'>
           <div class='modal__inner modal__inner--full'>
             <div class='modal__body'>
@@ -179,6 +146,19 @@
         </div>
       </div>
 
+      <div class='outgameFooter' v-if='User'>
+        <div @click='toHome()' class='outgameFooter__Btn outgameFooter__Btn--home'
+          :class='{"outgameFooter__Btn--home--selected": Phase === GamePhase.Home }'></div>
+
+        <div @click='toProfile()' class='outgameFooter__Btn outgameFooter__Btn--user'
+          :class='{"outgameFooter__Btn--user--selected": Phase === GamePhase.Profile }'></div>
+
+        <div @click='toBusiness()' class='outgameFooter__Btn outgameFooter__Btn--business'
+          :class='{"outgameFooter__Btn--business--selected": Phase === GamePhase.Business }'></div>
+
+        <div @click='howTo()' class='outgameFooter__Btn outgameFooter__Btn--setting'
+          :class='{"outgameFooter__Btn--setting--selected": Phase === GamePhase.Setting }'></div>
+      </div>
     </div>
   </div>
 </template>
@@ -219,7 +199,7 @@ export default {
 
     this.GamePhase = OutGamePhase
 
-    this.Phase = OutGamePhase.Home
+    this.Phase = this.GamePhase.Home
 
     this.loginOrSignup()
   },
@@ -277,6 +257,10 @@ export default {
 
     reset() {
       location.reload()
+    },
+
+    toInGame() {
+      this.$router.push({ name: 'den', params: { level: this.User.Rank } })
     },
 
     // TODO: UserServiceに移植する
