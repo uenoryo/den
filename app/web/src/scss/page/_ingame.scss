@@ -15,7 +15,7 @@ html, body {
     left: 0;
     right: 0;
     transition-duration: .3s;
-    background: radial-gradient(circle at 50% 44%, #00000000 60px, #00000020 100px);
+    background: radial-gradient(circle at center, #00000000 60px, #00000020 100px);
     background-size:220%;
     background-position: center;
     &--large {
