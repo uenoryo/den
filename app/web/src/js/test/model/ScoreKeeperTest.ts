@@ -98,11 +98,11 @@ describe('ScoreKeeper', () => {
       sk.save()
 
 
-      if (storage.ScoreData === null) {
+      if (storage.NormalScoreData === null) {
         throw new Error('failed to fetch score data')
       }
 
-      assert.equal(storage.ScoreData.length, 3)
+      assert.equal(storage.NormalScoreData.length, 3)
     })
   })
 
@@ -118,7 +118,7 @@ describe('ScoreKeeper', () => {
       sk.keep(GameSetType.Den, 1, 4, players, null, 1)
       sk.save()
 
-      storage.ScoreData = sk.Data
+      storage.NormalScoreData = sk.Data
 
       sk.fetch()
 
@@ -143,7 +143,7 @@ describe('ScoreKeeper', () => {
       sk.clear()
 
       assert.equal(sk.Data.length, 0)
-      assert.equal(storage.ScoreData, null)
+      assert.equal(storage.NormalScoreData, null)
     })
   })
 })

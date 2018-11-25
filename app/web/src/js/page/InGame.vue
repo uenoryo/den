@@ -335,6 +335,8 @@ export default {
     },
 
     setup() {
+      this.ScoreKeeper.IsHard = this.IsHard
+
       this.ScoreKeeper.fetch()
 
       this.dealerSetup()

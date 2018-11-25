@@ -5,10 +5,12 @@ import { PlayerID, GameSetType } from '../type/Type'
 import Players from '../model/Players'
 
 export default class ScoreKeeper {
+  public IsHard: boolean
   private data: ScoreData[]
   private tmpData: ScoreData | null = null
 
   constructor(private storage: Storager) {
+    this.IsHard = false
     this.data = []
   }
 
@@ -112,11 +114,17 @@ export default class ScoreKeeper {
     }
     this.tmpData.cache()
     this.Data.push(this.tmpData)
-    this.storage.saveScore(this.Data)
+
+    if (this.IsHard) {
+      this.storage.saveHardScore(this.Data)
+    } else {
+      this.storage.saveNormalScore(this.Data)
+    }
   }
 
   fetch(): void {
-    let data = this.storage.getScore()
+    console.log(this.IsHard)
+    let data = this.IsHard ? this.storage.getHardScore() : this.storage.getNormalScore()
     if (data === null) {
       this.data = []
       return
@@ -125,7 +133,7 @@ export default class ScoreKeeper {
   }
 
   clear(): void {
-    this.storage.clearScore()
+    this.IsHard ? this.storage.clearHardScore() : this.storage.clearNormalScore()
     this.fetch()
   }
 

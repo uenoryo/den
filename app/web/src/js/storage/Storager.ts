@@ -2,9 +2,12 @@ import ScoreData from '../data/ScoreData'
 import { PreferenceKey } from '../type/Type'
 
 export default interface Storager {
-  saveScore(score: ScoreData[]): void
-  getScore(): ScoreData[] | null
-  clearScore(): void
+  saveNormalScore(score: ScoreData[]): void
+  getNormalScore(): ScoreData[] | null
+  clearNormalScore(): void
+  saveHardScore(score: ScoreData[]): void
+  getHardScore(): ScoreData[] | null
+  clearHardScore(): void
   savePreference(key: PreferenceKey, value: number): void
   getPreference(key: PreferenceKey): number
   saveToken(token: string): void

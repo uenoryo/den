@@ -3,26 +3,40 @@ import ScoreData from '../../data/ScoreData'
 import { PreferenceKey } from '../../type/Type'
 
 export default class MockStorage implements Storager {
-  public ScoreData: ScoreData[] | null
+  public NormalScoreData: ScoreData[] | null
+  public HardScoreData: ScoreData[] | null
   public SessionID: string | null
   public Token: string | null
 
   constructor() {
-    this.ScoreData = null
+    this.NormalScoreData = null
+    this.HardScoreData = null
     this.SessionID = null
     this.Token = null
   }
 
-  saveScore(score: ScoreData[]): void {
-    this.ScoreData = score
+  saveNormalScore(score: ScoreData[]): void {
+    this.NormalScoreData = score
   }
 
-  getScore(): ScoreData[] | null {
-    return this.ScoreData
+  getNormalScore(): ScoreData[] | null {
+    return this.NormalScoreData
   }
 
-  clearScore(): void {
-    this.ScoreData = null
+  clearNormalScore(): void {
+    this.NormalScoreData = null
+  }
+
+  saveHardScore(score: ScoreData[]): void {
+    this.HardScoreData = score
+  }
+
+  getHardScore(): ScoreData[] | null {
+    return this.HardScoreData
+  }
+
+  clearHardScore(): void {
+    this.HardScoreData = null
   }
 
   savePreference(key: PreferenceKey, value: number): void {

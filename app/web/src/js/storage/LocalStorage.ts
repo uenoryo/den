@@ -3,25 +3,42 @@ import ScoreData from '../data/ScoreData'
 import { PreferenceKey } from '../type/Type'
 
 export default class LocalStorage implements Storager {
-  private scoreKey: string = 'den.Score'
+  private normalScoreKey: string = 'den.NoralScore'
+  private hardScoreKey: string = 'den.HardScore'
   private tokenKey: string = 'den.Token'
   private sessionIDKey: string = 'den.SessionID'
   private preferenceKeyPrefix: string = 'den.Preference.'
 
-  saveScore(score: ScoreData[]): void {
-    localStorage.setItem(this.scoreKey, JSON.stringify(score))
+  saveNormalScore(score: ScoreData[]): void {
+    localStorage.setItem(this.normalScoreKey, JSON.stringify(score))
   }
 
-  getScore(): ScoreData[] | null {
-    let item = localStorage.getItem(this.scoreKey)
+  getNormalScore(): ScoreData[] | null {
+    let item = localStorage.getItem(this.normalScoreKey)
     if (item === null) {
       return null
     }
     return JSON.parse(item) as ScoreData[]
   }
 
-  clearScore(): void {
-    localStorage.removeItem(this.scoreKey)
+  clearNormalScore(): void {
+    localStorage.removeItem(this.normalScoreKey)
+  }
+
+  saveHardScore(score: ScoreData[]): void {
+    localStorage.setItem(this.hardScoreKey, JSON.stringify(score))
+  }
+
+  getHardScore(): ScoreData[] | null {
+    let item = localStorage.getItem(this.hardScoreKey)
+    if (item === null) {
+      return null
+    }
+    return JSON.parse(item) as ScoreData[]
+  }
+
+  clearHardScore(): void {
+    localStorage.removeItem(this.hardScoreKey)
   }
 
   savePreference(key: PreferenceKey, value: number): void {
