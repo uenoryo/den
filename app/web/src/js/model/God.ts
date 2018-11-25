@@ -15,6 +15,8 @@ import Translator from '../i18n/Translator'
 import TranslatorJA from '../i18n/Ja'
 import TranslatorEN from '../i18n/En'
 import Referee from './Referee'
+import Brain from './Brain'
+import Basic from './brains/Basic'
 
 export default class God {
   private config: Configer
@@ -35,14 +37,24 @@ export default class God {
     return new LocalStorage
   }
 
-  createPlayers(): Players {
+  createPlayers(com1Level: number, com2Level: number, com3Level: number): Players {
     let players = new Players(
       new Player(new PlayerData(1, PlayerType.Human),    this.config.Player1Brain()),
-      new Player(new PlayerData(2, PlayerType.Computer), this.config.Player2Brain()),
-      new Player(new PlayerData(3, PlayerType.Computer), this.config.Player3Brain()),
-      new Player(new PlayerData(4, PlayerType.Computer), this.config.Player4Brain())
+      new Player(new PlayerData(2, PlayerType.Computer), this.createBrain(com1Level)),
+      new Player(new PlayerData(3, PlayerType.Computer), this.createBrain(com2Level)),
+      new Player(new PlayerData(4, PlayerType.Computer), this.createBrain(com3Level))
     )
     return players
+  }
+
+  createBrain(level: number): Brain {
+    switch(level) {
+      case 0:
+        return new Basic
+      case 1:
+        return new Basic
+    }
+    throw new Error(`level ${level} is not implemented.`)
   }
 
   createDeck(): DeckData {

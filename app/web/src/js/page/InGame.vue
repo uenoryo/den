@@ -317,9 +317,11 @@ export default {
 
       this.Phase = GamePhase.Prepare
 
+      this.IsHard = this.$route.params.is_hard
+
       this.God = this.godBirth()
 
-      this.Players = this.godCreatePlayers()
+      this.Players = this.godCreatePlayers(this.User, this.IsHard)
 
       this.Dealer = this.godCreateDealer()
 
@@ -328,8 +330,6 @@ export default {
       this.ScoreKeeper = this.godCreateScoreKeeper()
 
       this.SessionID = this.Storage.getSessionID()
-
-      this.IsHard = this.$route.params.is_hard
 
       this.Level = this.IsHard ? this.User.HardLevel : this.User.NormalLevel
     },

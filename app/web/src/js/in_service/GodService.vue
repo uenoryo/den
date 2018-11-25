@@ -9,8 +9,11 @@ export default {
       return new God
     },
 
-    godCreatePlayers() {
-      return this.God.createPlayers()
+    godCreatePlayers(user, is_hard) {
+      if (is_hard) {
+        return this.God.createPlayers(user.Com1HardLevel, user.Com2HardLevel, user.Com3HardLevel)
+      }
+      return this.God.createPlayers(user.Com1NormalLevel, user.Com2NormalLevel, user.Com3NormalLevel)
     },
 
     godCreateDealer() {
