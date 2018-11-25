@@ -123,7 +123,6 @@ export default class ScoreKeeper {
   }
 
   fetch(): void {
-    console.log(this.IsHard)
     let data = this.IsHard ? this.storage.getHardScore() : this.storage.getNormalScore()
     if (data === null) {
       this.data = []
