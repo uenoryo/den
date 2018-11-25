@@ -20,6 +20,9 @@
     right: 0;
     font-size: 16px;
     animation:blink 1.4s ease-in-out infinite alternate;
+    &--hard {
+      color: $color_hard;
+    }
   }
 
   &__title {
@@ -32,6 +35,21 @@
     font-size: 42px;
     color:  $color_main;
     font-weight: bold;
+    &--hard {
+      color: $color_hard;
+    }
+  }
+
+  &__subtitle {
+    position: fixed;
+    margin: auto;
+    top: 28%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: $color_hard;
   }
 
   &__difficultyBtn {

@@ -41,13 +41,15 @@
             </div>
           </div>
           <div @click='toInGame()' class='full'>
-            <div class='p-Home__title'>
+            <div class='p-Home__title' :class='{"p-Home__title--hard": IsHard }'>
               DEN
             </div>
+            <div v-if='IsHard' class='p-Home__subtitle'>HARD MODE</div>
             <div class='p-Home__pointer' @onclick='toInGame()'>
-              <img src='/svg/pointer.svg'>
+              <img v-if='IsHard' src='/svg/pointer-hard.svg'>
+              <img v-else src='/svg/pointer.svg'>
             </div>
-            <div class='p-Home__startText'>
+            <div class='p-Home__startText' :class='{"p-Home__startText--hard": IsHard }'>
               Tap to Start
             </div>
           </div>
