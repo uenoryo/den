@@ -32,7 +32,7 @@ describe('God', () => {
   describe('.createPlayers()', () => {
     it('Playersを作成できる', () => {
       let g = new God
-      let players = g.createPlayers()
+      let players = g.createPlayers(1, 1, 1)
       let ids: PlayerID[] = [1, 2, 3, 4]
 
       for (let id of ids) {
