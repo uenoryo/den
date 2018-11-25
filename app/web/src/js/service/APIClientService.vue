@@ -146,8 +146,14 @@ export default {
       row.BestTotalScore = parseInt(user.best_total_score)
 
       if (this.MSUserRankByRank) {
-        row.NormalLevel = this.MSUserRankByRank[user.rank].normal_rate
-        row.HardLevel = this.MSUserRankByRank[user.rank].hard_rate
+        row.NormalLevel     = this.MSUserRankByRank[user.rank].normal_rate
+        row.HardLevel       = this.MSUserRankByRank[user.rank].hard_rate
+        row.Com1NormalLevel = this.MSUserRankByRank[user.rank].com1_normal_level
+        row.Com2NormalLevel = this.MSUserRankByRank[user.rank].com2_normal_level
+        row.Com3NormalLevel = this.MSUserRankByRank[user.rank].com3_normal_level
+        row.Com1HardLevel   = this.MSUserRankByRank[user.rank].com1_hard_level
+        row.Com2HardLevel   = this.MSUserRankByRank[user.rank].com2_hard_level
+        row.Com3HardLevel   = this.MSUserRankByRank[user.rank].com3_hard_level
       }
       vu.User = row
     },

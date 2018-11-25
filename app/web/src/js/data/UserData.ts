@@ -11,6 +11,12 @@ export default class UserData {
   public BestTotalScore: number
   public NormalLevel: number
   public HardLevel: number
+  public Com1NormalLevel: number
+  public Com2NormalLevel: number
+  public Com3NormalLevel: number
+  public Com1HardLevel: number
+  public Com2HardLevel: number
+  public Com3HardLevel: number
 
   constructor() {
     this.Code = ""
@@ -23,6 +29,12 @@ export default class UserData {
     this.BestTotalScore = 0
     this.NormalLevel = 0
     this.HardLevel = 0
+    this.Com1NormalLevel = 0
+    this.Com2NormalLevel = 0
+    this.Com3NormalLevel = 0
+    this.Com1HardLevel = 0
+    this.Com2HardLevel = 0
+    this.Com3HardLevel = 0
   }
 
   get MoneyString(): string {
