@@ -155,6 +155,7 @@ export default {
         row.Com2HardLevel   = this.MSUserRankByRank[user.rank].com2_hard_level
         row.Com3HardLevel   = this.MSUserRankByRank[user.rank].com3_hard_level
       }
+      vu.$store.state.UserState = row
       vu.User = row
     },
 
