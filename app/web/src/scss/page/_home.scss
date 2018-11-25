@@ -56,6 +56,9 @@
     }
     &__Text {
       font-size: 8px;
+      &--normal {
+        color: $color_accent;
+      }
     }
   }
 }

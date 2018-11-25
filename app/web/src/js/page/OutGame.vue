@@ -29,25 +29,27 @@
       <!-- Success -->
       <div class='outgame__Inner' v-if='ApiClientRequestStatus.IsSuccess'>
         <!-- Home -->
-        <div v-if='Phase === GamePhase.Home' class='outgame__Body' @click='toInGame()'>
-          <div class='p-Home__difficultyBtn'>
+        <div v-if='Phase === GamePhase.Home' class='outgame__Body'>
+          <div @click='switchDifficulty()' class='p-Home__difficultyBtn'>
             <div v-if='IsHard' class='p-Home__difficultyBtn__Wrapper'>
               <div class='p-Home__difficultyBtn__Icon'><img src='/svg/difficulty-btn-normal.svg'></div>
-              <div class='p-Home__difficultyBtn__Text'>NORMAL</div>
+              <div class='p-Home__difficultyBtn__Text p-Home__difficultyBtn__Text--normal'>NORM</div>
             </div>
             <div v-else class='p-Home__difficultyBtn__Wrapper'>
               <div class='p-Home__difficultyBtn__Icon'><img src='/svg/difficulty-btn-hard.svg'></div>
               <div class='p-Home__difficultyBtn__Text'>HARD</div>
             </div>
           </div>
-          <div class='p-Home__title'>
-            DEN
-          </div>
-          <div class='p-Home__pointer' @onclick='toInGame()'>
-            <img src='/svg/pointer.svg'>
-          </div>
-          <div class='p-Home__startText'>
-            Tap to Start
+          <div @click='toInGame()' class='full'>
+            <div class='p-Home__title'>
+              DEN
+            </div>
+            <div class='p-Home__pointer' @onclick='toInGame()'>
+              <img src='/svg/pointer.svg'>
+            </div>
+            <div class='p-Home__startText'>
+              Tap to Start
+            </div>
           </div>
         </div>
 
@@ -273,6 +275,10 @@ export default {
 
     toInGame() {
       this.$router.push({ name: 'den', params: { level: this.User.NormalLevel } })
+    },
+
+    switchDifficulty() {
+      this.IsHard = !this.IsHard
     },
 
     // TODO: UserServiceに移植する
