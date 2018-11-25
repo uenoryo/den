@@ -163,7 +163,7 @@
               v-else
               class='Card Card--reversed'
               :id='["Card__ID" + card.ID]'
-              :class='["CardDisplay__ID" + card.DisplayID, "Card__ID" + card.ID]'></div>
+              :class='["CardDisplay__ID" + card.DisplayID, "Card__ID" + card.ID, {"Card--reversed--hard": IsHard }]'></div>
           </div>
           <div
             class='modal'
@@ -221,14 +221,16 @@
               v-if='turnPlayer().isHuman()'
               @click='draw()'
               class='Card Card--reversed'
+              :class='{"Card--reversed--hard": IsHard }'
             ></div>
             <div
               v-else
               class='Card Card--reversed'
+              :class='{"Card--reversed--hard": IsHard }'
             ></div>
           </div>
           <div id='AnimationCardReversed' class='Sleeve'>
-            <div class='Card Card--reversed'></div>
+            <div class='Card Card--reversed' :class='{"Card--reversed--hard": IsHard }'></div>
           </div>
         </div>
       </div>
@@ -324,6 +326,8 @@ export default {
       this.SessionID = this.Storage.getSessionID()
 
       this.Level = this.$route.params.level
+
+      this.IsHard = this.$route.params.is_hard
 
       this.apiClientPostUserInfo(this, {'session_id': this.SessionID})
     },

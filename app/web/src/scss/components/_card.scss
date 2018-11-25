@@ -16,7 +16,10 @@
   }
   &--reversed {
     z-index: 9;
-    background-image: url(/img/cards/card_red.png)
+    background-image: url(/img/cards/card_red.png);
+    &--hard {
+      background-image: url(/img/cards/card_black.png)
+    }
   }
   @include pc-layout {
     width: $pc_card_width;

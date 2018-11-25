@@ -276,7 +276,8 @@ export default {
     },
 
     toInGame() {
-      this.$router.push({ name: 'den', params: { level: this.User.NormalLevel } })
+      let lv = this.IsHard ? this.User.HardLevel : this.User.NormalLevel
+      this.$router.push({ name: 'den', params: { level: lv, is_hard: this.IsHard ? 1 : 0 } })
     },
 
     switchDifficulty() {

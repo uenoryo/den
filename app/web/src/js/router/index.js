@@ -16,7 +16,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/den/:level',
+      path: '/den/:level/:is_hard',
       name: 'den',
       component: Den
     },
