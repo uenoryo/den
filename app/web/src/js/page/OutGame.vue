@@ -1,7 +1,7 @@
 <template>
   <div class='gameContainer' id='View'>
     <div class='outgameBackgroundFront' v-if='User'></div>
-    <div class='outgameBackgroundBack' v-if='User'></div>
+    <div class='outgameBackgroundBack' v-if='User' :class='{"outgameBackgroundBack--hard": IsHard }'></div>
     <!-- Waiting Userがいない場合 -->
     <div class='outgame__Inner' v-else>
       <div class='p-Loading--Large'>
