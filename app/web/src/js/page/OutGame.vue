@@ -30,6 +30,16 @@
       <div class='outgame__Inner' v-if='ApiClientRequestStatus.IsSuccess'>
         <!-- Home -->
         <div v-if='Phase === GamePhase.Home' class='outgame__Body' @click='toInGame()'>
+          <div class='p-Home__difficultyBtn'>
+            <div v-if='IsHard' class='p-Home__difficultyBtn__Wrapper'>
+              <div class='p-Home__difficultyBtn__Icon'><img src='/svg/difficulty-btn-normal.svg'></div>
+              <div class='p-Home__difficultyBtn__Text'>NORMAL</div>
+            </div>
+            <div v-else class='p-Home__difficultyBtn__Wrapper'>
+              <div class='p-Home__difficultyBtn__Icon'><img src='/svg/difficulty-btn-hard.svg'></div>
+              <div class='p-Home__difficultyBtn__Text'>HARD</div>
+            </div>
+          </div>
           <div class='p-Home__title'>
             DEN
           </div>
@@ -186,6 +196,7 @@ export default {
       Phase: null,
       TodaysBusinesses :null,
       UserBusinesses: null,
+      IsHard: false,
 
       // 以下マスターデータ
       Businesses: null,
