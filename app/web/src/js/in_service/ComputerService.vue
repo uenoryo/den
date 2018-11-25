@@ -75,33 +75,56 @@ export default {
 
       this.computerLookSelfHand()
 
+      let player = this.turnPlayer()
+      let fieldCard = this.Dealer.Field.top()
+
       switch (true) {
         case this.Dealer.Phase.IsForceDraw:
-          if (this.turnPlayer().wantPut(this.Dealer.Field.top(), true)) {
-            this.put(this.turnPlayerID(), this.turnPlayer().think(true))
-          } else {
+          if (!player.canPut(fieldCard, true)) {
             this.reply(this.turnPlayerID(), ReplyAction.ForceDraw.Draw)
+            return
           }
+
+          let fdAction = player.think(true)
+          if (fdAction === -1) {
+             this.reply(this.turnPlayerID(), ReplyAction.ForceDraw.Draw)
+             return
+          }
+
+          this.put(this.turnPlayerID(), fdAction)
           return
 
         case this.Dealer.Phase.IsAttach:
-          if (this.turnPlayer().wantPut(this.Dealer.Field.top(), false)) {
-            this.put(this.turnPlayerID(), this.turnPlayer().think(false))
-          } else {
+          if (!player.canPut(fieldCard, false)) {
             this.reply(this.turnPlayerID(), ReplyAction.Attach.Pass)
+            return
           }
+
+          let atcAction = player.think(false)
+          if (atcAction === -1) {
+            this.reply(this.turnPlayerID(), ReplyAction.Attach.Pass)
+            return
+          }
+
+          this.put(this.turnPlayerID(), atcAction)
           return
 
         case this.Dealer.Phase.IsChangeMark:
-          this.reply(this.turnPlayerID(), this.turnPlayer().thinkChangeMark())
+          this.reply(this.turnPlayerID(), player.thinkChangeMark())
           return
 
         default:
-          if (this.turnPlayer().wantPut(this.Dealer.Field.top(), false)) {
-            this.put(this.turnPlayerID(), this.turnPlayer().think())
-          } else {
+          if (!player.canPut(fieldCard, false)) {
             this.draw()
+            return
           }
+
+          let action = player.think(false)
+          if (action === -1) {
+            this.draw()
+            return
+          }
+          this.put(this.turnPlayerID(), action)
           return
       }
     },
