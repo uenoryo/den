@@ -33,6 +33,7 @@ export default class Brain {
   outputPutOrDraw(): number {
     this.confirm()
     this.narrow(false)
+    this.thinkPutOrDraw()
     return this.putOrDraw()
   }
 
@@ -71,6 +72,10 @@ export default class Brain {
   }
 
   interpret(): void {
+    //
+  }
+
+  thinkPutOrDraw(): void {
     //
   }
 

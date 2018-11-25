@@ -16,7 +16,9 @@ import TranslatorJA from '../i18n/Ja'
 import TranslatorEN from '../i18n/En'
 import Referee from './Referee'
 import Brain from './Brain'
+
 import Basic from './brains/Basic'
+import Level1 from './brains/Level1'
 
 export default class God {
   private config: Configer
@@ -52,7 +54,7 @@ export default class God {
       case 0:
         return new Basic
       case 1:
-        return new Basic
+        return new Level1
     }
     throw new Error(`level ${level} is not implemented.`)
   }

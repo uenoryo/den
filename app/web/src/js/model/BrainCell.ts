@@ -27,6 +27,58 @@ export default class BrainCell {
     }
   }
 
+  // カードの優先順位をマニュアル的に操作します
+  static controllManually(data: BrainData) {
+    if (data.SelfHand === null) {
+      return
+    }
+    for (let idx in data.SelfHand.Cards) {
+      let prt = 0
+      switch(data.SelfHand.Cards[idx].Num) {
+        case 1:
+        case 2:
+        case 3:
+        case 8:
+          return
+        case 4:
+          prt++
+        case 5:
+          prt++
+        case 6:
+          prt++
+        case 7:
+          prt++
+        case 9:
+          prt++
+        case 10:
+          prt++
+        case 11:
+          prt++
+        case 13:
+          prt++
+        case 12:
+          prt++
+      }
+      data.addPriority(parseInt(idx), prt)
+    }
+  }
+
+  // JOKERの優先順位を操作します
+  static jokerPriority(data: BrainData, value: number, rate: number) {
+    if (data.SelfHand === null) {
+      return
+    }
+
+    for (let idx in data.SelfHand.Cards) {
+      if (data.SelfHand.Cards[idx].isJoker()) {
+        if (!this.hit(rate)) {
+          continue
+        }
+        data.addPriority(parseInt(idx), value)
+      }
+    }
+  }
+
   static hit(rate: number) {
     return Math.floor(Math.random() * 100) < rate
   }
