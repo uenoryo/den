@@ -253,6 +253,7 @@ import { ReplyAction, GamePhase } from '../type/Type'
 import Config from '../config/Config'
 import Storage from '../storage/LocalStorage'
 import User from '../data/UserData'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Den',
@@ -266,6 +267,7 @@ export default {
     APIClientService,
     MasterdataService,
   ],
+
   data() {
     return {
       Constants: null,
@@ -286,6 +288,10 @@ export default {
       UserRanks: null,
     }
   },
+
+  computed: mapState({
+    User: 'UserState',
+  }),
 
   beforeMount() {
     this.create()
@@ -321,15 +327,11 @@ export default {
 
       this.ScoreKeeper = this.godCreateScoreKeeper()
 
-      this.User = new User
-
       this.SessionID = this.Storage.getSessionID()
-
-      this.Level = this.$route.params.level
 
       this.IsHard = this.$route.params.is_hard
 
-      this.apiClientPostUserInfo(this, {'session_id': this.SessionID})
+      this.Level = this.IsHard ? this.User.HardLevel : this.User.NormalLevel
     },
 
     setup() {
