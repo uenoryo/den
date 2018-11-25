@@ -8,6 +8,7 @@ export default {
   data() {
     return {
       MSBusinessByID: null,
+      MSUserRankByRank: null,
     }
   },
 
@@ -18,6 +19,13 @@ export default {
         this.MSBusinessByID[row.id] = row
         this.MSBusinessByID[row.id].prefecture = Prefecture[row.prefecture]
       }
+
+      this.MSUserRankByRank = []
+      for (let row of this.UserRanks) {
+        this.MSUserRankByRank[row.rank] = row
+      }
+
+      console.log(this.MSUserRankByRank)
     },
   },
 }

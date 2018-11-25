@@ -28,6 +28,7 @@ export default {
         this.Token = res.data.user.token
         this.SessionID = res.data.session_id
         vu.Businesses = res.data.businesses
+        vu.UserRanks = res.data.user_ranks
 
         this.masterdataClean()
 
@@ -44,6 +45,7 @@ export default {
         this.Storage.saveSessionID(vu.SessionID)
 
         vu.Businesses = res.data.businesses
+        vu.UserRanks = res.data.user_ranks
         this.masterdataClean()
 
         this.apiClientSetUserData(vu, res.data.user)
@@ -142,6 +144,11 @@ export default {
       row.Stamina = user.stamina
       row.BestScore = parseInt(user.best_score)
       row.BestTotalScore = parseInt(user.best_total_score)
+
+      if (this.MSUserRankByRank) {
+        row.NormalLevel = this.MSUserRankByRank[user.rank].normal_rate
+        row.HardLevel = this.MSUserRankByRank[user.rank].hard_rate
+      }
       vu.User = row
     },
 

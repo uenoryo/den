@@ -245,6 +245,7 @@ import ComputerService from '../in_service/ComputerService'
 import AnimationService from '../in_service/AnimationService'
 import DebugService from '../in_service/DebugService'
 import APIClientService from '../service/APIClientService'
+import MasterdataService from '../out_service/MasterdataService'
 import { Constants } from '../constant/Basic'
 import { ReplyAction, GamePhase } from '../type/Type'
 import Config from '../config/Config'
@@ -261,6 +262,7 @@ export default {
     AnimationService,
     DebugService,
     APIClientService,
+    MasterdataService,
   ],
   data() {
     return {
@@ -276,6 +278,10 @@ export default {
       Phase: null,
       SessionID: null,
       Level: null,
+
+      // 以下マスターデータ
+      Businesses: null,
+      UserRanks: null,
     }
   },
 

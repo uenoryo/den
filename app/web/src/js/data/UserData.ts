@@ -9,6 +9,8 @@ export default class UserData {
   public Stamina: number
   public BestScore: number
   public BestTotalScore: number
+  public NormalLevel: number
+  public HardLevel: number
 
   constructor() {
     this.Code = ""
@@ -19,6 +21,8 @@ export default class UserData {
     this.Stamina = 0
     this.BestScore = 0
     this.BestTotalScore = 0
+    this.NormalLevel = 0
+    this.HardLevel = 0
   }
 
   get MoneyString(): string {

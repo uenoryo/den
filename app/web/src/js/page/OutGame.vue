@@ -189,6 +189,7 @@ export default {
 
       // 以下マスターデータ
       Businesses: null,
+      UserRanks: null,
     }
   },
 
@@ -260,7 +261,7 @@ export default {
     },
 
     toInGame() {
-      this.$router.push({ name: 'den', params: { level: this.User.Rank } })
+      this.$router.push({ name: 'den', params: { level: this.User.NormalLevel } })
     },
 
     // TODO: UserServiceに移植する
