@@ -8,7 +8,7 @@ export default class Level1 extends Brain {
   thinkPutOrDraw(): void {
     Thought.waitAnko(this.Data, -10, 80)
     Thought.controllManually(this.Data)
-    Thought.jokerPriority(this.Data, -20, 90)
+    Thought.jokerPriority(this.Data, -20, 95)
   }
 
   changeMark(): CardMark {
