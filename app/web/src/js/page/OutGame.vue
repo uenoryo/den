@@ -311,7 +311,7 @@ export default {
     // TODO: UserServiceに移植する
     userNeedAssetToNextRankString() {
       let nextRank = this.User.Rank + 1
-      let need = (nextRank * nextRank * 100) - this.userTotalAssetAmount()
+      let need = this.MSUserRankByRank[nextRank].assets - this.userTotalAssetAmount()
       return toMoneyString(need < 0 ? 0 : need)
     },
   },
