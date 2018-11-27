@@ -24,8 +24,6 @@ export default {
       for (let row of this.UserRanks) {
         this.MSUserRankByRank[row.rank] = row
       }
-
-      console.log(this.MSUserRankByRank)
     },
   },
 }
