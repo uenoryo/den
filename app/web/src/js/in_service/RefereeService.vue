@@ -95,6 +95,7 @@ export default {
     },
 
     refereeCounterDenAction(player) {
+      player.openHand()
       this.dealerChangePhaseToNormal()
       this.computerStopPutTimer()
       this.animationDen(this.Dealer, player)
