@@ -121,6 +121,12 @@ export default {
         if (player.Data.ID === p.Data.ID) {
           continue
         }
+
+        // Denができる場合はアニメーションの影響を受けない
+        if (this.Referee.judgeDen(player, dealer.Field) !== null) {
+          continue
+        }
+
         for (let idx in p.Hand.Cards) {
           this.animate({
             targets: `#Card__ID${p.Hand.Cards[idx].ID}`,
