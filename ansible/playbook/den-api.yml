@@ -3,6 +3,7 @@
   hosts: den-api
   vars:
     home_dir: /home/den
+    app_dir: /home/den/go/src/github.com/uenoryo/chitoi
     github_deploy_key: den-prd
   environment:
     GOPATH: /home/den/go
@@ -30,8 +31,8 @@
         mode: 0400
 
     - name: download repository
-      git: repo=git@github.com:uenoryo/chitoi.git dest={{ home_dir }}/chitoi version=master accept_hostkey=yes key_file={{ home_dir }}/keys/den-prd
-      become: False
+      git: repo=git@github.com:uenoryo/chitoi.git dest={{ app_dir }} version=master accept_hostkey=yes key_file={{ home_dir }}/keys/den-prd force=true
+      become: True
 
     - name: update repositories cache and install golang
       apt: name=golang-1.9 update_cache=yes
@@ -39,6 +40,13 @@
 
     - name: install go modules
       command: go get -u github.com/golang/dep
+      become: True
+
+    - name: install dependency
+      # PATHを通すグッドな方法を考えたい
+      command: /home/den/go/bin/dep ensure
+      args:
+        chdir: "{{ app_dir }}"
       become: True
 
     - name: set environment variables
@@ -53,6 +61,8 @@
       environment:
         CHITOI_ENV: production
         GOPATH: /home/den/go
-      command: go run ./main.go & chdir={{ home_dir }}/go/src/github.com/uenoryo/chitoi
-      async: 5
+      command: go run ./main.go
+      args:
+        chdir: "{{ app_dir }}"
+      become: True
       poll: 0
