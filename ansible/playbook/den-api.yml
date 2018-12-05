@@ -52,6 +52,7 @@
     - name: run application
       environment:
         CHITOI_ENV: production
+        GOPATH: /home/den/go
       command: go run ./main.go & chdir={{ home_dir }}/go/src/github.com/uenoryo/chitoi
       async: 5
       poll: 0
