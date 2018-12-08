@@ -1,0 +1,11 @@
+---
+- hosts: den-api
+  become: True
+  tasks:
+    - name: install Fluentd
+      shell: curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-xenial-td-agent3.sh | sh
+      become: True
+
+    - name: start fluentd
+      shell: systemctl start td-agent.service
+      become: True

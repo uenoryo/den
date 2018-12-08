@@ -57,6 +57,25 @@
         owner: den
         mode: 0644
 
+    - name: run database migration
+      shell: make migration-force
+      ignore_errors: True
+      environment:
+        CHITOI_ENV: production
+        GOPATH: /home/den/go
+      args:
+        chdir: "{{ app_dir }}"
+      become: True
+
+    - name: import masterdata
+      shell: make import-masterdata
+      environment:
+        CHITOI_ENV: production
+        GOPATH: /home/den/go
+      args:
+        chdir: "{{ app_dir }}"
+      become: True
+
     - name: run application
       environment:
         CHITOI_ENV: production

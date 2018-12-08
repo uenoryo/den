@@ -9,3 +9,6 @@ update-nginx:
 
 update-database:
 	ansible-playbook -i ./ansible/inventory/app.ini ./ansible/playbook/database.yml --private-key=~/.ssh/den-web.pem --ask-become-pass
+
+update-fluent:
+	ansible-playbook -i ./ansible/inventory/app.ini ./ansible/playbook/fluent.yml --private-key=~/.ssh/den-web.pem --ask-become-pass
