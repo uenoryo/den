@@ -221,6 +221,10 @@ export default {
 
     this.Env = Env
 
+    if (this.Env.DEBUG && this.Env.DEBUG_RESET_DATA) {
+      this.Storage.resetData()
+    }
+
     this.loginOrSignup()
   },
 

@@ -3,6 +3,7 @@ import OnceData from '../data/OnceData'
 import { PreferenceKey } from '../type/Type'
 
 export default interface Storager {
+  resetData(): void
   saveNormalScore(score: ScoreData[]): void
   getNormalScore(): ScoreData[] | null
   clearNormalScore(): void

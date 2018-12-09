@@ -18,6 +18,14 @@ export default class MockStorage implements Storager {
     this.OnceData = null
   }
 
+  resetData() {
+    this.NormalScoreData = null
+    this.HardScoreData = null
+    this.SessionID = null
+    this.Token = null
+    this.OnceData = null
+  }
+
   saveNormalScore(score: ScoreData[]): void {
     this.NormalScoreData = score
   }

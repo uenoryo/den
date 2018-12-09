@@ -11,6 +11,15 @@ export default class LocalStorage implements Storager {
   private preferenceKeyPrefix: string = 'den.Preference.'
   private onceDataKey: string = 'den.OnceData'
 
+  resetData(): void {
+    localStorage.removeItem(this.normalScoreKey)
+    localStorage.removeItem(this.hardScoreKey)
+    localStorage.removeItem(this.tokenKey)
+    localStorage.removeItem(this.sessionIDKey)
+    localStorage.removeItem(this.preferenceKeyPrefix)
+    localStorage.removeItem(this.onceDataKey)
+  }
+
   saveNormalScore(score: ScoreData[]): void {
     localStorage.setItem(this.normalScoreKey, JSON.stringify(score))
   }
