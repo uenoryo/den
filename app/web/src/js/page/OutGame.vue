@@ -183,6 +183,7 @@ import MasterdataService from '../out_service/MasterdataService'
 import LocalStorage from '../storage/LocalStorage'
 import { toMoneyString } from '../lib/Lib'
 import { OutGamePhase } from '../type/Type'
+import Env from '../env'
 
 export default {
   name: 'Home',
@@ -201,6 +202,7 @@ export default {
       TodaysBusinesses :null,
       UserBusinesses: null,
       IsHard: false,
+      Env: null,
 
       // 以下マスターデータ
       Businesses: null,
@@ -216,6 +218,8 @@ export default {
     this.GamePhase = OutGamePhase
 
     this.Phase = this.GamePhase.Home
+
+    this.Env = Env
 
     this.loginOrSignup()
   },
