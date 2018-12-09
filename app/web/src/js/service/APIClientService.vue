@@ -200,6 +200,7 @@ export default {
         let row = new TodaysBusinessData
         row.ID = b.id
         row.Name = b.name
+        row.IconID = b.icon_id
         row.Prefecture = vu.MSBusinessByID[b.id].prefecture
 
         let ub = userBusinessByID(b.id)

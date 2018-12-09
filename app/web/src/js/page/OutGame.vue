@@ -87,7 +87,7 @@
             <div class='p-Business__List'>
               <div class='p-Business__Item' v-for='b in TodaysBusinesses'>
                 <div class='p-Business__Item__Head'>
-                  <img src='svg/business/category1.svg'>
+                  <img :src='["svg/business/b_icon" + b.IconID +".svg"]'>
                 </div>
                 <div class='p-Business__Item__Body'>
                   <div class='p-Business__Item__Body__head'>{{ b.Prefecture }}</div>
