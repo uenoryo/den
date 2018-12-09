@@ -8,7 +8,7 @@ export default class MockStorage implements Storager {
   public HardScoreData: ScoreData[] | null
   public SessionID: string | null
   public Token: string | null
-  public OnceData: OnceData[] | null
+  public OnceData: OnceData | null
 
   constructor() {
     this.NormalScoreData = null
@@ -74,11 +74,14 @@ export default class MockStorage implements Storager {
     return this.SessionID
   }
 
-  saveOnceData(od: OnceData[]): void {
+  saveOnceData(od: OnceData): void {
     this.OnceData = od
   }
 
-  getOnceData(): OnceData[] | null {
+  getOnceData(): OnceData {
+    if (this.OnceData === null) {
+      return new OnceData
+    }
     return this.OnceData
   }
 }

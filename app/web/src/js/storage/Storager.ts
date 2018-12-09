@@ -16,6 +16,6 @@ export default interface Storager {
   getToken(): string | null
   saveSessionID(sessionID: string): void
   getSessionID(): string | null
-  saveOnceData(od: OnceData[]): void
-  getOnceData(): OnceData[] | null
+  saveOnceData(od: OnceData): void
+  getOnceData(): OnceData
 }

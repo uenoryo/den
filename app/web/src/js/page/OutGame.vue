@@ -203,6 +203,7 @@ export default {
       UserBusinesses: null,
       IsHard: false,
       Env: null,
+      OnceData: null,
 
       // 以下マスターデータ
       Businesses: null,

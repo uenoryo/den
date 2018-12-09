@@ -88,15 +88,15 @@ export default class LocalStorage implements Storager {
     return item
   }
 
-  saveOnceData(od: OnceData[]): void {
+  saveOnceData(od: OnceData): void {
     localStorage.setItem(this.onceDataKey, JSON.stringify(od))
   }
 
-  getOnceData(): OnceData[] | null {
+  getOnceData(): OnceData {
     let item = localStorage.getItem(this.onceDataKey)
     if (item === null) {
-      return null
+      return new OnceData
     }
-    return JSON.parse(item) as OnceData[]
+    return JSON.parse(item) as OnceData
   }
 }
