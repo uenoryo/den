@@ -123,7 +123,7 @@ export default {
         }
 
         // Denができる場合はアニメーションの影響を受けない
-        if (this.Referee.judgeDen(player, dealer.Field) !== null) {
+        if (this.Referee.judgeCounterDen(p, dealer.Field) !== null) {
           continue
         }
 

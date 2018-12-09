@@ -47,7 +47,6 @@ export default {
       }
 
       let field = this.Dealer.Field.top()
-          console.log(this.Referee.ActionLaunchPlayerID)
       switch (type) {
         case GameSetType.Den:
           this.ScoreKeeper.keep(GameSetType.Den, player.Data.ID, this.Dealer.Field.PutPlayerID, this.Players, field, this.Level)
@@ -87,11 +86,11 @@ export default {
     },
 
     refereeDenAction(player) {
+      this.Referee.ActionLaunchPlayerID = player.Data.ID
       player.openHand()
       this.dealerChangePhaseToNormal()
       this.computerStopPutTimer()
       this.animationDen(this.Dealer, player)
-      this.Referee.ActionLaunchPlayerID = player.Data.ID
     },
 
     refereeCounterDenAction(player) {
