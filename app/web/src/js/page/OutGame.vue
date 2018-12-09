@@ -222,6 +222,8 @@ export default {
 
     this.Env = Env
 
+    this.OnceData = this.Storage.getOnceData()
+
     if (this.Env.DEBUG && this.Env.DEBUG_RESET_DATA) {
       this.Storage.resetData()
     }
