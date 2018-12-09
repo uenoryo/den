@@ -1,7 +1,9 @@
 import ScoreData from '../data/ScoreData'
+import OnceData from '../data/OnceData'
 import { PreferenceKey } from '../type/Type'
 
 export default interface Storager {
+  resetData(): void
   saveNormalScore(score: ScoreData[]): void
   getNormalScore(): ScoreData[] | null
   clearNormalScore(): void
@@ -14,4 +16,6 @@ export default interface Storager {
   getToken(): string | null
   saveSessionID(sessionID: string): void
   getSessionID(): string | null
+  saveOnceData(od: OnceData): void
+  getOnceData(): OnceData
 }

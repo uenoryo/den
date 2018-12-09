@@ -1,6 +1,5 @@
 <script>
 import Moment from 'moment'
-import Env from '../env'
 import RequestStatus from '../model/RequestStatus'
 import { RequestStatusType } from '../type/Type'
 import UserData from '../data/UserData'
@@ -94,7 +93,7 @@ export default {
 
     apiClientRequest(method, path, req, callable) {
       let requestFunc = () => {
-        const url = `${Env.API_SERVER_HOST}:${Env.API_SERVER_PORT}/${path}`
+        const url = `${this.Env.API_SERVER_HOST}:${this.Env.API_SERVER_PORT}/${path}`
         this.ApiClientRequestStatus.change(RequestStatusType.Waiting)
         fetch(url, {
           header: {
@@ -113,7 +112,7 @@ export default {
             setTimeout(() => {
               this.ApiClientRequestStatus.change(RequestStatusType.Success)
               callable(json)
-            }, 800)
+            }, 500)
           })
 
         }).catch((err) => {

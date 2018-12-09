@@ -101,6 +101,33 @@
                 </div>
               </div>
             </div>
+            <div class='p-Business__Sub'>
+              <img @click='toBusinessTips()' src='/svg/question.svg'>
+            </div>
+          </div>
+        </div>
+
+        <!-- BusinessTips -->
+        <div v-else-if='Phase === GamePhase.BusinessTips' class='window'>
+          <h1 class='window__Title'>本日のビジネス</h1>
+          <div class='window__Body p-BusinessTips'>
+            <div class='p-BusinessTips__head'>
+              <img src='/svg/business/b_icon1.svg'>
+              <img src='/svg/business/b_icon2.svg'>
+              <img src='/svg/business/b_icon3.svg'>
+            </div>
+            <div class='p-BusinessTips__body'>
+              <h2>- ビジネス購入システム -</h2>
+              <ul>
+                <li>お金を消費してビジネスを購入できます</li>
+                <li>ビジネスを購入すると、<span>資産が増えてランクが上がります</span></li>
+                <li>1日の開始時に、購入しているビジネスから収益を得ることができます</li>
+                <li>購入できるビジネスは1日毎に切り替わります</li>
+              </ul>
+            </div>
+            <div class='ButtonList'>
+              <div @click='toBusiness()' class='btn'>閉じる</div>
+            </div>
           </div>
         </div>
 
@@ -183,6 +210,7 @@ import MasterdataService from '../out_service/MasterdataService'
 import LocalStorage from '../storage/LocalStorage'
 import { toMoneyString } from '../lib/Lib'
 import { OutGamePhase } from '../type/Type'
+import Env from '../env'
 
 export default {
   name: 'Home',
@@ -201,6 +229,8 @@ export default {
       TodaysBusinesses :null,
       UserBusinesses: null,
       IsHard: false,
+      Env: null,
+      OnceData: null,
 
       // 以下マスターデータ
       Businesses: null,
@@ -216,6 +246,14 @@ export default {
     this.GamePhase = OutGamePhase
 
     this.Phase = this.GamePhase.Home
+
+    this.Env = Env
+
+    this.OnceData = this.Storage.getOnceData()
+
+    if (this.Env.DEBUG && this.Env.DEBUG_RESET_DATA) {
+      this.Storage.resetData()
+    }
 
     this.loginOrSignup()
   },
@@ -239,6 +277,15 @@ export default {
       if (this.TodaysBusinesses == null) {
         this.apiClientGetBusinessList(this)
       }
+      if (! this.OnceData.ShownBusinessTips) {
+        this.OnceData.ShownBusinessTips = true
+        this.Storage.saveOnceData(this.OnceData)
+        this.toBusinessTips()
+      }
+    },
+
+    toBusinessTips() {
+      this.Phase = this.GamePhase.BusinessTips
     },
 
     toProfile() {
@@ -308,7 +355,6 @@ export default {
       return toMoneyString(this.userTotalAssetAmount())
     },
 
-    // TODO: UserServiceに移植する
     userNeedAssetToNextRankString() {
       let nextRank = this.User.Rank + 1
       let need = this.MSUserRankByRank[nextRank].assets - this.userTotalAssetAmount()

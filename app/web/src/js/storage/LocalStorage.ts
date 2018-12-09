@@ -1,5 +1,6 @@
 import Storager from './Storager'
 import ScoreData from '../data/ScoreData'
+import OnceData from '../data/OnceData'
 import { PreferenceKey } from '../type/Type'
 
 export default class LocalStorage implements Storager {
@@ -8,6 +9,16 @@ export default class LocalStorage implements Storager {
   private tokenKey: string = 'den.Token'
   private sessionIDKey: string = 'den.SessionID'
   private preferenceKeyPrefix: string = 'den.Preference.'
+  private onceDataKey: string = 'den.OnceData'
+
+  resetData(): void {
+    localStorage.removeItem(this.normalScoreKey)
+    localStorage.removeItem(this.hardScoreKey)
+    localStorage.removeItem(this.tokenKey)
+    localStorage.removeItem(this.sessionIDKey)
+    localStorage.removeItem(this.preferenceKeyPrefix)
+    localStorage.removeItem(this.onceDataKey)
+  }
 
   saveNormalScore(score: ScoreData[]): void {
     localStorage.setItem(this.normalScoreKey, JSON.stringify(score))
@@ -75,5 +86,17 @@ export default class LocalStorage implements Storager {
       return null
     }
     return item
+  }
+
+  saveOnceData(od: OnceData): void {
+    localStorage.setItem(this.onceDataKey, JSON.stringify(od))
+  }
+
+  getOnceData(): OnceData {
+    let item = localStorage.getItem(this.onceDataKey)
+    if (item === null) {
+      return new OnceData
+    }
+    return JSON.parse(item) as OnceData
   }
 }

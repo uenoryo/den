@@ -1,5 +1,6 @@
 import Storager from '../../storage/Storager'
 import ScoreData from '../../data/ScoreData'
+import OnceData from '../../data/OnceData'
 import { PreferenceKey } from '../../type/Type'
 
 export default class MockStorage implements Storager {
@@ -7,12 +8,22 @@ export default class MockStorage implements Storager {
   public HardScoreData: ScoreData[] | null
   public SessionID: string | null
   public Token: string | null
+  public OnceData: OnceData | null
 
   constructor() {
     this.NormalScoreData = null
     this.HardScoreData = null
     this.SessionID = null
     this.Token = null
+    this.OnceData = null
+  }
+
+  resetData() {
+    this.NormalScoreData = null
+    this.HardScoreData = null
+    this.SessionID = null
+    this.Token = null
+    this.OnceData = null
   }
 
   saveNormalScore(score: ScoreData[]): void {
@@ -61,5 +72,16 @@ export default class MockStorage implements Storager {
 
   getSessionID(): string | null {
     return this.SessionID
+  }
+
+  saveOnceData(od: OnceData): void {
+    this.OnceData = od
+  }
+
+  getOnceData(): OnceData {
+    if (this.OnceData === null) {
+      return new OnceData
+    }
+    return this.OnceData
   }
 }
