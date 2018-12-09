@@ -84,4 +84,5 @@
       args:
         chdir: "{{ app_dir }}"
       become: True
+      async: 5
       poll: 0
