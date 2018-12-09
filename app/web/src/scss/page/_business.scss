@@ -1,6 +1,8 @@
 .p-Business {
   &__List {
     overflow: scroll;
+    margin-top: 8px;
+    box-shadow: 0px -2px 1px 1px rgba($color_strong, 1);
   }
   &__Item {
     display: flex;
@@ -45,6 +47,16 @@
 
     &__BuyBtn {
       font-size: 14px;
+    }
+
+  }
+  &__Sub {
+    height: 16px;
+    text-align: right;
+    padding-top: 4px;
+    img {
+      width: auto;
+      height: 100%;
     }
   }
 }

@@ -101,16 +101,30 @@
                 </div>
               </div>
             </div>
+            <div class='p-Business__Sub'>
+              <img @click='toBusinessTips()' src='/svg/question.svg'>
+            </div>
           </div>
         </div>
 
         <!-- BusinessTips -->
         <div v-else-if='Phase === GamePhase.BusinessTips' class='window'>
           <h1 class='window__Title'>本日のビジネス</h1>
-          <div class='window__Body p-Business'>
-            <p>
-              ビジネスを購入するとランクがアップするお
-            </p>
+          <div class='window__Body p-BusinessTips'>
+            <div class='p-BusinessTips__head'>
+              <img src='/svg/business/b_icon1.svg'>
+              <img src='/svg/business/b_icon2.svg'>
+              <img src='/svg/business/b_icon3.svg'>
+            </div>
+            <div class='p-BusinessTips__body'>
+              <h2>- ビジネス購入システム -</h2>
+              <ul>
+                <li>お金を消費してビジネスを購入できます</li>
+                <li>ビジネスを購入すると、<span>資産が増えてランクが上がります</span></li>
+                <li>1日の開始時に、購入しているビジネスから収益を得ることができます</li>
+                <li>購入できるビジネスは1日毎に切り替わります</li>
+              </ul>
+            </div>
             <div class='ButtonList'>
               <div @click='toBusiness()' class='btn'>閉じる</div>
             </div>
