@@ -253,6 +253,7 @@ import { ReplyAction, GamePhase } from '../type/Type'
 import Config from '../config/Config'
 import Storage from '../storage/LocalStorage'
 import User from '../data/UserData'
+import Env from '../env'
 import { mapState } from 'vuex'
 
 export default {
@@ -282,6 +283,7 @@ export default {
       Phase: null,
       SessionID: null,
       Level: null,
+      Env: null,
 
       // 以下マスターデータ
       Businesses: null,
@@ -314,6 +316,8 @@ export default {
       this.ReplyAction = ReplyAction
 
       this.GamePhase = GamePhase
+
+      this.Env = Env
 
       this.Phase = GamePhase.Prepare
 
