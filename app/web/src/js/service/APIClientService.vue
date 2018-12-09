@@ -112,7 +112,7 @@ export default {
             setTimeout(() => {
               this.ApiClientRequestStatus.change(RequestStatusType.Success)
               callable(json)
-            }, 800)
+            }, 500)
           })
 
         }).catch((err) => {

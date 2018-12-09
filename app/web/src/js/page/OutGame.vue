@@ -104,6 +104,19 @@
           </div>
         </div>
 
+        <!-- BusinessTips -->
+        <div v-else-if='Phase === GamePhase.BusinessTips' class='window'>
+          <h1 class='window__Title'>本日のビジネス</h1>
+          <div class='window__Body p-Business'>
+            <p>
+              ビジネスを購入するとランクがアップするお
+            </p>
+            <div class='ButtonList'>
+              <div @click='toBusiness()' class='btn'>閉じる</div>
+            </div>
+          </div>
+        </div>
+
         <!-- Bonus -->
         <div v-else-if='Phase === GamePhase.Bonus' class='window'>
           <h1 class='window__Title'>本日の収益</h1>
@@ -250,6 +263,15 @@ export default {
       if (this.TodaysBusinesses == null) {
         this.apiClientGetBusinessList(this)
       }
+      if (! this.OnceData.ShownBusinessTips) {
+        this.OnceData.ShownBusinessTips = true
+        this.Storage.saveOnceData(this.OnceData)
+        this.toBusinessTips()
+      }
+    },
+
+    toBusinessTips() {
+      this.Phase = this.GamePhase.BusinessTips
     },
 
     toProfile() {
@@ -319,7 +341,6 @@ export default {
       return toMoneyString(this.userTotalAssetAmount())
     },
 
-    // TODO: UserServiceに移植する
     userNeedAssetToNextRankString() {
       let nextRank = this.User.Rank + 1
       let need = this.MSUserRankByRank[nextRank].assets - this.userTotalAssetAmount()
