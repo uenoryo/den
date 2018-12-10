@@ -74,7 +74,10 @@ export default {
       return this.apiClientRequest('POST', 'business/buy', req, (res) => {
         console.log(res.data)
         vu.User.Rank = res.data.after_rank
+
         this.apiClientSetUserBusinessData(vu, res.data.user_businesses)
+        this.apiClientUpdateUserRankData(vu.User)
+        vu.$store.state.UserState = vu.User
       })
     },
 
@@ -143,19 +146,23 @@ export default {
       row.Stamina = user.stamina
       row.BestScore = parseInt(user.best_score)
       row.BestTotalScore = parseInt(user.best_total_score)
+      this.apiClientUpdateUserRankData(row)
 
-      if (this.MSUserRankByRank) {
-        row.NormalLevel     = this.MSUserRankByRank[user.rank].normal_rate
-        row.HardLevel       = this.MSUserRankByRank[user.rank].hard_rate
-        row.Com1NormalLevel = this.MSUserRankByRank[user.rank].com1_normal_level
-        row.Com2NormalLevel = this.MSUserRankByRank[user.rank].com2_normal_level
-        row.Com3NormalLevel = this.MSUserRankByRank[user.rank].com3_normal_level
-        row.Com1HardLevel   = this.MSUserRankByRank[user.rank].com1_hard_level
-        row.Com2HardLevel   = this.MSUserRankByRank[user.rank].com2_hard_level
-        row.Com3HardLevel   = this.MSUserRankByRank[user.rank].com3_hard_level
-      }
       vu.$store.state.UserState = row
       vu.User = row
+    },
+
+    apiClientUpdateUserRankData(user) {
+      if (this.MSUserRankByRank) {
+        user.NormalLevel     = this.MSUserRankByRank[user.Rank].normal_rate
+        user.HardLevel       = this.MSUserRankByRank[user.Rank].hard_rate
+        user.Com1NormalLevel = this.MSUserRankByRank[user.Rank].com1_normal_level
+        user.Com2NormalLevel = this.MSUserRankByRank[user.Rank].com2_normal_level
+        user.Com3NormalLevel = this.MSUserRankByRank[user.Rank].com3_normal_level
+        user.Com1HardLevel   = this.MSUserRankByRank[user.Rank].com1_hard_level
+        user.Com2HardLevel   = this.MSUserRankByRank[user.Rank].com2_hard_level
+        user.Com3HardLevel   = this.MSUserRankByRank[user.Rank].com3_hard_level
+      }
     },
 
     apiClientSetUserBusinessData(vu, userBusinesses) {
