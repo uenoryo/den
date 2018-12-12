@@ -179,6 +179,9 @@ export default {
           continue
         }
         this.el(`Card__ID${dealer.Field.Cards[idx].ID}`).classList.add('Card--reversed')
+        if (this.IsHard) {
+          this.el(`Card__ID${dealer.Field.Cards[idx].ID}`).classList.add('Card--reversed--hard')
+        }
         this.animate({
           targets: `#Card__ID${dealer.Field.Cards[idx].ID}`,
           translateX: '0px',
