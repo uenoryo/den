@@ -21,7 +21,7 @@ class ViewController: UIViewController, WKUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        WKWebsiteDataStore.default().removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: Date(timeIntervalSince1970: 0), completionHandler: {})
+        WKWebsiteDataStore.default()
         let myURL = URL(string: "https://den.uma-b.com")
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
