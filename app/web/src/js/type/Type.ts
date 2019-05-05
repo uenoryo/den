@@ -104,6 +104,7 @@ export enum GamePhase {
   Main,
   Result,
   End,
+  Ads,
 }
 
 // ゲームフェイズ (アウトゲーム)

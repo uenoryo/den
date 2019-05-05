@@ -1,5 +1,6 @@
 <template>
   <div class='gameContainer' id='View'>
+    <div class="ads">Ads</div>
     <div class='game'>
       <!-- image preloading space -->
       <div id='ImagePreload'>
@@ -14,6 +15,17 @@
       <div class='denActionArea' @click='den(Config.MainPlayerID())'></div>
 
       <div id="GameMainView">
+
+        <!-- ShowAds -->
+        <div v-if='Phase === GamePhase.Ads' class='window window--fixed'>
+          <h3 class='window__Title'>広告</h3>
+          <div class='window__Body p-StartView'>
+            <div class='p-StartView__Body'>
+              Ads
+            </div>
+            <div @click='gameReload()' class='btn btn--strong'>次へ</div>
+          </div>
+        </div>
 
         <!-- Prepare -->
         <div v-if='Phase === GamePhase.Prepare' class='window window--fixed'>
@@ -109,7 +121,7 @@
               </div>
             </div>
             <div class='btnList'>
-              <div @click='gameReload()' class='btn'>次へ</div>
+              <div @click='gameShowAds()' class='btn'>次へ</div>
               <div @click='gameClose()' class='btn'>ホーム</div>
             </div>
           </div>
@@ -461,6 +473,10 @@ export default {
         this.ScoreKeeper.clear()
       }
       this.Phase = GamePhase.Prepare
+    },
+
+    gameShowAds() {
+      this.Phase = GamePhase.Ads
     },
 
     gameReload() {
