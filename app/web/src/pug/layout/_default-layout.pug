@@ -14,6 +14,12 @@ html(lang="ja")
     if meta.favicon_url
       link(rel="shortcut icon", href=meta.favicon_url, type="image/vnd.microsoft.icon")
       link(rel="icon", href=meta.favicon_url, type="image/vnd.microsoft.icon")
+    script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+    script.
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-1220691816074261",
+        enable_page_level_ads: true
+      });
 
     //- IEで「互換モード」で表示されるのを防ぐための指定
     meta(http-equiv="X-UA-Compatible", content="IE=Edge")
